@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Threadline | Pricing</title>
+<meta name="description" content="Simple, transparent pricing for every production size. From solo wardrobe PAs to full studio teams, Threadline scales with you.">
+<meta property="og:title" content="Threadline | Pricing">
+<meta property="og:description" content="Simple pricing for every production. Start your 14-day free trial today.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Inter:wght@200;300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,600;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet">
+
+<style>
+/* ===================================================================
+   THREADLINE PRICING PAGE
+   Matches the editorial luxury aesthetic of the homepage exactly.
+   Same CSS variables, fonts, animations, nav, footer.
+   =================================================================== */
+
+/* --- CUSTOM PROPERTIES (identical to index.html) --- */
+:root {
+  --cream: #FAF8F5;
+  --bone: #F5F0EB;
+  --linen: #f0ebe4;
+  --warm-gray: #E8E3DE;
+  --sand: #D2C4B9;
+  --taupe: #B5A89C;
+  --brown-gold: #8B6F52;
+  --copper: #C4946A;
+  --dark-brown: #5A4228;
+  --espresso: #3A2A18;
+  --near-black: #1A1714;
+  --void: #0A0A0A;
+  --water: #5A7E8A;
+  --forest: #4A6741;
+  --clay: #8A4A42;
+  --dusty-blue: #627786;
+
+  --serif: 'Cormorant Garamond', 'Georgia', serif;
+  --body: 'Inter', system-ui, sans-serif;
+  --editorial: 'Newsreader', 'Georgia', serif;
+  --mono: 'JetBrains Mono', 'Menlo', monospace;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* --- RESET & BASE (identical to index.html) --- */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--body);
+  background: var(--cream);
+  color: var(--near-black);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--copper);
+  color: white;
+}
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+
+/* --- SCROLL REVEAL (identical to index.html) --- */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.9s var(--ease-out-expo), transform 0.9s var(--ease-out-expo);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+
+/* --- NAVIGATION (identical to index.html) --- */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 0 clamp(24px, 5vw, 80px);
+  transition: all 0.6s var(--ease-out-expo);
+}
+
+.nav-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid transparent;
+  transition: all 0.6s var(--ease-out-expo);
+}
+
+/* Nav starts scrolled on pricing since hero is cream, not dark */
+.nav.scrolled {
+  background: rgba(250, 248, 245, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.nav.scrolled .nav-inner {
+  border-bottom-color: rgba(26, 23, 20, 0.06);
+  padding: 14px 0;
+}
+
+.nav-brand {
+  font-family: var(--body);
+  font-weight: 200;
+  font-size: 18px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--near-black);
+  transition: color 0.6s var(--ease-out-expo);
+}
+
+.nav-brand .accent { color: var(--brown-gold); transition: color 0.6s var(--ease-out-expo); }
+
+.nav-tagline {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--taupe);
+  transition: color 0.6s var(--ease-out-expo);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.nav-links a {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  color: var(--taupe);
+  transition: color 0.3s var(--ease-out-expo);
+  position: relative;
+}
+
+.nav-links a:hover { color: var(--brown-gold); }
+
+/* Active nav link indicator for current page */
+.nav-links a.active {
+  color: var(--brown-gold);
+  font-weight: 500;
+}
+
+.nav-cta {
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase;
+  padding: 10px 24px;
+  border: 1px solid var(--brown-gold);
+  color: var(--brown-gold) !important;
+  transition: all 0.4s var(--ease-out-expo) !important;
+}
+
+.nav-cta:hover {
+  background: var(--brown-gold) !important;
+  color: white !important;
+  transform: translateY(-1px);
+}
+
+/* Mobile nav toggle */
+.nav-toggle { display: none; }
+
+/* ===================================================================
+   PRICING HERO
+   Light cream background with editorial heading.
+   Pricing pages don't need the dark cinematic hero.
+   =================================================================== */
+.pricing-hero {
+  padding: clamp(140px, 18vw, 200px) clamp(24px, 5vw, 80px) clamp(40px, 6vw, 80px);
+  text-align: center;
+  background: var(--cream);
+  position: relative;
+}
+
+.pricing-hero .eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brown-gold);
+  margin-bottom: 16px;
+}
+
+.pricing-hero h1 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(36px, 5vw, 60px);
+  line-height: 1.1;
+  color: var(--near-black);
+  margin-bottom: 20px;
+  letter-spacing: -0.01em;
+}
+
+.pricing-hero h1 em {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.pricing-hero .hero-sub {
+  font-family: var(--editorial);
+  font-weight: 300;
+  font-size: clamp(17px, 1.8vw, 22px);
+  line-height: 1.7;
+  color: var(--near-black);
+  opacity: 0.6;
+  max-width: 560px;
+  margin: 0 auto 12px;
+}
+
+.pricing-hero .trial-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: rgba(139,111,82,0.08);
+  border-radius: 100px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brown-gold);
+  margin-top: 16px;
+}
+
+.pricing-hero .trial-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brown-gold);
+}
+
+/* ===================================================================
+   BILLING TOGGLE
+   Monthly / Annual switch with smooth sliding indicator
+   =================================================================== */
+.toggle-section {
+  display: flex;
+  justify-content: center;
+  padding: 0 clamp(24px, 5vw, 80px) clamp(32px, 4vw, 48px);
+  background: var(--cream);
+}
+
+.toggle-wrap {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--linen);
+  border-radius: 100px;
+  padding: 4px;
+  position: relative;
+}
+
+.toggle-option {
+  font-family: var(--body);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--taupe);
+  padding: 10px 24px;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: color 0.4s var(--ease-out-expo);
+  position: relative;
+  z-index: 2;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.toggle-option.active {
+  color: var(--near-black);
+}
+
+/* The sliding pill behind the active option */
+.toggle-pill {
+  position: absolute;
+  top: 4px;
+  height: calc(100% - 8px);
+  background: white;
+  border-radius: 100px;
+  box-shadow: 0 1px 4px rgba(26,23,20,0.06);
+  transition: left 0.4s var(--ease-out-expo), width 0.4s var(--ease-out-expo);
+  z-index: 1;
+}
+
+.save-badge {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  color: var(--forest);
+  font-weight: 500;
+}
+
+/* ===================================================================
+   PRICING CARDS
+   Three-column grid, Team card elevated as recommended pick
+   =================================================================== */
+.pricing-section {
+  padding: clamp(32px, 4vw, 48px) clamp(24px, 5vw, 80px) clamp(80px, 10vw, 120px);
+  background: var(--cream);
+}
+
+.pricing-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+/* Base card style */
+.price-card {
+  background: white;
+  border: 1px solid var(--warm-gray);
+  border-radius: 20px;
+  padding: 36px 32px 32px;
+  position: relative;
+  transition: all 0.5s var(--ease-out-expo);
+}
+
+.price-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(26,23,20,0.08);
+}
+
+/* Recommended / Popular card gets elevation and accent border */
+.price-card.popular {
+  border-color: var(--brown-gold);
+  border-width: 2px;
+  box-shadow: 0 16px 48px rgba(139,111,82,0.12);
+  /* Slightly larger padding to compensate for the 2px border */
+  padding: 35px 31px 31px;
+  /* Pull upward to visually elevate */
+  margin-top: -16px;
+  margin-bottom: -16px;
+  z-index: 2;
+}
+
+.price-card.popular:hover {
+  box-shadow: 0 24px 64px rgba(139,111,82,0.18);
+}
+
+/* "Most Popular" ribbon label */
+.card-badge {
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: white;
+  background: var(--brown-gold);
+  padding: 5px 16px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+.card-tier {
+  font-family: var(--body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brown-gold);
+  margin-bottom: 4px;
+}
+
+.card-tagline {
+  font-family: var(--editorial);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 15px;
+  color: var(--taupe);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+/* Price display */
+.card-price {
+  margin-bottom: 4px;
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.card-price .amount {
+  font-family: var(--mono);
+  font-size: clamp(32px, 3vw, 40px);
+  font-weight: 500;
+  color: var(--near-black);
+  line-height: 1;
+}
+
+.card-price .period {
+  font-family: var(--body);
+  font-size: 13px;
+  color: var(--taupe);
+  font-weight: 400;
+}
+
+.card-price .per-seat {
+  font-family: var(--body);
+  font-size: 11px;
+  color: var(--taupe);
+  font-weight: 400;
+}
+
+.card-annual {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--taupe);
+  margin-bottom: 24px;
+  letter-spacing: 0.02em;
+}
+
+.card-annual .save {
+  color: var(--forest);
+  font-weight: 500;
+}
+
+/* CTA button inside each card */
+.card-cta {
+  display: block;
+  width: 100%;
+  font-family: var(--body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 14px 24px;
+  border: 1px solid var(--brown-gold);
+  background: transparent;
+  color: var(--brown-gold);
+  cursor: pointer;
+  transition: all 0.4s var(--ease-out-expo);
+  margin-bottom: 28px;
+}
+
+.card-cta:hover {
+  background: var(--brown-gold);
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(139,111,82,0.15);
+}
+
+.card-cta:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Popular card gets a filled button by default */
+.price-card.popular .card-cta {
+  background: var(--brown-gold);
+  color: white;
+}
+
+.price-card.popular .card-cta:hover {
+  background: var(--dark-brown);
+  border-color: var(--dark-brown);
+}
+
+/* Feature list inside each card */
+.card-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--near-black);
+}
+
+/* Checkmark icon via CSS */
+.card-features li::before {
+  content: '';
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  border-radius: 50%;
+  background: rgba(139,111,82,0.08);
+  /* Checkmark using a rotated border trick */
+  position: relative;
+}
+
+/* Actual checkmark drawn with a pseudo-element on the li */
+.card-features li {
+  position: relative;
+}
+
+/* We use a small SVG-encoded checkmark for crisp rendering */
+.card-features li::before {
+  content: '';
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  border-radius: 50%;
+  background: rgba(139,111,82,0.08);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%238B6F52' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Divider line inside the card above features */
+.card-divider {
+  height: 1px;
+  background: var(--warm-gray);
+  margin-bottom: 24px;
+  opacity: 0.6;
+}
+
+/* "Everything in Team" label for Studio tier */
+.card-includes {
+  font-family: var(--editorial);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--brown-gold);
+  margin-bottom: 12px;
+}
+
+/* ===================================================================
+   FAQ SECTION
+   Accordion-style expandable questions
+   =================================================================== */
+.faq-section {
+  padding: clamp(80px, 10vw, 120px) clamp(24px, 5vw, 80px);
+  background: var(--linen);
+}
+
+.faq-inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.faq-header {
+  text-align: center;
+  margin-bottom: clamp(40px, 6vw, 64px);
+}
+
+.faq-header .eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brown-gold);
+  margin-bottom: 12px;
+}
+
+.faq-header h2 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(32px, 4vw, 48px);
+  color: var(--near-black);
+}
+
+/* Individual FAQ item */
+.faq-item {
+  border-bottom: 1px solid var(--warm-gray);
+}
+
+.faq-item:first-child {
+  border-top: 1px solid var(--warm-gray);
+}
+
+.faq-question {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding: 24px 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--body);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--near-black);
+  letter-spacing: 0.01em;
+  transition: color 0.3s var(--ease-out-expo);
+}
+
+.faq-question:hover {
+  color: var(--brown-gold);
+}
+
+/* Plus/minus toggle icon */
+.faq-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  position: relative;
+  transition: transform 0.4s var(--ease-out-expo);
+}
+
+/* Horizontal bar (always visible) */
+.faq-icon::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 1.5px;
+  background: var(--brown-gold);
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s var(--ease-out-expo);
+}
+
+/* Vertical bar (hidden when open) */
+.faq-icon::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1.5px;
+  height: 12px;
+  background: var(--brown-gold);
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s var(--ease-out-expo);
+}
+
+.faq-item.open .faq-icon::after {
+  opacity: 0;
+}
+
+.faq-item.open .faq-icon {
+  transform: rotate(180deg);
+}
+
+/* Answer area that expands */
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s var(--ease-out-expo), padding 0.5s var(--ease-out-expo);
+}
+
+.faq-answer-inner {
+  padding: 0 0 24px;
+  font-family: var(--editorial);
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--near-black);
+  opacity: 0.7;
+}
+
+/* ===================================================================
+   FINAL CTA (identical pattern to index.html)
+   =================================================================== */
+.cta-section {
+  padding: clamp(100px, 14vw, 180px) clamp(24px, 5vw, 80px);
+  text-align: center;
+  background: var(--cream);
+}
+
+.cta-inner {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.cta-inner h2 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(32px, 5vw, 56px);
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+
+.cta-inner .cta-sub {
+  font-family: var(--editorial);
+  font-weight: 300;
+  font-size: clamp(16px, 1.6vw, 20px);
+  line-height: 1.7;
+  color: var(--near-black);
+  opacity: 0.6;
+  margin-bottom: 40px;
+}
+
+.cta-form {
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.cta-input-wrap {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.cta-input {
+  width: 100%;
+  font-family: var(--editorial);
+  font-style: italic;
+  font-size: 18px;
+  padding: 16px 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--sand);
+  color: var(--near-black);
+  text-align: center;
+  outline: none;
+  transition: border-color 0.4s var(--ease-out-expo);
+}
+
+.cta-input:focus {
+  border-bottom-color: var(--brown-gold);
+}
+
+.cta-input::placeholder {
+  color: var(--sand);
+}
+
+.cta-input-line {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--brown-gold);
+  transition: all 0.5s var(--ease-out-expo);
+  transform: translateX(-50%);
+}
+
+.cta-input:focus ~ .cta-input-line {
+  width: 100%;
+}
+
+.cta-submit {
+  display: inline-block;
+  font-family: var(--body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 16px 48px;
+  background: var(--brown-gold);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 0.5s var(--ease-out-expo);
+}
+
+.cta-submit:hover {
+  background: var(--dark-brown);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(139,111,82,0.2);
+}
+
+.cta-submit:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.cta-fine {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--taupe);
+  margin-top: 24px;
+  letter-spacing: 0.03em;
+}
+
+/* ===================================================================
+   FOOTER (identical to index.html)
+   =================================================================== */
+.site-footer {
+  background: var(--linen);
+  border-top: 1px solid var(--warm-gray);
+  padding: 48px clamp(24px, 5vw, 80px);
+}
+
+.footer-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.footer-brand {
+  font-family: var(--body);
+  font-weight: 200;
+  font-size: 16px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.footer-brand .accent { color: var(--brown-gold); }
+
+.footer-copy {
+  font-size: 11px;
+  color: var(--taupe);
+  letter-spacing: 0.05em;
+  margin-top: 8px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  transition: color 0.3s var(--ease-out-expo);
+}
+
+.footer-links a:hover { color: var(--brown-gold); }
+
+/* ===================================================================
+   RESPONSIVE (mobile breakpoints)
+   =================================================================== */
+@media (max-width: 960px) {
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    max-width: 440px;
+    gap: 24px;
+  }
+
+  /* Reset popular card margin on mobile since it stacks */
+  .price-card.popular {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-toggle { display: block; }
+
+  .pricing-hero {
+    padding-top: 140px;
+  }
+
+  .footer-inner { flex-direction: column; text-align: center; }
+  .footer-links { justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- =============== NAVIGATION =============== -->
+<nav class="nav scrolled" id="nav">
+  <div class="nav-inner">
+    <div style="display:flex;align-items:baseline;gap:12px">
+      <a href="index.html" class="nav-brand">Thread<span class="accent">line</span></a>
+      <span class="nav-tagline">From rack to wrap.</span>
+    </div>
+    <div class="nav-links">
+      <a href="index.html">Features</a>
+      <a href="pricing.html" class="active">Pricing</a>
+      <a href="about.html">About</a>
+      <a href="#cta" class="nav-cta">Join Waitlist</a>
+    </div>
+  </div>
+</nav>
+
+<!-- =============== PRICING HERO =============== -->
+<section class="pricing-hero">
+  <div class="eyebrow reveal">Pricing</div>
+  <h1 class="reveal reveal-delay-1">Simple pricing for <em>every production.</em></h1>
+  <p class="hero-sub reveal reveal-delay-2">Whether you're a solo wardrobe PA running your first indie or a studio managing twenty shows at once, there's a plan built for how you actually work.</p>
+  <div class="reveal reveal-delay-3">
+    <div class="trial-badge">14-day free trial on every plan</div>
+  </div>
+</section>
+
+<!-- =============== BILLING TOGGLE =============== -->
+<div class="toggle-section reveal">
+  <div class="toggle-wrap" id="billing-toggle">
+    <div class="toggle-pill" id="toggle-pill"></div>
+    <div class="toggle-option active" data-billing="monthly" id="toggle-monthly">Monthly</div>
+    <div class="toggle-option" data-billing="annual" id="toggle-annual">Annual <span class="save-badge">Save 17%</span></div>
+  </div>
+</div>
+
+<!-- =============== PRICING CARDS =============== -->
+<section class="pricing-section">
+  <div class="pricing-grid">
+
+    <!-- INDIVIDUAL -->
+    <div class="price-card reveal">
+      <div class="card-tier">Individual</div>
+      <div class="card-tagline">For the wardrobe PA who does it all.</div>
+      <div class="card-price">
+        <span class="amount" data-monthly="$14.99" data-annual="$12.50">$14.99</span>
+        <span class="period">/mo</span>
+      </div>
+      <div class="card-annual" data-monthly="Billed monthly" data-annual="$149.99/yr &middot; <span class='save'>save 17%</span>">Billed monthly</div>
+      <button class="card-cta" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Start Free Trial</button>
+      <div class="card-divider"></div>
+      <ul class="card-features">
+        <li>1 active production</li>
+        <li>Magic Scan (barcode + photo)</li>
+        <li>Full inventory management</li>
+        <li>Returns tracking and alerts</li>
+        <li>Budget tracking</li>
+        <li>PDF and CSV exports</li>
+        <li>5 Thread AI queries per day</li>
+      </ul>
+    </div>
+
+    <!-- TEAM (MOST POPULAR) -->
+    <div class="price-card popular reveal reveal-delay-1">
+      <div class="card-badge">Most Popular</div>
+      <div class="card-tier">Team</div>
+      <div class="card-tagline">Built for wardrobe departments that collaborate.</div>
+      <div class="card-price">
+        <span class="amount" data-monthly="$29.99" data-annual="$24.99">$29.99</span>
+        <span class="period">/mo</span>
+        <span class="per-seat">per seat</span>
+      </div>
+      <div class="card-annual" data-monthly="Billed monthly per seat" data-annual="$299.99/yr per seat &middot; <span class='save'>save 17%</span>">Billed monthly per seat</div>
+      <button class="card-cta" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Start Free Trial</button>
+      <div class="card-divider"></div>
+      <ul class="card-features">
+        <li>Unlimited productions</li>
+        <li>Receipt OCR scanning</li>
+        <li>Unlimited Thread AI</li>
+        <li>Team collaboration (up to 10)</li>
+        <li>Character measurements and continuity</li>
+        <li>Wrap management and reports</li>
+        <li>Offline mode</li>
+        <li>Priority support</li>
+      </ul>
+    </div>
+
+    <!-- STUDIO -->
+    <div class="price-card reveal reveal-delay-2">
+      <div class="card-tier">Studio</div>
+      <div class="card-tagline">For studios running multiple productions at scale.</div>
+      <div class="card-price">
+        <span class="amount" data-monthly="$199" data-annual="$167">$199</span>
+        <span class="period">/mo</span>
+        <span class="per-seat">flat rate</span>
+      </div>
+      <div class="card-annual" data-monthly="Billed monthly" data-annual="$1,999/yr &middot; <span class='save'>save 17%</span>">Billed monthly</div>
+      <button class="card-cta" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Start Free Trial</button>
+      <div class="card-divider"></div>
+      <div class="card-includes">Everything in Team, plus:</div>
+      <ul class="card-features">
+        <li>Unlimited team members</li>
+        <li>Admin dashboard and permissions</li>
+        <li>Multi-production management</li>
+        <li>Custom report templates</li>
+        <li>API access</li>
+        <li>Dedicated onboarding</li>
+        <li>Invoice billing (net-30)</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- =============== FAQ =============== -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <div class="faq-header">
+      <div class="eyebrow reveal">Questions</div>
+      <h2 class="reveal reveal-delay-1">Things people ask us.</h2>
+    </div>
+
+    <div class="faq-item reveal">
+      <button class="faq-question" aria-expanded="false">
+        How does the 14-day free trial work?
+        <span class="faq-icon"></span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Pick any plan and start using Threadline immediately. You won't be charged for the first 14 days. If it's not the right fit, cancel before the trial ends and you'll never see a bill. No credit card required to get started.</div>
+      </div>
+    </div>
+
+    <div class="faq-item reveal reveal-delay-1">
+      <button class="faq-question" aria-expanded="false">
+        Can I switch plans mid-production?
+        <span class="faq-icon"></span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Absolutely. Upgrade or downgrade at any time. If you upgrade, you'll only be charged the prorated difference for the rest of your billing cycle. If you downgrade, the new rate kicks in at the start of your next cycle.</div>
+      </div>
+    </div>
+
+    <div class="faq-item reveal reveal-delay-2">
+      <button class="faq-question" aria-expanded="false">
+        What counts as a "seat" on the Team plan?
+        <span class="faq-icon"></span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">A seat is any team member who actively logs in and uses Threadline. Your wardrobe supervisor, PAs, buyers, whoever needs access. You can add or remove seats at any time, and billing adjusts automatically.</div>
+      </div>
+    </div>
+
+    <div class="faq-item reveal reveal-delay-3">
+      <button class="faq-question" aria-expanded="false">
+        What's Thread AI?
+        <span class="faq-icon"></span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Thread AI is your wardrobe assistant that understands natural language. Ask it anything about your inventory: "What size does Maria wear?" or "Show me all unreturned items from Nordstrom." It searches your entire production database and answers in seconds.</div>
+      </div>
+    </div>
+
+    <div class="faq-item reveal reveal-delay-4">
+      <button class="faq-question" aria-expanded="false">
+        Does offline mode really work on set?
+        <span class="faq-icon"></span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Yes. Threadline stores your full production database locally on your device. You can scan barcodes, add items, and manage inventory with zero connectivity. The moment you're back online, everything syncs automatically. No data loss, no duplicates.</div>
+      </div>
+    </div>
+
+    <div class="faq-item reveal reveal-delay-5">
+      <button class="faq-question" aria-expanded="false">
+        What does "invoice billing (net-30)" mean on the Studio plan?
+        <span class="faq-icon"></span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Studio plan customers receive a traditional invoice instead of an automatic credit card charge. You have 30 days from the invoice date to pay. This is standard for production companies that route expenses through accounting departments.</div>
+      </div>
+    </div>
+
+    <div class="faq-item reveal reveal-delay-5">
+      <button class="faq-question" aria-expanded="false">
+        Is my production data secure?
+        <span class="faq-icon"></span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">All data is encrypted in transit and at rest. Each production lives in its own isolated environment. We never share or sell your data, and you can export or delete everything at any time. We understand that production details are confidential, and we treat them that way.</div>
+      </div>
+    </div>
+
+    <div class="faq-item reveal reveal-delay-5">
+      <button class="faq-question" aria-expanded="false">
+        Can I try Threadline before my production starts?
+        <span class="faq-icon"></span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">That's what the free trial is for. Set up a test production, scan a few items from your closet, play with Thread AI. By the time your real production begins, you'll already know the app inside and out.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- =============== FINAL CTA =============== -->
+<section class="cta-section" id="cta">
+  <div class="cta-inner">
+    <h2 class="reveal">Your next wrap report<br>should take <em>minutes,</em> not weekends.</h2>
+    <p class="cta-sub reveal reveal-delay-1">Join the waitlist and be among the first to try Threadline when we launch.</p>
+    <form class="cta-form reveal reveal-delay-2" id="waitlist-form">
+      <div class="cta-input-wrap">
+        <input class="cta-input" type="email" id="waitlist-email" placeholder="production-office@studio.com" required>
+        <div class="cta-input-line"></div>
+      </div>
+      <button class="cta-submit" type="submit" id="waitlist-btn">Secure Early Access</button>
+      <div id="waitlist-success" style="display:none;font-family:var(--serif);font-style:italic;font-size:18px;color:var(--brown-gold);margin-top:16px">You're on the list. We'll be in touch.</div>
+      <div id="waitlist-error" style="display:none;font-size:13px;color:var(--clay);margin-top:12px"></div>
+    </form>
+    <p class="cta-fine reveal reveal-delay-3">14-day free trial. No credit card required.</p>
+  </div>
+</section>
+
+<!-- =============== FOOTER =============== -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Thread<span class="accent">line</span></div>
+      <div class="footer-copy">&copy; <span id="copyright-year"></span> Threadline. All rights reserved.</div>
+    </div>
+    <div class="footer-links">
+      <a href="/privacy-policy.html">Privacy Policy</a>
+      <a href="/terms-of-service.html">Terms of Service</a>
+      <a href="https://instagram.com/threadline_app" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://cooperinteractive.com" target="_blank" rel="noopener">Made with care</a>
+    </div>
+  </div>
+</footer>
+
+<!-- =============== SCRIPTS =============== -->
+<script>
+/* ---------------------------------------------------------------
+   SCROLL REVEAL
+   IntersectionObserver: elements with .reveal class fade in and
+   slide up when they enter the viewport. Once visible, they stay.
+   Same implementation as index.html for consistency.
+   --------------------------------------------------------------- */
+const revealElements = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, {
+  threshold: 0.15,
+  rootMargin: '0px 0px -40px 0px'
+});
+
+revealElements.forEach(el => revealObserver.observe(el));
+
+/* ---------------------------------------------------------------
+   NAV SCROLL BEHAVIOR
+   On the pricing page the nav starts in "scrolled" state because
+   the hero has a light background (no dark cinematic hero here).
+   We keep the class applied permanently so the nav always has
+   the frosted-glass backdrop and dark text treatment.
+   --------------------------------------------------------------- */
+const nav = document.getElementById('nav');
+/* Nav always stays in scrolled state on this page */
+window.addEventListener('scroll', () => {
+  nav.classList.add('scrolled');
+}, { passive: true });
+
+/* ---------------------------------------------------------------
+   SMOOTH ANCHOR LINKS
+   Clicking any anchor link (e.g. #cta) scrolls smoothly instead
+   of jumping. Same behavior as the homepage.
+   --------------------------------------------------------------- */
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+/* ---------------------------------------------------------------
+   AUTO-UPDATE COPYRIGHT YEAR
+   Sets the footer copyright to the current year dynamically.
+   --------------------------------------------------------------- */
+document.getElementById('copyright-year').textContent = new Date().getFullYear();
+
+/* ---------------------------------------------------------------
+   BILLING TOGGLE (Monthly / Annual)
+   Clicking the toggle switches all pricing cards between monthly
+   and annual rates. The sliding pill animates between positions.
+   Annual amounts and labels are stored in data attributes on
+   each card element, so no hardcoded price arrays are needed.
+   --------------------------------------------------------------- */
+const toggleMonthly = document.getElementById('toggle-monthly');
+const toggleAnnual = document.getElementById('toggle-annual');
+const togglePill = document.getElementById('toggle-pill');
+let currentBilling = 'monthly';
+
+/* Position the pill over the active option on load */
+function positionPill() {
+  const activeEl = currentBilling === 'monthly' ? toggleMonthly : toggleAnnual;
+  togglePill.style.left = activeEl.offsetLeft + 'px';
+  togglePill.style.width = activeEl.offsetWidth + 'px';
+}
+
+/* Initialize pill position once fonts have loaded */
+window.addEventListener('load', positionPill);
+window.addEventListener('resize', positionPill);
+positionPill();
+
+/* Switch billing period when user clicks a toggle option */
+function switchBilling(billing) {
+  currentBilling = billing;
+
+  /* Update toggle visual state */
+  toggleMonthly.classList.toggle('active', billing === 'monthly');
+  toggleAnnual.classList.toggle('active', billing === 'annual');
+  positionPill();
+
+  /* Update all price amounts on the cards */
+  document.querySelectorAll('.card-price .amount').forEach(el => {
+    el.textContent = el.getAttribute('data-' + billing);
+  });
+
+  /* Update the annual/billing description text under each price */
+  document.querySelectorAll('.card-annual').forEach(el => {
+    el.innerHTML = el.getAttribute('data-' + billing);
+  });
+}
+
+toggleMonthly.addEventListener('click', () => switchBilling('monthly'));
+toggleAnnual.addEventListener('click', () => switchBilling('annual'));
+
+/* ---------------------------------------------------------------
+   FAQ ACCORDION
+   Clicking a question expands its answer panel. Only one FAQ can
+   be open at a time. Clicking an already-open item closes it.
+   Uses max-height animation for smooth expand/collapse.
+   --------------------------------------------------------------- */
+document.querySelectorAll('.faq-question').forEach(button => {
+  button.addEventListener('click', function() {
+    const item = this.parentElement;
+    const answer = item.querySelector('.faq-answer');
+    const isOpen = item.classList.contains('open');
+
+    /* Close all other open items first (accordion behavior) */
+    document.querySelectorAll('.faq-item.open').forEach(openItem => {
+      if (openItem !== item) {
+        openItem.classList.remove('open');
+        openItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        openItem.querySelector('.faq-answer').style.maxHeight = '0';
+      }
+    });
+
+    /* Toggle the clicked item */
+    if (isOpen) {
+      item.classList.remove('open');
+      this.setAttribute('aria-expanded', 'false');
+      answer.style.maxHeight = '0';
+    } else {
+      item.classList.add('open');
+      this.setAttribute('aria-expanded', 'true');
+      /* Set max-height to the scroll height so CSS transition works */
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
+  });
+});
+
+/* ---------------------------------------------------------------
+   WAITLIST FORM SUBMISSION (Supabase)
+   Posts the email to the Supabase waitlist table with
+   source='pricing-page' to distinguish from homepage signups.
+   Handles success (hides form, shows confirmation), duplicate
+   emails (409 status), and general errors gracefully.
+   --------------------------------------------------------------- */
+const SUPABASE_URL = 'https://eltwpgnbupdtzjjxnpdq.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVsdHdwZ25idXBkdHpqanhucGRxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwOTM3NTQsImV4cCI6MjA4OTY2OTc1NH0.flxN7ZcmZ_LFZxKIwKqsCueJP7ODaCZQY_l7D0SyMJk';
+
+document.getElementById('waitlist-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const email = document.getElementById('waitlist-email').value.trim();
+  const btn = document.getElementById('waitlist-btn');
+  const success = document.getElementById('waitlist-success');
+  const error = document.getElementById('waitlist-error');
+
+  if (!email) return;
+
+  btn.textContent = 'Submitting...';
+  btn.disabled = true;
+  error.style.display = 'none';
+
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({ email: email, source: 'pricing-page' })
+    });
+
+    if (res.ok) {
+      /* Hide form elements and show success message */
+      btn.style.display = 'none';
+      document.querySelector('.cta-input-wrap').style.display = 'none';
+      success.style.display = 'block';
+    } else if (res.status === 409) {
+      /* Email already exists in the waitlist */
+      error.textContent = "You're already on the list. We'll be in touch soon.";
+      error.style.display = 'block';
+      btn.textContent = 'Secure Early Access';
+      btn.disabled = false;
+    } else {
+      throw new Error('Something went wrong');
+    }
+  } catch (err) {
+    error.textContent = 'Something went wrong. Please try again.';
+    error.style.display = 'block';
+    btn.textContent = 'Secure Early Access';
+    btn.disabled = false;
+  }
+});
+</script>
+
+</body>
+</html>

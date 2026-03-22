@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Truck | Threadline</title>
+<meta name="description" content="The origin story of Threadline. Built by people who understand what it's like to manage 200 garments across 15 stores for 8 characters on a 6-week shoot.">
+<meta property="og:title" content="The Truck | Threadline">
+<meta property="og:description" content="80% of a wardrobe PA's day is paperwork. We built the tool we wished existed.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Inter:wght@200;300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,600;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════════════════════════════════
+   THREADLINE - ABOUT / THE TRUCK
+   Origin story page. Personal, honest, craft-forward.
+   ═══════════════════════════════════════════════════════ */
+
+/* --- CUSTOM PROPERTIES --- */
+:root {
+  --cream: #FAF8F5;
+  --bone: #F5F0EB;
+  --linen: #f0ebe4;
+  --warm-gray: #E8E3DE;
+  --sand: #D2C4B9;
+  --taupe: #B5A89C;
+  --brown-gold: #8B6F52;
+  --copper: #C4946A;
+  --dark-brown: #5A4228;
+  --espresso: #3A2A18;
+  --near-black: #1A1714;
+  --void: #0A0A0A;
+  --water: #5A7E8A;
+  --forest: #4A6741;
+  --clay: #8A4A42;
+  --dusty-blue: #627786;
+
+  --serif: 'Cormorant Garamond', 'Georgia', serif;
+  --body: 'Inter', system-ui, sans-serif;
+  --editorial: 'Newsreader', 'Georgia', serif;
+  --mono: 'JetBrains Mono', 'Menlo', monospace;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* --- RESET & BASE --- */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--body);
+  background: var(--cream);
+  color: var(--near-black);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--copper);
+  color: white;
+}
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+
+/* --- SCROLL REVEAL --- */
+/* Elements start invisible and translate up, then animate into
+   view when the IntersectionObserver fires .visible */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.9s var(--ease-out-expo), transform 0.9s var(--ease-out-expo);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered delay classes for cascading entrance animations */
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+
+/* --- NAVIGATION --- */
+/* Fixed top nav that transitions from transparent (over hero)
+   to frosted-glass when user scrolls past 80px */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 0 clamp(24px, 5vw, 80px);
+  transition: all 0.6s var(--ease-out-expo);
+}
+
+.nav-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid transparent;
+  transition: all 0.6s var(--ease-out-expo);
+}
+
+/* Frosted glass background when scrolled */
+.nav.scrolled {
+  background: rgba(250, 248, 245, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.nav.scrolled .nav-inner {
+  border-bottom-color: rgba(26, 23, 20, 0.06);
+  padding: 14px 0;
+}
+
+/* Brand wordmark: ultralight uppercase with accent color on "line" */
+.nav-brand {
+  font-family: var(--body);
+  font-weight: 200;
+  font-size: 18px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: white;
+  transition: color 0.6s var(--ease-out-expo);
+}
+
+.nav.scrolled .nav-brand { color: var(--near-black); }
+
+.nav-brand .accent { color: rgba(255,255,255,0.5); transition: color 0.6s var(--ease-out-expo); }
+.nav.scrolled .nav-brand .accent { color: var(--brown-gold); }
+.nav.scrolled .nav-tagline { color: var(--taupe) !important; }
+
+/* Nav link row */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.nav-links a {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  color: rgba(255,255,255,0.7);
+  transition: color 0.3s var(--ease-out-expo);
+  position: relative;
+}
+
+.nav.scrolled .nav-links a { color: var(--taupe); }
+
+.nav-links a:hover { color: white; }
+.nav.scrolled .nav-links a:hover { color: var(--brown-gold); }
+
+/* Active nav link indicator (underline) for current page */
+.nav-links a.active {
+  color: white;
+}
+
+.nav.scrolled .nav-links a.active {
+  color: var(--brown-gold);
+}
+
+.nav-links a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.5;
+}
+
+/* CTA button in the nav */
+.nav-cta {
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase;
+  padding: 10px 24px;
+  border: 1px solid rgba(255,255,255,0.3);
+  transition: all 0.4s var(--ease-out-expo) !important;
+}
+
+.nav.scrolled .nav-cta {
+  border-color: var(--brown-gold) !important;
+  color: var(--brown-gold) !important;
+}
+
+.nav-cta:hover {
+  background: white !important;
+  color: var(--brown-gold) !important;
+  border-color: white !important;
+  transform: translateY(-1px);
+}
+
+.nav.scrolled .nav-cta:hover {
+  background: var(--brown-gold) !important;
+  color: white !important;
+}
+
+/* Mobile nav hamburger toggle (hidden on desktop) */
+.nav-toggle { display: none; }
+
+/* --- HERO --- */
+/* Full-viewport hero with the brand gradient and ghosted
+   wardrobe rack photography behind it */
+.hero {
+  min-height: 100dvh;
+  background: var(--brown-gold);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Radial gradient overlay for depth and atmosphere */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 80%, rgba(196,148,106,0.4) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(90,66,40,0.6) 0%, transparent 50%);
+  z-index: 1;
+}
+
+/* Ghosted photography: grayscale, low opacity, overlay blend */
+.hero-ghost {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBeHsToWwEOzB5kog42OQ5LZsWb-pMmXKXXxuWBeE-NADqNYgGSLCWst-fPlj5OUz1xRqdTDiuE7ryJLM_xit1JHxsYq6clQAzj8N4GCoFNvcPvMcSuVnFeONQzhJwHoHJJMZoBW-n8qoX2096U22G553omNxDqgdVdlraGqQ627DRUDcMxcfvnfxiQcbwV9qq9DdRCCiCRc0SHLPybyoduZnSHE39CWK5H-0HBPscvUN86i_8q7WxrZA2ZnkaikvBa6KNFmzmB7Ng');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.1;
+  filter: grayscale(100%);
+  mix-blend-mode: overlay;
+}
+
+/* Hero content: centered, single-column for this narrative page */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 160px clamp(24px, 5vw, 80px) 120px;
+  text-align: center;
+  width: 100%;
+}
+
+/* Italic serif eyebrow text above the main heading */
+.hero-eyebrow {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(18px, 2.2vw, 26px);
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+
+.hero h1 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(48px, 8vw, 100px);
+  line-height: 1.05;
+  color: white;
+  margin-bottom: 28px;
+  letter-spacing: -0.02em;
+}
+
+.hero h1 em {
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Subtitle below the hero heading */
+.hero-sub {
+  font-family: var(--editorial);
+  font-weight: 300;
+  font-size: clamp(17px, 1.8vw, 22px);
+  line-height: 1.7;
+  color: rgba(255,255,255,0.75);
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+/* --- ORIGIN STORY SECTION --- */
+/* Long-form narrative section with generous whitespace
+   and large editorial typography */
+.origin {
+  padding: clamp(100px, 14vw, 180px) clamp(24px, 5vw, 80px);
+  background: var(--cream);
+}
+
+.origin-inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* Section eyebrow: monospaced, uppercase, small */
+.origin-eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brown-gold);
+  margin-bottom: 32px;
+}
+
+/* Large drop-cap style opening paragraph */
+.origin-lede {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(28px, 3.5vw, 40px);
+  line-height: 1.3;
+  color: var(--near-black);
+  margin-bottom: 48px;
+}
+
+.origin-lede em {
+  font-style: italic;
+  color: var(--brown-gold);
+}
+
+/* Standard story paragraphs */
+.origin-body p {
+  font-family: var(--editorial);
+  font-weight: 300;
+  font-size: clamp(17px, 1.8vw, 20px);
+  line-height: 1.8;
+  color: var(--near-black);
+  opacity: 0.8;
+  margin-bottom: 28px;
+}
+
+.origin-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* Emphasis text within the story: slightly different weight */
+.origin-body p strong {
+  font-weight: 600;
+  color: var(--near-black);
+  opacity: 1;
+}
+
+/* Pull quote: large italic serif text that breaks the rhythm */
+.origin-pullquote {
+  margin: 64px 0;
+  padding: 0 0 0 32px;
+  border-left: 2px solid var(--brown-gold);
+}
+
+.origin-pullquote p {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(24px, 3vw, 32px);
+  line-height: 1.35;
+  color: var(--near-black);
+  opacity: 1 !important;
+}
+
+/* --- GHOSTED PHOTO BREAK --- */
+/* Full-bleed atmospheric photo divider between story sections */
+.photo-break {
+  position: relative;
+  height: clamp(300px, 40vw, 500px);
+  overflow: hidden;
+  background: var(--near-black);
+}
+
+.photo-break .ghost {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBeHsToWwEOzB5kog42OQ5LZsWb-pMmXKXXxuWBeE-NADqNYgGSLCWst-fPlj5OUz1xRqdTDiuE7ryJLM_xit1JHxsYq6clQAzj8N4GCoFNvcPvMcSuVnFeONQzhJwHoHJJMZoBW-n8qoX2096U22G553omNxDqgdVdlraGqQ627DRUDcMxcfvnfxiQcbwV9qq9DdRCCiCRc0SHLPybyoduZnSHE39CWK5H-0HBPscvUN86i_8q7WxrZA2ZnkaikvBa6KNFmzmB7Ng');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.12;
+  filter: grayscale(100%);
+  transition: opacity 0.8s var(--ease-out-expo), filter 0.8s var(--ease-out-expo);
+}
+
+.photo-break:hover .ghost {
+  opacity: 0.22;
+  filter: grayscale(40%);
+}
+
+/* Caption overlaid on the photo break */
+.photo-break-caption {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(245, 240, 235, 0.35);
+  white-space: nowrap;
+}
+
+/* --- VALUES SECTION --- */
+/* Four-column grid of principles with subtle card treatment */
+.values {
+  padding: clamp(100px, 14vw, 180px) clamp(24px, 5vw, 80px);
+  background: var(--linen);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Very subtle ghosted background for the values section */
+.values::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBeHsToWwEOzB5kog42OQ5LZsWb-pMmXKXXxuWBeE-NADqNYgGSLCWst-fPlj5OUz1xRqdTDiuE7ryJLM_xit1JHxsYq6clQAzj8N4GCoFNvcPvMcSuVnFeONQzhJwHoHJJMZoBW-n8qoX2096U22G553omNxDqgdVdlraGqQ627DRUDcMxcfvnfxiQcbwV9qq9DdRCCiCRc0SHLPybyoduZnSHE39CWK5H-0HBPscvUN86i_8q7WxrZA2ZnkaikvBa6KNFmzmB7Ng');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.03;
+  filter: grayscale(100%);
+}
+
+.values-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.values-header {
+  text-align: center;
+  margin-bottom: clamp(48px, 8vw, 80px);
+}
+
+.values-header .eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brown-gold);
+  margin-bottom: 12px;
+}
+
+.values-header h2 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(36px, 5vw, 56px);
+  color: var(--near-black);
+}
+
+/* Values grid: 4 columns on desktop, stacks on mobile */
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+/* Individual value card */
+.value-card {
+  background: var(--cream);
+  border-radius: 20px;
+  padding: clamp(28px, 3vw, 40px);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.5s var(--ease-out-expo);
+}
+
+.value-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(26,23,20,0.06);
+}
+
+/* Decorative number in each value card */
+.value-num {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(36px, 4vw, 48px);
+  color: var(--copper);
+  line-height: 1;
+  margin-bottom: 20px;
+  opacity: 0.5;
+}
+
+.value-card h3 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(20px, 2vw, 26px);
+  line-height: 1.2;
+  margin-bottom: 12px;
+  color: var(--near-black);
+}
+
+.value-card p {
+  font-family: var(--editorial);
+  font-weight: 300;
+  font-size: clamp(14px, 1.3vw, 16px);
+  line-height: 1.7;
+  color: var(--near-black);
+  opacity: 0.65;
+  flex: 1;
+}
+
+/* --- DEVELOPER / STUDIO SECTION --- */
+/* Minimal centered section about the team behind Threadline */
+.studio {
+  padding: clamp(80px, 12vw, 140px) clamp(24px, 5vw, 80px);
+  background: var(--near-black);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Very subtle ghosted bg for depth */
+.studio::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBeHsToWwEOzB5kog42OQ5LZsWb-pMmXKXXxuWBeE-NADqNYgGSLCWst-fPlj5OUz1xRqdTDiuE7ryJLM_xit1JHxsYq6clQAzj8N4GCoFNvcPvMcSuVnFeONQzhJwHoHJJMZoBW-n8qoX2096U22G553omNxDqgdVdlraGqQ627DRUDcMxcfvnfxiQcbwV9qq9DdRCCiCRc0SHLPybyoduZnSHE39CWK5H-0HBPscvUN86i_8q7WxrZA2ZnkaikvBa6KNFmzmB7Ng');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.04;
+  filter: grayscale(100%);
+}
+
+.studio-inner {
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.studio-eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 24px;
+}
+
+.studio h2 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(28px, 4vw, 44px);
+  line-height: 1.2;
+  color: var(--bone);
+  margin-bottom: 24px;
+}
+
+.studio p {
+  font-family: var(--editorial);
+  font-weight: 300;
+  font-size: clamp(16px, 1.6vw, 19px);
+  line-height: 1.8;
+  color: rgba(245,240,235,0.55);
+  margin-bottom: 36px;
+}
+
+/* Link to Cooper Interactive */
+.studio-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--body);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--copper);
+  border-bottom: 1px solid rgba(196,148,106,0.3);
+  padding-bottom: 4px;
+  transition: all 0.4s var(--ease-out-expo);
+}
+
+.studio-link:hover {
+  color: var(--bone);
+  border-bottom-color: var(--bone);
+}
+
+/* Arrow icon for the studio link */
+.studio-link svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.4s var(--ease-out-expo);
+}
+
+.studio-link:hover svg {
+  transform: translateX(4px);
+}
+
+/* --- FINAL CTA --- */
+/* Waitlist signup section, centered with editorial headline */
+.cta-section {
+  padding: clamp(100px, 14vw, 180px) clamp(24px, 5vw, 80px);
+  text-align: center;
+  background: var(--cream);
+}
+
+.cta-inner {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.cta-inner h2 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(32px, 5vw, 56px);
+  line-height: 1.15;
+  margin-bottom: 40px;
+}
+
+/* Email input wrapper with animated underline */
+.cta-form {
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.cta-input-wrap {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.cta-input {
+  width: 100%;
+  font-family: var(--editorial);
+  font-style: italic;
+  font-size: 18px;
+  padding: 16px 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--sand);
+  color: var(--near-black);
+  text-align: center;
+  outline: none;
+  transition: border-color 0.4s var(--ease-out-expo);
+}
+
+.cta-input:focus {
+  border-bottom-color: var(--brown-gold);
+}
+
+.cta-input::placeholder {
+  color: var(--sand);
+}
+
+/* Animated underline that expands from center on focus */
+.cta-input-line {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--brown-gold);
+  transition: all 0.5s var(--ease-out-expo);
+  transform: translateX(-50%);
+}
+
+.cta-input:focus ~ .cta-input-line {
+  width: 100%;
+}
+
+/* Submit button */
+.cta-submit {
+  display: inline-block;
+  font-family: var(--body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 16px 48px;
+  background: var(--brown-gold);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 0.5s var(--ease-out-expo);
+}
+
+.cta-submit:hover {
+  background: var(--dark-brown);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(139,111,82,0.2);
+}
+
+.cta-submit:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.cta-fine {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--taupe);
+  margin-top: 24px;
+  letter-spacing: 0.03em;
+}
+
+/* --- FOOTER --- */
+/* Minimal footer with brand, copyright, and utility links */
+.site-footer {
+  background: var(--linen);
+  border-top: 1px solid var(--warm-gray);
+  padding: 48px clamp(24px, 5vw, 80px);
+}
+
+.footer-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.footer-brand {
+  font-family: var(--body);
+  font-weight: 200;
+  font-size: 16px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.footer-brand .accent { color: var(--brown-gold); }
+
+.footer-copy {
+  font-size: 11px;
+  color: var(--taupe);
+  letter-spacing: 0.05em;
+  margin-top: 8px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  transition: color 0.3s var(--ease-out-expo);
+}
+
+.footer-links a:hover { color: var(--brown-gold); }
+
+/* --- MOBILE RESPONSIVE --- */
+@media (max-width: 768px) {
+  /* Hide desktop nav links, show hamburger */
+  .nav-links { display: none; }
+  .nav-toggle { display: block; }
+
+  /* Stack hero content, add more top padding for nav */
+  .hero-content {
+    padding-top: 160px;
+    padding-bottom: 80px;
+  }
+
+  /* Values: 1-column stack */
+  .values-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  /* Footer: centered stack */
+  .footer-inner { flex-direction: column; text-align: center; }
+  .footer-links { justify-content: center; }
+
+  /* Photo break shorter on mobile */
+  .photo-break {
+    height: 200px;
+  }
+}
+
+/* Tablet breakpoint: 2-column values grid */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .values-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ NAVIGATION ═══════════════ -->
+<!-- Fixed nav bar: identical to homepage. Transitions to frosted
+     glass on scroll. Brand + tagline left, links + CTA right. -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <div style="display:flex;align-items:baseline;gap:12px">
+      <a href="index.html" class="nav-brand">Thread<span class="accent">line</span></a>
+      <span style="font-family:var(--serif);font-style:italic;font-weight:400;font-size:14px;color:rgba(255,255,255,0.45);transition:color 0.6s var(--ease-out-expo)" class="nav-tagline">From rack to wrap.</span>
+    </div>
+    <div class="nav-links">
+      <a href="index.html">Features</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="about.html" class="active">About</a>
+      <a href="#cta" class="nav-cta">Join Waitlist</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<!-- Full-viewport hero with "The Truck" as the page title.
+     Ghosted wardrobe rack photo behind the brand gradient.
+     Centered single-column layout for this narrative page. -->
+<section class="hero">
+  <div class="hero-ghost"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow reveal">The origin story</div>
+    <h1 class="reveal reveal-delay-1">The Truck</h1>
+    <p class="hero-sub reveal reveal-delay-2">Every production's wardrobe department starts in the same place: a truck, a rack, and a mountain of paperwork. This is the story of why we decided to change that.</p>
+  </div>
+</section>
+
+<!-- ═══════════════ ORIGIN STORY ═══════════════ -->
+<!-- Long-form narrative section. Large editorial serif for the
+     opening lede, then Newsreader body text for the story.
+     Pull quote breaks the rhythm midway through. -->
+<section class="origin">
+  <div class="origin-inner">
+
+    <!-- Eyebrow label -->
+    <div class="origin-eyebrow reveal">Why we built this</div>
+
+    <!-- Opening statement: large serif, sets the tone -->
+    <h2 class="origin-lede reveal reveal-delay-1">
+      80% of a wardrobe PA's day is <em>paperwork.</em> Binders, Ziploc bags, spreadsheets. The kind of work that makes talented people feel like data entry clerks.
+    </h2>
+
+    <!-- Story body paragraphs -->
+    <div class="origin-body">
+
+      <p class="reveal">
+        The wardrobe truck is the nerve center of every production's costume department. It is where garments get tagged, sorted, photographed, and tracked. It is where return deadlines live or die. It is where a PA at 6 AM is hand-typing receipt data into a spreadsheet that will inevitably break by lunch.
+      </p>
+
+      <p class="reveal">
+        And the tools? They have not changed in decades. Notebooks. Binders. Spreadsheets built by someone who left the show two seasons ago. Maybe a shared Google Sheet that only works when you have signal, which on most sets, you do not.
+      </p>
+
+      <!-- Pull quote for visual rhythm -->
+      <div class="origin-pullquote reveal">
+        <p>We built the tool we wished existed when we were the ones in the truck at 6 AM.</p>
+      </div>
+
+      <p class="reveal">
+        Threadline was built by people who understand what it is like to manage 200 garments across 15 stores for 8 characters on a 6-week shoot. People who have lived through the panic of a missed return window on a $400 jacket. People who know that "wrap weekend" should not mean three straight days of compiling receipts.
+      </p>
+
+      <p class="reveal">
+        So we built something different. <strong>AI that actually helps</strong>, not AI that creates more work. Returns tracking that actually saves productions money. An interface that respects the craft and the people doing it.
+      </p>
+
+      <p class="reveal">
+        This is not enterprise software squeezed into a creative workflow. This is a creative tool built with production-grade precision. Every feature exists because somebody on a real set needed it. Nothing was added for a pitch deck. Nothing was built to impress investors.
+      </p>
+
+      <p class="reveal">
+        It was built to make the truck run better.
+      </p>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ GHOSTED PHOTO BREAK ═══════════════ -->
+<!-- Full-bleed atmospheric photo divider. Grayscale at rest,
+     partially reveals on hover for a subtle interactive moment. -->
+<div class="photo-break reveal">
+  <div class="ghost"></div>
+  <div class="photo-break-caption">The wardrobe truck</div>
+</div>
+
+<!-- ═══════════════ VALUES / PRINCIPLES ═══════════════ -->
+<!-- Four principles that guide how Threadline is built.
+     Displayed in a 4-column grid with subtle card hover effects. -->
+<section class="values">
+  <div class="values-inner">
+
+    <div class="values-header">
+      <div class="eyebrow reveal">What we believe</div>
+      <h2 class="reveal reveal-delay-1">Built on four principles.</h2>
+    </div>
+
+    <div class="values-grid">
+
+      <!-- Value 1: Respect the craft -->
+      <div class="value-card reveal">
+        <div class="value-num">01</div>
+        <h3>Respect the craft</h3>
+        <p>Wardrobe professionals are artists, not data entry clerks. Every decision we make starts with that understanding. The interface should feel like a creative tool, not an ERP system.</p>
+      </div>
+
+      <!-- Value 2: Intelligence should be invisible -->
+      <div class="value-card reveal reveal-delay-1">
+        <div class="value-num">02</div>
+        <h3>Intelligence should be invisible</h3>
+        <p>Our AI works silently in the background. No badges, no buzzwords, no "powered by" banners. It just makes the work faster and the data cleaner. You should forget it is there.</p>
+      </div>
+
+      <!-- Value 3: Works where you work -->
+      <div class="value-card reveal reveal-delay-2">
+        <div class="value-num">03</div>
+        <h3>Works where you work</h3>
+        <p>Offline on set, online at the production office, everywhere in between. Threadline syncs the moment you reconnect. No signal required to keep moving.</p>
+      </div>
+
+      <!-- Value 4: Your data, your production -->
+      <div class="value-card reveal reveal-delay-3">
+        <div class="value-num">04</div>
+        <h3>Your data, your production</h3>
+        <p>You own everything. Export anytime, in any format. No lock-in, no hostage pricing, no "contact sales to download your own data." It is your production. It stays yours.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ DEVELOPER / STUDIO ═══════════════ -->
+<!-- Brief section crediting Cooper Interactive as the studio
+     behind Threadline. Dark background for contrast. -->
+<section class="studio">
+  <div class="studio-inner">
+    <div class="studio-eyebrow reveal">The team</div>
+    <h2 class="reveal reveal-delay-1">Made with care by<br>Cooper Interactive</h2>
+    <p class="reveal reveal-delay-2">Cooper Interactive is a design and development studio that builds tools for creative professionals. Threadline is our love letter to the wardrobe department.</p>
+    <a href="https://cooperinteractive.com" target="_blank" rel="noopener" class="studio-link reveal reveal-delay-3">
+      Visit Cooper Interactive
+      <!-- Right arrow SVG icon -->
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+      </svg>
+    </a>
+  </div>
+</section>
+
+<!-- ═══════════════ FINAL CTA ═══════════════ -->
+<!-- Waitlist signup identical to homepage. Email input with
+     animated underline, submit button, Supabase integration. -->
+<section class="cta-section" id="cta">
+  <div class="cta-inner">
+    <h2 class="reveal">Ready to rethink the truck?</h2>
+    <form class="cta-form reveal reveal-delay-1" id="waitlist-form">
+      <div class="cta-input-wrap">
+        <input class="cta-input" type="email" id="waitlist-email" placeholder="production-office@studio.com" required>
+        <div class="cta-input-line"></div>
+      </div>
+      <button class="cta-submit" type="submit" id="waitlist-btn">Secure Early Access</button>
+      <div id="waitlist-success" style="display:none;font-family:var(--serif);font-style:italic;font-size:18px;color:var(--brown-gold);margin-top:16px">You're on the list. We'll be in touch.</div>
+      <div id="waitlist-error" style="display:none;font-size:13px;color:var(--clay);margin-top:12px"></div>
+    </form>
+    <p class="cta-fine reveal reveal-delay-2">Limited to 10 active productions for early access.</p>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<!-- Identical footer to homepage. Brand left, utility links right.
+     Auto-updating copyright year via JS. -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Thread<span class="accent">line</span></div>
+      <div class="footer-copy">&copy; <span id="copyright-year"></span> Threadline. All rights reserved.</div>
+    </div>
+    <div class="footer-links">
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms-of-service.html">Terms of Service</a>
+      <a href="https://instagram.com/threadline_app" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://cooperinteractive.com" target="_blank" rel="noopener">Made with care</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════ SCRIPTS ═══════════════ -->
+<script>
+/* --- Scroll Reveal (IntersectionObserver) ---
+   Watches all .reveal elements and adds .visible when they
+   enter the viewport. Each element is unobserved after reveal
+   so the animation only fires once (no flickering on re-scroll). */
+const revealElements = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, {
+  threshold: 0.15,
+  rootMargin: '0px 0px -40px 0px'
+});
+
+revealElements.forEach(el => revealObserver.observe(el));
+
+/* --- Nav scroll behavior ---
+   Adds .scrolled class to nav when user scrolls past 80px,
+   which triggers the frosted glass background and dark text. */
+const nav = document.getElementById('nav');
+let lastScroll = 0;
+
+window.addEventListener('scroll', () => {
+  const currentScroll = window.scrollY;
+  if (currentScroll > 80) {
+    nav.classList.add('scrolled');
+  } else {
+    nav.classList.remove('scrolled');
+  }
+  lastScroll = currentScroll;
+}, { passive: true });
+
+/* --- Smooth anchor links ---
+   Intercepts clicks on hash links (#cta, etc.) and scrolls
+   smoothly instead of jumping. */
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+/* --- Auto-update copyright year ---
+   Injects the current year into the footer copyright span
+   so it never goes stale. */
+document.getElementById('copyright-year').textContent = new Date().getFullYear();
+
+/* --- Waitlist form submission to Supabase ---
+   Posts the email to the waitlist table via Supabase REST API.
+   Handles success (hides form, shows confirmation), duplicate
+   (409 status), and generic errors gracefully. */
+const SUPABASE_URL = 'https://eltwpgnbupdtzjjxnpdq.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVsdHdwZ25idXBkdHpqanhucGRxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwOTM3NTQsImV4cCI6MjA4OTY2OTc1NH0.flxN7ZcmZ_LFZxKIwKqsCueJP7ODaCZQY_l7D0SyMJk';
+
+document.getElementById('waitlist-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const email = document.getElementById('waitlist-email').value.trim();
+  const btn = document.getElementById('waitlist-btn');
+  const success = document.getElementById('waitlist-success');
+  const error = document.getElementById('waitlist-error');
+
+  if (!email) return;
+
+  btn.textContent = 'Submitting...';
+  btn.disabled = true;
+  error.style.display = 'none';
+
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({ email: email, source: 'about' })
+    });
+
+    if (res.ok) {
+      btn.style.display = 'none';
+      document.querySelector('.cta-input-wrap').style.display = 'none';
+      success.style.display = 'block';
+    } else if (res.status === 409) {
+      error.textContent = "You're already on the list. We'll be in touch soon.";
+      error.style.display = 'block';
+      btn.textContent = 'Secure Early Access';
+      btn.disabled = false;
+    } else {
+      throw new Error('Something went wrong');
+    }
+  } catch (err) {
+    error.textContent = 'Something went wrong. Please try again.';
+    error.style.display = 'block';
+    btn.textContent = 'Secure Early Access';
+    btn.disabled = false;
+  }
+});
+</script>
+
+</body>
+</html>
