@@ -354,21 +354,28 @@ function drawBrandGradient(ctx, w, h) {
   ctx.fillRect(0, 0, w, h);
 }
 
-// Shared: draw the two-tone stacked wordmark
+// Shared: draw the two-tone wordmark on ONE LINE (same baseline)
 function drawWordmark(ctx, x, y, fontSize, spacing) {
-  ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   ctx.letterSpacing = spacing || '8px';
+  ctx.font = '200 ' + fontSize + 'px Inter, sans-serif';
+
+  // Measure THREAD to place LINE right after it
+  ctx.textAlign = 'left';
+  var threadW = ctx.measureText('THREAD').width;
+  var lineW = ctx.measureText('LINE').width;
+  var totalW = threadW + lineW;
+  var startX = x - totalW / 2;
 
   // THREAD in bright white
   ctx.fillStyle = 'rgba(255,255,255,0.95)';
-  ctx.font = '200 ' + fontSize + 'px Inter, sans-serif';
-  ctx.fillText('THREAD', x, y - fontSize * 0.36);
+  ctx.fillText('THREAD', startX, y);
 
-  // LINE in softer white
-  ctx.fillStyle = 'rgba(255,255,255,0.5)';
-  ctx.font = '200 ' + fontSize + 'px Inter, sans-serif';
-  ctx.fillText('LINE', x, y + fontSize * 0.36);
+  // LINE in warm copper (same baseline)
+  ctx.fillStyle = '#D4A67A';
+  ctx.fillText('LINE', startX + threadW, y);
+
+  ctx.textAlign = 'center'; // reset
 }
 
 // --- Company Banner: 2256x382 (2x of 1128x191) ---
@@ -386,28 +393,21 @@ function drawCompanyBanner() {
     ctx.fillRect(rx, ry, 2, 2);
   }
 
-  // Two-tone wordmark, positioned center-left for banner proportions
+  // Two-tone wordmark on ONE LINE, center-left
+  drawWordmark(ctx, w * 0.38, h * 0.35, 64, '10px');
+
+  // "From rack to wrap." tagline, tight to wordmark
+  ctx.fillStyle = 'rgba(255,255,255,0.8)';
+  ctx.font = 'italic 400 34px Cormorant Garamond, serif';
   ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
+  ctx.fillText('From rack to wrap.', w * 0.38, h * 0.62);
 
-  // THREAD
-  ctx.fillStyle = 'rgba(255,255,255,0.92)';
-  ctx.font = '200 64px Inter, sans-serif';
-  ctx.letterSpacing = '10px';
-  ctx.fillText('THREAD', w * 0.38, h * 0.42);
-
-  // LINE
-  ctx.fillStyle = 'rgba(255,255,255,0.45)';
-  ctx.font = '200 64px Inter, sans-serif';
-  ctx.letterSpacing = '10px';
-  ctx.fillText('LINE', w * 0.38, h * 0.66);
-
-  // Subtle tagline on the right side
-  ctx.fillStyle = 'rgba(255,255,255,0.3)';
-  ctx.font = '300 18px Inter, sans-serif';
+  // Descriptor on the right side, bigger and brighter
+  ctx.fillStyle = 'rgba(255,255,255,0.7)';
+  ctx.font = '400 24px Inter, sans-serif';
   ctx.letterSpacing = '3px';
   ctx.textAlign = 'right';
-  ctx.fillText('WARDROBE MANAGEMENT FOR PRODUCTION', w - 80, h * 0.54);
+  ctx.fillText('WARDROBE MANAGEMENT FOR FILM & TV', w - 80, h * 0.50);
 }
 
 // --- Personal Profile Banner: 3168x792 (2x of 1584x396) ---
@@ -425,29 +425,21 @@ function drawPersonalBanner() {
     ctx.fillRect(rx, ry, 2, 2);
   }
 
-  // Wordmark in the upper-right quadrant (away from profile photo overlap)
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-
+  // Wordmark on ONE LINE, upper-right quadrant (away from profile photo)
   const cx = w * 0.62;
+  drawWordmark(ctx, cx, h * 0.34, 96, '14px');
 
-  // THREAD
-  ctx.fillStyle = 'rgba(255,255,255,0.92)';
-  ctx.font = '200 96px Inter, sans-serif';
-  ctx.letterSpacing = '14px';
-  ctx.fillText('THREAD', cx, h * 0.34);
+  // "From rack to wrap." tagline, tight to wordmark, bigger and brighter
+  ctx.fillStyle = 'rgba(255,255,255,0.8)';
+  ctx.font = 'italic 400 40px Cormorant Garamond, serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('From rack to wrap.', cx, h * 0.52);
 
-  // LINE
-  ctx.fillStyle = 'rgba(255,255,255,0.45)';
-  ctx.font = '200 96px Inter, sans-serif';
-  ctx.letterSpacing = '14px';
-  ctx.fillText('LINE', cx, h * 0.52);
-
-  // Tagline beneath
-  ctx.fillStyle = 'rgba(255,255,255,0.3)';
-  ctx.font = '300 24px Inter, sans-serif';
+  // Descriptor beneath, bigger and brighter
+  ctx.fillStyle = 'rgba(255,255,255,0.7)';
+  ctx.font = '400 28px Inter, sans-serif';
   ctx.letterSpacing = '5px';
-  ctx.fillText('WARDROBE MANAGEMENT FOR FILM & TV', cx, h * 0.70);
+  ctx.fillText('WARDROBE MANAGEMENT FOR FILM & TV', cx, h * 0.72);
 }
 
 // --- Logo / Profile Picture: 600x600 (2x of 300x300) ---
@@ -459,8 +451,15 @@ function drawLogo() {
   // Gradient background (square with rounded corners for the visual)
   drawBrandGradient(ctx, w, h);
 
-  // Stacked wordmark centered
-  drawWordmark(ctx, w / 2, h / 2, 82, '12px');
+  // Wordmark on one line, sized to fit within the square with padding
+  drawWordmark(ctx, w / 2, h * 0.42, 52, '8px');
+
+  // "From rack to wrap." tagline underneath
+  ctx.fillStyle = 'rgba(255,255,255,0.6)';
+  ctx.font = 'italic 400 24px Cormorant Garamond, serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('From rack to wrap.', w / 2, h * 0.6);
 }
 
 // --- Article Cover: 2000x600 ---
@@ -478,27 +477,20 @@ function drawArticleCover() {
     ctx.fillRect(rx, ry, 2, 2);
   }
 
-  // Wordmark centered
+  // Wordmark on ONE LINE, centered
+  drawWordmark(ctx, w / 2, h * 0.32, 88, '12px');
+
+  // "From rack to wrap." tight to wordmark, bigger and brighter
+  ctx.fillStyle = 'rgba(255,255,255,0.8)';
+  ctx.font = 'italic 400 36px Cormorant Garamond, serif';
   ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
+  ctx.fillText('From rack to wrap.', w / 2, h * 0.50);
 
-  // THREAD
-  ctx.fillStyle = 'rgba(255,255,255,0.92)';
-  ctx.font = '200 88px Inter, sans-serif';
-  ctx.letterSpacing = '12px';
-  ctx.fillText('THREAD', w / 2, h * 0.38);
-
-  // LINE
-  ctx.fillStyle = 'rgba(255,255,255,0.45)';
-  ctx.font = '200 88px Inter, sans-serif';
-  ctx.letterSpacing = '12px';
-  ctx.fillText('LINE', w / 2, h * 0.58);
-
-  // Descriptor line below
-  ctx.fillStyle = 'rgba(255,255,255,0.25)';
-  ctx.font = '300 20px Inter, sans-serif';
+  // Descriptor line below, bigger and brighter
+  ctx.fillStyle = 'rgba(255,255,255,0.7)';
+  ctx.font = '400 26px Inter, sans-serif';
   ctx.letterSpacing = '4px';
-  ctx.fillText('WARDROBE MANAGEMENT FOR FILM & TELEVISION', w / 2, h * 0.80);
+  ctx.fillText('WARDROBE MANAGEMENT FOR FILM & TV', w / 2, h * 0.72);
 }
 
 // ═══════════════ DOWNLOAD HELPERS ═══════════════
