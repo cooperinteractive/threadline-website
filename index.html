@@ -430,7 +430,6 @@ img { max-width: 100%; display: block; }
   position: relative;
 }
 
-/* Top: big editorial statement */
 .pain-statement {
   padding: clamp(100px, 14vw, 180px) clamp(24px, 5vw, 80px) clamp(60px, 8vw, 100px);
   max-width: 1000px;
@@ -474,132 +473,160 @@ img { max-width: 100%; display: block; }
   margin: 0 auto;
 }
 
-/* Before/After split */
-.pain-compare {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: 500px;
-  position: relative;
-}
-
-.pain-before {
-  background: var(--linen);
-  padding: clamp(48px, 6vw, 80px);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+/* Before/After redesign: visual cards, not plain lists */
+.ba-section {
+  padding: clamp(48px, 6vw, 80px) clamp(24px, 5vw, 80px);
   position: relative;
   overflow: hidden;
 }
 
-.pain-before .ghost {
+.ba-section.before { background: var(--linen); }
+.ba-section.after { background: var(--near-black); }
+
+.ba-section .ghost-bg {
   position: absolute;
   inset: 0;
-  background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDIVdvxjvATjLPZM7x0Hmgb-GwlJCLHmKY7rngYsWw4luBsaKLNgGQmvCwJ5M_AnHKGcd6q9_EmnWLQb-bModBEgyjUu8xF6uFDI_jcyYcaA5ssAOrQMTbgCEGkotXSi2Q5tb9MPo52n982Icc0-mjqh8RpOpwBiHq7SzP4l-9Na7vHA35x6WtfmEiexRJdiJ05mCDIXAjpCzs26LxLWGl_jaILvcuJXQZMUppV08C8g8IRiIgmJgDvbYHE0AtxGBnUAhCpYrib1JM');
   background-size: cover;
   background-position: center;
-  opacity: 0.06;
   filter: grayscale(100%);
 }
 
-.pain-after {
-  background: var(--near-black);
-  padding: clamp(48px, 6vw, 80px);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  position: relative;
-  overflow: hidden;
-}
+.ba-section.before .ghost-bg { opacity: 0.04; }
+.ba-section.after .ghost-bg { opacity: 0.06; mix-blend-mode: overlay; }
 
-.pain-after .ghost {
-  position: absolute;
-  inset: 0;
-  background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBGchh_ZDL85IckT4KmjLhPcWN1beeI0qH0C7aG8jQuxJzzvPVeuK-f2z-dLsFIUBR3u2zANtK7Zl3PFPS9XbVwV9F8GYRkABrySWvWaCPG2BK9ToO1-tjBi5GCmSaWmrgF5FIgu71bu8vzshtFJ-3I3TVxjoFdzLxwAqtFSRDLW9tOSKwbhG3WwafCaiEe2UXkzyFtuOGwK2ZHsq7Lwj2fN_-mEPSk9EEZYIFEwpkGI02flrXqtdiLZsHq4XQpVHKadNuJPr4TafY');
-  background-size: cover;
-  background-position: center;
-  opacity: 0.05;
-  filter: grayscale(100%);
-}
-
-.pain-col-label {
-  font-family: var(--serif);
-  font-weight: 300;
-  font-size: clamp(24px, 3vw, 32px);
-  margin-bottom: 32px;
-}
-
-.pain-before .pain-col-label { color: var(--clay); }
-.pain-after .pain-col-label { color: var(--copper); }
-
-.pain-items {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
+.ba-inner {
+  max-width: 1440px;
+  margin: 0 auto;
   position: relative;
   z-index: 2;
 }
 
-.pain-item {
+.ba-header {
   display: flex;
-  align-items: flex-start;
+  align-items: baseline;
   gap: 16px;
-  padding: 20px 0;
-  border-bottom: 1px solid rgba(26,23,20,0.06);
-  transition: all 0.4s var(--ease-out-expo);
+  margin-bottom: clamp(32px, 4vw, 48px);
 }
 
-.pain-after .pain-item {
-  border-bottom-color: rgba(255,255,255,0.06);
+.ba-label {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(28px, 3.5vw, 42px);
 }
 
-.pain-item:last-child { border-bottom: none; }
+.ba-section.before .ba-label { color: var(--clay); }
+.ba-section.after .ba-label { color: var(--copper); }
 
-.pain-item:hover { transform: translateX(6px); }
-
-.pain-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  margin-top: 7px;
-  flex-shrink: 0;
+.ba-sublabel {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
-.pain-before .pain-dot { background: var(--clay); opacity: 0.6; }
-.pain-after .pain-dot { background: var(--forest); }
+.ba-section.before .ba-sublabel { color: var(--taupe); }
+.ba-section.after .ba-sublabel { color: rgba(245,240,235,0.3); }
 
-.pain-item-text {
+/* Card grid */
+.ba-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.ba-card {
+  border-radius: 16px;
+  padding: clamp(24px, 3vw, 32px);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 200px;
+  transition: all 0.5s var(--ease-out-expo);
+}
+
+.ba-card:hover {
+  transform: translateY(-4px);
+}
+
+.ba-section.before .ba-card {
+  background: white;
+  box-shadow: 0 2px 12px rgba(26,23,20,0.04);
+}
+
+.ba-section.before .ba-card:hover {
+  box-shadow: 0 12px 32px rgba(26,23,20,0.08);
+}
+
+.ba-section.after .ba-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.ba-section.after .ba-card:hover {
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(196,148,106,0.15);
+}
+
+.ba-card .card-num {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(32px, 3vw, 42px);
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.ba-section.before .card-num { color: var(--clay); opacity: 0.3; }
+.ba-section.after .card-num { color: var(--copper); opacity: 0.4; }
+
+.ba-card .card-text {
   font-family: var(--editorial);
   font-weight: 300;
-  font-size: clamp(15px, 1.5vw, 18px);
-  line-height: 1.6;
+  font-size: clamp(15px, 1.4vw, 17px);
+  line-height: 1.65;
+  flex: 1;
 }
 
-.pain-before .pain-item-text { color: var(--near-black); }
-.pain-after .pain-item-text { color: var(--bone); }
+.ba-section.before .card-text { color: var(--near-black); }
+.ba-section.after .card-text { color: var(--bone); }
 
-/* Before/After slide-in animations */
-.pain-before {
-  opacity: 0;
-  transform: translateX(-60px);
-  transition: opacity 0.9s var(--ease-out-expo), transform 0.9s var(--ease-out-expo);
+.ba-card .card-tag {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 16px;
+  padding-top: 12px;
 }
 
-.pain-before.visible {
-  opacity: 1;
-  transform: translateX(0);
+.ba-section.before .card-tag { color: var(--clay); opacity: 0.5; border-top: 1px solid rgba(138,74,66,0.1); }
+.ba-section.after .card-tag { color: var(--copper); opacity: 0.6; border-top: 1px solid rgba(196,148,106,0.1); }
+
+/* Wide card spans 2 columns */
+.ba-card.wide { grid-column: span 2; }
+
+/* Divider between before and after */
+.ba-divider {
+  text-align: center;
+  padding: clamp(32px, 5vw, 56px) 24px;
+  background: var(--cream);
+  position: relative;
 }
 
-.pain-after {
-  opacity: 0;
-  transform: translateX(60px);
-  transition: opacity 0.9s var(--ease-out-expo) 0.25s, transform 0.9s var(--ease-out-expo) 0.25s;
+.ba-divider .divider-line {
+  width: 1px;
+  height: 40px;
+  background: var(--sand);
+  margin: 0 auto 16px;
 }
 
-.pain-after.visible {
-  opacity: 1;
-  transform: translateX(0);
+.ba-divider .divider-text {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(18px, 2vw, 24px);
+  color: var(--brown-gold);
 }
 
 /* --- FEATURES BENTO --- */
@@ -1150,8 +1177,12 @@ img { max-width: 100%; display: block; }
   .hero-device { margin-top: 40px; }
   .phone-frame { transform: none; }
 
-  .pain-compare {
-    display: none;
+  .ba-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ba-card.wide {
+    grid-column: span 1;
   }
 
   .bento {
@@ -1346,79 +1377,89 @@ img { max-width: 100%; display: block; }
   </div>
 </section>
 
-<!-- ═══════════════ BEFORE / AFTER ═══════════════ -->
-<section style="background:var(--cream)">
-  <div class="pain-compare">
-    <!-- BEFORE -->
-    <div class="pain-before">
-      <div class="ghost"></div>
-      <div class="pain-col-label reveal">Before Threadline</div>
-      <ul class="pain-items">
-        <li class="pain-item reveal">
-          <div class="pain-dot"></div>
-          <div class="pain-item-text">47 receipts in a Ziploc bag, and one of them is from the wrong Zara</div>
-        </li>
-        <li class="pain-item reveal reveal-delay-1">
-          <div class="pain-dot"></div>
-          <div class="pain-item-text">Hand-typing every item into a spreadsheet on Sunday night</div>
-        </li>
-        <li class="pain-item reveal reveal-delay-2">
-          <div class="pain-dot"></div>
-          <div class="pain-item-text">Return window closed. That $400 jacket is now a permanent purchase.</div>
-        </li>
-        <li class="pain-item reveal reveal-delay-3">
-          <div class="pain-dot"></div>
-          <div class="pain-item-text">"What size shirt does Jake wear?" Flipping through a three-inch binder.</div>
-        </li>
-        <li class="pain-item reveal reveal-delay-4">
-          <div class="pain-dot"></div>
-          <div class="pain-item-text">End-of-show wrap report takes an entire weekend to compile</div>
-        </li>
-        <li class="pain-item reveal reveal-delay-5">
-          <div class="pain-dot"></div>
-          <div class="pain-item-text">Budget reconciliation means cross-referencing six different store receipts by hand</div>
-        </li>
-        <li class="pain-item reveal reveal-delay-5">
-          <div class="pain-dot"></div>
-          <div class="pain-item-text">No signal on set. Your cloud spreadsheet is useless until you get back to basecamp.</div>
-        </li>
-      </ul>
+<!-- ═══════════════ BEFORE THREADLINE ═══════════════ -->
+<section class="ba-section before">
+  <div class="ghost-bg" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuDIVdvxjvATjLPZM7x0Hmgb-GwlJCLHmKY7rngYsWw4luBsaKLNgGQmvCwJ5M_AnHKGcd6q9_EmnWLQb-bModBEgyjUu8xF6uFDI_jcyYcaA5ssAOrQMTbgCEGkotXSi2Q5tb9MPo52n982Icc0-mjqh8RpOpwBiHq7SzP4l-9Na7vHA35x6WtfmEiexRJdiJ05mCDIXAjpCzs26LxLWGl_jaILvcuJXQZMUppV08C8g8IRiIgmJgDvbYHE0AtxGBnUAhCpYrib1JM')"></div>
+  <div class="ba-inner">
+    <div class="ba-header reveal">
+      <span class="ba-label">Before Threadline</span>
+      <span class="ba-sublabel">The old way</span>
     </div>
+    <div class="ba-grid">
+      <div class="ba-card wide reveal">
+        <div class="card-num">01</div>
+        <div class="card-text">47 receipts stuffed in a Ziploc bag. One of them is from the wrong Zara, and you won't figure that out until return day when it's already too late.</div>
+        <div class="card-tag">Receipts</div>
+      </div>
+      <div class="ba-card reveal reveal-delay-1">
+        <div class="card-num">02</div>
+        <div class="card-text">Sunday night. Your kitchen table. Hand-typing 200 items into a spreadsheet that will inevitably break by Tuesday.</div>
+        <div class="card-tag">Data Entry</div>
+      </div>
+      <div class="ba-card reveal reveal-delay-2">
+        <div class="card-num">03</div>
+        <div class="card-text">Return window closed three days ago. That $400 leather jacket? It just became a permanent line item on the budget.</div>
+        <div class="card-tag">Returns</div>
+      </div>
+      <div class="ba-card reveal reveal-delay-3">
+        <div class="card-num">04</div>
+        <div class="card-text">"What size shirt does Jake wear?" You're flipping through a three-inch binder while the AD is calling for last looks.</div>
+        <div class="card-tag">Continuity</div>
+      </div>
+      <div class="ba-card wide reveal reveal-delay-4">
+        <div class="card-num">05</div>
+        <div class="card-text">Wrap weekend. Three straight days of compiling receipts, reconciling budgets, and building a report that should have taken an hour. Your weekend? Gone.</div>
+        <div class="card-tag">Wrap</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- AFTER -->
-    <div class="pain-after">
-      <div class="ghost"></div>
-      <div class="pain-col-label reveal">After Threadline</div>
-      <ul class="pain-items">
-        <li class="pain-item reveal">
-          <div class="pain-dot"></div>
-          <div class="pain-item-text">Snap the receipt at checkout, and every line item is captured instantly</div>
-        </li>
-        <li class="pain-item reveal reveal-delay-1">
-          <div class="pain-dot"></div>
-          <div class="pain-item-text">Scan the barcode, and inventory auto-fills in seconds</div>
-        </li>
-        <li class="pain-item reveal reveal-delay-2">
-          <div class="pain-dot"></div>
-          <div class="pain-item-text">"3 items due back to Zara by Friday." You're already on it.</div>
-        </li>
-        <li class="pain-item reveal reveal-delay-3">
-          <div class="pain-dot"></div>
-          <div class="pain-item-text">"Jake's shirt size?" Ask Thread AI. Answer in 2 seconds.</div>
-        </li>
-        <li class="pain-item reveal reveal-delay-4">
-          <div class="pain-dot"></div>
-          <div class="pain-item-text">Tap "Generate Wrap Report." Done before lunch.</div>
-        </li>
-        <li class="pain-item reveal reveal-delay-5">
-          <div class="pain-dot"></div>
-          <div class="pain-item-text">Budget updates in real time. Every scan, every return, every credit. Automatically.</div>
-        </li>
-        <li class="pain-item reveal reveal-delay-5">
-          <div class="pain-dot"></div>
-          <div class="pain-item-text">Offline mode keeps you working on set. Everything syncs the moment you reconnect.</div>
-        </li>
-      </ul>
+<!-- Divider -->
+<div class="ba-divider">
+  <div class="divider-line"></div>
+  <div class="divider-text reveal">Now imagine this instead.</div>
+</div>
+
+<!-- ═══════════════ AFTER THREADLINE ═══════════════ -->
+<section class="ba-section after">
+  <div class="ghost-bg" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBGchh_ZDL85IckT4KmjLhPcWN1beeI0qH0C7aG8jQuxJzzvPVeuK-f2z-dLsFIUBR3u2zANtK7Zl3PFPS9XbVwV9F8GYRkABrySWvWaCPG2BK9ToO1-tjBi5GCmSaWmrgF5FIgu71bu8vzshtFJ-3I3TVxjoFdzLxwAqtFSRDLW9tOSKwbhG3WwafCaiEe2UXkzyFtuOGwK2ZHsq7Lwj2fN_-mEPSk9EEZYIFEwpkGI02flrXqtdiLZsHq4XQpVHKadNuJPr4TafY')"></div>
+  <div class="ba-inner">
+    <div class="ba-header reveal">
+      <span class="ba-label">After Threadline</span>
+      <span class="ba-sublabel">The new way</span>
+    </div>
+    <div class="ba-grid">
+      <div class="ba-card reveal">
+        <div class="card-num">01</div>
+        <div class="card-text">Snap the receipt at checkout. Every vendor, every line item, every price. Captured instantly. Filed automatically.</div>
+        <div class="card-tag">Receipt OCR</div>
+      </div>
+      <div class="ba-card wide reveal reveal-delay-1">
+        <div class="card-num">02</div>
+        <div class="card-text">Scan the barcode and your inventory auto-fills. Product name, brand, price, category. No typing. No spreadsheets. No Sunday nights at the kitchen table.</div>
+        <div class="card-tag">Magic Scan</div>
+      </div>
+      <div class="ba-card wide reveal reveal-delay-2">
+        <div class="card-num">03</div>
+        <div class="card-text">"3 items due back to Zara by Friday." Threadline knows every store's return policy and alerts you before windows close. Not after.</div>
+        <div class="card-tag">Return Tracking</div>
+      </div>
+      <div class="ba-card reveal reveal-delay-3">
+        <div class="card-num">04</div>
+        <div class="card-text">"Jake's shirt size?" Ask Thread AI. Answer in 2 seconds. No binder required.</div>
+        <div class="card-tag">Thread AI</div>
+      </div>
+      <div class="ba-card reveal reveal-delay-4">
+        <div class="card-num">05</div>
+        <div class="card-text">Tap "Generate Wrap Report." Every item, every receipt, every return. Organized and exported. Done before lunch.</div>
+        <div class="card-tag">Wrap Reports</div>
+      </div>
+      <div class="ba-card reveal reveal-delay-5">
+        <div class="card-num">06</div>
+        <div class="card-text">No signal on set? No problem. Offline mode keeps you working. Everything syncs the moment you reconnect.</div>
+        <div class="card-tag">Offline Mode</div>
+      </div>
     </div>
   </div>
 </section>
@@ -1530,10 +1571,7 @@ const revealObserver = new IntersectionObserver((entries) => {
 
 revealElements.forEach(el => revealObserver.observe(el));
 
-/* --- Before/After slide-in animation --- */
-document.querySelectorAll('.pain-before, .pain-after').forEach(el => {
-  revealObserver.observe(el);
-});
+/* Before/After animation removed - now uses standard .reveal classes */
 
 /* --- Nav scroll behavior --- */
 const nav = document.getElementById('nav');

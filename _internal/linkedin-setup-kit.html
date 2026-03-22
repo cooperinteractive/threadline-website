@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ThreadLine — LinkedIn Company Page Setup Kit</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream:#FAF8F5;--bone:#F5F0EB;--warm-gray:#E8E3DE;--sand:#D2C4B9;
+    --taupe:#B5A89C;--brown-gold:#8B6F52;--copper:#C4946A;--dark-brown:#5A4228;
+    --espresso:#3A2A18;--near-black:#1A1714;--void:#0A0A0A;
+    --water:#5A7E8A;--forest:#4A6741;--clay:#8A4A42;--dusty-blue:#627786;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--near-black);}
+
+  .nav{position:sticky;top:0;z-index:100;background:rgba(250,248,245,0.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(26,23,20,0.06);padding:12px 48px;display:flex;align-items:center;gap:24px;}
+  .nav .brand{font-family:'Inter',sans-serif;font-weight:200;font-size:14px;letter-spacing:0.15em;text-transform:uppercase;}
+  .nav .brand .l{color:var(--brown-gold);}
+  .nav a{font-size:11px;font-weight:500;color:var(--taupe);text-decoration:none;padding:4px 8px;border-radius:4px;transition:all 0.15s;}
+  .nav a:hover{color:var(--brown-gold);background:rgba(139,111,82,0.06);}
+  .nav a.back{color:var(--brown-gold);}
+
+  .container{max-width:1000px;margin:0 auto;padding:48px;}
+
+  .page-title{margin-bottom:48px;}
+  .page-title h1{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:36px;margin-bottom:4px;}
+  .page-title p{font-size:14px;color:var(--taupe);line-height:1.7;}
+
+  .section{margin-bottom:48px;padding-bottom:48px;border-bottom:1px solid rgba(26,23,20,0.06);}
+  .section:last-child{border-bottom:none;}
+  .section-label{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--brown-gold);margin-bottom:16px;}
+
+  /* Copy-paste fields */
+  .copy-field{background:white;border:1px solid var(--warm-gray);border-radius:8px;padding:16px 20px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;position:relative;}
+  .copy-field .field-label{font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--taupe);margin-bottom:6px;}
+  .copy-field .field-value{font-size:14px;line-height:1.6;color:var(--near-black);flex:1;white-space:pre-wrap;}
+  .copy-field .field-meta{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--taupe);margin-top:4px;}
+  .copy-btn{background:var(--brown-gold);color:white;border:none;padding:6px 14px;font-size:10px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;border-radius:4px;cursor:pointer;flex-shrink:0;transition:all 0.15s;font-family:'Inter',sans-serif;}
+  .copy-btn:hover{background:var(--dark-brown);}
+  .copy-btn.copied{background:var(--forest);}
+
+  /* Asset preview areas */
+  .asset-preview{background:white;border:1px solid var(--warm-gray);border-radius:8px;padding:20px;margin-bottom:16px;}
+  .asset-preview canvas{width:100%;height:auto;display:block;border-radius:4px;}
+
+  .profile-grid{display:grid;grid-template-columns:200px 1fr;gap:32px;align-items:start;}
+  .profile-pic-wrap{text-align:center;}
+  .profile-pic{width:180px;height:180px;border-radius:8px;overflow:hidden;margin:0 auto 12px;box-shadow:0 4px 16px rgba(26,23,20,0.1);position:relative;}
+  .profile-pic canvas{width:100%;height:100%;}
+
+  .download-btn{display:inline-block;background:var(--brown-gold);color:white;border:none;padding:8px 20px;font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;border-radius:6px;cursor:pointer;transition:all 0.15s;font-family:'Inter',sans-serif;text-decoration:none;margin:4px;}
+  .download-btn:hover{background:var(--dark-brown);}
+  .download-btn.secondary{background:transparent;color:var(--brown-gold);border:1px solid var(--brown-gold);}
+  .download-btn.secondary:hover{background:rgba(139,111,82,0.06);}
+
+  /* Info table */
+  .info-table{width:100%;}
+  .info-table tr td{padding:10px 0;border-bottom:1px solid rgba(26,23,20,0.06);font-size:13px;vertical-align:top;}
+  .info-table tr:last-child td{border-bottom:none;}
+  .info-table .label-cell{font-weight:500;color:var(--near-black);width:180px;}
+  .info-table .value-cell{color:var(--taupe);}
+  .info-table .rec{color:var(--brown-gold);font-weight:500;}
+
+  .note-box{background:rgba(139,111,82,0.06);border-left:3px solid var(--brown-gold);border-radius:0 8px 8px 0;padding:16px 20px;font-size:13px;color:var(--near-black);line-height:1.7;margin-top:16px;}
+
+  .banner-wrap{position:relative;width:100%;margin-bottom:12px;}
+  .banner-wrap canvas{width:100%;height:auto;border-radius:8px;display:block;box-shadow:0 4px 16px rgba(26,23,20,0.1);}
+
+  .footer{text-align:center;padding:32px;font-size:12px;color:var(--taupe);border-top:1px solid rgba(26,23,20,0.06);}
+  .footer a{color:var(--brown-gold);text-decoration:none;}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="brand" style="text-decoration:none;color:inherit;">THREAD<span class="l">LINE</span></a>
+  <a class="back" href="index.html">&larr; All Pages</a>
+  <a href="#page-info">Page Info</a>
+  <a href="#about">About Copy</a>
+  <a href="#banner">Company Banner</a>
+  <a href="#personal-banner">Personal Banner</a>
+  <a href="#logo">Logo</a>
+  <a href="#first-post">First Post</a>
+  <a href="#article-cover">Article Cover</a>
+  <a href="#settings">Settings</a>
+  <a href="#dimensions">Dimensions</a>
+</nav>
+
+<div class="container">
+
+<div class="page-title">
+  <h1>LinkedIn Company Page <em style="font-family:'Cormorant Garamond',serif;font-style:italic">Setup Kit</em></h1>
+  <p>Everything you need to create and launch the Threadline LinkedIn Company Page. Copy-paste text, downloadable assets, and recommended settings. All ready to go.</p>
+</div>
+
+<!-- ═══════════════ COMPANY PAGE INFORMATION ═══════════════ -->
+<div class="section" id="page-info">
+  <div class="section-label">Company Page Information</div>
+
+  <table class="info-table">
+    <tr><td class="label-cell">Company Name</td><td class="value-cell rec">Threadline</td></tr>
+    <tr><td class="label-cell">LinkedIn URL</td><td class="value-cell rec">linkedin.com/company/threadline-app</td></tr>
+    <tr><td class="label-cell">Industry</td><td class="value-cell rec">Technology, Information and Internet</td></tr>
+    <tr><td class="label-cell">Company Size</td><td class="value-cell rec">1-10 employees</td></tr>
+    <tr><td class="label-cell">Company Type</td><td class="value-cell rec">Startup</td></tr>
+    <tr><td class="label-cell">Headquarters</td><td class="value-cell rec">United States</td></tr>
+    <tr><td class="label-cell">Website</td><td class="value-cell rec">threadlineapp.io</td></tr>
+    <tr><td class="label-cell">Founded</td><td class="value-cell">2025</td></tr>
+  </table>
+
+  <div class="note-box">
+    <strong>Claiming the URL.</strong> LinkedIn assigns your page URL based on the company name. If "threadline-app" is not available, try "threadlineapp" or "threadline-io". The custom URL can be edited once from your page's admin settings after creation.
+  </div>
+</div>
+
+<!-- ═══════════════ ABOUT COPY ═══════════════ -->
+<div class="section" id="about">
+  <div class="section-label">About Section Copy — Ready to Paste</div>
+
+  <div class="copy-field">
+    <div style="flex:1">
+      <div class="field-label">Tagline (120 characters max)</div>
+      <div class="field-value" id="tagline">AI-powered wardrobe management for film and television production teams.</div>
+      <div class="field-meta">72 / 120 characters</div>
+    </div>
+    <button class="copy-btn" onclick="copyText('tagline', this)">Copy</button>
+  </div>
+
+  <div class="copy-field">
+    <div style="flex:1">
+      <div class="field-label">About Description (2000 characters max)</div>
+      <div class="field-value" id="about-desc">Threadline is wardrobe management software built specifically for film and television production.
+
+Wardrobe departments run on spreadsheets, paper receipts, and institutional memory. Costume supervisors spend entire weekends reconciling purchases. Wardrobe PAs track hundreds of garments across scenes, actors, and continuity notes using systems that have not changed in decades. Returns get missed. Budgets go sideways. The work is invisible until something falls through the cracks.
+
+We are building the tool the wardrobe department has always needed.
+
+Threadline brings barcode scanning, receipt capture, return tracking, and AI-powered inventory management into a single app designed for the pace of production. Scan a barcode and the item auto-populates. Photograph a receipt and every line item gets captured. When a return deadline is approaching, you get a heads-up before it slips.
+
+The goal is simple: less time on paperwork, more time on the craft.
+
+Threadline is built by people who understand production workflows, designed for wardrobe PAs and costume supervisors who need tools that keep up with the speed of set life.
+
+Currently in development. Visit threadlineapp.io to learn more.</div>
+      <div class="field-meta">988 / 2000 characters</div>
+    </div>
+    <button class="copy-btn" onclick="copyText('about-desc', this)">Copy</button>
+  </div>
+
+  <div class="copy-field">
+    <div style="flex:1">
+      <div class="field-label">Specialties (add individually on LinkedIn)</div>
+      <div class="field-value" id="specialties">Wardrobe Management, Film Production Technology, Television Production, Costume Department Software, Inventory Tracking, Receipt Management, Barcode Scanning, AI-Powered Tools, Production Workflow, Wardrobe Continuity</div>
+      <div class="field-meta">10 specialties — LinkedIn allows up to 20</div>
+    </div>
+    <button class="copy-btn" onclick="copyText('specialties', this)">Copy</button>
+  </div>
+
+  <div class="note-box">
+    <strong>Specialties tip.</strong> LinkedIn lets you add specialties one at a time when editing the About section. Copy the list above and add each one separately. These show up in search results and help people discover your page.
+  </div>
+</div>
+
+<!-- ═══════════════ COMPANY BANNER ═══════════════ -->
+<div class="section" id="banner">
+  <div class="section-label">Company Page Banner — 1128 x 191px</div>
+
+  <p style="font-size:13px;color:var(--taupe);margin-bottom:16px;line-height:1.7">Brand gradient background with the two-tone THREAD LINE wordmark. Sized for the LinkedIn Company Page header. The banner is wide and short, so the wordmark is positioned center-left for balance.</p>
+
+  <div class="banner-wrap">
+    <canvas id="company-banner-canvas" width="2256" height="382"></canvas>
+  </div>
+
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <button class="download-btn" onclick="downloadCanvasCustom('company-banner-canvas', 2256, 382, 'threadline-company-banner-2x.png')">Download 2x (2256x382)</button>
+    <button class="download-btn secondary" onclick="downloadCanvasCustom('company-banner-canvas', 1128, 191, 'threadline-company-banner.png')">Download 1x (1128x191)</button>
+  </div>
+
+  <div class="note-box">
+    <strong>Upload tip.</strong> LinkedIn crops the banner differently on mobile vs desktop. The center area is always safe. Keep important content away from the edges, especially the bottom-left where the company logo overlaps.
+  </div>
+</div>
+
+<!-- ═══════════════ PERSONAL PROFILE BANNER ═══════════════ -->
+<div class="section" id="personal-banner">
+  <div class="section-label">Personal Profile Banner — 1584 x 396px</div>
+
+  <p style="font-size:13px;color:var(--taupe);margin-bottom:16px;line-height:1.7">For Louis's personal LinkedIn profile. Same brand gradient and wordmark, sized for the larger personal banner format. Includes a subtle tagline beneath the wordmark.</p>
+
+  <div class="banner-wrap">
+    <canvas id="personal-banner-canvas" width="3168" height="792"></canvas>
+  </div>
+
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <button class="download-btn" onclick="downloadCanvasCustom('personal-banner-canvas', 3168, 792, 'threadline-personal-banner-2x.png')">Download 2x (3168x792)</button>
+    <button class="download-btn secondary" onclick="downloadCanvasCustom('personal-banner-canvas', 1584, 396, 'threadline-personal-banner.png')">Download 1x (1584x396)</button>
+  </div>
+
+  <div class="note-box">
+    <strong>Personal profile note.</strong> On mobile, about 40px from the bottom of the banner is covered by your profile photo. The wordmark and tagline are positioned in the upper-right area to stay clear.
+  </div>
+</div>
+
+<!-- ═══════════════ LOGO / PROFILE PICTURE ═══════════════ -->
+<div class="section" id="logo">
+  <div class="section-label">Logo / Profile Picture — 300 x 300px</div>
+
+  <div class="profile-grid">
+    <div class="profile-pic-wrap">
+      <div class="profile-pic">
+        <canvas id="logo-canvas" width="600" height="600"></canvas>
+      </div>
+      <div style="margin-top:12px;display:flex;flex-direction:column;gap:6px;align-items:center">
+        <button class="download-btn" onclick="downloadCanvasCustom('logo-canvas', 600, 600, 'threadline-logo-600.png')">Download 600px</button>
+        <button class="download-btn secondary" onclick="downloadCanvasCustom('logo-canvas', 300, 300, 'threadline-logo-300.png')">Download 300px</button>
+      </div>
+    </div>
+    <div>
+      <table class="info-table">
+        <tr><td class="label-cell">Dimensions</td><td class="value-cell">300x300px minimum (we export at 600px for retina)</td></tr>
+        <tr><td class="label-cell">Shape</td><td class="value-cell">Displayed as rounded square on LinkedIn</td></tr>
+        <tr><td class="label-cell">Design</td><td class="value-cell">Brown-gold gradient with stacked THREAD LINE wordmark (THREAD in white, LINE in lighter tone)</td></tr>
+        <tr><td class="label-cell">Format</td><td class="value-cell">PNG with solid background</td></tr>
+      </table>
+      <div class="note-box">LinkedIn displays company logos as a rounded square, not a circle like Instagram. The stacked wordmark works well in both formats. This same asset is used for the company page profile picture and will appear next to posts, comments, and in search results.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ FIRST POST ═══════════════ -->
+<div class="section" id="first-post">
+  <div class="section-label">First Post — Launch Announcement</div>
+
+  <div class="copy-field">
+    <div style="flex:1">
+      <div class="field-label">LinkedIn Launch Post</div>
+      <div class="field-value" id="launch-post">We started Threadline because wardrobe departments deserve better tools.
+
+Costume supervisors spend entire weekends reconciling receipts by hand. Wardrobe PAs track hundreds of garments across scenes, actors, and continuity notes using spreadsheets that have not changed in decades. Return deadlines slip. Budgets go sideways. The work is invisible until something falls through the cracks.
+
+Threadline is wardrobe management software built for how production actually works.
+
+Scan a barcode and the item auto-populates. Photograph a receipt and every line item gets captured. Return deadline approaching? You get a heads-up before it slips.
+
+We are building the tool the wardrobe department has always needed. Less time on paperwork, more time on the craft.
+
+Currently in development. If you work in wardrobe, costume, or production, we would love to hear from you.
+
+threadlineapp.io
+
+#filmproduction #wardrobedepartment #costumedesign #filmtech #productiontools #setlife #tvproduction #startups</div>
+    </div>
+    <button class="copy-btn" onclick="copyText('launch-post', this)">Copy</button>
+  </div>
+
+  <div class="copy-field">
+    <div style="flex:1">
+      <div class="field-label">Hashtag Set — Save for LinkedIn Posts</div>
+      <div class="field-value" id="linkedin-hashtags">#filmproduction #wardrobedepartment #costumedesign #filmtech #productiontools #setlife #tvproduction #startups #costumesupervisor #filmcrew #belowtheline #filmmaking #prodtech #entertainmentindustry</div>
+      <div class="field-meta">14 hashtags — LinkedIn recommends 3-5 per post but you can save this full set and rotate</div>
+    </div>
+    <button class="copy-btn" onclick="copyText('linkedin-hashtags', this)">Copy</button>
+  </div>
+
+  <div class="note-box">
+    <strong>LinkedIn tone.</strong> This post is written for a professional audience. No emoji. No "link in bio" language. LinkedIn rewards longer, story-driven posts that read like a genuine perspective, not marketing copy. The first line is what shows above the "see more" fold, so it needs to hook immediately.
+  </div>
+</div>
+
+<!-- ═══════════════ ARTICLE COVER IMAGE ═══════════════ -->
+<div class="section" id="article-cover">
+  <div class="section-label">Article Cover Image — 2000 x 600px</div>
+
+  <p style="font-size:13px;color:var(--taupe);margin-bottom:16px;line-height:1.7">For LinkedIn articles and newsletter cover images. Brand gradient with the wordmark and a subtle descriptor line. Use this as the featured image when publishing long-form content.</p>
+
+  <div class="banner-wrap">
+    <canvas id="article-cover-canvas" width="2000" height="600"></canvas>
+  </div>
+
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <button class="download-btn" onclick="downloadCanvas('article-cover-canvas', 'threadline-article-cover.png')">Download (2000x600)</button>
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE SETTINGS ═══════════════ -->
+<div class="section" id="settings">
+  <div class="section-label">Recommended Page Settings</div>
+
+  <table class="info-table">
+    <tr><td class="label-cell">Follow Button</td><td class="value-cell rec">Enabled (default for company pages)</td></tr>
+    <tr><td class="label-cell">Content Suggestions</td><td class="value-cell">Turn on — LinkedIn will suggest trending topics for your industry</td></tr>
+    <tr><td class="label-cell">Hashtag</td><td class="value-cell rec">Associate #wardrobedepartment, #filmtech, #costumedesign as community hashtags</td></tr>
+    <tr><td class="label-cell">Custom Button</td><td class="value-cell rec">Visit Website → threadlineapp.io</td></tr>
+    <tr><td class="label-cell">Lead Gen Form</td><td class="value-cell">Skip for now — useful later for waitlist campaigns</td></tr>
+    <tr><td class="label-cell">Invite Connections</td><td class="value-cell rec">Use the "Invite connections to follow" feature after setup</td></tr>
+    <tr><td class="label-cell">Post Notifications</td><td class="value-cell">On — so you see comments and engagement immediately</td></tr>
+    <tr><td class="label-cell">Page Admins</td><td class="value-cell">Add yourself as Super Admin. Add any co-founders as Content Admins.</td></tr>
+  </table>
+
+  <div class="note-box">
+    <strong>First week strategy.</strong> Post the launch announcement. Invite your connections to follow the page (LinkedIn gives you a limited number of monthly invites, so start with people in film, TV, and production). Engage on posts from wardrobe professionals, production companies, and costume design accounts. Comment thoughtfully on industry conversations. Follow relevant companies and hashtags. LinkedIn rewards consistent, authentic engagement over volume.
+  </div>
+</div>
+
+<!-- ═══════════════ IMAGE DIMENSIONS ═══════════════ -->
+<div class="section" id="dimensions">
+  <div class="section-label">LinkedIn Image Dimensions — 2026 Reference</div>
+
+  <table class="info-table">
+    <tr><td class="label-cell">Company Page Banner</td><td class="value-cell rec">1128 x 191 px</td></tr>
+    <tr><td class="label-cell">Personal Profile Banner</td><td class="value-cell rec">1584 x 396 px</td></tr>
+    <tr><td class="label-cell">Company Logo</td><td class="value-cell rec">300 x 300 px</td></tr>
+    <tr><td class="label-cell">Feed Post (Landscape)</td><td class="value-cell">1200 x 627 px</td></tr>
+    <tr><td class="label-cell">Feed Post (Square)</td><td class="value-cell">1080 x 1080 px</td></tr>
+    <tr><td class="label-cell">Article Cover Image</td><td class="value-cell">2000 x 600 px</td></tr>
+    <tr><td class="label-cell">Profile Photo</td><td class="value-cell">400 x 400 px</td></tr>
+  </table>
+
+  <div class="note-box">
+    <strong>Retina tip.</strong> Export all images at 2x the listed dimensions when possible. LinkedIn compresses uploads, so starting with a larger file gives you a sharper result. The downloadable assets on this page are already at 2x where it makes sense.
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  <a href="https://cooperinteractive.com">Made with care</a>
+</div>
+
+<script>
+// ═══════════════ COPY TO CLIPBOARD ═══════════════
+function copyText(id, btn) {
+  const el = document.getElementById(id);
+  const text = el.innerText || el.textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+// ═══════════════ CANVAS RENDERING ═══════════════
+
+// Shared: draw the brand gradient on any rectangular canvas
+function drawBrandGradient(ctx, w, h) {
+  const grad = ctx.createLinearGradient(0, 0, w, h);
+  grad.addColorStop(0, '#5A4228');
+  grad.addColorStop(0.5, '#8B6F52');
+  grad.addColorStop(1, '#C4946A');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, w, h);
+}
+
+// Shared: draw the two-tone stacked wordmark
+function drawWordmark(ctx, x, y, fontSize, spacing) {
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.letterSpacing = spacing || '8px';
+
+  // THREAD in bright white
+  ctx.fillStyle = 'rgba(255,255,255,0.95)';
+  ctx.font = '200 ' + fontSize + 'px Inter, sans-serif';
+  ctx.fillText('THREAD', x, y - fontSize * 0.36);
+
+  // LINE in softer white
+  ctx.fillStyle = 'rgba(255,255,255,0.5)';
+  ctx.font = '200 ' + fontSize + 'px Inter, sans-serif';
+  ctx.fillText('LINE', x, y + fontSize * 0.36);
+}
+
+// --- Company Banner: 2256x382 (2x of 1128x191) ---
+function drawCompanyBanner() {
+  const c = document.getElementById('company-banner-canvas');
+  const ctx = c.getContext('2d');
+  const w = c.width, h = c.height;
+
+  drawBrandGradient(ctx, w, h);
+
+  // Subtle noise/texture overlay
+  ctx.fillStyle = 'rgba(255,255,255,0.015)';
+  for (let i = 0; i < 800; i++) {
+    const rx = Math.random() * w, ry = Math.random() * h;
+    ctx.fillRect(rx, ry, 2, 2);
+  }
+
+  // Two-tone wordmark, positioned center-left for banner proportions
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+
+  // THREAD
+  ctx.fillStyle = 'rgba(255,255,255,0.92)';
+  ctx.font = '200 64px Inter, sans-serif';
+  ctx.letterSpacing = '10px';
+  ctx.fillText('THREAD', w * 0.38, h * 0.42);
+
+  // LINE
+  ctx.fillStyle = 'rgba(255,255,255,0.45)';
+  ctx.font = '200 64px Inter, sans-serif';
+  ctx.letterSpacing = '10px';
+  ctx.fillText('LINE', w * 0.38, h * 0.66);
+
+  // Subtle tagline on the right side
+  ctx.fillStyle = 'rgba(255,255,255,0.3)';
+  ctx.font = '300 18px Inter, sans-serif';
+  ctx.letterSpacing = '3px';
+  ctx.textAlign = 'right';
+  ctx.fillText('WARDROBE MANAGEMENT FOR PRODUCTION', w - 80, h * 0.54);
+}
+
+// --- Personal Profile Banner: 3168x792 (2x of 1584x396) ---
+function drawPersonalBanner() {
+  const c = document.getElementById('personal-banner-canvas');
+  const ctx = c.getContext('2d');
+  const w = c.width, h = c.height;
+
+  drawBrandGradient(ctx, w, h);
+
+  // Subtle noise
+  ctx.fillStyle = 'rgba(255,255,255,0.015)';
+  for (let i = 0; i < 1200; i++) {
+    const rx = Math.random() * w, ry = Math.random() * h;
+    ctx.fillRect(rx, ry, 2, 2);
+  }
+
+  // Wordmark in the upper-right quadrant (away from profile photo overlap)
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+
+  const cx = w * 0.62;
+
+  // THREAD
+  ctx.fillStyle = 'rgba(255,255,255,0.92)';
+  ctx.font = '200 96px Inter, sans-serif';
+  ctx.letterSpacing = '14px';
+  ctx.fillText('THREAD', cx, h * 0.34);
+
+  // LINE
+  ctx.fillStyle = 'rgba(255,255,255,0.45)';
+  ctx.font = '200 96px Inter, sans-serif';
+  ctx.letterSpacing = '14px';
+  ctx.fillText('LINE', cx, h * 0.52);
+
+  // Tagline beneath
+  ctx.fillStyle = 'rgba(255,255,255,0.3)';
+  ctx.font = '300 24px Inter, sans-serif';
+  ctx.letterSpacing = '5px';
+  ctx.fillText('WARDROBE MANAGEMENT FOR FILM & TV', cx, h * 0.70);
+}
+
+// --- Logo / Profile Picture: 600x600 (2x of 300x300) ---
+function drawLogo() {
+  const c = document.getElementById('logo-canvas');
+  const ctx = c.getContext('2d');
+  const w = c.width, h = c.height;
+
+  // Gradient background (square with rounded corners for the visual)
+  drawBrandGradient(ctx, w, h);
+
+  // Stacked wordmark centered
+  drawWordmark(ctx, w / 2, h / 2, 82, '12px');
+}
+
+// --- Article Cover: 2000x600 ---
+function drawArticleCover() {
+  const c = document.getElementById('article-cover-canvas');
+  const ctx = c.getContext('2d');
+  const w = c.width, h = c.height;
+
+  drawBrandGradient(ctx, w, h);
+
+  // Subtle noise
+  ctx.fillStyle = 'rgba(255,255,255,0.015)';
+  for (let i = 0; i < 1000; i++) {
+    const rx = Math.random() * w, ry = Math.random() * h;
+    ctx.fillRect(rx, ry, 2, 2);
+  }
+
+  // Wordmark centered
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+
+  // THREAD
+  ctx.fillStyle = 'rgba(255,255,255,0.92)';
+  ctx.font = '200 88px Inter, sans-serif';
+  ctx.letterSpacing = '12px';
+  ctx.fillText('THREAD', w / 2, h * 0.38);
+
+  // LINE
+  ctx.fillStyle = 'rgba(255,255,255,0.45)';
+  ctx.font = '200 88px Inter, sans-serif';
+  ctx.letterSpacing = '12px';
+  ctx.fillText('LINE', w / 2, h * 0.58);
+
+  // Descriptor line below
+  ctx.fillStyle = 'rgba(255,255,255,0.25)';
+  ctx.font = '300 20px Inter, sans-serif';
+  ctx.letterSpacing = '4px';
+  ctx.fillText('WARDROBE MANAGEMENT FOR FILM & TELEVISION', w / 2, h * 0.80);
+}
+
+// ═══════════════ DOWNLOAD HELPERS ═══════════════
+function downloadCanvas(canvasId, filename) {
+  const c = document.getElementById(canvasId);
+  const link = document.createElement('a');
+  link.download = filename;
+  link.href = c.toDataURL('image/png');
+  link.click();
+}
+
+function downloadCanvasCustom(canvasId, targetW, targetH, filename) {
+  const src = document.getElementById(canvasId);
+  const tmp = document.createElement('canvas');
+  tmp.width = targetW;
+  tmp.height = targetH;
+  const ctx = tmp.getContext('2d');
+  ctx.drawImage(src, 0, 0, targetW, targetH);
+  const link = document.createElement('a');
+  link.download = filename;
+  link.href = tmp.toDataURL('image/png');
+  link.click();
+}
+
+// ═══════════════ INIT ═══════════════
+window.addEventListener('load', () => {
+  document.fonts.ready.then(() => {
+    drawCompanyBanner();
+    drawPersonalBanner();
+    drawLogo();
+    drawArticleCover();
+  });
+});
+</script>
+
+</body>
+</html>
