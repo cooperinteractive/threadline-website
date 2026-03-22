@@ -760,7 +760,7 @@
 
 <script>
   // Nav active tracking
-  document.querySelectorAll('.sticky-nav a').forEach(link => {
+  document.querySelectorAll('.sticky-nav a[href^="#"]').forEach(link => {
     link.addEventListener('click', e => {
       e.preventDefault();
       const id = link.getAttribute('href').replace('#','');
