@@ -1,0 +1,2121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ThreadLine — 4-Week Instagram Content Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Inter:wght@200;300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ===================================================================
+   THREADLINE — 4-WEEK INSTAGRAM CONTENT PLAN
+   Dark background (#0A0A0A) so graphics pop.
+   Instagram-only. 16 posts across 4 weeks (Mon/Wed/Fri + optional Sat).
+   Every graphic rendered at 4:5 (1080x1350).
+   =================================================================== */
+
+:root {
+  --cream: #FAF8F5;
+  --bone: #F5F0EB;
+  --linen: #f0ebe4;
+  --warm-gray: #E8E3DE;
+  --sand: #D2C4B9;
+  --taupe: #B5A89C;
+  --brown-gold: #8B6F52;
+  --copper: #C4946A;
+  --dark-brown: #5A4228;
+  --espresso: #3A2A18;
+  --near-black: #1A1714;
+  --void: #0A0A0A;
+  --water: #5A7E8A;
+  --forest: #4A6741;
+  --clay: #8A4A42;
+  --dusty-blue: #627786;
+
+  /* Instagram gradient */
+  --ig-grad: linear-gradient(45deg, #833AB4, #FD1D1D, #F77737);
+
+  /* Content type accent colors */
+  --accent-announce: var(--copper);
+  --accent-pain: var(--clay);
+  --accent-feature: var(--water);
+  --accent-tips: var(--forest);
+  --accent-bts: var(--brown-gold);
+  --accent-engage: var(--copper);
+  --accent-cta: var(--dark-brown);
+
+  --serif: 'Cormorant Garamond', 'Georgia', serif;
+  --body: 'Inter', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', 'Menlo', monospace;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--body);
+  background: var(--void);
+  color: var(--bone);
+  line-height: 1.7;
+}
+
+::selection {
+  background: var(--copper);
+  color: white;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* --- STICKY NAVIGATION --- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10,10,10,0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: 12px 48px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.nav .brand {
+  font-family: var(--body);
+  font-weight: 200;
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--bone);
+  text-decoration: none;
+  margin-right: 8px;
+}
+
+.nav .brand .copper { color: var(--copper); }
+
+.nav a {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--taupe);
+  text-decoration: none;
+  padding: 4px 10px;
+  border-radius: 4px;
+  transition: all 0.15s;
+}
+
+.nav a:hover {
+  color: var(--copper);
+  background: rgba(196,148,106,0.08);
+}
+
+.nav a.back { color: var(--copper); }
+
+.nav .week-links {
+  display: flex;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.nav .week-links a {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 5px 14px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 20px;
+  color: var(--taupe);
+  transition: all 0.2s;
+}
+
+.nav .week-links a:hover,
+.nav .week-links a.active {
+  background: var(--brown-gold);
+  color: white;
+  border-color: var(--brown-gold);
+}
+
+/* --- CONTAINER --- */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 48px 48px 32px;
+}
+
+@media (max-width: 768px) {
+  .container { padding: 32px 20px 24px; }
+  .nav { padding: 12px 20px; gap: 10px; }
+  .nav .week-links { margin-left: 0; width: 100%; justify-content: center; flex-wrap: wrap; }
+}
+
+/* --- PAGE HEADER --- */
+.page-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.page-header h1 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 38px;
+  line-height: 1.2;
+  color: var(--bone);
+  margin-bottom: 8px;
+}
+
+.page-header h1 em {
+  font-style: italic;
+  color: var(--copper);
+}
+
+.page-header .subtitle {
+  font-size: 14px;
+  color: var(--taupe);
+  line-height: 1.7;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.page-header .ig-handle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  padding: 6px 16px;
+  border-radius: 20px;
+  background: linear-gradient(45deg, rgba(131,58,180,0.15), rgba(253,29,29,0.15), rgba(247,119,55,0.15));
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--bone);
+  letter-spacing: 0.03em;
+}
+
+.page-header .ig-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ig-grad);
+}
+
+/* --- STATS BAR --- */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  margin-bottom: 48px;
+}
+
+.stat-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 10px;
+  padding: 20px 24px;
+  text-align: center;
+}
+
+.stat-card .stat-num {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 32px;
+  color: var(--bone);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.stat-card .stat-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--taupe);
+}
+
+.stat-card.ig {
+  border-left: 3px solid transparent;
+  border-image: var(--ig-grad) 1;
+  border-image-slice: 1;
+}
+
+/* --- WEEK SECTION --- */
+.week-section {
+  margin-bottom: 64px;
+  scroll-margin-top: 80px;
+}
+
+.week-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 32px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.week-header h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 28px;
+  color: var(--bone);
+}
+
+.week-header .week-range {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--taupe);
+  letter-spacing: 0.04em;
+}
+
+/* --- POST SECTION --- */
+.post-section {
+  margin-bottom: 56px;
+  padding-bottom: 56px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.post-section:last-child {
+  border-bottom: none;
+}
+
+/* Post header */
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.post-header .post-id {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--copper);
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+}
+
+.post-header .post-name {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 22px;
+  color: var(--bone);
+  line-height: 1.3;
+}
+
+.post-header .badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+
+/* Badges */
+.badge-ig {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 4px;
+  background: linear-gradient(45deg, rgba(131,58,180,0.2), rgba(253,29,29,0.2), rgba(247,119,55,0.2));
+  color: #F77737;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.badge-format {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.06);
+  color: var(--taupe);
+  letter-spacing: 0.05em;
+}
+
+.badge-type {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--taupe);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.badge-type.announce { color: var(--copper); border-color: rgba(196,148,106,0.3); }
+.badge-type.pain { color: var(--clay); border-color: rgba(138,74,66,0.3); }
+.badge-type.feature { color: var(--water); border-color: rgba(90,126,138,0.3); }
+.badge-type.tips { color: var(--forest); border-color: rgba(74,103,65,0.3); }
+.badge-type.bts { color: var(--brown-gold); border-color: rgba(139,111,82,0.3); }
+.badge-type.engage { color: var(--copper); border-color: rgba(196,148,106,0.3); }
+.badge-type.cta { color: var(--bone); border-color: rgba(245,240,235,0.2); }
+
+/* Post time */
+.post-time {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--taupe);
+  margin-bottom: 20px;
+}
+
+.post-time strong {
+  color: var(--bone);
+  font-weight: 600;
+}
+
+/* --- GRAPHIC FRAME --- */
+.visual-frame {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scroll-snap-type: x mandatory;
+  margin-bottom: 24px;
+}
+
+.visual-frame::-webkit-scrollbar { height: 4px; }
+.visual-frame::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); border-radius: 2px; }
+.visual-frame::-webkit-scrollbar-thumb { background: var(--brown-gold); border-radius: 2px; }
+
+/* Instagram graphic 4:5 */
+.ig-graphic {
+  width: 360px;
+  aspect-ratio: 4/5;
+  flex-shrink: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  scroll-snap-align: start;
+  position: relative;
+}
+
+.slide-label {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-family: var(--mono);
+  font-size: 9px;
+  color: rgba(255,255,255,0.4);
+  background: rgba(0,0,0,0.3);
+  padding: 2px 8px;
+  border-radius: 4px;
+  z-index: 10;
+  backdrop-filter: blur(4px);
+}
+
+.slide-label-dark {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-family: var(--mono);
+  font-size: 9px;
+  color: rgba(0,0,0,0.3);
+  background: rgba(255,255,255,0.15);
+  padding: 2px 8px;
+  border-radius: 4px;
+  z-index: 10;
+}
+
+/* --- CAPTION BLOCK --- */
+.caption-block {
+  position: relative;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin-bottom: 16px;
+}
+
+.caption-block .caption-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  margin-bottom: 10px;
+}
+
+.caption-block .caption-text {
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: var(--bone);
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.caption-block .copy-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: var(--brown-gold);
+  color: white;
+  border: none;
+  padding: 5px 14px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--body);
+  transition: all 0.15s;
+}
+
+.caption-block .copy-btn:hover { background: var(--copper); }
+.caption-block .copy-btn.copied { background: var(--forest); }
+
+/* --- HASHTAG BLOCK --- */
+.hashtag-block {
+  background: rgba(139,111,82,0.06);
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin-bottom: 16px;
+}
+
+.hashtag-block .ht-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  margin-bottom: 6px;
+}
+
+.hashtag-block .ht-text {
+  font-size: 12px;
+  color: var(--copper);
+  line-height: 1.7;
+  word-wrap: break-word;
+}
+
+.hashtag-block .ht-copy-btn {
+  display: inline-block;
+  margin-top: 8px;
+  background: transparent;
+  border: 1px solid rgba(196,148,106,0.3);
+  color: var(--copper);
+  padding: 3px 12px;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: var(--body);
+  transition: all 0.15s;
+}
+
+.hashtag-block .ht-copy-btn:hover { background: rgba(196,148,106,0.1); }
+.hashtag-block .ht-copy-btn.copied { background: var(--forest); color: white; border-color: var(--forest); }
+
+/* --- FOOTER --- */
+.page-footer {
+  text-align: center;
+  padding: 40px 20px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  font-size: 12px;
+  color: var(--taupe);
+}
+
+.page-footer a {
+  color: var(--copper);
+  text-decoration: none;
+}
+
+.page-footer a:hover { text-decoration: underline; }
+
+/* --- RESPONSIVE --- */
+@media (max-width: 480px) {
+  .ig-graphic { width: 300px; }
+  .post-header { flex-direction: column; }
+  .page-header h1 { font-size: 28px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAVIGATION ===== -->
+<nav class="nav">
+  <a href="index.html" class="brand">THREAD<span class="copper">LINE</span></a>
+  <a class="back" href="index.html">&larr; All Pages</a>
+  <a href="content-calendar.html">Full Calendar</a>
+  <div class="week-links">
+    <a href="#week1" class="active">Week 1</a>
+    <a href="#week2">Week 2</a>
+    <a href="#week3">Week 3</a>
+    <a href="#week4">Week 4</a>
+  </div>
+</nav>
+
+<div class="container">
+
+<!-- ===== PAGE HEADER ===== -->
+<div class="page-header">
+  <h1>Instagram Content <em>Plan</em></h1>
+  <p class="subtitle">16 ready-to-post Instagram graphics with full captions, hashtags, and posting times across 4 weeks. Every graphic rendered at 4:5 ratio (1080 x 1350). Copy, paste, post.</p>
+  <div class="ig-handle"><span class="ig-dot"></span> @threadline_app</div>
+</div>
+
+<!-- ===== STATS ===== -->
+<div class="stats-bar">
+  <div class="stat-card ig">
+    <div class="stat-num">16</div>
+    <div class="stat-label">Total Posts</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num">4</div>
+    <div class="stat-label">Weeks</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num">7</div>
+    <div class="stat-label">Content Types</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num">4:5</div>
+    <div class="stat-label">Aspect Ratio</div>
+  </div>
+</div>
+
+
+<!-- ================================================================
+     WEEK 1 - LAUNCH
+     Brand announcement, first pain point, first feature, engagement
+     ================================================================ -->
+<div class="week-section" id="week1">
+<div class="week-header">
+  <h2>Week 1</h2>
+  <span class="week-range">Launch &amp; Establish</span>
+</div>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     POST 1: Brand Announcement (Monday)
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<div class="post-section">
+  <div class="post-header">
+    <div>
+      <div class="post-id">Week 1 &middot; Monday</div>
+      <div class="post-name">The Wardrobe Truck Just Went Digital</div>
+    </div>
+    <div class="badges">
+      <span class="badge-ig">Instagram</span>
+      <span class="badge-format">Single Image</span>
+      <span class="badge-type announce">Announcement</span>
+    </div>
+  </div>
+  <div class="post-time"><strong>Best time:</strong> 11:30 AM ET</div>
+
+  <div class="visual-frame">
+    <div class="ig-graphic" style="background:linear-gradient(135deg,var(--dark-brown) 0%,var(--brown-gold) 40%,var(--copper) 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative">
+      <div style="position:absolute;inset:0;background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBdWy7YGvr91as47l5syVXCzvWPOyaTwI1-GEBLWn150_WMIGIAgFKdqTnVMCRBxXnO09SNboHH3MsEKaTRzkPHNLHBFNPVGVfPKzoVdRwRvC12EimN4FnTECxbYwklaowM2-KGIVu19o-akr8GPchHrsNmUPtvHxsIMc0Kvd5GzIU7TjGkjjVFj67AFGYgJNID6pzed8VEDa_TIyak4CZ4xhPSubV1n51oaOj_StisdWvLaUpvtgXji3TKmT7KONbP1DBYV3YgTT8');background-size:cover;background-position:center;opacity:0.08;filter:grayscale(100%);mix-blend-mode:overlay"></div>
+      <div style="position:relative;z-index:2;padding:48px">
+        <div style="font-family:'Inter',sans-serif;font-weight:200;font-size:28px;letter-spacing:0.22em;text-transform:uppercase;color:white;margin-bottom:24px">THREAD<span style="color:var(--copper)">LINE</span></div>
+        <div style="width:40px;height:1px;background:rgba(255,255,255,0.3);margin:0 auto 28px"></div>
+        <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:16px;color:rgba(255,255,255,0.5);margin-bottom:8px">From rack to wrap.</div>
+        <div style="width:40px;height:1px;background:rgba(255,255,255,0.15);margin:20px auto 28px"></div>
+        <div style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:30px;color:white;line-height:1.3">The wardrobe truck<br><em>just went digital.</em></div>
+        <div style="margin-top:32px;font-size:11px;color:rgba(255,255,255,0.35);letter-spacing:0.06em">AI-powered wardrobe management for film production</div>
+        <div style="margin-top:28px;font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(255,255,255,0.25)">threadlineapp.io</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="caption-block">
+    <div class="caption-label">Full Caption</div>
+    <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+    <div class="caption-text">The wardrobe truck just went digital.
+
+We built Threadline because wardrobe professionals deserve better than Ziploc bags full of receipts and spreadsheets that take all weekend.
+
+Scan a barcode and your inventory auto-fills. Snap a receipt and every line item gets captured. Return deadline coming up? We'll remind you before it's too late.
+
+From rack to wrap. Coming soon.
+
+Link in bio for early access.</div>
+  </div>
+
+  <div class="hashtag-block">
+    <div class="ht-label">Hashtags</div>
+    <div class="ht-text">#wardrobedepartment #filmproduction #costumedesign #wardrobepa #filmcrew #setlife #productionlife #filmindustry #costumesupervisor #filmtech #wardrobesupervisor #costumedepartment #filmprod #belowtheline #filmmaking #tvproduction #fashionfilm #wardrobeassistant #costumier #filmwardrobe</div>
+    <button class="ht-copy-btn" onclick="copyHashtags(this)">Copy Tags</button>
+  </div>
+</div>
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     POST 2: Pain Point Carousel (Wednesday)
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<div class="post-section">
+  <div class="post-header">
+    <div>
+      <div class="post-id">Week 1 &middot; Wednesday</div>
+      <div class="post-name">This Is Not a Workflow. This Is Survival Mode.</div>
+    </div>
+    <div class="badges">
+      <span class="badge-ig">Instagram</span>
+      <span class="badge-format">Carousel &middot; 3 Slides</span>
+      <span class="badge-type pain">Pain Point</span>
+    </div>
+  </div>
+  <div class="post-time"><strong>Best time:</strong> 7:00 PM ET</div>
+
+  <div class="visual-frame">
+    <!-- Slide 1 -->
+    <div class="ig-graphic" style="background:var(--cream);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px">
+      <span class="slide-label-dark">1/3</span>
+      <div style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:32px;color:var(--near-black);line-height:1.25;margin-bottom:20px">This is not a workflow.<br><em style="color:var(--brown-gold)">This is survival mode.</em></div>
+      <div style="width:40px;height:1px;background:var(--sand);margin-bottom:20px"></div>
+      <div style="font-size:13px;color:var(--taupe);line-height:1.6;max-width:280px">If your wardrobe management system involves Ziploc bags and prayer, keep swiping.</div>
+      <div style="margin-top:auto;padding-top:24px;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--sand)">@threadline_app</div>
+    </div>
+    <!-- Slide 2 -->
+    <div class="ig-graphic" style="background:var(--linen);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px;position:relative">
+      <span class="slide-label-dark">2/3</span>
+      <div style="position:absolute;inset:0;background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBGchh_ZDL85IckT4KmjLhPcWN1beeI0qH0C7aG8jQuxJzzvPVeuK-f2z-dLsFIUBR3u2zANtK7Zl3PFPS9XbVwV9F8GYRkABrySWvWaCPG2BK9ToO1-tjBi5GCmSaWmrgF5FIgu71bu8vzshtFJ-3I3TVxjoFdzLxwAqtFSRDLW9tOSKwbhG3WwafCaiEe2UXkzyFtuOGwK2ZHsq7Lwj2fN_-mEPSk9EEZYIFEwpkGI02flrXqtdiLZsHq4XQpVHKadNuJPr4TafY');background-size:cover;background-position:center;opacity:0.08;filter:grayscale(100%)"></div>
+      <div style="position:relative;z-index:2">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--clay);margin-bottom:20px">Sound familiar?</div>
+        <div style="display:flex;flex-direction:column;gap:16px;text-align:left;max-width:280px">
+          <div style="display:flex;align-items:flex-start;gap:10px"><div style="width:6px;height:6px;border-radius:50%;background:var(--clay);margin-top:7px;flex-shrink:0"></div><span style="font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--near-black);line-height:1.5">Receipts stuffed in a Ziploc bag from three stores ago</span></div>
+          <div style="display:flex;align-items:flex-start;gap:10px"><div style="width:6px;height:6px;border-radius:50%;background:var(--clay);margin-top:7px;flex-shrink:0"></div><span style="font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--near-black);line-height:1.5">Sunday night spreadsheet sessions that eat your weekend</span></div>
+          <div style="display:flex;align-items:flex-start;gap:10px"><div style="width:6px;height:6px;border-radius:50%;background:var(--clay);margin-top:7px;flex-shrink:0"></div><span style="font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--near-black);line-height:1.5">A return deadline you didn't know about until it passed</span></div>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 3 -->
+    <div class="ig-graphic" style="background:linear-gradient(135deg,var(--dark-brown),var(--brown-gold),var(--copper));display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px;position:relative">
+      <span class="slide-label">3/3</span>
+      <div style="position:absolute;inset:0;background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBGchh_ZDL85IckT4KmjLhPcWN1beeI0qH0C7aG8jQuxJzzvPVeuK-f2z-dLsFIUBR3u2zANtK7Zl3PFPS9XbVwV9F8GYRkABrySWvWaCPG2BK9ToO1-tjBi5GCmSaWmrgF5FIgu71bu8vzshtFJ-3I3TVxjoFdzLxwAqtFSRDLW9tOSKwbhG3WwafCaiEe2UXkzyFtuOGwK2ZHsq7Lwj2fN_-mEPSk9EEZYIFEwpkGI02flrXqtdiLZsHq4XQpVHKadNuJPr4TafY');background-size:cover;background-position:center;opacity:0.06;filter:grayscale(100%);mix-blend-mode:overlay"></div>
+      <div style="position:relative;z-index:2">
+        <div style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:28px;color:white;line-height:1.3;margin-bottom:16px">There's a better way.</div>
+        <div style="width:40px;height:1px;background:rgba(255,255,255,0.3);margin:0 auto 20px"></div>
+        <div style="font-family:'Inter',sans-serif;font-weight:200;font-size:18px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.8);margin-bottom:8px">THREAD<span style="color:var(--copper)">LINE</span></div>
+        <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:rgba(255,255,255,0.45);margin-bottom:24px">From rack to wrap.</div>
+        <div style="display:inline-block;padding:10px 28px;border:1px solid rgba(255,255,255,0.3);color:rgba(255,255,255,0.8);font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase">Link in Bio</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="caption-block">
+    <div class="caption-label">Full Caption</div>
+    <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+    <div class="caption-text">Friday night. You're sitting on the floor of your apartment with a shoe box full of receipts, a dying laptop, and a spreadsheet that's already 47 tabs deep.
+
+Sound familiar?
+
+Wardrobe professionals spend more time on paperwork than on actual wardrobe. We've seen people lose entire weekends to receipt reconciliation. Handwritten totals that don't match. Faded thermal paper that's already unreadable. Return deadlines that slipped through the cracks three days ago.
+
+This is not a workflow. This is survival mode.
+
+We're building something better. Threadline captures receipts the moment you snap a photo. Every line item, every total, every date. No more shoe boxes. No more lost weekends.
+
+Link in bio.</div>
+  </div>
+
+  <div class="hashtag-block">
+    <div class="ht-label">Hashtags</div>
+    <div class="ht-text">#wardrobedepartment #filmproduction #costumedesign #wardrobepa #filmcrew #setlife #productionlife #filmindustry #costumesupervisor #filmtech #wardrobesupervisor #costumedepartment #filmprod #belowtheline #filmmaking #tvproduction #fashionfilm #wardrobeassistant #costumier #filmwardrobe</div>
+    <button class="ht-copy-btn" onclick="copyHashtags(this)">Copy Tags</button>
+  </div>
+</div>
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     POST 3: Feature Spotlight - Magic Scan (Friday)
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<div class="post-section">
+  <div class="post-header">
+    <div>
+      <div class="post-id">Week 1 &middot; Friday</div>
+      <div class="post-name">Feature Spotlight: Magic Scan</div>
+    </div>
+    <div class="badges">
+      <span class="badge-ig">Instagram</span>
+      <span class="badge-format">Carousel &middot; 4 Slides</span>
+      <span class="badge-type feature">Feature Spotlight</span>
+    </div>
+  </div>
+  <div class="post-time"><strong>Best time:</strong> 11:30 AM ET</div>
+
+  <div class="visual-frame">
+    <!-- Slide 1: Title -->
+    <div class="ig-graphic" style="background:linear-gradient(135deg,var(--dark-brown),var(--brown-gold));display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px;position:relative">
+      <span class="slide-label">1/4</span>
+      <div style="position:absolute;inset:0;background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBdWy7YGvr91as47l5syVXCzvWPOyaTwI1-GEBLWn150_WMIGIAgFKdqTnVMCRBxXnO09SNboHH3MsEKaTRzkPHNLHBFNPVGVfPKzoVdRwRvC12EimN4FnTECxbYwklaowM2-KGIVu19o-akr8GPchHrsNmUPtvHxsIMc0Kvd5GzIU7TjGkjjVFj67AFGYgJNID6pzed8VEDa_TIyak4CZ4xhPSubV1n51oaOj_StisdWvLaUpvtgXji3TKmT7KONbP1DBYV3YgTT8');background-size:cover;background-position:center;opacity:0.08;filter:grayscale(100%);mix-blend-mode:overlay"></div>
+      <div style="position:relative;z-index:2">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:16px">Feature Spotlight</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:42px;color:white;line-height:1.15;margin-bottom:12px">Magic<br><em>Scan</em></div>
+        <div style="width:40px;height:1px;background:rgba(255,255,255,0.3);margin:0 auto 16px"></div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.6">One tap. Three modes.<br>Zero data entry.</div>
+      </div>
+    </div>
+    <!-- Slide 2: Barcode -->
+    <div class="ig-graphic" style="background:var(--cream);display:flex;flex-direction:column;padding:40px;position:relative">
+      <span class="slide-label-dark">2/4</span>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--brown-gold);margin-bottom:20px">Mode 01 &middot; Barcode</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:26px;color:var(--near-black);line-height:1.3;margin-bottom:16px">Point. Scan.<br><em style="color:var(--brown-gold)">Done.</em></div>
+      <div style="font-size:13px;color:var(--taupe);line-height:1.6;margin-bottom:24px;max-width:280px">Point your camera at any retail barcode. Threadline pulls the product name, brand, and price automatically.</div>
+      <div style="flex:1;background:var(--near-black);border-radius:16px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;min-height:160px">
+        <div style="width:60%;height:40%;border:1.5px solid rgba(255,255,255,0.3);border-radius:8px"></div>
+        <div style="position:absolute;bottom:12px;font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(255,255,255,0.4)">Scanning barcode...</div>
+        <div style="position:absolute;bottom:-4px;left:12px;right:12px;background:white;border-radius:12px 12px 0 0;padding:12px 16px;box-shadow:0 -4px 16px rgba(0,0,0,0.2)">
+          <div style="font-size:11px;font-weight:600;color:var(--near-black)">Black Leather Jacket</div>
+          <div style="font-size:9px;color:var(--taupe)">Nordstrom &middot; $289.00</div>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 3: Receipt -->
+    <div class="ig-graphic" style="background:var(--cream);display:flex;flex-direction:column;padding:40px;position:relative">
+      <span class="slide-label-dark">3/4</span>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--brown-gold);margin-bottom:20px">Mode 02 &middot; Receipt</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:26px;color:var(--near-black);line-height:1.3;margin-bottom:16px">Snap the receipt.<br><em style="color:var(--brown-gold)">Every line item captured.</em></div>
+      <div style="font-size:13px;color:var(--taupe);line-height:1.6;margin-bottom:24px;max-width:280px">AI reads your receipt and extracts vendor, items, prices, tax, and date. No typing. No Ziploc bags.</div>
+      <div style="flex:1;background:white;border-radius:12px;border:1px solid var(--warm-gray);padding:16px;display:flex;flex-direction:column;gap:8px;min-height:160px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--taupe);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px">Extracted Items</div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;padding:6px 0;border-bottom:1px solid var(--warm-gray)"><span style="color:var(--near-black)">Leather Jacket</span><span style="font-family:'JetBrains Mono',monospace;color:var(--brown-gold)">$289.00</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;padding:6px 0;border-bottom:1px solid var(--warm-gray)"><span style="color:var(--near-black)">Wool Scarf</span><span style="font-family:'JetBrains Mono',monospace;color:var(--brown-gold)">$65.00</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;padding:6px 0;border-bottom:1px solid var(--warm-gray)"><span style="color:var(--near-black)">Cotton Shirt (x2)</span><span style="font-family:'JetBrains Mono',monospace;color:var(--brown-gold)">$98.00</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;padding:6px 0;font-weight:600"><span style="color:var(--near-black)">Total</span><span style="font-family:'JetBrains Mono',monospace;color:var(--brown-gold)">$452.00</span></div>
+        <div style="margin-top:auto;display:flex;gap:6px">
+          <div style="font-size:8px;padding:4px 10px;background:var(--brown-gold);color:white;border-radius:4px">Add All to Inventory</div>
+          <div style="font-size:8px;padding:4px 10px;border:1px solid var(--sand);color:var(--taupe);border-radius:4px">Edit Items</div>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 4: Photo AI -->
+    <div class="ig-graphic" style="background:var(--cream);display:flex;flex-direction:column;padding:40px;position:relative">
+      <span class="slide-label-dark">4/4</span>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--brown-gold);margin-bottom:20px">Mode 03 &middot; Photo AI</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:26px;color:var(--near-black);line-height:1.3;margin-bottom:16px">Photograph the garment.<br><em style="color:var(--brown-gold)">AI identifies it.</em></div>
+      <div style="font-size:13px;color:var(--taupe);line-height:1.6;margin-bottom:24px;max-width:280px">Take a photo and our AI identifies the garment type, color, fabric, and suggests categories automatically.</div>
+      <div style="flex:1;display:flex;flex-direction:column;gap:8px;min-height:160px">
+        <div style="background:var(--near-black);border-radius:12px;flex:1;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <div style="position:absolute;inset:0;background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBdWy7YGvr91as47l5syVXCzvWPOyaTwI1-GEBLWn150_WMIGIAgFKdqTnVMCRBxXnO09SNboHH3MsEKaTRzkPHNLHBFNPVGVfPKzoVdRwRvC12EimN4FnTECxbYwklaowM2-KGIVu19o-akr8GPchHrsNmUPtvHxsIMc0Kvd5GzIU7TjGkjjVFj67AFGYgJNID6pzed8VEDa_TIyak4CZ4xhPSubV1n51oaOj_StisdWvLaUpvtgXji3TKmT7KONbP1DBYV3YgTT8');background-size:cover;background-position:center;opacity:0.25;filter:blur(2px)"></div>
+          <div style="position:relative;z-index:2;font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(255,255,255,0.5)">Analyzing garment...</div>
+        </div>
+        <div style="background:white;border-radius:8px;border:1px solid var(--warm-gray);padding:10px 14px">
+          <div style="font-size:10px;font-weight:600;color:var(--near-black);margin-bottom:4px">AI Identified:</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap">
+            <span style="font-size:8px;padding:3px 8px;background:rgba(139,111,82,0.08);color:var(--brown-gold);border-radius:3px">Jacket</span>
+            <span style="font-size:8px;padding:3px 8px;background:rgba(139,111,82,0.08);color:var(--brown-gold);border-radius:3px">Leather</span>
+            <span style="font-size:8px;padding:3px 8px;background:rgba(139,111,82,0.08);color:var(--brown-gold);border-radius:3px">Black</span>
+            <span style="font-size:8px;padding:3px 8px;background:rgba(139,111,82,0.08);color:var(--brown-gold);border-radius:3px">Outerwear</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="caption-block">
+    <div class="caption-label">Full Caption</div>
+    <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+    <div class="caption-text">Scan a barcode. Watch the magic happen.
+
+Threadline's Magic Scan lets you point your phone at any garment barcode and instantly pull in product details. Brand, size, color, price, SKU. All auto-filled. No more typing it out by hand for every single piece.
+
+Swipe to see how it works:
+1. Open the scanner
+2. Point at any barcode or QR code
+3. Product details auto-populate
+4. Add to your inventory with one tap
+
+One garment used to take 2-3 minutes to log. Now it takes about 5 seconds.
+
+When you're processing 200 pieces on a fitting day, that time adds up fast.
+
+Early access coming soon. Link in bio.</div>
+  </div>
+
+  <div class="hashtag-block">
+    <div class="ht-label">Hashtags</div>
+    <div class="ht-text">#wardrobedepartment #filmproduction #costumedesign #wardrobepa #filmcrew #setlife #productionlife #filmindustry #costumesupervisor #filmtech #wardrobesupervisor #costumedepartment #filmprod #belowtheline #filmmaking #tvproduction #fashionfilm #wardrobeassistant #costumier #filmwardrobe</div>
+    <button class="ht-copy-btn" onclick="copyHashtags(this)">Copy Tags</button>
+  </div>
+</div>
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     POST 4: Engagement Question (Saturday)
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<div class="post-section">
+  <div class="post-header">
+    <div>
+      <div class="post-id">Week 1 &middot; Saturday (Optional)</div>
+      <div class="post-name">What's Your Wardrobe Horror Story?</div>
+    </div>
+    <div class="badges">
+      <span class="badge-ig">Instagram</span>
+      <span class="badge-format">Single Image</span>
+      <span class="badge-type engage">Engagement</span>
+    </div>
+  </div>
+  <div class="post-time"><strong>Best time:</strong> 11:00 AM ET</div>
+
+  <div class="visual-frame">
+    <div class="ig-graphic" style="background:var(--cream);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px;position:relative">
+      <div style="position:absolute;inset:0;background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBGchh_ZDL85IckT4KmjLhPcWN1beeI0qH0C7aG8jQuxJzzvPVeuK-f2z-dLsFIUBR3u2zANtK7Zl3PFPS9XbVwV9F8GYRkABrySWvWaCPG2BK9ToO1-tjBi5GCmSaWmrgF5FIgu71bu8vzshtFJ-3I3TVxjoFdzLxwAqtFSRDLW9tOSKwbhG3WwafCaiEe2UXkzyFtuOGwK2ZHsq7Lwj2fN_-mEPSk9EEZYIFEwpkGI02flrXqtdiLZsHq4XQpVHKadNuJPr4TafY');background-size:cover;background-position:center;opacity:0.06;filter:grayscale(100%)"></div>
+      <div style="position:relative;z-index:2">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--taupe);margin-bottom:24px">Tell us everything</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:34px;color:var(--near-black);line-height:1.25;margin-bottom:16px">What's your<br>wardrobe<br>horror story?</div>
+        <div style="width:40px;height:1px;background:var(--sand);margin:0 auto 16px"></div>
+        <div style="font-size:12px;color:var(--taupe);line-height:1.6">Drop it in the comments.<br>We've heard them all. Maybe.</div>
+        <div style="margin-top:32px;font-family:'Inter',sans-serif;font-weight:200;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--near-black)">THREAD<span style="color:var(--copper)">LINE</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="caption-block">
+    <div class="caption-label">Full Caption</div>
+    <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+    <div class="caption-text">We want to hear yours.
+
+The return that was three weeks late. The receipt that disappeared into the void. The continuity photo that was on someone's old phone. The fitting where half the pulls were the wrong size.
+
+Drop your wardrobe department horror story in the comments. We're collecting these because we're genuinely building Threadline to solve the problems you actually deal with.
+
+No judgment. Just solidarity. And maybe a little bit of "oh no, that happened to me too."</div>
+  </div>
+
+  <div class="hashtag-block">
+    <div class="ht-label">Hashtags</div>
+    <div class="ht-text">#wardrobedepartment #filmproduction #costumedesign #wardrobepa #filmcrew #setlife #productionlife #filmindustry #costumesupervisor #filmtech #wardrobesupervisor #costumedepartment #filmprod #belowtheline #filmmaking #tvproduction #fashionfilm #wardrobeassistant #costumier #filmwardrobe</div>
+    <button class="ht-copy-btn" onclick="copyHashtags(this)">Copy Tags</button>
+  </div>
+</div>
+
+</div><!-- end week 1 -->
+
+
+<!-- ================================================================
+     WEEK 2 - ESTABLISH
+     BTS/founder story, industry tips, pain point, waitlist CTA
+     ================================================================ -->
+<div class="week-section" id="week2">
+<div class="week-header">
+  <h2>Week 2</h2>
+  <span class="week-range">Build Trust &amp; Educate</span>
+</div>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     POST 5: BTS / Founder Story (Monday)
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<div class="post-section">
+  <div class="post-header">
+    <div>
+      <div class="post-id">Week 2 &middot; Monday</div>
+      <div class="post-name">Why We're Building This</div>
+    </div>
+    <div class="badges">
+      <span class="badge-ig">Instagram</span>
+      <span class="badge-format">Carousel &middot; 3 Slides</span>
+      <span class="badge-type bts">Behind the Scenes</span>
+    </div>
+  </div>
+  <div class="post-time"><strong>Best time:</strong> 11:30 AM ET</div>
+
+  <div class="visual-frame">
+    <!-- Slide 1 -->
+    <div class="ig-graphic" style="background:var(--cream);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px">
+      <span class="slide-label-dark">1/3</span>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--brown-gold);margin-bottom:20px">Behind the Build</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:34px;color:var(--near-black);line-height:1.2;margin-bottom:16px">Why we're<br><em style="color:var(--brown-gold)">building this.</em></div>
+      <div style="width:40px;height:1px;background:var(--sand);margin:0 auto 16px"></div>
+      <div style="font-size:12px;color:var(--taupe);line-height:1.6;max-width:260px">Building in public because wardrobe departments deserve transparency too.</div>
+      <div style="margin-top:32px;font-family:'Inter',sans-serif;font-weight:200;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--near-black)">THREAD<span style="color:var(--copper)">LINE</span></div>
+    </div>
+    <!-- Slide 2 -->
+    <div class="ig-graphic" style="background:var(--linen);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px;position:relative">
+      <span class="slide-label-dark">2/3</span>
+      <div style="position:absolute;inset:0;background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBdWy7YGvr91as47l5syVXCzvWPOyaTwI1-GEBLWn150_WMIGIAgFKdqTnVMCRBxXnO09SNboHH3MsEKaTRzkPHNLHBFNPVGVfPKzoVdRwRvC12EimN4FnTECxbYwklaowM2-KGIVu19o-akr8GPchHrsNmUPtvHxsIMc0Kvd5GzIU7TjGkjjVFj67AFGYgJNID6pzed8VEDa_TIyak4CZ4xhPSubV1n51oaOj_StisdWvLaUpvtgXji3TKmT7KONbP1DBYV3YgTT8');background-size:cover;background-position:center;opacity:0.06;filter:grayscale(100%)"></div>
+      <div style="position:relative;z-index:2;max-width:300px">
+        <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:22px;color:var(--near-black);line-height:1.4;border-left:2px solid var(--brown-gold);padding-left:20px">"We built the tool we wished existed when we were the ones in the truck at 6 AM."</div>
+      </div>
+    </div>
+    <!-- Slide 3 -->
+    <div class="ig-graphic" style="background:linear-gradient(135deg,var(--dark-brown),var(--brown-gold));display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px;position:relative">
+      <span class="slide-label">3/3</span>
+      <div style="position:absolute;inset:0;background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBGchh_ZDL85IckT4KmjLhPcWN1beeI0qH0C7aG8jQuxJzzvPVeuK-f2z-dLsFIUBR3u2zANtK7Zl3PFPS9XbVwV9F8GYRkABrySWvWaCPG2BK9ToO1-tjBi5GCmSaWmrgF5FIgu71bu8vzshtFJ-3I3TVxjoFdzLxwAqtFSRDLW9tOSKwbhG3WwafCaiEe2UXkzyFtuOGwK2ZHsq7Lwj2fN_-mEPSk9EEZYIFEwpkGI02flrXqtdiLZsHq4XQpVHKadNuJPr4TafY');background-size:cover;background-position:center;opacity:0.06;filter:grayscale(100%);mix-blend-mode:overlay"></div>
+      <div style="position:relative;z-index:2">
+        <div style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:26px;color:white;line-height:1.3;margin-bottom:16px">Help us build it right.</div>
+        <div style="width:40px;height:1px;background:rgba(255,255,255,0.3);margin:0 auto 16px"></div>
+        <div style="display:inline-block;padding:10px 28px;border:1px solid rgba(255,255,255,0.3);color:rgba(255,255,255,0.8);font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase">Link in Bio</div>
+        <div style="margin-top:20px;font-family:'Inter',sans-serif;font-weight:200;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.5)">THREAD<span style="color:var(--copper)">LINE</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="caption-block">
+    <div class="caption-label">Full Caption</div>
+    <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+    <div class="caption-text">Building in public because wardrobe departments deserve transparency too.
+
+Here's why Threadline exists:
+
+We watched wardrobe crews work 14-hour days on set and then go home to do hours of data entry. We saw supervisors lose sleep over whether a return deadline had passed. We heard stories about departments getting blamed for budget overruns that were really just the result of bad tracking tools.
+
+The film industry has amazing software for scheduling, for camera, for VFX. But wardrobe? You're still emailing spreadsheets back and forth and hoping nobody overwrites the wrong cell.
+
+That gap is what we're here to close.
+
+Threadline is being built with direct input from working wardrobe professionals. If you want to shape what this becomes, the link is in our bio.</div>
+  </div>
+
+  <div class="hashtag-block">
+    <div class="ht-label">Hashtags</div>
+    <div class="ht-text">#wardrobedepartment #filmproduction #costumedesign #wardrobepa #filmcrew #setlife #productionlife #filmindustry #costumesupervisor #filmtech #wardrobesupervisor #costumedepartment #filmprod #belowtheline #filmmaking #tvproduction #fashionfilm #wardrobeassistant #costumier #filmwardrobe</div>
+    <button class="ht-copy-btn" onclick="copyHashtags(this)">Copy Tags</button>
+  </div>
+</div>
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     POST 6: Industry Tips Carousel (Wednesday)
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<div class="post-section">
+  <div class="post-header">
+    <div>
+      <div class="post-id">Week 2 &middot; Wednesday</div>
+      <div class="post-name">5 Things Every Wardrobe Professional Wishes Producers Understood</div>
+    </div>
+    <div class="badges">
+      <span class="badge-ig">Instagram</span>
+      <span class="badge-format">Carousel &middot; 6 Slides</span>
+      <span class="badge-type tips">Industry Tips</span>
+    </div>
+  </div>
+  <div class="post-time"><strong>Best time:</strong> 7:00 PM ET</div>
+
+  <div class="visual-frame">
+    <!-- Slide 1: Title -->
+    <div class="ig-graphic" style="background:var(--cream);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px">
+      <span class="slide-label-dark">1/6</span>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--forest);margin-bottom:20px">Save This Post</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:28px;color:var(--near-black);line-height:1.25;margin-bottom:16px">5 things every<br>wardrobe pro wishes<br><em style="color:var(--brown-gold)">producers understood.</em></div>
+      <div style="width:40px;height:1px;background:var(--sand);margin:0 auto 16px"></div>
+      <div style="font-size:12px;color:var(--taupe)">Swipe. Save. Share with your LP.</div>
+      <div style="margin-top:32px;font-family:'Inter',sans-serif;font-weight:200;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--near-black)">THREAD<span style="color:var(--copper)">LINE</span></div>
+    </div>
+    <!-- Slide 2: Tip 1 -->
+    <div class="ig-graphic" style="background:var(--bone);display:flex;flex-direction:column;justify-content:center;padding:48px">
+      <span class="slide-label-dark">2/6</span>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:48px;font-weight:300;color:var(--brown-gold);margin-bottom:16px;line-height:1">01</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-weight:400;font-size:20px;color:var(--near-black);line-height:1.4;margin-bottom:12px">"Just grab something from the store" is never as simple as it sounds.</div>
+      <div style="font-size:12px;color:var(--taupe);line-height:1.6">Every purchase needs to be tracked, tagged, photographed, entered into inventory, and eventually returned or wrapped. One "quick run" creates an hour of backend work.</div>
+    </div>
+    <!-- Slide 3: Tip 2 -->
+    <div class="ig-graphic" style="background:var(--cream);display:flex;flex-direction:column;justify-content:center;padding:48px">
+      <span class="slide-label-dark">3/6</span>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:48px;font-weight:300;color:var(--brown-gold);margin-bottom:16px;line-height:1">02</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-weight:400;font-size:20px;color:var(--near-black);line-height:1.4;margin-bottom:12px">Receipt reconciliation takes real time.</div>
+      <div style="font-size:12px;color:var(--taupe);line-height:1.6">If you want accurate budget reports, you need to give wardrobe the hours to actually do them. This is not busy work. This is how productions avoid surprise overages.</div>
+    </div>
+    <!-- Slide 4: Tip 3 -->
+    <div class="ig-graphic" style="background:var(--bone);display:flex;flex-direction:column;justify-content:center;padding:48px">
+      <span class="slide-label-dark">4/6</span>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:48px;font-weight:300;color:var(--brown-gold);margin-bottom:16px;line-height:1">03</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-weight:400;font-size:20px;color:var(--near-black);line-height:1.4;margin-bottom:12px">Continuity is a full-time job in itself.</div>
+      <div style="font-size:12px;color:var(--taupe);line-height:1.6">When an actor wears 15 different looks across 40 shooting days, keeping track of every detail takes serious systems. Not just good memory.</div>
+    </div>
+    <!-- Slide 5: Tip 4 + 5 -->
+    <div class="ig-graphic" style="background:var(--cream);display:flex;flex-direction:column;justify-content:center;padding:48px">
+      <span class="slide-label-dark">5/6</span>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:48px;font-weight:300;color:var(--brown-gold);margin-bottom:16px;line-height:1">04</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-weight:400;font-size:20px;color:var(--near-black);line-height:1.4;margin-bottom:12px">Return deadlines don't pause because the schedule changed.</div>
+      <div style="font-size:12px;color:var(--taupe);line-height:1.6;margin-bottom:24px">A shifted shooting date doesn't shift the vendor's return window. Wardrobe needs to know about schedule changes immediately.</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:48px;font-weight:300;color:var(--brown-gold);margin-bottom:16px;line-height:1">05</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-weight:400;font-size:20px;color:var(--near-black);line-height:1.4">"The spreadsheet is not fine."</div>
+    </div>
+    <!-- Slide 6: CTA -->
+    <div class="ig-graphic" style="background:linear-gradient(135deg,var(--dark-brown),var(--brown-gold),var(--copper));display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px;position:relative">
+      <span class="slide-label">6/6</span>
+      <div style="position:absolute;inset:0;background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBdWy7YGvr91as47l5syVXCzvWPOyaTwI1-GEBLWn150_WMIGIAgFKdqTnVMCRBxXnO09SNboHH3MsEKaTRzkPHNLHBFNPVGVfPKzoVdRwRvC12EimN4FnTECxbYwklaowM2-KGIVu19o-akr8GPchHrsNmUPtvHxsIMc0Kvd5GzIU7TjGkjjVFj67AFGYgJNID6pzed8VEDa_TIyak4CZ4xhPSubV1n51oaOj_StisdWvLaUpvtgXji3TKmT7KONbP1DBYV3YgTT8');background-size:cover;background-position:center;opacity:0.06;filter:grayscale(100%);mix-blend-mode:overlay"></div>
+      <div style="position:relative;z-index:2">
+        <div style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:26px;color:white;line-height:1.3;margin-bottom:12px">We're building for this.</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:24px">Tag a producer who needs to see this.</div>
+        <div style="font-family:'Inter',sans-serif;font-weight:200;font-size:16px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.8)">THREAD<span style="color:var(--copper)">LINE</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="caption-block">
+    <div class="caption-label">Full Caption</div>
+    <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+    <div class="caption-text">Wardrobe crew, this one's for you. Save it, share it, send it to your line producer.
+
+5 things every wardrobe professional wishes producers understood:
+
+1. "Just grab something from the store" is never as simple as it sounds. Every purchase needs to be tracked, tagged, photographed, entered into inventory, and eventually returned or wrapped. One "quick run" creates an hour of backend work.
+
+2. Receipt reconciliation takes real time. If you want accurate budget reports, you need to give wardrobe the hours to actually do them. This is not busy work. This is how productions avoid surprise overages.
+
+3. Continuity is a full-time job in itself. When an actor wears 15 different looks across 40 shooting days, keeping track of every detail takes serious systems. Not just good memory.
+
+4. Return deadlines don't pause because the schedule changed. A shifted shooting date doesn't shift the vendor's return window. Wardrobe needs to know about schedule changes immediately.
+
+5. The spreadsheet is not fine. It's the only option right now, but that doesn't make it the right one.
+
+We're building Threadline to help with every single one of these. Tag a producer who needs to see this.</div>
+  </div>
+
+  <div class="hashtag-block">
+    <div class="ht-label">Hashtags</div>
+    <div class="ht-text">#wardrobedepartment #filmproduction #costumedesign #wardrobepa #filmcrew #setlife #productionlife #filmindustry #costumesupervisor #filmtech #wardrobesupervisor #costumedepartment #filmprod #belowtheline #filmmaking #tvproduction #fashionfilm #wardrobeassistant #costumier #filmwardrobe</div>
+    <button class="ht-copy-btn" onclick="copyHashtags(this)">Copy Tags</button>
+  </div>
+</div>
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     POST 7: Pain Point (Friday)
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<div class="post-section">
+  <div class="post-header">
+    <div>
+      <div class="post-id">Week 2 &middot; Friday</div>
+      <div class="post-name">The Spreadsheet That Breaks Every Time</div>
+    </div>
+    <div class="badges">
+      <span class="badge-ig">Instagram</span>
+      <span class="badge-format">Single Image</span>
+      <span class="badge-type pain">Pain Point</span>
+    </div>
+  </div>
+  <div class="post-time"><strong>Best time:</strong> 11:30 AM ET</div>
+
+  <div class="visual-frame">
+    <div class="ig-graphic" style="background:var(--cream);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px;position:relative">
+      <div style="position:absolute;inset:0;background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBdWy7YGvr91as47l5syVXCzvWPOyaTwI1-GEBLWn150_WMIGIAgFKdqTnVMCRBxXnO09SNboHH3MsEKaTRzkPHNLHBFNPVGVfPKzoVdRwRvC12EimN4FnTECxbYwklaowM2-KGIVu19o-akr8GPchHrsNmUPtvHxsIMc0Kvd5GzIU7TjGkjjVFj67AFGYgJNID6pzed8VEDa_TIyak4CZ4xhPSubV1n51oaOj_StisdWvLaUpvtgXji3TKmT7KONbP1DBYV3YgTT8');background-size:cover;background-position:center;opacity:0.05;filter:grayscale(100%)"></div>
+      <div style="position:relative;z-index:2">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--clay);margin-bottom:24px">We know you know</div>
+        <!-- Fake spreadsheet grid -->
+        <div style="background:white;border:1px solid var(--warm-gray);border-radius:8px;padding:12px;margin-bottom:24px;width:280px;text-align:left;opacity:0.6">
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;font-size:8px;color:var(--taupe)">
+            <div style="background:var(--bone);padding:4px;border:1px solid var(--warm-gray)">Item</div>
+            <div style="background:var(--bone);padding:4px;border:1px solid var(--warm-gray)">Cost</div>
+            <div style="background:rgba(255,0,0,0.05);padding:4px;border:1px solid rgba(255,0,0,0.2);color:var(--clay)">#REF!</div>
+            <div style="background:white;padding:4px;border:1px solid var(--warm-gray)">Jacket</div>
+            <div style="background:white;padding:4px;border:1px solid var(--warm-gray)">$289</div>
+            <div style="background:rgba(255,0,0,0.05);padding:4px;border:1px solid rgba(255,0,0,0.2);color:var(--clay)">#REF!</div>
+            <div style="background:white;padding:4px;border:1px solid var(--warm-gray)">Scarf</div>
+            <div style="background:rgba(255,200,0,0.08);padding:4px;border:1px solid var(--warm-gray)">???</div>
+            <div style="background:rgba(255,0,0,0.05);padding:4px;border:1px solid rgba(255,0,0,0.2);color:var(--clay)">#REF!</div>
+          </div>
+        </div>
+        <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:36px;color:var(--near-black);line-height:1.2;margin-bottom:12px">You know<br>the one.</div>
+        <div style="font-size:12px;color:var(--taupe);line-height:1.6;max-width:260px;margin:0 auto">47 tabs. Three people editing at once. Formulas that break if you look at them wrong.</div>
+        <div style="margin-top:28px;font-family:'Inter',sans-serif;font-weight:200;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--near-black)">THREAD<span style="color:var(--copper)">LINE</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="caption-block">
+    <div class="caption-label">Full Caption</div>
+    <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+    <div class="caption-text">You know the one.
+
+The master spreadsheet. 47 tabs. Three people editing it at once. Formulas that break if you look at them wrong. A color-coding system that made sense to the person who started it but nobody else.
+
+Every production starts a new one. Every production swears this time it'll be organized from the start. And every production ends up with the same tangled mess by week three.
+
+It's not your fault. Spreadsheets were never designed for wardrobe management. You're trying to track physical inventory, financial transactions, vendor relationships, and return deadlines all in a tool that was built for accounting.
+
+You need something that was built for you. That's Threadline.</div>
+  </div>
+
+  <div class="hashtag-block">
+    <div class="ht-label">Hashtags</div>
+    <div class="ht-text">#wardrobedepartment #filmproduction #costumedesign #wardrobepa #filmcrew #setlife #productionlife #filmindustry #costumesupervisor #filmtech #wardrobesupervisor #costumedepartment #filmprod #belowtheline #filmmaking #tvproduction #fashionfilm #wardrobeassistant #costumier #filmwardrobe</div>
+    <button class="ht-copy-btn" onclick="copyHashtags(this)">Copy Tags</button>
+  </div>
+</div>
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     POST 8: CTA - Early Access (Saturday)
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<div class="post-section">
+  <div class="post-header">
+    <div>
+      <div class="post-id">Week 2 &middot; Saturday (Optional)</div>
+      <div class="post-name">Early Access is Open</div>
+    </div>
+    <div class="badges">
+      <span class="badge-ig">Instagram</span>
+      <span class="badge-format">Single Image</span>
+      <span class="badge-type cta">Waitlist CTA</span>
+    </div>
+  </div>
+  <div class="post-time"><strong>Best time:</strong> 11:00 AM ET</div>
+
+  <div class="visual-frame">
+    <div class="ig-graphic" style="background:var(--cream);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px;position:relative">
+      <div style="position:absolute;inset:0;background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBGchh_ZDL85IckT4KmjLhPcWN1beeI0qH0C7aG8jQuxJzzvPVeuK-f2z-dLsFIUBR3u2zANtK7Zl3PFPS9XbVwV9F8GYRkABrySWvWaCPG2BK9ToO1-tjBi5GCmSaWmrgF5FIgu71bu8vzshtFJ-3I3TVxjoFdzLxwAqtFSRDLW9tOSKwbhG3WwafCaiEe2UXkzyFtuOGwK2ZHsq7Lwj2fN_-mEPSk9EEZYIFEwpkGI02flrXqtdiLZsHq4XQpVHKadNuJPr4TafY');background-size:cover;background-position:center;opacity:0.05;filter:grayscale(100%)"></div>
+      <div style="position:relative;z-index:2">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--copper);margin-bottom:28px">Now Open</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:34px;color:var(--near-black);line-height:1.2;margin-bottom:20px">Join Early<br><em style="color:var(--brown-gold)">Access.</em></div>
+        <div style="width:40px;height:1px;background:var(--sand);margin:0 auto 24px"></div>
+        <div style="text-align:left;max-width:260px;margin:0 auto">
+          <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:12px"><div style="width:16px;height:16px;border-radius:50%;border:1.5px solid var(--brown-gold);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:8px;color:var(--brown-gold)">&#10003;</div><span style="font-size:12px;color:var(--near-black);line-height:1.5">First look at new features</span></div>
+          <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:12px"><div style="width:16px;height:16px;border-radius:50%;border:1.5px solid var(--brown-gold);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:8px;color:var(--brown-gold)">&#10003;</div><span style="font-size:12px;color:var(--near-black);line-height:1.5">Direct input on what gets built</span></div>
+          <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:12px"><div style="width:16px;height:16px;border-radius:50%;border:1.5px solid var(--brown-gold);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:8px;color:var(--brown-gold)">&#10003;</div><span style="font-size:12px;color:var(--near-black);line-height:1.5">Priority onboarding at launch</span></div>
+          <div style="display:flex;align-items:flex-start;gap:10px"><div style="width:16px;height:16px;border-radius:50%;border:1.5px solid var(--brown-gold);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:8px;color:var(--brown-gold)">&#10003;</div><span style="font-size:12px;color:var(--near-black);line-height:1.5">A say in your department's tool</span></div>
+        </div>
+        <div style="margin-top:28px;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--taupe)">Link in bio &middot; 30 seconds</div>
+        <div style="margin-top:16px;font-family:'Inter',sans-serif;font-weight:200;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--near-black)">THREAD<span style="color:var(--copper)">LINE</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="caption-block">
+    <div class="caption-label">Full Caption</div>
+    <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+    <div class="caption-text">We're building Threadline with the people who'll actually use it.
+
+If you work in wardrobe, costume design, or production management, we want you involved early. Not just to test the app, but to help shape what it becomes.
+
+Early access members get:
+- First look at new features before anyone else
+- Direct input on what gets built next
+- Priority onboarding when we launch
+- A say in the tool your department will actually use on set
+
+This isn't a mailing list that sends you marketing emails. This is a real conversation with the people building the thing.
+
+Link in bio. Takes 30 seconds.</div>
+  </div>
+
+  <div class="hashtag-block">
+    <div class="ht-label">Hashtags</div>
+    <div class="ht-text">#wardrobedepartment #filmproduction #costumedesign #wardrobepa #filmcrew #setlife #productionlife #filmindustry #costumesupervisor #filmtech #wardrobesupervisor #costumedepartment #filmprod #belowtheline #filmmaking #tvproduction #fashionfilm #wardrobeassistant #costumier #filmwardrobe</div>
+    <button class="ht-copy-btn" onclick="copyHashtags(this)">Copy Tags</button>
+  </div>
+</div>
+
+</div><!-- end week 2 -->
+
+
+<!-- ================================================================
+     WEEK 3 - BUILD TRUST
+     Feature deep-dive, engagement, tips, product preview
+     ================================================================ -->
+<div class="week-section" id="week3">
+<div class="week-header">
+  <h2>Week 3</h2>
+  <span class="week-range">Deepen &amp; Engage</span>
+</div>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     POST 9: Feature Spotlight - Return Tracking (Monday)
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<div class="post-section">
+  <div class="post-header">
+    <div>
+      <div class="post-id">Week 3 &middot; Monday</div>
+      <div class="post-name">Feature Spotlight: Return Tracking</div>
+    </div>
+    <div class="badges">
+      <span class="badge-ig">Instagram</span>
+      <span class="badge-format">Carousel &middot; 4 Slides</span>
+      <span class="badge-type feature">Feature Spotlight</span>
+    </div>
+  </div>
+  <div class="post-time"><strong>Best time:</strong> 11:30 AM ET</div>
+
+  <div class="visual-frame">
+    <!-- Slide 1 -->
+    <div class="ig-graphic" style="background:linear-gradient(135deg,var(--dark-brown),var(--brown-gold),var(--copper));display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px;position:relative">
+      <span class="slide-label">1/4</span>
+      <div style="position:absolute;inset:0;background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBGchh_ZDL85IckT4KmjLhPcWN1beeI0qH0C7aG8jQuxJzzvPVeuK-f2z-dLsFIUBR3u2zANtK7Zl3PFPS9XbVwV9F8GYRkABrySWvWaCPG2BK9ToO1-tjBi5GCmSaWmrgF5FIgu71bu8vzshtFJ-3I3TVxjoFdzLxwAqtFSRDLW9tOSKwbhG3WwafCaiEe2UXkzyFtuOGwK2ZHsq7Lwj2fN_-mEPSk9EEZYIFEwpkGI02flrXqtdiLZsHq4XQpVHKadNuJPr4TafY');background-size:cover;background-position:center;opacity:0.06;filter:grayscale(100%);mix-blend-mode:overlay"></div>
+      <div style="position:relative;z-index:2">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:16px">Feature Spotlight</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:32px;color:white;line-height:1.2;margin-bottom:16px">Never miss another<br><em>return deadline.</em></div>
+        <div style="width:40px;height:1px;background:rgba(255,255,255,0.3);margin:0 auto 16px"></div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.6">Automatic tracking.<br>Advance alerts. Zero sticky notes.</div>
+      </div>
+    </div>
+    <!-- Slide 2: Dashboard mockup -->
+    <div class="ig-graphic" style="background:var(--cream);display:flex;flex-direction:column;padding:40px;position:relative">
+      <span class="slide-label-dark">2/4</span>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--water);margin-bottom:16px">Return Dashboard</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:22px;color:var(--near-black);line-height:1.3;margin-bottom:20px">Every deadline.<br><em style="color:var(--brown-gold)">One view.</em></div>
+      <!-- Mini dashboard -->
+      <div style="flex:1;display:flex;flex-direction:column;gap:8px">
+        <div style="background:white;border-radius:8px;border:1px solid var(--warm-gray);padding:12px 14px;display:flex;justify-content:space-between;align-items:center">
+          <div><div style="font-size:11px;font-weight:600;color:var(--near-black)">Vintage Rental House</div><div style="font-size:9px;color:var(--taupe)">30 items &middot; 14-day window</div></div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--forest);background:rgba(74,103,65,0.1);padding:4px 10px;border-radius:4px">11 days</div>
+        </div>
+        <div style="background:white;border-radius:8px;border:1px solid var(--warm-gray);padding:12px 14px;display:flex;justify-content:space-between;align-items:center">
+          <div><div style="font-size:11px;font-weight:600;color:var(--near-black)">Nordstrom Returns</div><div style="font-size:9px;color:var(--taupe)">12 items &middot; 30-day window</div></div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--brown-gold);background:rgba(139,111,82,0.1);padding:4px 10px;border-radius:4px">4 days</div>
+        </div>
+        <div style="background:white;border-radius:8px;border:1px solid rgba(138,74,66,0.3);padding:12px 14px;display:flex;justify-content:space-between;align-items:center">
+          <div><div style="font-size:11px;font-weight:600;color:var(--near-black)">Zara Express</div><div style="font-size:9px;color:var(--taupe)">8 items &middot; 7-day window</div></div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--clay);background:rgba(138,74,66,0.1);padding:4px 10px;border-radius:4px">1 day</div>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 3: Alert mockup -->
+    <div class="ig-graphic" style="background:var(--bone);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px;position:relative">
+      <span class="slide-label-dark">3/4</span>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--water);margin-bottom:24px">Smart Alerts</div>
+      <!-- Notification mockups -->
+      <div style="width:280px;display:flex;flex-direction:column;gap:12px">
+        <div style="background:white;border-radius:12px;padding:14px 16px;box-shadow:0 2px 12px rgba(0,0,0,0.06)">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+            <div style="width:20px;height:20px;border-radius:5px;background:var(--brown-gold);display:flex;align-items:center;justify-content:center;font-size:10px;color:white;font-weight:700">T</div>
+            <span style="font-size:9px;color:var(--taupe);font-weight:600">THREADLINE</span>
+            <span style="font-size:9px;color:var(--sand);margin-left:auto">7 days out</span>
+          </div>
+          <div style="font-size:11px;font-weight:600;color:var(--near-black)">Return reminder: 30 items</div>
+          <div style="font-size:10px;color:var(--taupe)">Vintage Rental House deadline in 7 days</div>
+        </div>
+        <div style="background:white;border-radius:12px;padding:14px 16px;box-shadow:0 2px 12px rgba(0,0,0,0.06)">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+            <div style="width:20px;height:20px;border-radius:5px;background:var(--clay);display:flex;align-items:center;justify-content:center;font-size:10px;color:white;font-weight:700">!</div>
+            <span style="font-size:9px;color:var(--taupe);font-weight:600">THREADLINE</span>
+            <span style="font-size:9px;color:var(--clay);margin-left:auto">Tomorrow</span>
+          </div>
+          <div style="font-size:11px;font-weight:600;color:var(--near-black)">Urgent: Zara return due tomorrow</div>
+          <div style="font-size:10px;color:var(--taupe)">8 items, $1,240 total value</div>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 4: CTA -->
+    <div class="ig-graphic" style="background:linear-gradient(135deg,var(--dark-brown),var(--brown-gold));display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px;position:relative">
+      <span class="slide-label">4/4</span>
+      <div style="position:relative;z-index:2">
+        <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:16px;color:rgba(255,255,255,0.5);margin-bottom:16px">From rack to wrap.</div>
+        <div style="font-family:'Inter',sans-serif;font-weight:200;font-size:18px;letter-spacing:0.15em;text-transform:uppercase;color:white;margin-bottom:24px">THREAD<span style="color:var(--copper)">LINE</span></div>
+        <div style="display:inline-block;padding:10px 28px;border:1px solid rgba(255,255,255,0.3);color:rgba(255,255,255,0.8);font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase">Early Access &middot; Link in Bio</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="caption-block">
+    <div class="caption-label">Full Caption</div>
+    <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+    <div class="caption-text">Never miss another return deadline.
+
+Threadline tracks every rental and purchase return automatically. When you log a garment, we capture the vendor's return window and start counting down. You get alerts at 7 days, 3 days, and the day before a deadline hits.
+
+Here's what that looks like in practice:
+
+You pull 30 pieces from a rental house with a 14-day return window. Shooting goes long. Day 10, you get an alert: "4 days remaining on 30 items from [Vendor]." You can plan the return around the schedule instead of discovering the deadline after it's already passed.
+
+No more sticky notes on the wardrobe truck mirror. No more calendar reminders that you set and then snoozed. Just clear, automatic tracking that watches the deadlines so you can focus on the work.
+
+Swipe to see the return tracking dashboard.</div>
+  </div>
+
+  <div class="hashtag-block">
+    <div class="ht-label">Hashtags</div>
+    <div class="ht-text">#wardrobedepartment #filmproduction #costumedesign #wardrobepa #filmcrew #setlife #productionlife #filmindustry #costumesupervisor #filmtech #wardrobesupervisor #costumedepartment #filmprod #belowtheline #filmmaking #tvproduction #fashionfilm #wardrobeassistant #costumier #filmwardrobe</div>
+    <button class="ht-copy-btn" onclick="copyHashtags(this)">Copy Tags</button>
+  </div>
+</div>
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     POST 10: This or That Engagement (Wednesday)
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<div class="post-section">
+  <div class="post-header">
+    <div>
+      <div class="post-id">Week 3 &middot; Wednesday</div>
+      <div class="post-name">This or That: Wardrobe Edition</div>
+    </div>
+    <div class="badges">
+      <span class="badge-ig">Instagram</span>
+      <span class="badge-format">Carousel &middot; 5 Slides</span>
+      <span class="badge-type engage">Engagement</span>
+    </div>
+  </div>
+  <div class="post-time"><strong>Best time:</strong> 7:00 PM ET</div>
+
+  <div class="visual-frame">
+    <!-- Slide 1: Title -->
+    <div class="ig-graphic" style="background:var(--cream);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px">
+      <span class="slide-label-dark">1/5</span>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--copper);margin-bottom:20px">Let's Settle This</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:36px;color:var(--near-black);line-height:1.2;margin-bottom:16px">This<br><em style="color:var(--brown-gold)">or That?</em></div>
+      <div style="font-size:13px;color:var(--taupe);margin-bottom:4px">Wardrobe Department Edition</div>
+      <div style="width:40px;height:1px;background:var(--sand);margin:16px auto"></div>
+      <div style="font-size:11px;color:var(--taupe)">Drop your answers in the comments.</div>
+      <div style="margin-top:32px;font-family:'Inter',sans-serif;font-weight:200;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--near-black)">THREAD<span style="color:var(--copper)">LINE</span></div>
+    </div>
+    <!-- Slide 2: Q1 -->
+    <div class="ig-graphic" style="background:var(--bone);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px">
+      <span class="slide-label-dark">2/5</span>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--copper);letter-spacing:0.1em;margin-bottom:24px">QUESTION 01</div>
+      <div style="display:flex;align-items:center;gap:20px;width:100%">
+        <div style="flex:1;background:white;border-radius:12px;padding:28px 16px;text-align:center;border:1px solid var(--warm-gray)">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--near-black);line-height:1.3">Physical rack dividers</div>
+        </div>
+        <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:var(--taupe)">or</div>
+        <div style="flex:1;background:white;border-radius:12px;padding:28px 16px;text-align:center;border:1px solid var(--warm-gray)">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--near-black);line-height:1.3">Colored hangers</div>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 3: Q2 -->
+    <div class="ig-graphic" style="background:var(--cream);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px">
+      <span class="slide-label-dark">3/5</span>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--copper);letter-spacing:0.1em;margin-bottom:24px">QUESTION 02</div>
+      <div style="display:flex;align-items:center;gap:20px;width:100%">
+        <div style="flex:1;background:white;border-radius:12px;padding:28px 16px;text-align:center;border:1px solid var(--warm-gray)">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--near-black);line-height:1.3">Polaroids</div>
+        </div>
+        <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:var(--taupe)">or</div>
+        <div style="flex:1;background:white;border-radius:12px;padding:28px 16px;text-align:center;border:1px solid var(--warm-gray)">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--near-black);line-height:1.3">Digital continuity photos</div>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 4: Q3 -->
+    <div class="ig-graphic" style="background:var(--bone);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px">
+      <span class="slide-label-dark">4/5</span>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--copper);letter-spacing:0.1em;margin-bottom:24px">QUESTION 03</div>
+      <div style="display:flex;align-items:center;gap:20px;width:100%">
+        <div style="flex:1;background:white;border-radius:12px;padding:28px 16px;text-align:center;border:1px solid var(--warm-gray)">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--near-black);line-height:1.3">Shopping in-store</div>
+        </div>
+        <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:var(--taupe)">or</div>
+        <div style="flex:1;background:white;border-radius:12px;padding:28px 16px;text-align:center;border:1px solid var(--warm-gray)">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--near-black);line-height:1.3">Ordering online</div>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 5: Q4 -->
+    <div class="ig-graphic" style="background:var(--cream);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px">
+      <span class="slide-label-dark">5/5</span>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--copper);letter-spacing:0.1em;margin-bottom:24px">QUESTION 04</div>
+      <div style="display:flex;align-items:center;gap:20px;width:100%">
+        <div style="flex:1;background:white;border-radius:12px;padding:28px 16px;text-align:center;border:1px solid var(--warm-gray)">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--near-black);line-height:1.3">Label maker</div>
+        </div>
+        <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:var(--taupe)">or</div>
+        <div style="flex:1;background:white;border-radius:12px;padding:28px 16px;text-align:center;border:1px solid var(--warm-gray)">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--near-black);line-height:1.3">Masking tape + Sharpie</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="caption-block">
+    <div class="caption-label">Full Caption</div>
+    <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+    <div class="caption-text">This or That: Wardrobe Department Edition. Drop your answers in the comments.
+
+1. Physical rack dividers or colored hangers?
+2. Polaroids or digital continuity photos?
+3. Shopping in-store or ordering online?
+4. Labeling with a label maker or masking tape and Sharpie?
+
+Be honest. We're not judging. (Okay, if you said masking tape, we're judging a little.)
+
+This is the stuff we think about when we're building Threadline. The small daily choices that add up to a whole system. Your answers genuinely help us understand how departments actually work, not just how people think they should work.
+
+Tell us your picks below.</div>
+  </div>
+
+  <div class="hashtag-block">
+    <div class="ht-label">Hashtags</div>
+    <div class="ht-text">#wardrobedepartment #filmproduction #costumedesign #wardrobepa #filmcrew #setlife #productionlife #filmindustry #costumesupervisor #filmtech #wardrobesupervisor #costumedepartment #filmprod #belowtheline #filmmaking #tvproduction #fashionfilm #wardrobeassistant #costumier #filmwardrobe</div>
+    <button class="ht-copy-btn" onclick="copyHashtags(this)">Copy Tags</button>
+  </div>
+</div>
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     POST 11: Feature Spotlight - Thread AI (Friday)
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<div class="post-section">
+  <div class="post-header">
+    <div>
+      <div class="post-id">Week 3 &middot; Friday</div>
+      <div class="post-name">Feature Spotlight: Thread AI</div>
+    </div>
+    <div class="badges">
+      <span class="badge-ig">Instagram</span>
+      <span class="badge-format">Carousel &middot; 4 Slides</span>
+      <span class="badge-type feature">Feature Spotlight</span>
+    </div>
+  </div>
+  <div class="post-time"><strong>Best time:</strong> 11:30 AM ET</div>
+
+  <div class="visual-frame">
+    <!-- Slide 1 -->
+    <div class="ig-graphic" style="background:linear-gradient(135deg,var(--espresso),var(--dark-brown),var(--brown-gold));display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px;position:relative">
+      <span class="slide-label">1/4</span>
+      <div style="position:absolute;inset:0;background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBdWy7YGvr91as47l5syVXCzvWPOyaTwI1-GEBLWn150_WMIGIAgFKdqTnVMCRBxXnO09SNboHH3MsEKaTRzkPHNLHBFNPVGVfPKzoVdRwRvC12EimN4FnTECxbYwklaowM2-KGIVu19o-akr8GPchHrsNmUPtvHxsIMc0Kvd5GzIU7TjGkjjVFj67AFGYgJNID6pzed8VEDa_TIyak4CZ4xhPSubV1n51oaOj_StisdWvLaUpvtgXji3TKmT7KONbP1DBYV3YgTT8');background-size:cover;background-position:center;opacity:0.1;filter:grayscale(100%);mix-blend-mode:overlay"></div>
+      <div style="position:relative;z-index:2">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:16px">Meet Your New Coworker</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:42px;color:white;line-height:1.15;margin-bottom:12px">Thread<br><em>AI</em></div>
+        <div style="width:40px;height:1px;background:rgba(255,255,255,0.3);margin:0 auto 16px"></div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.6">Intelligence that does the grunt work<br>so you can do the creative work.</div>
+      </div>
+    </div>
+    <!-- Slide 2: Auto-categorization -->
+    <div class="ig-graphic" style="background:var(--cream);display:flex;flex-direction:column;padding:40px;position:relative">
+      <span class="slide-label-dark">2/4</span>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--brown-gold);margin-bottom:16px">Auto-Categorization</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:24px;color:var(--near-black);line-height:1.3;margin-bottom:16px">Photograph a garment.<br><em style="color:var(--brown-gold)">AI does the rest.</em></div>
+      <div style="font-size:12px;color:var(--taupe);line-height:1.6;margin-bottom:20px">Identifies type, suggests category, and recommends character assignments based on your past patterns.</div>
+      <div style="flex:1;background:white;border-radius:12px;border:1px solid var(--warm-gray);padding:16px;display:flex;flex-direction:column;gap:10px">
+        <div style="font-size:9px;font-weight:600;color:var(--brown-gold);text-transform:uppercase;letter-spacing:0.08em">AI Suggestions</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;padding:8px 10px;background:var(--bone);border-radius:6px"><span style="color:var(--near-black)">Category</span><span style="color:var(--brown-gold);font-weight:600">Outerwear</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;padding:8px 10px;background:var(--bone);border-radius:6px"><span style="color:var(--near-black)">Season</span><span style="color:var(--brown-gold);font-weight:600">Fall/Winter</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;padding:8px 10px;background:var(--bone);border-radius:6px"><span style="color:var(--near-black)">Character</span><span style="color:var(--brown-gold);font-weight:600">Detective Mills</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;padding:8px 10px;background:rgba(74,103,65,0.06);border-radius:6px;border:1px solid rgba(74,103,65,0.15)"><span style="color:var(--forest);font-weight:500">94% confidence</span><span style="font-size:9px;padding:3px 8px;background:var(--forest);color:white;border-radius:3px">Accept</span></div>
+      </div>
+    </div>
+    <!-- Slide 3: Smart Receipt Reading -->
+    <div class="ig-graphic" style="background:var(--bone);display:flex;flex-direction:column;padding:40px;position:relative">
+      <span class="slide-label-dark">3/4</span>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--brown-gold);margin-bottom:16px">Smart Receipt Reading</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:24px;color:var(--near-black);line-height:1.3;margin-bottom:16px">More than OCR.<br><em style="color:var(--brown-gold)">Actual understanding.</em></div>
+      <div style="font-size:12px;color:var(--taupe);line-height:1.6;margin-bottom:20px">Understands line items, separates tax from subtotals, flags anything unusual.</div>
+      <div style="flex:1;background:white;border-radius:12px;border:1px solid var(--warm-gray);padding:16px;display:flex;flex-direction:column;gap:8px">
+        <div style="font-size:9px;font-weight:600;color:var(--brown-gold);text-transform:uppercase;letter-spacing:0.08em">AI Insights</div>
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--cream);border-radius:6px"><div style="width:6px;height:6px;border-radius:50%;background:var(--forest);flex-shrink:0"></div><span style="font-size:11px;color:var(--near-black)">Tax correctly separated: $38.16</span></div>
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--cream);border-radius:6px"><div style="width:6px;height:6px;border-radius:50%;background:var(--forest);flex-shrink:0"></div><span style="font-size:11px;color:var(--near-black)">Return deadline: April 15</span></div>
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:rgba(196,148,106,0.08);border-radius:6px;border:1px solid rgba(196,148,106,0.2)"><div style="width:6px;height:6px;border-radius:50%;background:var(--copper);flex-shrink:0"></div><span style="font-size:11px;color:var(--near-black)">Flagged: Duplicate item from Mar 3 receipt</span></div>
+      </div>
+    </div>
+    <!-- Slide 4: Budget Forecasting -->
+    <div class="ig-graphic" style="background:var(--cream);display:flex;flex-direction:column;padding:40px;position:relative">
+      <span class="slide-label-dark">4/4</span>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--brown-gold);margin-bottom:16px">Budget Forecasting</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:24px;color:var(--near-black);line-height:1.3;margin-bottom:16px">See the overrun<br><em style="color:var(--brown-gold)">before it happens.</em></div>
+      <div style="font-size:12px;color:var(--taupe);line-height:1.6;margin-bottom:20px">Projects where your budget is heading based on spending patterns and upcoming schedule.</div>
+      <!-- Mini chart -->
+      <div style="flex:1;background:white;border-radius:12px;border:1px solid var(--warm-gray);padding:16px;display:flex;flex-direction:column">
+        <div style="display:flex;justify-content:space-between;margin-bottom:12px">
+          <span style="font-size:9px;font-weight:600;color:var(--near-black);text-transform:uppercase;letter-spacing:0.06em">Projected Spend</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--brown-gold)">$24,800 / $30,000</span>
+        </div>
+        <div style="height:8px;background:var(--bone);border-radius:4px;overflow:hidden;margin-bottom:8px">
+          <div style="height:100%;width:82%;background:linear-gradient(90deg,var(--forest),var(--brown-gold));border-radius:4px"></div>
+        </div>
+        <div style="font-size:9px;color:var(--taupe);margin-bottom:16px">82% allocated &middot; On track</div>
+        <div style="display:flex;gap:8px;margin-top:auto">
+          <div style="flex:1;background:var(--bone);border-radius:6px;padding:8px;text-align:center"><div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--near-black)">$12.4k</div><div style="font-size:8px;color:var(--taupe)">Purchases</div></div>
+          <div style="flex:1;background:var(--bone);border-radius:6px;padding:8px;text-align:center"><div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--near-black)">$8.2k</div><div style="font-size:8px;color:var(--taupe)">Rentals</div></div>
+          <div style="flex:1;background:var(--bone);border-radius:6px;padding:8px;text-align:center"><div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--near-black)">$4.2k</div><div style="font-size:8px;color:var(--taupe)">Alterations</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="caption-block">
+    <div class="caption-label">Full Caption</div>
+    <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+    <div class="caption-text">Meet Thread AI. Your wardrobe department's new favorite coworker.
+
+Thread AI is the intelligence layer built into Threadline. It reads your receipts, categorizes your inventory, and learns how your department works over time.
+
+Here's what it does:
+
+Auto-categorization: Photograph a garment and Thread AI identifies the type, suggests a category, and can even recommend character assignments based on your past patterns.
+
+Smart receipt reading: It doesn't just OCR the text. It understands line items, separates tax from subtotals, and flags anything that looks unusual.
+
+Budget forecasting: Based on your spending patterns and upcoming schedule, Thread AI can project where your budget is heading and flag potential overruns before they happen.
+
+Continuity suggestions: Working on a scene that was last shot three weeks ago? Thread AI pulls up the continuity notes and photos automatically.
+
+This isn't AI for the sake of AI. This is AI that does the grunt work so you can focus on the creative work you actually got into this industry to do.</div>
+  </div>
+
+  <div class="hashtag-block">
+    <div class="ht-label">Hashtags</div>
+    <div class="ht-text">#wardrobedepartment #filmproduction #costumedesign #wardrobepa #filmcrew #setlife #productionlife #filmindustry #costumesupervisor #filmtech #wardrobesupervisor #costumedepartment #filmprod #belowtheline #filmmaking #tvproduction #fashionfilm #wardrobeassistant #costumier #filmwardrobe</div>
+    <button class="ht-copy-btn" onclick="copyHashtags(this)">Copy Tags</button>
+  </div>
+</div>
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     POST 12: Tips - Survival Kit (Saturday)
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<div class="post-section">
+  <div class="post-header">
+    <div>
+      <div class="post-id">Week 3 &middot; Saturday (Optional)</div>
+      <div class="post-name">Wardrobe Survival Kit</div>
+    </div>
+    <div class="badges">
+      <span class="badge-ig">Instagram</span>
+      <span class="badge-format">Carousel &middot; 4 Slides</span>
+      <span class="badge-type tips">Industry Tips</span>
+    </div>
+  </div>
+  <div class="post-time"><strong>Best time:</strong> 11:00 AM ET</div>
+
+  <div class="visual-frame">
+    <!-- Slide 1: Title -->
+    <div class="ig-graphic" style="background:var(--cream);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px">
+      <span class="slide-label-dark">1/4</span>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--forest);margin-bottom:20px">Save This</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:30px;color:var(--near-black);line-height:1.25;margin-bottom:8px">The Wardrobe<br><em style="color:var(--brown-gold)">Survival Kit</em></div>
+      <div style="width:40px;height:1px;background:var(--sand);margin:16px auto"></div>
+      <div style="font-size:12px;color:var(--taupe);line-height:1.6">Things nobody tells you<br>on your first day.</div>
+      <div style="margin-top:32px;font-family:'Inter',sans-serif;font-weight:200;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--near-black)">THREAD<span style="color:var(--copper)">LINE</span></div>
+    </div>
+    <!-- Slide 2: Tips 1-2 -->
+    <div class="ig-graphic" style="background:var(--bone);display:flex;flex-direction:column;justify-content:center;padding:44px">
+      <span class="slide-label-dark">2/4</span>
+      <div style="margin-bottom:28px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:36px;font-weight:300;color:var(--brown-gold);margin-bottom:8px;line-height:1">01</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-weight:400;font-size:18px;color:var(--near-black);line-height:1.4;margin-bottom:6px">Always photograph both the price tag AND the garment before removing tags.</div>
+        <div style="font-size:11px;color:var(--taupe);line-height:1.5">Future you will thank present you.</div>
+      </div>
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:36px;font-weight:300;color:var(--brown-gold);margin-bottom:8px;line-height:1">02</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-weight:400;font-size:18px;color:var(--near-black);line-height:1.4;margin-bottom:6px">Keep a dedicated folder for continuity photos. Name by character and scene.</div>
+        <div style="font-size:11px;color:var(--taupe);line-height:1.5">Finding "IMG_4782" three weeks later helps nobody.</div>
+      </div>
+    </div>
+    <!-- Slide 3: Tips 3-4 -->
+    <div class="ig-graphic" style="background:var(--cream);display:flex;flex-direction:column;justify-content:center;padding:44px">
+      <span class="slide-label-dark">3/4</span>
+      <div style="margin-bottom:28px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:36px;font-weight:300;color:var(--brown-gold);margin-bottom:8px;line-height:1">03</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-weight:400;font-size:18px;color:var(--near-black);line-height:1.4;margin-bottom:6px">Return receipts are just as important as purchase receipts. File them separately.</div>
+        <div style="font-size:11px;color:var(--taupe);line-height:1.5">Note which return goes with which original purchase.</div>
+      </div>
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:36px;font-weight:300;color:var(--brown-gold);margin-bottom:8px;line-height:1">04</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-weight:400;font-size:18px;color:var(--near-black);line-height:1.4;margin-bottom:6px">Set return deadline reminders the day you make the purchase.</div>
+        <div style="font-size:11px;color:var(--taupe);line-height:1.5">Not later. Not tomorrow. Right then.</div>
+      </div>
+    </div>
+    <!-- Slide 4: Tips 5-6 + CTA -->
+    <div class="ig-graphic" style="background:var(--bone);display:flex;flex-direction:column;justify-content:center;padding:44px">
+      <span class="slide-label-dark">4/4</span>
+      <div style="margin-bottom:28px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:36px;font-weight:300;color:var(--brown-gold);margin-bottom:8px;line-height:1">05</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-weight:400;font-size:18px;color:var(--near-black);line-height:1.4;margin-bottom:6px">Label everything. You won't remember which rack is for which character by day three.</div>
+      </div>
+      <div style="margin-bottom:28px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:36px;font-weight:300;color:var(--brown-gold);margin-bottom:8px;line-height:1">06</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-weight:400;font-size:18px;color:var(--near-black);line-height:1.4;margin-bottom:6px">Back up your spreadsheets daily. To the cloud. Every single night.</div>
+      </div>
+      <div style="padding:16px;background:rgba(139,111,82,0.06);border-radius:8px;text-align:center">
+        <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:var(--brown-gold);margin-bottom:4px">Pretty soon, Threadline will handle most of this automatically.</div>
+        <div style="font-size:10px;color:var(--taupe)">What would you add? Drop it in the comments.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="caption-block">
+    <div class="caption-label">Full Caption</div>
+    <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+    <div class="caption-text">Save this for your next show.
+
+The Wardrobe Survival Kit: things nobody tells you on your first day.
+
+1. Always photograph both the price tag AND the garment before removing any tags. Future you will thank present you.
+
+2. Keep a dedicated folder on your phone for continuity photos. Name them by character and scene number, not just the date. Finding "IMG_4782" three weeks later helps nobody.
+
+3. Return receipts are just as important as purchase receipts. File them separately and note which return goes with which original purchase.
+
+4. Set calendar reminders for return deadlines the day you make the purchase. Not later. Not tomorrow. Right then.
+
+5. Label everything. If you think you'll remember which rack is for which character, you won't. Not by day three.
+
+6. Back up your spreadsheets daily. To the cloud. Every single night.
+
+Bonus: Pretty soon, Threadline will handle most of this automatically. Until then, the survival kit stands.
+
+What would you add to this list? Drop it in the comments.</div>
+  </div>
+
+  <div class="hashtag-block">
+    <div class="ht-label">Hashtags</div>
+    <div class="ht-text">#wardrobedepartment #filmproduction #costumedesign #wardrobepa #filmcrew #setlife #productionlife #filmindustry #costumesupervisor #filmtech #wardrobesupervisor #costumedepartment #filmprod #belowtheline #filmmaking #tvproduction #fashionfilm #wardrobeassistant #costumier #filmwardrobe</div>
+    <button class="ht-copy-btn" onclick="copyHashtags(this)">Copy Tags</button>
+  </div>
+</div>
+
+</div><!-- end week 3 -->
+
+
+<!-- ================================================================
+     WEEK 4 - CONVERT
+     BTS product preview, pain point, engagement poll, final CTA
+     ================================================================ -->
+<div class="week-section" id="week4">
+<div class="week-header">
+  <h2>Week 4</h2>
+  <span class="week-range">Convert &amp; Compound</span>
+</div>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     POST 13: BTS Product Preview (Monday)
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<div class="post-section">
+  <div class="post-header">
+    <div>
+      <div class="post-id">Week 4 &middot; Monday</div>
+      <div class="post-name">A Look at What We're Building</div>
+    </div>
+    <div class="badges">
+      <span class="badge-ig">Instagram</span>
+      <span class="badge-format">Carousel &middot; 3 Slides</span>
+      <span class="badge-type bts">Behind the Scenes</span>
+    </div>
+  </div>
+  <div class="post-time"><strong>Best time:</strong> 11:30 AM ET</div>
+
+  <div class="visual-frame">
+    <!-- Slide 1: Inventory preview -->
+    <div class="ig-graphic" style="background:var(--cream);display:flex;flex-direction:column;padding:40px;position:relative">
+      <span class="slide-label-dark">1/3</span>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--brown-gold);margin-bottom:12px">Sneak Peek</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:24px;color:var(--near-black);line-height:1.3;margin-bottom:20px">Inventory View</div>
+      <!-- Mini inventory table -->
+      <div style="flex:1;background:white;border-radius:12px;border:1px solid var(--warm-gray);overflow:hidden">
+        <div style="display:grid;grid-template-columns:2fr 1fr 1fr;font-size:8px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--taupe);border-bottom:1px solid var(--warm-gray)">
+          <div style="padding:10px 12px;background:var(--bone)">Item</div>
+          <div style="padding:10px 12px;background:var(--bone)">Status</div>
+          <div style="padding:10px 12px;background:var(--bone)">Vendor</div>
+        </div>
+        <div style="display:grid;grid-template-columns:2fr 1fr 1fr;font-size:10px;border-bottom:1px solid rgba(0,0,0,0.04)">
+          <div style="padding:10px 12px;color:var(--near-black)">Leather Jacket, Black</div>
+          <div style="padding:10px 12px"><span style="font-size:8px;padding:2px 6px;background:rgba(74,103,65,0.1);color:var(--forest);border-radius:3px">On Set</span></div>
+          <div style="padding:10px 12px;color:var(--taupe)">Nordstrom</div>
+        </div>
+        <div style="display:grid;grid-template-columns:2fr 1fr 1fr;font-size:10px;border-bottom:1px solid rgba(0,0,0,0.04)">
+          <div style="padding:10px 12px;color:var(--near-black)">Wool Overcoat, Charcoal</div>
+          <div style="padding:10px 12px"><span style="font-size:8px;padding:2px 6px;background:rgba(139,111,82,0.1);color:var(--brown-gold);border-radius:3px">In Truck</span></div>
+          <div style="padding:10px 12px;color:var(--taupe)">Rental House</div>
+        </div>
+        <div style="display:grid;grid-template-columns:2fr 1fr 1fr;font-size:10px;border-bottom:1px solid rgba(0,0,0,0.04)">
+          <div style="padding:10px 12px;color:var(--near-black)">Silk Blouse, Ivory</div>
+          <div style="padding:10px 12px"><span style="font-size:8px;padding:2px 6px;background:rgba(138,74,66,0.1);color:var(--clay);border-radius:3px">Return Due</span></div>
+          <div style="padding:10px 12px;color:var(--taupe)">Neiman Marcus</div>
+        </div>
+        <div style="display:grid;grid-template-columns:2fr 1fr 1fr;font-size:10px">
+          <div style="padding:10px 12px;color:var(--near-black)">Denim Jacket, Vintage</div>
+          <div style="padding:10px 12px"><span style="font-size:8px;padding:2px 6px;background:rgba(90,126,138,0.1);color:var(--water);border-radius:3px">Alteration</span></div>
+          <div style="padding:10px 12px;color:var(--taupe)">Pulled</div>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 2: Budget dashboard -->
+    <div class="ig-graphic" style="background:var(--bone);display:flex;flex-direction:column;padding:40px;position:relative">
+      <span class="slide-label-dark">2/3</span>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--brown-gold);margin-bottom:12px">Sneak Peek</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:24px;color:var(--near-black);line-height:1.3;margin-bottom:20px">Budget Dashboard</div>
+      <div style="flex:1;background:white;border-radius:12px;border:1px solid var(--warm-gray);padding:16px;display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:9px;font-weight:600;color:var(--near-black);text-transform:uppercase;letter-spacing:0.06em">Total Budget</span><span style="font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:600;color:var(--brown-gold)">$30,000</span></div>
+        <!-- Budget bars -->
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:9px;margin-bottom:4px"><span style="color:var(--near-black)">Purchases</span><span style="color:var(--taupe)">$12,400</span></div>
+          <div style="height:6px;background:var(--bone);border-radius:3px;overflow:hidden"><div style="height:100%;width:65%;background:var(--brown-gold);border-radius:3px"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:9px;margin-bottom:4px"><span style="color:var(--near-black)">Rentals</span><span style="color:var(--taupe)">$8,200</span></div>
+          <div style="height:6px;background:var(--bone);border-radius:3px;overflow:hidden"><div style="height:100%;width:45%;background:var(--copper);border-radius:3px"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:9px;margin-bottom:4px"><span style="color:var(--near-black)">Alterations</span><span style="color:var(--taupe)">$4,200</span></div>
+          <div style="height:6px;background:var(--bone);border-radius:3px;overflow:hidden"><div style="height:100%;width:28%;background:var(--water);border-radius:3px"></div></div>
+        </div>
+        <div style="margin-top:auto;padding-top:8px;border-top:1px solid var(--warm-gray);display:flex;justify-content:space-between;font-size:10px"><span style="font-weight:600;color:var(--near-black)">Remaining</span><span style="font-family:'JetBrains Mono',monospace;font-weight:600;color:var(--forest)">$5,200</span></div>
+      </div>
+    </div>
+    <!-- Slide 3: CTA -->
+    <div class="ig-graphic" style="background:linear-gradient(135deg,var(--dark-brown),var(--brown-gold),var(--copper));display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px;position:relative">
+      <span class="slide-label">3/3</span>
+      <div style="position:absolute;inset:0;background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBdWy7YGvr91as47l5syVXCzvWPOyaTwI1-GEBLWn150_WMIGIAgFKdqTnVMCRBxXnO09SNboHH3MsEKaTRzkPHNLHBFNPVGVfPKzoVdRwRvC12EimN4FnTECxbYwklaowM2-KGIVu19o-akr8GPchHrsNmUPtvHxsIMc0Kvd5GzIU7TjGkjjVFj67AFGYgJNID6pzed8VEDa_TIyak4CZ4xhPSubV1n51oaOj_StisdWvLaUpvtgXji3TKmT7KONbP1DBYV3YgTT8');background-size:cover;background-position:center;opacity:0.08;filter:grayscale(100%);mix-blend-mode:overlay"></div>
+      <div style="position:relative;z-index:2">
+        <div style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:26px;color:white;line-height:1.3;margin-bottom:12px">Still refining. Still listening.</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:24px">Want to see it first?</div>
+        <div style="display:inline-block;padding:10px 28px;border:1px solid rgba(255,255,255,0.3);color:rgba(255,255,255,0.8);font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase">Link in Bio</div>
+        <div style="margin-top:24px;font-family:'Inter',sans-serif;font-weight:200;font-size:14px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.6)">THREAD<span style="color:var(--copper)">LINE</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="caption-block">
+    <div class="caption-label">Full Caption</div>
+    <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+    <div class="caption-text">Here's a peek behind the curtain.
+
+We've been heads-down building Threadline for months now and things are starting to come together. Wanted to share a few snapshots of where we are.
+
+The inventory view lets you see every garment across your entire production at a glance. Filter by character, by vendor, by status. Search by any field. It's the bird's-eye view that spreadsheets try to give you but never quite manage.
+
+The budget dashboard updates in real time as expenses are logged. No more waiting until Friday to find out where you stand. You'll know after every single purchase.
+
+And the return tracker. This one might be my favorite. A clean timeline of every deadline across every vendor. Color-coded by urgency. Alerts built in.
+
+Still refining, still polishing, still listening to feedback from our early access community. But it's real, and it's getting closer every day.
+
+Want to see it first? Link in bio.</div>
+  </div>
+
+  <div class="hashtag-block">
+    <div class="ht-label">Hashtags</div>
+    <div class="ht-text">#wardrobedepartment #filmproduction #costumedesign #wardrobepa #filmcrew #setlife #productionlife #filmindustry #costumesupervisor #filmtech #wardrobesupervisor #costumedepartment #filmprod #belowtheline #filmmaking #tvproduction #fashionfilm #wardrobeassistant #costumier #filmwardrobe</div>
+    <button class="ht-copy-btn" onclick="copyHashtags(this)">Copy Tags</button>
+  </div>
+</div>
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     POST 14: Pain Point - Continuity (Wednesday)
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<div class="post-section">
+  <div class="post-header">
+    <div>
+      <div class="post-id">Week 4 &middot; Wednesday</div>
+      <div class="post-name">The Continuity Photo Problem</div>
+    </div>
+    <div class="badges">
+      <span class="badge-ig">Instagram</span>
+      <span class="badge-format">Carousel &middot; 3 Slides</span>
+      <span class="badge-type pain">Pain Point</span>
+    </div>
+  </div>
+  <div class="post-time"><strong>Best time:</strong> 7:00 PM ET</div>
+
+  <div class="visual-frame">
+    <!-- Slide 1 -->
+    <div class="ig-graphic" style="background:var(--cream);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px">
+      <span class="slide-label-dark">1/3</span>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--clay);margin-bottom:24px">6 AM on set</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:32px;color:var(--near-black);line-height:1.25;margin-bottom:16px">"Which pocket<br>was the<br>handkerchief in?"</div>
+      <div style="width:40px;height:1px;background:var(--sand);margin:0 auto 16px"></div>
+      <div style="font-size:12px;color:var(--taupe);line-height:1.6;max-width:260px">The scene was last shot four weeks ago. The PA who took the photo finished their contract three weeks ago.</div>
+      <div style="margin-top:32px;font-family:'Inter',sans-serif;font-weight:200;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--near-black)">THREAD<span style="color:var(--copper)">LINE</span></div>
+    </div>
+    <!-- Slide 2: The problem -->
+    <div class="ig-graphic" style="background:var(--linen);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px;position:relative">
+      <span class="slide-label-dark">2/3</span>
+      <div style="position:absolute;inset:0;background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBGchh_ZDL85IckT4KmjLhPcWN1beeI0qH0C7aG8jQuxJzzvPVeuK-f2z-dLsFIUBR3u2zANtK7Zl3PFPS9XbVwV9F8GYRkABrySWvWaCPG2BK9ToO1-tjBi5GCmSaWmrgF5FIgu71bu8vzshtFJ-3I3TVxjoFdzLxwAqtFSRDLW9tOSKwbhG3WwafCaiEe2UXkzyFtuOGwK2ZHsq7Lwj2fN_-mEPSk9EEZYIFEwpkGI02flrXqtdiLZsHq4XQpVHKadNuJPr4TafY');background-size:cover;background-position:center;opacity:0.06;filter:grayscale(100%)"></div>
+      <div style="position:relative;z-index:2">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--clay);margin-bottom:20px">The problem</div>
+        <div style="display:flex;flex-direction:column;gap:14px;max-width:280px;text-align:left">
+          <div style="display:flex;align-items:flex-start;gap:10px"><div style="width:6px;height:6px;border-radius:50%;background:var(--clay);margin-top:7px;flex-shrink:0"></div><span style="font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--near-black);line-height:1.5">Photos scattered across multiple people's phones</span></div>
+          <div style="display:flex;align-items:flex-start;gap:10px"><div style="width:6px;height:6px;border-radius:50%;background:var(--clay);margin-top:7px;flex-shrink:0"></div><span style="font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--near-black);line-height:1.5">One personnel change away from losing everything</span></div>
+          <div style="display:flex;align-items:flex-start;gap:10px"><div style="width:6px;height:6px;border-radius:50%;background:var(--clay);margin-top:7px;flex-shrink:0"></div><span style="font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--near-black);line-height:1.5">"I think it was the left pocket" isn't good enough</span></div>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 3: The solution -->
+    <div class="ig-graphic" style="background:linear-gradient(135deg,var(--dark-brown),var(--brown-gold));display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px;position:relative">
+      <span class="slide-label">3/3</span>
+      <div style="position:relative;z-index:2">
+        <div style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:26px;color:white;line-height:1.3;margin-bottom:8px">All continuity photos.<br>One place. Always accessible.</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:24px">Organized by character, scene, and shooting day.</div>
+        <div style="width:40px;height:1px;background:rgba(255,255,255,0.3);margin:0 auto 20px"></div>
+        <div style="font-family:'Inter',sans-serif;font-weight:200;font-size:16px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.8)">THREAD<span style="color:var(--copper)">LINE</span></div>
+        <div style="margin-top:16px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:rgba(255,255,255,0.4)">From rack to wrap.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="caption-block">
+    <div class="caption-label">Full Caption</div>
+    <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+    <div class="caption-text">"Which pocket was the handkerchief in?"
+
+It's 6 AM. You're standing on set. The scene you're shooting today was last filmed four weeks ago. And the continuity note you need is on a phone that no longer exists because the day player PA who took the photo finished their contract three weeks ago.
+
+This is not a rare occurrence. This is Tuesday.
+
+Continuity in wardrobe is brutal because the details are so specific. Which button was undone. Where the scarf was tucked. Which ring was on which finger. Whether the sleeves were rolled once or twice.
+
+When these photos and notes live in random camera rolls across multiple people's phones, the system is one personnel change away from collapse.
+
+Threadline keeps all continuity photos and notes in one place, organized by character, scene, and shooting day. Everyone on the department has access. Nobody's personal phone is the single point of failure.
+
+Because "I think it was the left pocket" isn't good enough when the director is waiting.</div>
+  </div>
+
+  <div class="hashtag-block">
+    <div class="ht-label">Hashtags</div>
+    <div class="ht-text">#wardrobedepartment #filmproduction #costumedesign #wardrobepa #filmcrew #setlife #productionlife #filmindustry #costumesupervisor #filmtech #wardrobesupervisor #costumedepartment #filmprod #belowtheline #filmmaking #tvproduction #fashionfilm #wardrobeassistant #costumier #filmwardrobe</div>
+    <button class="ht-copy-btn" onclick="copyHashtags(this)">Copy Tags</button>
+  </div>
+</div>
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     POST 15: Engagement Poll (Friday)
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<div class="post-section">
+  <div class="post-header">
+    <div>
+      <div class="post-id">Week 4 &middot; Friday</div>
+      <div class="post-name">What Feature Would Change Your Life on Set?</div>
+    </div>
+    <div class="badges">
+      <span class="badge-ig">Instagram</span>
+      <span class="badge-format">Single Image</span>
+      <span class="badge-type engage">Engagement</span>
+    </div>
+  </div>
+  <div class="post-time"><strong>Best time:</strong> 11:30 AM ET</div>
+
+  <div class="visual-frame">
+    <div class="ig-graphic" style="background:var(--cream);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:44px;position:relative">
+      <div style="position:absolute;inset:0;background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBdWy7YGvr91as47l5syVXCzvWPOyaTwI1-GEBLWn150_WMIGIAgFKdqTnVMCRBxXnO09SNboHH3MsEKaTRzkPHNLHBFNPVGVfPKzoVdRwRvC12EimN4FnTECxbYwklaowM2-KGIVu19o-akr8GPchHrsNmUPtvHxsIMc0Kvd5GzIU7TjGkjjVFj67AFGYgJNID6pzed8VEDa_TIyak4CZ4xhPSubV1n51oaOj_StisdWvLaUpvtgXji3TKmT7KONbP1DBYV3YgTT8');background-size:cover;background-position:center;opacity:0.04;filter:grayscale(100%)"></div>
+      <div style="position:relative;z-index:2;width:100%">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--copper);margin-bottom:20px">Your Turn</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:28px;color:var(--near-black);line-height:1.25;margin-bottom:24px">What feature would<br><em style="color:var(--brown-gold)">change your life on set?</em></div>
+        <!-- Poll options -->
+        <div style="display:flex;flex-direction:column;gap:10px;max-width:300px;margin:0 auto;text-align:left">
+          <div style="display:flex;align-items:center;gap:12px;background:white;border:1px solid var(--warm-gray);border-radius:10px;padding:14px 16px">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--brown-gold);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:white;flex-shrink:0">A</div>
+            <span style="font-size:12px;color:var(--near-black);line-height:1.4">Automatic vendor contact lookup when you scan a garment</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;background:white;border:1px solid var(--warm-gray);border-radius:10px;padding:14px 16px">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--brown-gold);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:white;flex-shrink:0">B</div>
+            <span style="font-size:12px;color:var(--near-black);line-height:1.4">AI-generated continuity reports at end of each day</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;background:white;border:1px solid var(--warm-gray);border-radius:10px;padding:14px 16px">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--brown-gold);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:white;flex-shrink:0">C</div>
+            <span style="font-size:12px;color:var(--near-black);line-height:1.4">One-tap sharing of inventory lists with production</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;background:white;border:1px solid var(--warm-gray);border-radius:10px;padding:14px 16px">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--brown-gold);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:white;flex-shrink:0">D</div>
+            <span style="font-size:12px;color:var(--near-black);line-height:1.4">Offline mode that syncs when you get back to wifi</span>
+          </div>
+        </div>
+        <div style="margin-top:20px;font-size:11px;color:var(--taupe)">Drop your letter in the comments.</div>
+        <div style="margin-top:16px;font-family:'Inter',sans-serif;font-weight:200;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--near-black)">THREAD<span style="color:var(--copper)">LINE</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="caption-block">
+    <div class="caption-label">Full Caption</div>
+    <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+    <div class="caption-text">We're asking because we're genuinely listening.
+
+If you could wave a magic wand and add one feature to a wardrobe management app, what would it be?
+
+A. Automatic vendor contact lookup when you scan a garment
+B. AI-generated continuity reports at the end of each shooting day
+C. One-tap sharing of inventory lists with production
+D. Offline mode that syncs everything when you get back to wifi
+
+Drop your letter in the comments. Or tell us something we haven't even thought of yet. We've built real features based on DMs and comments from this community, so your answers actually matter here.
+
+And if your answer is E. "all of the above," well... we're working on it.</div>
+  </div>
+
+  <div class="hashtag-block">
+    <div class="ht-label">Hashtags</div>
+    <div class="ht-text">#wardrobedepartment #filmproduction #costumedesign #wardrobepa #filmcrew #setlife #productionlife #filmindustry #costumesupervisor #filmtech #wardrobesupervisor #costumedepartment #filmprod #belowtheline #filmmaking #tvproduction #fashionfilm #wardrobeassistant #costumier #filmwardrobe</div>
+    <button class="ht-copy-btn" onclick="copyHashtags(this)">Copy Tags</button>
+  </div>
+</div>
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     POST 16: Final CTA - One Month Recap (Saturday)
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<div class="post-section">
+  <div class="post-header">
+    <div>
+      <div class="post-id">Week 4 &middot; Saturday (Optional)</div>
+      <div class="post-name">One Month In. Here's Where We Stand.</div>
+    </div>
+    <div class="badges">
+      <span class="badge-ig">Instagram</span>
+      <span class="badge-format">Carousel &middot; 3 Slides</span>
+      <span class="badge-type cta">Waitlist CTA</span>
+    </div>
+  </div>
+  <div class="post-time"><strong>Best time:</strong> 11:00 AM ET</div>
+
+  <div class="visual-frame">
+    <!-- Slide 1: Recap -->
+    <div class="ig-graphic" style="background:var(--cream);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px;position:relative">
+      <span class="slide-label-dark">1/3</span>
+      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Cormorant Garamond',serif;font-weight:300;font-size:120px;color:var(--warm-gray);opacity:0.3;line-height:1">30</div>
+      <div style="position:relative;z-index:2">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--copper);margin-bottom:20px">Month One</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:34px;color:var(--near-black);line-height:1.2;margin-bottom:16px">One month in.<br><em style="color:var(--brown-gold)">Here's where we stand.</em></div>
+        <div style="width:40px;height:1px;background:var(--sand);margin:0 auto 16px"></div>
+        <div style="font-size:12px;color:var(--taupe)">Built by wardrobe, for wardrobe.</div>
+      </div>
+    </div>
+    <!-- Slide 2: Feature checklist -->
+    <div class="ig-graphic" style="background:var(--bone);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:44px">
+      <span class="slide-label-dark">2/3</span>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--brown-gold);margin-bottom:20px;text-align:center">What We're Building</div>
+      <div style="width:100%;max-width:280px;display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;align-items:center;gap:10px"><div style="width:20px;height:20px;border-radius:50%;background:var(--brown-gold);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;color:white">&#10003;</div><span style="font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--near-black)">Magic Scan for instant barcode inventory</span></div>
+        <div style="display:flex;align-items:center;gap:10px"><div style="width:20px;height:20px;border-radius:50%;background:var(--brown-gold);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;color:white">&#10003;</div><span style="font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--near-black)">Smart receipt capture, every line item</span></div>
+        <div style="display:flex;align-items:center;gap:10px"><div style="width:20px;height:20px;border-radius:50%;background:var(--brown-gold);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;color:white">&#10003;</div><span style="font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--near-black)">Automated return deadline tracking</span></div>
+        <div style="display:flex;align-items:center;gap:10px"><div style="width:20px;height:20px;border-radius:50%;background:var(--brown-gold);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;color:white">&#10003;</div><span style="font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--near-black)">Real-time budget dashboards</span></div>
+        <div style="display:flex;align-items:center;gap:10px"><div style="width:20px;height:20px;border-radius:50%;background:var(--brown-gold);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;color:white">&#10003;</div><span style="font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--near-black)">AI-powered continuity management</span></div>
+        <div style="display:flex;align-items:center;gap:10px"><div style="width:20px;height:20px;border-radius:50%;background:var(--brown-gold);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;color:white">&#10003;</div><span style="font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--near-black)">Role-based access for your whole team</span></div>
+      </div>
+    </div>
+    <!-- Slide 3: Final CTA -->
+    <div class="ig-graphic" style="background:linear-gradient(135deg,var(--espresso),var(--dark-brown),var(--brown-gold),var(--copper));display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px;position:relative">
+      <span class="slide-label">3/3</span>
+      <div style="position:absolute;inset:0;background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBGchh_ZDL85IckT4KmjLhPcWN1beeI0qH0C7aG8jQuxJzzvPVeuK-f2z-dLsFIUBR3u2zANtK7Zl3PFPS9XbVwV9F8GYRkABrySWvWaCPG2BK9ToO1-tjBi5GCmSaWmrgF5FIgu71bu8vzshtFJ-3I3TVxjoFdzLxwAqtFSRDLW9tOSKwbhG3WwafCaiEe2UXkzyFtuOGwK2ZHsq7Lwj2fN_-mEPSk9EEZYIFEwpkGI02flrXqtdiLZsHq4XQpVHKadNuJPr4TafY');background-size:cover;background-position:center;opacity:0.1;filter:grayscale(100%);mix-blend-mode:overlay"></div>
+      <div style="position:relative;z-index:2">
+        <div style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:28px;color:white;line-height:1.3;margin-bottom:8px">Join early access.</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:rgba(255,255,255,0.5);margin-bottom:24px">The people who've been here from the beginning<br>are at the front of the line.</div>
+        <div style="width:40px;height:1px;background:rgba(255,255,255,0.3);margin:0 auto 24px"></div>
+        <div style="display:inline-block;padding:12px 32px;border:1px solid rgba(255,255,255,0.3);color:white;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:24px">Link in Bio</div>
+        <div style="font-family:'Inter',sans-serif;font-weight:200;font-size:18px;letter-spacing:0.18em;text-transform:uppercase;color:white;margin-bottom:4px">THREAD<span style="color:var(--copper)">LINE</span></div>
+        <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:14px;color:rgba(255,255,255,0.4)">From rack to wrap.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="caption-block">
+    <div class="caption-label">Full Caption</div>
+    <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+    <div class="caption-text">One month of @threadline_app. Here's what's happened so far.
+
+We've talked with wardrobe professionals across TV, film, and commercial production. We've heard your stories about the receipts, the spreadsheets, the missed deadlines, and the wrap-day scrambles. We've taken notes on every single one.
+
+Here's what we're building based on what you've told us:
+
+Magic Scan for instant barcode inventory
+Smart receipt capture that reads every line item
+Automated return deadline tracking with advance alerts
+Real-time budget dashboards that update with every expense
+AI-powered continuity management
+Role-based access so supervisors and PAs see what they need
+
+This isn't vaporware. It's in active development and early access is coming.
+
+If you've been following along and haven't joined the waitlist yet, now's the time. The early access list is how we decide who gets in first. And the people who've been here from the beginning are at the front of that line.
+
+Link in bio. From rack to wrap.</div>
+  </div>
+
+  <div class="hashtag-block">
+    <div class="ht-label">Hashtags</div>
+    <div class="ht-text">#wardrobedepartment #filmproduction #costumedesign #wardrobepa #filmcrew #setlife #productionlife #filmindustry #costumesupervisor #filmtech #wardrobesupervisor #costumedepartment #filmprod #belowtheline #filmmaking #tvproduction #fashionfilm #wardrobeassistant #costumier #filmwardrobe</div>
+    <button class="ht-copy-btn" onclick="copyHashtags(this)">Copy Tags</button>
+  </div>
+</div>
+
+</div><!-- end week 4 -->
+
+
+</div><!-- end container -->
+
+<!-- ===== FOOTER ===== -->
+<div class="page-footer">
+  <p style="margin-bottom:8px;">4-Week Instagram Content Plan for @threadline_app &middot; 16 posts &middot; threadlineapp.io</p>
+  <a href="https://cooperinteractive.com">Made with care</a>
+</div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+/* Copy caption text to clipboard */
+function copyCaption(btn) {
+  const block = btn.closest('.caption-block');
+  const textEl = block.querySelector('.caption-text');
+  const text = textEl.innerText || textEl.textContent;
+
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  }).catch(() => {
+    const range = document.createRange();
+    range.selectNodeContents(textEl);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    document.execCommand('copy');
+    sel.removeAllRanges();
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+/* Copy hashtags to clipboard */
+function copyHashtags(btn) {
+  const block = btn.closest('.hashtag-block');
+  const textEl = block.querySelector('.ht-text');
+  const text = textEl.innerText || textEl.textContent;
+
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy Tags';
+      btn.classList.remove('copied');
+    }, 2000);
+  }).catch(() => {
+    const range = document.createRange();
+    range.selectNodeContents(textEl);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    document.execCommand('copy');
+    sel.removeAllRanges();
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy Tags';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+/* Sticky nav: highlight active week on scroll */
+const weekSections = document.querySelectorAll('.week-section');
+const weekLinks = document.querySelectorAll('.week-links a');
+
+function updateActiveWeek() {
+  let current = '';
+  weekSections.forEach(section => {
+    const top = section.getBoundingClientRect().top;
+    if (top <= 120) {
+      current = section.id;
+    }
+  });
+  weekLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) {
+      link.classList.add('active');
+    }
+  });
+}
+
+window.addEventListener('scroll', updateActiveWeek, { passive: true });
+updateActiveWeek();
+</script>
+
+</body>
+</html>

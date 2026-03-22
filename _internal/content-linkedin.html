@@ -1,0 +1,2029 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ThreadLine — 4-Week LinkedIn Content Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Inter:wght@200;300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ===================================================================
+   THREADLINE 4-WEEK LINKEDIN CONTENT PLAN
+   Dark background, LinkedIn blue (#0A66C2) accent for platform badges.
+   All posts are LinkedIn-only. Professional thought leadership tone.
+   =================================================================== */
+
+:root {
+  /* Brand palette */
+  --cream: #FAF8F5;
+  --bone: #F5F0EB;
+  --linen: #f0ebe4;
+  --warm-gray: #E8E3DE;
+  --sand: #D2C4B9;
+  --taupe: #B5A89C;
+  --brown-gold: #8B6F52;
+  --copper: #C4946A;
+  --dark-brown: #5A4228;
+  --espresso: #3A2A18;
+  --near-black: #1A1714;
+  --void: #0A0A0A;
+  --clay: #8A4A42;
+  --forest: #4A6741;
+  --dusty-blue: #627786;
+
+  /* LinkedIn accent */
+  --linkedin: #0A66C2;
+  --linkedin-bg: rgba(10,102,194,0.08);
+  --linkedin-border: rgba(10,102,194,0.2);
+  --linkedin-glow: rgba(10,102,194,0.12);
+
+  /* Brand gradients */
+  --brand-gradient: linear-gradient(135deg, #5A4228 0%, #8B6F52 50%, #C4946A 100%);
+  --brand-gradient-subtle: linear-gradient(135deg, #5A4228 0%, #6B5438 40%, #8B6F52 100%);
+  --brand-gradient-warm: linear-gradient(135deg, #8B6F52 0%, #C4946A 60%, #D4A87A 100%);
+
+  /* Typography stacks */
+  --serif: 'Cormorant Garamond', 'Georgia', serif;
+  --body: 'Inter', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', 'Menlo', monospace;
+}
+
+/* --- RESET --- */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--body);
+  background: var(--void);
+  color: #ccc;
+  line-height: 1.7;
+}
+
+::selection {
+  background: var(--linkedin);
+  color: white;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* --- STICKY NAVIGATION --- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10,10,10,0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: 12px 48px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.nav .brand {
+  font-family: var(--body);
+  font-weight: 200;
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: white;
+  margin-right: 8px;
+}
+
+.nav .brand .accent { color: var(--copper); }
+
+.nav a {
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+  padding: 5px 12px;
+  border-radius: 4px;
+  transition: all 0.15s;
+}
+
+.nav a:hover {
+  color: var(--linkedin);
+  background: var(--linkedin-bg);
+}
+
+.nav a.back { color: var(--copper); }
+
+.nav .week-links {
+  display: flex;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.nav .week-links a {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 5px 14px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 20px;
+  color: rgba(255,255,255,0.5);
+  transition: all 0.2s;
+}
+
+.nav .week-links a:hover,
+.nav .week-links a.active {
+  background: var(--linkedin);
+  color: white;
+  border-color: var(--linkedin);
+}
+
+@media (max-width: 768px) {
+  .nav { padding: 12px 20px; gap: 10px; }
+  .nav .week-links { margin-left: 0; width: 100%; justify-content: center; }
+}
+
+/* --- MAIN CONTAINER --- */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 48px 32px;
+}
+
+@media (max-width: 768px) {
+  .container { padding: 32px 20px 24px; }
+}
+
+/* --- PAGE HEADER --- */
+.page-header {
+  margin-bottom: 56px;
+  text-align: center;
+}
+
+.page-header h1 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 42px;
+  line-height: 1.2;
+  color: white;
+  margin-bottom: 12px;
+}
+
+.page-header h1 em {
+  font-style: italic;
+  color: var(--copper);
+}
+
+.page-header .subtitle {
+  font-size: 14px;
+  color: var(--taupe);
+  line-height: 1.7;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+/* --- STATS BAR --- */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin-bottom: 56px;
+}
+
+.stat-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 10px;
+  padding: 20px 24px;
+  text-align: center;
+}
+
+.stat-number {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 32px;
+  color: white;
+  line-height: 1.1;
+}
+
+.stat-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  margin-top: 4px;
+}
+
+.stat-card.linkedin-accent {
+  border-color: var(--linkedin-border);
+  background: var(--linkedin-bg);
+}
+
+.stat-card.linkedin-accent .stat-number { color: var(--linkedin); }
+
+/* --- WEEK SECTION --- */
+.week-section {
+  margin-bottom: 72px;
+  scroll-margin-top: 80px;
+}
+
+.week-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 40px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.week-header h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 28px;
+  color: white;
+}
+
+.week-header .week-range {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--taupe);
+  letter-spacing: 0.04em;
+}
+
+.week-header .week-theme {
+  font-family: var(--body);
+  font-size: 12px;
+  color: var(--linkedin);
+  margin-left: auto;
+  padding: 4px 14px;
+  border: 1px solid var(--linkedin-border);
+  border-radius: 20px;
+}
+
+/* --- POST CARD --- */
+.post-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  margin-bottom: 40px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.post-card:hover {
+  border-color: rgba(10,102,194,0.25);
+}
+
+/* --- CARD HEADER --- */
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 28px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.header-left .day-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  margin-bottom: 4px;
+}
+
+.header-left .post-title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 20px;
+  color: white;
+  line-height: 1.3;
+}
+
+.header-badges {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.badge {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 4px;
+}
+
+.badge.linkedin {
+  background: var(--linkedin);
+  color: white;
+}
+
+.badge.format {
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.5);
+}
+
+.badge.type-tag {
+  background: rgba(196,148,106,0.1);
+  color: var(--copper);
+  border: 1px solid rgba(196,148,106,0.15);
+}
+
+/* --- CARD BODY --- */
+.card-body {
+  padding: 28px;
+}
+
+/* Post meta row */
+.post-meta {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.meta-item {
+  font-size: 12px;
+  color: rgba(255,255,255,0.45);
+}
+
+.meta-item strong {
+  color: rgba(255,255,255,0.65);
+  font-weight: 600;
+}
+
+/* --- CAPTION BLOCK --- */
+.caption-block {
+  position: relative;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.caption-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  margin-bottom: 12px;
+}
+
+.caption-text {
+  font-size: 13.5px;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.8);
+  white-space: pre-wrap;
+  font-family: var(--body);
+}
+
+.copy-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 6px 16px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 4px;
+  background: transparent;
+  color: rgba(255,255,255,0.5);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.copy-btn:hover {
+  background: var(--linkedin);
+  color: white;
+  border-color: var(--linkedin);
+}
+
+.copy-btn.copied {
+  background: var(--forest);
+  border-color: var(--forest);
+  color: white;
+}
+
+/* --- HASHTAG BLOCK --- */
+.hashtag-block {
+  position: relative;
+  background: rgba(10,102,194,0.04);
+  border: 1px solid rgba(10,102,194,0.1);
+  border-radius: 8px;
+  padding: 16px 24px;
+  margin-bottom: 20px;
+}
+
+.hashtag-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--linkedin);
+  margin-bottom: 8px;
+}
+
+.hashtag-text {
+  font-size: 12px;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.5);
+  word-break: break-all;
+}
+
+.copy-ht-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 5px 12px;
+  border: 1px solid rgba(10,102,194,0.2);
+  border-radius: 4px;
+  background: transparent;
+  color: rgba(10,102,194,0.6);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.copy-ht-btn:hover {
+  background: var(--linkedin);
+  color: white;
+  border-color: var(--linkedin);
+}
+
+.copy-ht-btn.copied {
+  background: var(--forest);
+  border-color: var(--forest);
+  color: white;
+}
+
+/* --- GRAPHIC SECTION --- */
+.graphic-section {
+  margin-top: 24px;
+}
+
+.graphic-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  margin-bottom: 16px;
+}
+
+.graphic-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+/* --- GRAPHIC CARD (LinkedIn aspect ratios) --- */
+.graphic-card {
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* LinkedIn landscape 1200x627 (1.91:1) */
+.graphic-card.landscape {
+  width: 100%;
+  max-width: 620px;
+  aspect-ratio: 1.91 / 1;
+}
+
+/* LinkedIn square 1080x1080 (1:1) */
+.graphic-card.square {
+  width: 100%;
+  max-width: 440px;
+  aspect-ratio: 1 / 1;
+}
+
+/* --- GRAPHIC INTERIOR --- */
+.g-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 36px;
+}
+
+/* Background variants */
+.bg-cream { background: var(--cream); color: var(--near-black); }
+.bg-bone { background: var(--bone); color: var(--near-black); }
+.bg-gradient { background: var(--brand-gradient); color: white; }
+.bg-gradient-subtle { background: var(--brand-gradient-subtle); color: white; }
+.bg-gradient-warm { background: var(--brand-gradient-warm); color: white; }
+.bg-dark { background: var(--near-black); color: white; }
+.bg-dusty-blue { background: var(--dusty-blue); color: white; }
+.bg-li-cream {
+  background: linear-gradient(180deg, #FAF8F5 0%, #F0EDE8 100%);
+  color: var(--near-black);
+}
+.bg-linkedin-dark {
+  background: linear-gradient(135deg, #0A0A0A 0%, #1a1a2e 50%, #0A0A0A 100%);
+  color: white;
+}
+
+/* Wordmark */
+.wordmark {
+  font-family: var(--body);
+  font-weight: 200;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.wordmark .wm-accent { color: var(--copper); }
+
+.bg-cream .wordmark .wm-accent,
+.bg-bone .wordmark .wm-accent,
+.bg-li-cream .wordmark .wm-accent { color: var(--brown-gold); }
+
+/* Handle */
+.handle {
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.04em;
+  color: var(--taupe);
+  margin-top: 2px;
+}
+
+.bg-gradient .handle,
+.bg-gradient-subtle .handle,
+.bg-dark .handle,
+.bg-linkedin-dark .handle { color: rgba(255,255,255,0.4); }
+
+/* Tagline */
+.tagline {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 12px;
+  color: var(--taupe);
+  letter-spacing: 0.02em;
+}
+
+.bg-gradient .tagline,
+.bg-dark .tagline,
+.bg-linkedin-dark .tagline { color: rgba(255,255,255,0.5); }
+
+/* Typography helpers */
+.g-headline {
+  font-family: var(--serif);
+  font-weight: 300;
+  line-height: 1.15;
+}
+
+.g-headline em, .g-headline i {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.g-body {
+  font-family: var(--body);
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.g-mono {
+  font-family: var(--mono);
+  letter-spacing: 0.04em;
+}
+
+.g-stat {
+  font-family: var(--mono);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* Accent line */
+.accent-line {
+  width: 48px;
+  height: 2px;
+  background: var(--brown-gold);
+}
+
+.bg-gradient .accent-line,
+.bg-gradient-subtle .accent-line { background: rgba(255,255,255,0.3); }
+
+/* Spacer */
+.g-spacer { flex: 1; }
+
+/* Footer bar inside graphics */
+.g-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 16px;
+}
+
+/* CTA button */
+.g-cta {
+  display: inline-block;
+  font-family: var(--body);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 8px 20px;
+  border-radius: 2px;
+}
+
+.g-cta.cta-light { background: white; color: var(--brown-gold); }
+.g-cta.cta-gold { background: var(--brown-gold); color: white; }
+.g-cta.cta-outline { background: transparent; border: 1px solid var(--brown-gold); color: var(--brown-gold); }
+.g-cta.cta-linkedin { background: var(--linkedin); color: white; }
+
+/* Ghosted garment rack overlay */
+.ghost-rack {
+  position: absolute;
+  inset: 0;
+  opacity: 0.08;
+  filter: grayscale(100%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.ghost-rack::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right, transparent 10%, rgba(0,0,0,0.3) 10%, rgba(0,0,0,0.3) 90%, transparent 90%) no-repeat center 20% / 80% 2px,
+    linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.15) 100%) no-repeat 15% 20% / 2px 60%,
+    linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.15) 100%) no-repeat 85% 20% / 2px 60%,
+    linear-gradient(135deg, transparent 45%, rgba(0,0,0,0.12) 45%, rgba(0,0,0,0.12) 55%, transparent 55%) no-repeat 25% 22% / 40px 30px,
+    linear-gradient(135deg, transparent 45%, rgba(0,0,0,0.1) 45%, rgba(0,0,0,0.1) 55%, transparent 55%) no-repeat 40% 22% / 40px 30px,
+    linear-gradient(135deg, transparent 45%, rgba(0,0,0,0.12) 45%, rgba(0,0,0,0.12) 55%, transparent 55%) no-repeat 55% 22% / 40px 30px,
+    linear-gradient(135deg, transparent 45%, rgba(0,0,0,0.1) 45%, rgba(0,0,0,0.1) 55%, transparent 55%) no-repeat 70% 22% / 40px 30px,
+    linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, transparent 100%) no-repeat 25% 30% / 35px 45%,
+    linear-gradient(to bottom, rgba(0,0,0,0.06) 0%, transparent 100%) no-repeat 40% 28% / 30px 50%,
+    linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, transparent 100%) no-repeat 55% 30% / 32px 48%,
+    linear-gradient(to bottom, rgba(0,0,0,0.06) 0%, transparent 100%) no-repeat 70% 28% / 28px 52%;
+}
+
+/* Department comparison bars */
+.dept-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.dept-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  width: 80px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.dept-bar {
+  flex: 1;
+  height: 24px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.04em;
+  color: white;
+}
+
+/* Numbered item */
+.g-numbered-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.g-num {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 28px;
+  line-height: 1;
+  color: var(--brown-gold);
+  flex-shrink: 0;
+  width: 28px;
+}
+
+/* Icon circles */
+.g-icon-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.g-icon-circle.gold { background: rgba(139,111,82,0.12); color: var(--brown-gold); }
+.g-icon-circle.light { background: rgba(255,255,255,0.12); color: white; }
+.g-icon-circle.blue { background: rgba(10,102,194,0.15); color: var(--linkedin); }
+
+/* Mock bar chart elements */
+.mock-bar {
+  height: 7px;
+  border-radius: 4px;
+  background: var(--warm-gray);
+}
+
+.mock-bar.filled { background: var(--brown-gold); }
+.mock-bar.accent { background: var(--copper); }
+.mock-bar.danger { background: var(--clay); }
+.mock-bar.blue { background: var(--dusty-blue); }
+
+/* Scattered receipt mockup */
+.receipt-scatter {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  min-height: 100px;
+}
+
+.receipt-mock {
+  position: absolute;
+  background: white;
+  border: 1px solid #e0dbd6;
+  border-radius: 2px;
+  padding: 6px 8px;
+  font-family: var(--mono);
+  font-size: 6px;
+  line-height: 1.6;
+  color: #999;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transform-origin: center;
+}
+
+/* Clean digital receipt list */
+.receipt-digital {
+  background: white;
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-family: var(--body);
+}
+
+.receipt-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid #f0ebe4;
+  font-size: 9px;
+}
+
+.receipt-row:last-child { border-bottom: none; }
+.receipt-row .store { color: var(--near-black); font-weight: 500; }
+.receipt-row .amount { color: var(--brown-gold); font-family: var(--mono); font-size: 9px; }
+.receipt-row .date { color: var(--taupe); font-size: 8px; }
+
+/* Budget dashboard mockup */
+.budget-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.budget-label {
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.03em;
+  width: 70px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.budget-bar-track {
+  flex: 1;
+  height: 16px;
+  background: rgba(0,0,0,0.06);
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+.budget-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  padding-right: 6px;
+  justify-content: flex-end;
+  font-family: var(--mono);
+  font-size: 7px;
+  color: white;
+  font-weight: 500;
+}
+
+/* --- POSTING SCHEDULE KEY --- */
+.schedule-key {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 48px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.key-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+}
+
+.key-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.key-dot.tue { background: var(--linkedin); }
+.key-dot.thu { background: var(--copper); }
+.key-dot.sat { background: rgba(255,255,255,0.2); }
+
+/* --- PAGE FOOTER --- */
+.page-footer {
+  text-align: center;
+  padding: 40px 48px 60px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.25);
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+
+.page-footer a {
+  color: var(--copper);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.page-footer a:hover { color: white; }
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+  .page-header h1 { font-size: 30px; }
+  .card-header { padding: 16px 20px; }
+  .card-body { padding: 20px; }
+  .caption-block { padding: 16px; }
+  .graphic-card.landscape { max-width: 100%; }
+  .graphic-card.square { max-width: 100%; }
+  .g-inner { padding: 28px 24px; }
+  .week-header { flex-direction: column; gap: 8px; }
+  .week-header .week-theme { margin-left: 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== STICKY NAVIGATION ===== -->
+<nav class="nav">
+  <a href="../../website/index.html" class="brand">THREAD<span class="accent">LINE</span></a>
+  <a href="index.html" class="back">&larr; Brainstorm</a>
+  <a href="content-calendar.html">Full Calendar</a>
+  <div class="week-links">
+    <a href="#week1">W1</a>
+    <a href="#week2">W2</a>
+    <a href="#week3">W3</a>
+    <a href="#week4">W4</a>
+  </div>
+</nav>
+
+<!-- ===== MAIN CONTENT ===== -->
+<div class="container">
+
+<!-- Page Header -->
+<div class="page-header">
+  <h1>4-Week <em>LinkedIn</em> Content Plan</h1>
+  <p class="subtitle">Professional thought leadership for costume supervisors, production managers, and industry decision-makers. 12 posts, fully written, ready to publish from linkedin.com/company/threadline-app</p>
+</div>
+
+<!-- Stats Bar -->
+<div class="stats-bar">
+  <div class="stat-card linkedin-accent">
+    <div class="stat-number">12</div>
+    <div class="stat-label">Total Posts</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-number">4</div>
+    <div class="stat-label">Weeks</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-number">3</div>
+    <div class="stat-label">Posts / Week</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-number">7</div>
+    <div class="stat-label">With Graphics</div>
+  </div>
+</div>
+
+<!-- Posting Schedule Key -->
+<div class="schedule-key">
+  <div class="key-item"><span class="key-dot tue"></span> Tuesday 8:30 AM ET</div>
+  <div class="key-item"><span class="key-dot thu"></span> Thursday 12:00 PM ET</div>
+  <div class="key-item"><span class="key-dot sat"></span> Saturday 9:00 AM ET (optional)</div>
+</div>
+
+
+<!-- ╔═══════════════════════════════════════════════════════════╗
+     ║  WEEK 1 — Announce & Establish                           ║
+     ╚═══════════════════════════════════════════════════════════╝ -->
+<div class="week-section" id="week1">
+<div class="week-header">
+  <h2>Week 1</h2>
+  <span class="week-range">Announce &amp; Establish</span>
+  <span class="week-theme">Industry Announcement + Thought Leadership</span>
+</div>
+
+<!-- ═══ POST 1 — Week 1, Tuesday ═══ -->
+<div class="post-card">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-label">Week 1 &middot; Tuesday</div>
+      <div class="post-title">Introducing Threadline to the Industry</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge linkedin">LinkedIn</span>
+      <span class="badge format">Text Post</span>
+      <span class="badge type-tag">Announcement</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="post-meta">
+      <div class="meta-item"><strong>Best Time:</strong> 8:30 AM ET (Tuesday)</div>
+      <div class="meta-item"><strong>Format:</strong> Long-form text, no image required</div>
+    </div>
+    <div class="caption-block">
+      <div class="caption-label">Full Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Every film and TV production has a wardrobe department. And almost every single one is running on spreadsheets, paper receipts, and memory.
+
+Wardrobe supervisors manage thousands of garments across dozens of actors. They track purchases, rentals, returns, alterations, and continuity across weeks or months of shooting. And most of them are doing it with tools that haven't changed in 20 years.
+
+We're building Threadline to change that.
+
+Threadline is AI-powered wardrobe management software designed specifically for film and television production. Barcode scanning for instant inventory. Receipt capture that reads every line item. Return tracking with deadline alerts. Budget dashboards that update in real time.
+
+The wardrobe truck just went digital.
+
+We're currently in development and inviting industry professionals to join our early access list. If you work in wardrobe, costume design, or production management, I'd love to hear what your biggest workflow pain points are.
+
+threadlineapp.io</div>
+    </div>
+    <div class="hashtag-block">
+      <div class="hashtag-label">Hashtags</div>
+      <button class="copy-ht-btn" onclick="copyHashtags(this)">Copy</button>
+      <div class="hashtag-text">#filmproduction #wardrobesupervisor #costumedesign #productionmanagement #filmtech #entertainmentindustry #belowtheline #wardrobemanagement #filmmaking #tvproduction</div>
+    </div>
+
+    <!-- Optional graphic -->
+    <div class="graphic-section">
+      <div class="graphic-label">Optional Graphic (1200 x 627)</div>
+      <div class="graphic-wrapper">
+        <div class="graphic-card landscape">
+          <div class="g-inner bg-gradient">
+            <div class="ghost-rack"></div>
+            <div class="wordmark" style="margin-bottom: 4px;">THREAD<span class="wm-accent">LINE</span></div>
+            <div class="handle">linkedin.com/company/threadline-app</div>
+            <div class="g-spacer"></div>
+            <div class="g-headline" style="font-size: 28px; max-width: 380px;">From Rack <em>to Wrap</em></div>
+            <div style="margin-top: 12px;">
+              <div class="tagline">AI-powered wardrobe management for film &amp; television</div>
+            </div>
+            <div class="g-footer">
+              <div class="g-mono" style="font-size: 9px; color: rgba(255,255,255,0.4);">threadlineapp.io</div>
+              <div class="g-cta cta-light">Join Early Access</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ POST 2 — Week 1, Thursday ═══ -->
+<div class="post-card">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-label">Week 1 &middot; Thursday</div>
+      <div class="post-title">The Hidden Cost of Manual Wardrobe Tracking</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge linkedin">LinkedIn</span>
+      <span class="badge format">Text Post</span>
+      <span class="badge type-tag">Thought Leadership</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="post-meta">
+      <div class="meta-item"><strong>Best Time:</strong> 12:00 PM ET (Thursday)</div>
+      <div class="meta-item"><strong>Format:</strong> Long-form text, optional stat graphic</div>
+    </div>
+    <div class="caption-block">
+      <div class="caption-label">Full Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">I want to talk about something that rarely gets discussed in production budgets: the cost of manual wardrobe tracking.
+
+On a mid-size production, a wardrobe department might manage 2,000+ individual garments. Each one needs to be purchased or pulled, tagged, tracked, maintained, and eventually returned or wrapped. Every transaction generates paperwork. Every return has a deadline. Every continuity note needs to be accessible on set.
+
+When this is managed manually, mistakes happen. A missed return deadline becomes a full-price charge. A lost receipt means an unrecoverable expense. A continuity error means a reshoot.
+
+These aren't hypothetical scenarios. They happen on productions every single week.
+
+The industry has invested heavily in digital tools for camera, lighting, and scheduling. Wardrobe departments have been left behind.
+
+That's the gap we're building Threadline to fill: purpose-built software that treats wardrobe management with the same seriousness as every other department on set.
+
+More to come. Follow along or visit threadlineapp.io to join the early access list.</div>
+    </div>
+    <div class="hashtag-block">
+      <div class="hashtag-label">Hashtags</div>
+      <button class="copy-ht-btn" onclick="copyHashtags(this)">Copy</button>
+      <div class="hashtag-text">#productionbudget #wardrobesupervisor #filmproduction #costumedesign #belowtheline #filmtech #productionmanagement #entertainmentindustry #tvproduction #wardrobemanagement</div>
+    </div>
+
+    <!-- Stat graphic -->
+    <div class="graphic-section">
+      <div class="graphic-label">Optional Graphic (1200 x 627)</div>
+      <div class="graphic-wrapper">
+        <div class="graphic-card landscape">
+          <div class="g-inner bg-dark">
+            <div class="wordmark" style="margin-bottom: 4px;">THREAD<span class="wm-accent">LINE</span></div>
+            <div class="g-spacer"></div>
+            <div class="g-headline" style="font-size: 42px; color: white;">2,000+</div>
+            <div class="g-headline" style="font-size: 18px; color: var(--copper); margin-top: 4px;"><em>garments per production</em></div>
+            <div style="margin-top: 12px;">
+              <div class="g-body" style="font-size: 12px; color: rgba(255,255,255,0.5); max-width: 340px;">Zero purpose-built tools. Until now.</div>
+            </div>
+            <div class="g-footer">
+              <div class="g-mono" style="font-size: 9px; color: rgba(255,255,255,0.3);">threadlineapp.io</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ POST 3 — Week 1, Saturday (Optional) ═══ -->
+<div class="post-card">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-label">Week 1 &middot; Saturday (Optional)</div>
+      <div class="post-title">The Digital Divide on Set</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge linkedin">LinkedIn</span>
+      <span class="badge format">Text + Image</span>
+      <span class="badge type-tag">Industry Insight</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="post-meta">
+      <div class="meta-item"><strong>Best Time:</strong> 9:00 AM ET (Saturday)</div>
+      <div class="meta-item"><strong>Format:</strong> Thought piece with comparison graphic</div>
+    </div>
+    <div class="caption-block">
+      <div class="caption-label">Full Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Here's something worth looking at.
+
+Every department on a modern film set has gone digital. Camera teams use sophisticated asset management systems. ADs have dedicated scheduling platforms. Post-production workflows are entirely cloud-based. Even craft services can order through integrated vendor portals.
+
+Now ask a wardrobe supervisor what they use. The answer is almost always: Excel. Maybe Google Sheets if the production is feeling progressive.
+
+This isn't because wardrobe departments don't need better tools. It's because nobody has built them. The below-the-line tech space has historically prioritized departments with larger budgets and louder advocates. Wardrobe got overlooked.
+
+That changes now. We built Threadline for the people in the truck, the fitting rooms, and the racks. For the department that manages more physical assets than anyone else on set and has been tracking it all on paper since day one.
+
+If this resonates with your experience, I'd love to hear about it. And if you know someone in wardrobe who should be part of this conversation, tag them below.
+
+threadlineapp.io</div>
+    </div>
+    <div class="hashtag-block">
+      <div class="hashtag-label">Hashtags</div>
+      <button class="copy-ht-btn" onclick="copyHashtags(this)">Copy</button>
+      <div class="hashtag-text">#digitaltransformation #filmproduction #wardrobesupervisor #entertainmenttech #costumedesign #belowtheline #productionmanagement #filmtechnology #tvproduction #startups</div>
+    </div>
+
+    <!-- Department comparison graphic -->
+    <div class="graphic-section">
+      <div class="graphic-label">Attached Graphic (1200 x 627)</div>
+      <div class="graphic-wrapper">
+        <div class="graphic-card landscape">
+          <div class="g-inner bg-li-cream">
+            <div class="wordmark" style="margin-bottom: 20px;">THREAD<span class="wm-accent">LINE</span></div>
+            <div class="g-headline" style="font-size: 17px; margin-bottom: 20px; color: var(--near-black);">The digital divide <em>on set</em></div>
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 2px;">
+              <div class="dept-row">
+                <div class="dept-label" style="color: var(--near-black);">Camera</div>
+                <div class="dept-bar" style="background: var(--dusty-blue); width: 92%;">DIGITAL</div>
+              </div>
+              <div class="dept-row">
+                <div class="dept-label" style="color: var(--near-black);">Scheduling</div>
+                <div class="dept-bar" style="background: var(--dusty-blue); width: 88%;">DIGITAL</div>
+              </div>
+              <div class="dept-row">
+                <div class="dept-label" style="color: var(--near-black);">Post</div>
+                <div class="dept-bar" style="background: var(--dusty-blue); width: 95%;">DIGITAL</div>
+              </div>
+              <div class="dept-row">
+                <div class="dept-label" style="color: var(--near-black);">Accounting</div>
+                <div class="dept-bar" style="background: var(--dusty-blue); width: 82%;">DIGITAL</div>
+              </div>
+              <div class="dept-row">
+                <div class="dept-label" style="color: var(--near-black); font-weight: 700;">Wardrobe</div>
+                <div class="dept-bar" style="background: var(--clay); width: 18%;">SPREADSHEETS</div>
+              </div>
+            </div>
+            <div class="g-footer">
+              <div class="g-mono" style="font-size: 8px; color: var(--taupe);">threadlineapp.io</div>
+              <div class="tagline" style="color: var(--brown-gold);">From rack to wrap</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- end week 1 -->
+
+
+<!-- ╔═══════════════════════════════════════════════════════════╗
+     ║  WEEK 2 — Build Trust & Educate                          ║
+     ╚═══════════════════════════════════════════════════════════╝ -->
+<div class="week-section" id="week2">
+<div class="week-header">
+  <h2>Week 2</h2>
+  <span class="week-range">Build Trust &amp; Educate</span>
+  <span class="week-theme">Founder Story + Tips + Feature Spotlight</span>
+</div>
+
+<!-- ═══ POST 4 — Week 2, Tuesday ═══ -->
+<div class="post-card">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-label">Week 2 &middot; Tuesday</div>
+      <div class="post-title">The Return Deadline Problem</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge linkedin">LinkedIn</span>
+      <span class="badge format">Text Post</span>
+      <span class="badge type-tag">Pain Point</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="post-meta">
+      <div class="meta-item"><strong>Best Time:</strong> 8:30 AM ET (Tuesday)</div>
+      <div class="meta-item"><strong>Format:</strong> Long-form narrative, optional calendar graphic</div>
+    </div>
+    <div class="caption-block">
+      <div class="caption-label">Full Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">A missed return deadline is one of the most expensive mistakes in wardrobe management. And it happens all the time.
+
+Here's the scenario: Your department pulls 40 rental pieces for a show. Each one has a different return window. Some vendors give you 5 days, others give you 14. A few are on net-30 terms. The deadlines live in a mix of emails, sticky notes, and someone's memory.
+
+Shooting wraps late. The schedule shifts. Suddenly you've missed three deadlines and the production is on the hook for full retail price on garments that were supposed to be $50 rentals.
+
+I've heard this exact story from wardrobe supervisors on productions of every size. It's not a matter of competence. It's a systems problem. When there's no centralized place to track deadlines, things fall through.
+
+Threadline tracks every return deadline automatically and sends alerts before they expire. Not after. Before.
+
+This is one of those features that sounds simple but can save a production thousands of dollars on a single show.
+
+More at threadlineapp.io</div>
+    </div>
+    <div class="hashtag-block">
+      <div class="hashtag-label">Hashtags</div>
+      <button class="copy-ht-btn" onclick="copyHashtags(this)">Copy</button>
+      <div class="hashtag-text">#wardrobesupervisor #filmproduction #productionbudget #costumedesign #returntracking #belowtheline #filmtech #productionmanagement #tvproduction #wardrobemanagement</div>
+    </div>
+
+    <!-- Calendar deadline graphic -->
+    <div class="graphic-section">
+      <div class="graphic-label">Optional Graphic (1200 x 627)</div>
+      <div class="graphic-wrapper">
+        <div class="graphic-card landscape">
+          <div class="g-inner bg-li-cream">
+            <div class="wordmark" style="margin-bottom: 16px;">THREAD<span class="wm-accent">LINE</span></div>
+            <div class="g-headline" style="font-size: 18px; color: var(--near-black); margin-bottom: 16px;">Before it's too late, <em>not after.</em></div>
+            <!-- Mini calendar mockup -->
+            <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; max-width: 340px;">
+              <div style="font-family: var(--mono); font-size: 7px; color: var(--taupe); text-align: center; padding: 4px;">M</div>
+              <div style="font-family: var(--mono); font-size: 7px; color: var(--taupe); text-align: center; padding: 4px;">T</div>
+              <div style="font-family: var(--mono); font-size: 7px; color: var(--taupe); text-align: center; padding: 4px;">W</div>
+              <div style="font-family: var(--mono); font-size: 7px; color: var(--taupe); text-align: center; padding: 4px;">T</div>
+              <div style="font-family: var(--mono); font-size: 7px; color: var(--taupe); text-align: center; padding: 4px;">F</div>
+              <div style="font-family: var(--mono); font-size: 7px; color: var(--taupe); text-align: center; padding: 4px;">S</div>
+              <div style="font-family: var(--mono); font-size: 7px; color: var(--taupe); text-align: center; padding: 4px;">S</div>
+              <div style="font-family: var(--mono); font-size: 9px; text-align: center; padding: 6px; border-radius: 4px;">1</div>
+              <div style="font-family: var(--mono); font-size: 9px; text-align: center; padding: 6px; border-radius: 4px;">2</div>
+              <div style="font-family: var(--mono); font-size: 9px; text-align: center; padding: 6px; border-radius: 4px;">3</div>
+              <div style="font-family: var(--mono); font-size: 9px; text-align: center; padding: 6px; border-radius: 4px; background: rgba(196,148,106,0.15); color: var(--brown-gold); font-weight: 600;">4</div>
+              <div style="font-family: var(--mono); font-size: 9px; text-align: center; padding: 6px; border-radius: 4px;">5</div>
+              <div style="font-family: var(--mono); font-size: 9px; text-align: center; padding: 6px; border-radius: 4px;">6</div>
+              <div style="font-family: var(--mono); font-size: 9px; text-align: center; padding: 6px; border-radius: 4px;">7</div>
+              <div style="font-family: var(--mono); font-size: 9px; text-align: center; padding: 6px; border-radius: 4px;">8</div>
+              <div style="font-family: var(--mono); font-size: 9px; text-align: center; padding: 6px; border-radius: 4px; background: rgba(138,74,66,0.15); color: var(--clay); font-weight: 600;">9</div>
+              <div style="font-family: var(--mono); font-size: 9px; text-align: center; padding: 6px; border-radius: 4px;">10</div>
+              <div style="font-family: var(--mono); font-size: 9px; text-align: center; padding: 6px; border-radius: 4px;">11</div>
+              <div style="font-family: var(--mono); font-size: 9px; text-align: center; padding: 6px; border-radius: 4px; background: rgba(196,148,106,0.15); color: var(--brown-gold); font-weight: 600;">12</div>
+              <div style="font-family: var(--mono); font-size: 9px; text-align: center; padding: 6px; border-radius: 4px;">13</div>
+              <div style="font-family: var(--mono); font-size: 9px; text-align: center; padding: 6px; border-radius: 4px;">14</div>
+            </div>
+            <div style="display: flex; gap: 16px; margin-top: 12px;">
+              <div style="display: flex; align-items: center; gap: 6px; font-size: 8px; color: var(--brown-gold);"><span style="width: 8px; height: 8px; border-radius: 2px; background: rgba(196,148,106,0.3);"></span> Alert sent</div>
+              <div style="display: flex; align-items: center; gap: 6px; font-size: 8px; color: var(--clay);"><span style="width: 8px; height: 8px; border-radius: 2px; background: rgba(138,74,66,0.3);"></span> Deadline</div>
+            </div>
+            <div class="g-footer">
+              <div class="g-mono" style="font-size: 8px; color: var(--taupe);">threadlineapp.io</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ POST 5 — Week 2, Thursday ═══ -->
+<div class="post-card">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-label">Week 2 &middot; Thursday</div>
+      <div class="post-title">Feature Deep Dive: Smart Receipt Capture</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge linkedin">LinkedIn</span>
+      <span class="badge format">Text + Image</span>
+      <span class="badge type-tag">Feature Spotlight</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="post-meta">
+      <div class="meta-item"><strong>Best Time:</strong> 12:00 PM ET (Thursday)</div>
+      <div class="meta-item"><strong>Format:</strong> Feature walkthrough with before/after graphic</div>
+    </div>
+    <div class="caption-block">
+      <div class="caption-label">Full Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Let's talk about receipts.
+
+On any production, the wardrobe department generates hundreds of receipts. Every shopping run, every rental pickup, every alteration. These receipts are the backbone of the department's budget tracking.
+
+Today, most departments handle this by:
+- Keeping physical receipts in envelopes or bags
+- Manually entering each line item into a spreadsheet
+- Hoping the thermal paper doesn't fade before wrap
+
+Threadline's receipt capture works differently. You take a photo of the receipt with your phone. Our AI reads every line item automatically: store name, date, individual items, prices, tax, and total. It categorizes the expense and links it to the right project and budget category.
+
+No manual data entry. No transcription errors. No faded receipts you can't read three weeks later.
+
+For wardrobe supervisors managing six-figure budgets across multi-month productions, this isn't a nice-to-have. It's the difference between confident budget reporting and constant anxiety about whether the numbers are right.
+
+Currently in development. Join the early access list at threadlineapp.io</div>
+    </div>
+    <div class="hashtag-block">
+      <div class="hashtag-label">Hashtags</div>
+      <button class="copy-ht-btn" onclick="copyHashtags(this)">Copy</button>
+      <div class="hashtag-text">#filmproduction #wardrobesupervisor #aitools #receiptmanagement #costumedesign #productionbudget #belowtheline #filmtech #wardrobemanagement #productionmanagement</div>
+    </div>
+
+    <!-- Before/after receipt graphic -->
+    <div class="graphic-section">
+      <div class="graphic-label">Attached Graphic (1200 x 627)</div>
+      <div class="graphic-wrapper">
+        <div class="graphic-card landscape">
+          <div class="g-inner bg-cream" style="flex-direction: row; gap: 24px; padding: 32px 28px;">
+            <!-- Before side -->
+            <div style="flex: 1; display: flex; flex-direction: column;">
+              <div class="g-mono" style="font-size: 9px; color: var(--clay); margin-bottom: 10px; letter-spacing: 0.06em;">BEFORE</div>
+              <div class="receipt-scatter" style="min-height: 140px;">
+                <div class="receipt-mock" style="top: 5%; left: 8%; transform: rotate(-5deg); width: 70px;">
+                  <div>STORE #482</div>
+                  <div>ITEM... $24.99</div>
+                  <div>ITEM... $18.50</div>
+                  <div style="border-top: 1px dashed #ccc; margin-top: 2px; padding-top: 2px;">TOTAL $43.49</div>
+                </div>
+                <div class="receipt-mock" style="top: 15%; left: 45%; transform: rotate(3deg); width: 65px;">
+                  <div>FABRIC MART</div>
+                  <div>3x SILK... $89</div>
+                  <div>TAX... $7.12</div>
+                </div>
+                <div class="receipt-mock" style="top: 50%; left: 20%; transform: rotate(-8deg); width: 72px; opacity: 0.6;">
+                  <div style="color: #ddd;">FADED</div>
+                  <div style="color: #ddd;">CAN'T READ</div>
+                  <div style="color: #ddd;">$??.??</div>
+                </div>
+                <div class="receipt-mock" style="top: 45%; left: 55%; transform: rotate(6deg); width: 60px;">
+                  <div>RENTAL CO</div>
+                  <div>5 ITEMS</div>
+                  <div>DUE: ???</div>
+                </div>
+              </div>
+            </div>
+            <!-- Divider -->
+            <div style="width: 1px; background: var(--sand); flex-shrink: 0;"></div>
+            <!-- After side -->
+            <div style="flex: 1; display: flex; flex-direction: column;">
+              <div class="g-mono" style="font-size: 9px; color: var(--forest); margin-bottom: 10px; letter-spacing: 0.06em;">AFTER</div>
+              <div class="receipt-digital">
+                <div class="receipt-row">
+                  <span class="store">Store #482</span>
+                  <span class="date">Mar 14</span>
+                  <span class="amount">$43.49</span>
+                </div>
+                <div class="receipt-row">
+                  <span class="store">Fabric Mart</span>
+                  <span class="date">Mar 14</span>
+                  <span class="amount">$96.12</span>
+                </div>
+                <div class="receipt-row">
+                  <span class="store">Vintage Finds</span>
+                  <span class="date">Mar 15</span>
+                  <span class="amount">$127.00</span>
+                </div>
+                <div class="receipt-row">
+                  <span class="store">Rental Co</span>
+                  <span class="date">Mar 16</span>
+                  <span class="amount">$340.00</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding-top: 8px; margin-top: 4px; border-top: 2px solid var(--brown-gold);">
+                  <span style="font-size: 9px; font-weight: 600; color: var(--near-black);">Total</span>
+                  <span style="font-family: var(--mono); font-size: 10px; font-weight: 600; color: var(--brown-gold);">$606.61</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ POST 6 — Week 2, Saturday (Optional) ═══ -->
+<div class="post-card">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-label">Week 2 &middot; Saturday (Optional)</div>
+      <div class="post-title">Building With the Community, Not For Them</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge linkedin">LinkedIn</span>
+      <span class="badge format">Text Post</span>
+      <span class="badge type-tag">Founder Story</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="post-meta">
+      <div class="meta-item"><strong>Best Time:</strong> 9:00 AM ET (Saturday)</div>
+      <div class="meta-item"><strong>Format:</strong> Authentic founder narrative, no image needed</div>
+    </div>
+    <div class="caption-block">
+      <div class="caption-label">Full Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">One of the first things we did when we started building Threadline was reach out to wardrobe professionals and ask a simple question: what would you actually use?
+
+Not "what sounds cool." Not "what would look good in a pitch deck." But what would genuinely change your day-to-day on set?
+
+The answers shaped everything. Return deadline tracking came up in almost every conversation. Receipt capture was the second most requested feature. Budget visibility came up more from supervisors than PAs, which told us we needed role-based views.
+
+Some requests surprised us. People wanted the ability to photograph a garment and have AI suggest its category, season, and character assignment. We didn't have that on our roadmap. Now it's one of our core features.
+
+This is how we think software should be built. Not in isolation. Not by people guessing what an industry needs from the outside. But in direct conversation with the people who'll be using it every day on set.
+
+If you work in wardrobe or production management and want to be part of that conversation, visit threadlineapp.io. We read every response.</div>
+    </div>
+    <div class="hashtag-block">
+      <div class="hashtag-label">Hashtags</div>
+      <button class="copy-ht-btn" onclick="copyHashtags(this)">Copy</button>
+      <div class="hashtag-text">#startuplife #buildingpublicly #filmproduction #wardrobesupervisor #costumedesign #productdevelopment #belowtheline #communitybuilding #filmtech #userresearch</div>
+    </div>
+
+    <!-- Optional graphic -->
+    <div class="graphic-section">
+      <div class="graphic-label">Optional Graphic (1080 x 1080)</div>
+      <div class="graphic-wrapper">
+        <div class="graphic-card square">
+          <div class="g-inner bg-cream" style="justify-content: center; align-items: center; text-align: center;">
+            <div class="wordmark" style="margin-bottom: 24px;">THREAD<span class="wm-accent">LINE</span></div>
+            <div class="g-headline" style="font-size: 26px; color: var(--near-black); max-width: 300px; margin-bottom: 16px;">Built <em>with</em> wardrobe.<br>Not <em>for</em> wardrobe.</div>
+            <div class="accent-line" style="margin: 0 auto;"></div>
+            <div style="margin-top: 16px;">
+              <div class="tagline" style="color: var(--brown-gold);">threadlineapp.io</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- end week 2 -->
+
+
+<!-- ╔═══════════════════════════════════════════════════════════╗
+     ║  WEEK 3 — Deepen & Engage                                ║
+     ╚═══════════════════════════════════════════════════════════╝ -->
+<div class="week-section" id="week3">
+<div class="week-header">
+  <h2>Week 3</h2>
+  <span class="week-range">Deepen &amp; Engage</span>
+  <span class="week-theme">Industry Data + Product Preview + Engagement</span>
+</div>
+
+<!-- ═══ POST 7 — Week 3, Tuesday ═══ -->
+<div class="post-card">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-label">Week 3 &middot; Tuesday</div>
+      <div class="post-title">Why Wardrobe Budgets Go Over (And How to Prevent It)</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge linkedin">LinkedIn</span>
+      <span class="badge format">Text + Image</span>
+      <span class="badge type-tag">Industry Data</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="post-meta">
+      <div class="meta-item"><strong>Best Time:</strong> 8:30 AM ET (Tuesday)</div>
+      <div class="meta-item"><strong>Format:</strong> Data-driven analysis with infographic</div>
+    </div>
+    <div class="caption-block">
+      <div class="caption-label">Full Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Wardrobe budgets don't blow up because of bad planning. They blow up because of invisible problems.
+
+After talking with dozens of wardrobe supervisors, I've noticed the same patterns:
+
+1. Missed return deadlines. A $50 rental becomes a $400 purchase. Multiply that across 20 pieces and you're suddenly $7,000 over budget.
+
+2. Duplicate purchases. Without real-time inventory visibility, two people on the same team buy the same item on the same day. It happens more often than anyone wants to admit.
+
+3. Receipt reconciliation gaps. When receipts are managed manually, some always go missing. Those gaps show up as unexplained expenses in the final budget report.
+
+4. Scope creep without cost tracking. Script changes mean new looks. New looks mean new purchases. But if those purchases aren't tracked against the original budget in real time, nobody sees the overage building until it's too late.
+
+The common thread here isn't carelessness. It's a lack of tools that give wardrobe departments the same real-time financial visibility that other departments take for granted.
+
+Threadline's budget dashboard gives supervisors live spend tracking across every category, vendor, and project. When the numbers shift, you see it immediately.
+
+Learn more at threadlineapp.io</div>
+    </div>
+    <div class="hashtag-block">
+      <div class="hashtag-label">Hashtags</div>
+      <button class="copy-ht-btn" onclick="copyHashtags(this)">Copy</button>
+      <div class="hashtag-text">#productionbudget #wardrobesupervisor #filmproduction #costumedesign #budgetmanagement #belowtheline #filmtech #productionmanagement #entertainmentindustry #wardrobemanagement</div>
+    </div>
+
+    <!-- Budget killers infographic -->
+    <div class="graphic-section">
+      <div class="graphic-label">Attached Graphic (1200 x 627)</div>
+      <div class="graphic-wrapper">
+        <div class="graphic-card landscape">
+          <div class="g-inner bg-li-cream" style="padding: 32px 36px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+              <div>
+                <div class="g-headline" style="font-size: 16px; color: var(--near-black);">4 invisible <em>budget killers</em></div>
+              </div>
+              <div class="wordmark">THREAD<span class="wm-accent">LINE</span></div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; flex: 1;">
+              <div style="background: white; border-radius: 8px; padding: 14px 16px; border-left: 3px solid var(--clay);">
+                <div class="g-mono" style="font-size: 8px; color: var(--clay); margin-bottom: 4px;">01</div>
+                <div class="g-body" style="font-size: 11px; font-weight: 600; color: var(--near-black); margin-bottom: 2px;">Missed Return Deadlines</div>
+                <div class="g-body" style="font-size: 9px; color: var(--taupe);">$50 rental becomes $400 purchase</div>
+              </div>
+              <div style="background: white; border-radius: 8px; padding: 14px 16px; border-left: 3px solid var(--brown-gold);">
+                <div class="g-mono" style="font-size: 8px; color: var(--brown-gold); margin-bottom: 4px;">02</div>
+                <div class="g-body" style="font-size: 11px; font-weight: 600; color: var(--near-black); margin-bottom: 2px;">Duplicate Purchases</div>
+                <div class="g-body" style="font-size: 9px; color: var(--taupe);">No real-time inventory visibility</div>
+              </div>
+              <div style="background: white; border-radius: 8px; padding: 14px 16px; border-left: 3px solid var(--dusty-blue);">
+                <div class="g-mono" style="font-size: 8px; color: var(--dusty-blue); margin-bottom: 4px;">03</div>
+                <div class="g-body" style="font-size: 11px; font-weight: 600; color: var(--near-black); margin-bottom: 2px;">Receipt Gaps</div>
+                <div class="g-body" style="font-size: 9px; color: var(--taupe);">Missing receipts = unexplained expenses</div>
+              </div>
+              <div style="background: white; border-radius: 8px; padding: 14px 16px; border-left: 3px solid var(--copper);">
+                <div class="g-mono" style="font-size: 8px; color: var(--copper); margin-bottom: 4px;">04</div>
+                <div class="g-body" style="font-size: 11px; font-weight: 600; color: var(--near-black); margin-bottom: 2px;">Untracked Scope Creep</div>
+                <div class="g-body" style="font-size: 9px; color: var(--taupe);">New looks without budget updates</div>
+              </div>
+            </div>
+            <div class="g-footer" style="padding-top: 12px;">
+              <div class="g-mono" style="font-size: 8px; color: var(--taupe);">threadlineapp.io</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ POST 8 — Week 3, Thursday ═══ -->
+<div class="post-card">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-label">Week 3 &middot; Thursday</div>
+      <div class="post-title">Feature Deep Dive: Real-Time Budget Dashboard</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge linkedin">LinkedIn</span>
+      <span class="badge format">Text + Image</span>
+      <span class="badge type-tag">Product Preview</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="post-meta">
+      <div class="meta-item"><strong>Best Time:</strong> 12:00 PM ET (Thursday)</div>
+      <div class="meta-item"><strong>Format:</strong> Feature deep dive with dashboard mockup</div>
+    </div>
+    <div class="caption-block">
+      <div class="caption-label">Full Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Ask a wardrobe supervisor how their budget is looking and you'll usually get one of two answers:
+
+"I think we're okay."
+"I'll know after I finish the spreadsheet this weekend."
+
+Neither of those is great when you're managing a six-figure wardrobe budget.
+
+The problem isn't that supervisors don't care about budget tracking. The problem is that getting accurate numbers requires hours of manual data entry, receipt reconciliation, and formula management. So the budget view is always lagging behind reality.
+
+Threadline's budget dashboard solves this by eliminating the lag entirely.
+
+Every receipt captured in the app flows directly into the budget. Categorized automatically. Allocated to the right project, department, or character. The dashboard updates the moment an expense is logged.
+
+Supervisors can see:
+- Total spend vs. allocated budget (with a real-time percentage)
+- Spend by category (purchases, rentals, alterations, returns credited)
+- Spend by vendor
+- Projected budget trajectory based on current patterns
+- Flagged items approaching or exceeding category limits
+
+For production managers and line producers, this means getting accurate wardrobe budget reports without waiting for end-of-week reconciliation. For supervisors, it means confidence in the numbers without the weekend data entry marathon.
+
+Currently in development. See more at threadlineapp.io</div>
+    </div>
+    <div class="hashtag-block">
+      <div class="hashtag-label">Hashtags</div>
+      <button class="copy-ht-btn" onclick="copyHashtags(this)">Copy</button>
+      <div class="hashtag-text">#filmproduction #budgetdashboard #wardrobesupervisor #productionmanagement #costumedesign #filmtech #realtimedata #belowtheline #wardrobemanagement #entertainmentindustry</div>
+    </div>
+
+    <!-- Budget dashboard mockup -->
+    <div class="graphic-section">
+      <div class="graphic-label">Attached Graphic (1200 x 627)</div>
+      <div class="graphic-wrapper">
+        <div class="graphic-card landscape">
+          <div class="g-inner bg-li-cream" style="padding: 28px 32px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+              <div class="wordmark">THREAD<span class="wm-accent">LINE</span></div>
+              <div class="g-mono" style="font-size: 9px; color: var(--dusty-blue);">BUDGET DASHBOARD</div>
+            </div>
+            <!-- Dashboard mockup -->
+            <div style="background: white; border-radius: 8px; padding: 16px 20px; flex: 1; display: flex; flex-direction: column; gap: 8px;">
+              <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+                <div>
+                  <div style="font-family: var(--mono); font-size: 8px; color: var(--taupe); letter-spacing: 0.04em;">TOTAL SPEND</div>
+                  <div style="font-family: var(--serif); font-size: 24px; font-weight: 300; color: var(--near-black);">$47,280</div>
+                </div>
+                <div style="text-align: right;">
+                  <div style="font-family: var(--mono); font-size: 8px; color: var(--taupe); letter-spacing: 0.04em;">ALLOCATED</div>
+                  <div style="font-family: var(--serif); font-size: 24px; font-weight: 300; color: var(--brown-gold);">$65,000</div>
+                </div>
+              </div>
+              <!-- Overall progress bar -->
+              <div style="width: 100%; height: 8px; background: var(--warm-gray); border-radius: 4px; overflow: hidden; margin-bottom: 12px;">
+                <div style="width: 72.7%; height: 100%; background: var(--brown-gold); border-radius: 4px;"></div>
+              </div>
+              <!-- Category bars -->
+              <div class="budget-row">
+                <div class="budget-label" style="color: var(--near-black);">Purchases</div>
+                <div class="budget-bar-track">
+                  <div class="budget-bar-fill" style="width: 68%; background: var(--brown-gold);">$22,100</div>
+                </div>
+              </div>
+              <div class="budget-row">
+                <div class="budget-label" style="color: var(--near-black);">Rentals</div>
+                <div class="budget-bar-track">
+                  <div class="budget-bar-fill" style="width: 45%; background: var(--dusty-blue);">$14,600</div>
+                </div>
+              </div>
+              <div class="budget-row">
+                <div class="budget-label" style="color: var(--near-black);">Alterations</div>
+                <div class="budget-bar-track">
+                  <div class="budget-bar-fill" style="width: 25%; background: var(--copper);">$8,200</div>
+                </div>
+              </div>
+              <div class="budget-row">
+                <div class="budget-label" style="color: var(--near-black);">Returns</div>
+                <div class="budget-bar-track">
+                  <div class="budget-bar-fill" style="width: 10%; background: var(--forest);">-$2,380</div>
+                </div>
+              </div>
+            </div>
+            <div class="g-footer" style="padding-top: 10px;">
+              <div class="g-mono" style="font-size: 8px; color: var(--taupe);">threadlineapp.io</div>
+              <div class="g-mono" style="font-size: 8px; color: var(--dusty-blue);">72.7% of budget used</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ POST 9 — Week 3, Saturday (Optional) ═══ -->
+<div class="post-card">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-label">Week 3 &middot; Saturday (Optional)</div>
+      <div class="post-title">What's the First Thing You'd Want to Digitize?</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge linkedin">LinkedIn</span>
+      <span class="badge format">Text Post</span>
+      <span class="badge type-tag">Engagement</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="post-meta">
+      <div class="meta-item"><strong>Best Time:</strong> 9:00 AM ET (Saturday)</div>
+      <div class="meta-item"><strong>Format:</strong> Question post to drive comments, no image needed</div>
+    </div>
+    <div class="caption-block">
+      <div class="caption-label">Full Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Quick question for anyone who's worked in or alongside a wardrobe department:
+
+If you could digitize one part of the wardrobe workflow tomorrow, what would it be?
+
+A. Receipt tracking and budget management
+B. Return deadline monitoring
+C. Inventory logging and barcode scanning
+D. Continuity photo organization
+E. Something else entirely (tell me in the comments)
+
+We ask this because we're actively building the answer. Threadline is in development right now, and the features we prioritize come directly from conversations like this one.
+
+Every comment gets read. Every answer gets considered. This isn't a marketing exercise. It's product development happening in the open.
+
+If you've lived the wardrobe workflow and have opinions about what needs to change first, this is your chance to shape what gets built.
+
+threadlineapp.io</div>
+    </div>
+    <div class="hashtag-block">
+      <div class="hashtag-label">Hashtags</div>
+      <button class="copy-ht-btn" onclick="copyHashtags(this)">Copy</button>
+      <div class="hashtag-text">#wardrobesupervisor #filmproduction #costumedesign #productdevelopment #belowtheline #buildingpublicly #filmtech #productionmanagement #wardrobemanagement #engagement</div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- end week 3 -->
+
+
+<!-- ╔═══════════════════════════════════════════════════════════╗
+     ║  WEEK 4 — Convert & Compound                             ║
+     ╚═══════════════════════════════════════════════════════════╝ -->
+<div class="week-section" id="week4">
+<div class="week-header">
+  <h2>Week 4</h2>
+  <span class="week-range">Convert &amp; Compound</span>
+  <span class="week-theme">Wrap Insight + Budget Challenge + Final CTA</span>
+</div>
+
+<!-- ═══ POST 10 — Week 4, Tuesday ═══ -->
+<div class="post-card">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-label">Week 4 &middot; Tuesday</div>
+      <div class="post-title">The Wardrobe Department Deserves Better Tools</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge linkedin">LinkedIn</span>
+      <span class="badge format">Text Post</span>
+      <span class="badge type-tag">Industry Insight</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="post-meta">
+      <div class="meta-item"><strong>Best Time:</strong> 8:30 AM ET (Tuesday)</div>
+      <div class="meta-item"><strong>Format:</strong> Thought leadership text, optional comparison graphic</div>
+    </div>
+    <div class="caption-block">
+      <div class="caption-label">Full Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Here's something that's been on my mind.
+
+The film industry has embraced digital transformation in almost every department. Camera teams use sophisticated digital workflows. The AD department has dedicated scheduling software. Post-production is entirely digital. Even the production office has moved to cloud-based tools.
+
+But wardrobe departments are still using the same tools they used 20 years ago. Spreadsheets. Paper receipts. Physical binders of continuity photos. Sticky notes for return deadlines.
+
+This isn't because wardrobe professionals are resistant to technology. It's because nobody has built technology specifically for them.
+
+Think about it. When was the last time you heard about a startup focused on below-the-line production tools? Not production management broadly. Not something designed for producers and directors. Something built specifically for the people in the wardrobe truck.
+
+That's the opportunity we saw with Threadline. And the response from the wardrobe community has confirmed that this gap is real, it's painful, and people are ready for a solution.
+
+We're in active development and building alongside working wardrobe professionals. If you know someone in the industry who should be part of this conversation, I'd appreciate the introduction.
+
+threadlineapp.io</div>
+    </div>
+    <div class="hashtag-block">
+      <div class="hashtag-label">Hashtags</div>
+      <button class="copy-ht-btn" onclick="copyHashtags(this)">Copy</button>
+      <div class="hashtag-text">#digitaltransformation #filmproduction #wardrobesupervisor #costumedesign #entertainmenttech #belowtheline #startups #productionmanagement #filmtech #wardrobemanagement</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ POST 11 — Week 4, Thursday ═══ -->
+<div class="post-card">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-label">Week 4 &middot; Thursday</div>
+      <div class="post-title">The Wrap Day Scramble</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge linkedin">LinkedIn</span>
+      <span class="badge format">Text Post</span>
+      <span class="badge type-tag">Wrap Day Insight</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="post-meta">
+      <div class="meta-item"><strong>Best Time:</strong> 12:00 PM ET (Thursday)</div>
+      <div class="meta-item"><strong>Format:</strong> Relatable narrative, optional quote graphic</div>
+    </div>
+    <div class="caption-block">
+      <div class="caption-label">Full Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Wrap day should feel like a victory lap. For wardrobe departments, it usually feels like a final exam.
+
+Here's what wrap looks like for most wardrobe teams:
+
+Hundreds of garments need to be sorted. Some get returned to vendors. Some go back to the rental house. Some get shipped to storage. Some get released to actors. Each category has different paperwork, different timelines, and different people who need to sign off.
+
+And all of this needs to happen while simultaneously reconciling the final budget, completing return paperwork, and documenting everything for the production's records.
+
+Now imagine doing all of that while also realizing that several return deadlines actually expired two days ago and the rental invoices have already been updated to reflect full purchase prices.
+
+This is why wardrobe teams dread wrap day more than any other day on the schedule. Not because the work is hard. Because the systems they have to work within make it exponentially harder than it needs to be.
+
+Threadline is designed to make wrap day straightforward. Every garment's status is already tracked. Every return deadline is already monitored. Every expense is already reconciled. When wrap comes, you're not starting from scratch. You're just confirming what the system already knows.
+
+That's the goal. And we're getting close.
+
+threadlineapp.io</div>
+    </div>
+    <div class="hashtag-block">
+      <div class="hashtag-label">Hashtags</div>
+      <button class="copy-ht-btn" onclick="copyHashtags(this)">Copy</button>
+      <div class="hashtag-text">#wrapday #filmproduction #wardrobesupervisor #costumedesign #productionlife #belowtheline #filmtech #productionmanagement #wardrobemanagement #tvproduction</div>
+    </div>
+
+    <!-- Quote graphic -->
+    <div class="graphic-section">
+      <div class="graphic-label">Optional Graphic (1200 x 627)</div>
+      <div class="graphic-wrapper">
+        <div class="graphic-card landscape">
+          <div class="g-inner bg-gradient-subtle" style="justify-content: center; align-items: center; text-align: center;">
+            <div class="ghost-rack"></div>
+            <div class="wordmark" style="margin-bottom: 24px;">THREAD<span class="wm-accent">LINE</span></div>
+            <div class="g-headline" style="font-size: 24px; max-width: 420px; color: white;">Wrap day should feel like <em>a victory lap.</em></div>
+            <div class="accent-line" style="margin: 20px auto 0;"></div>
+            <div class="g-footer" style="justify-content: center;">
+              <div class="g-mono" style="font-size: 9px; color: rgba(255,255,255,0.4);">threadlineapp.io</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ POST 12 — Week 4, Saturday (Optional) ═══ -->
+<div class="post-card">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-label">Week 4 &middot; Saturday (Optional)</div>
+      <div class="post-title">Thank You. And What's Next.</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge linkedin">LinkedIn</span>
+      <span class="badge format">Text Post</span>
+      <span class="badge type-tag">Final CTA</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="post-meta">
+      <div class="meta-item"><strong>Best Time:</strong> 9:00 AM ET (Saturday)</div>
+      <div class="meta-item"><strong>Format:</strong> Reflective close, optional brand graphic</div>
+    </div>
+    <div class="caption-block">
+      <div class="caption-label">Full Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">One month ago, we introduced Threadline to the world. Here's a quick reflection on what we've learned.
+
+The response from the wardrobe community has been incredible. Not because of the numbers, but because of the specificity. People aren't just saying "yeah, we need better tools." They're telling us exactly what breaks in their current workflow, exactly when it breaks, and exactly what a fix would look like.
+
+That level of detail is a gift when you're building a product. And we're treating it accordingly.
+
+Every feature in our current development pipeline came directly from conversations with wardrobe supervisors, costume designers, and PAs. Return tracking with advance alerts. Smart receipt capture. Real-time budget visibility. Centralized continuity management. These aren't features we dreamed up in a conference room. They're solutions to problems people described to us in their own words.
+
+We're heading into our next phase of development with this feedback guiding every decision. If you work in wardrobe or production and want to be part of what happens next, we'd love to have you.
+
+Join the early access list at threadlineapp.io. Or just reach out directly. We answer every message.
+
+Thank you to everyone who's engaged, commented, shared, and signed up over the past month. This is just the beginning.
+
+From rack to wrap.</div>
+    </div>
+    <div class="hashtag-block">
+      <div class="hashtag-label">Hashtags</div>
+      <button class="copy-ht-btn" onclick="copyHashtags(this)">Copy</button>
+      <div class="hashtag-text">#filmproduction #wardrobesupervisor #costumedesign #earlyaccess #buildingpublicly #belowtheline #filmtech #productionmanagement #wardrobemanagement #fromracktowrap</div>
+    </div>
+
+    <!-- Closing graphic -->
+    <div class="graphic-section">
+      <div class="graphic-label">Optional Graphic (1200 x 627)</div>
+      <div class="graphic-wrapper">
+        <div class="graphic-card landscape">
+          <div class="g-inner bg-gradient" style="justify-content: center; align-items: center; text-align: center;">
+            <div class="ghost-rack"></div>
+            <div class="wordmark" style="margin-bottom: 20px; font-size: 13px;">THREAD<span class="wm-accent">LINE</span></div>
+            <div class="g-headline" style="font-size: 30px; color: white;">From Rack <em>to Wrap</em></div>
+            <div class="accent-line" style="margin: 16px auto;"></div>
+            <div class="tagline" style="margin-bottom: 20px;">AI-powered wardrobe management for film &amp; television</div>
+            <div class="g-cta cta-light">Join Early Access</div>
+            <div class="g-footer" style="justify-content: center; padding-top: 16px;">
+              <div class="g-mono" style="font-size: 9px; color: rgba(255,255,255,0.4);">threadlineapp.io</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- end week 4 -->
+
+
+</div><!-- end container -->
+
+<!-- ===== FOOTER ===== -->
+<div class="page-footer">
+  <p style="margin-bottom: 8px;">4-Week LinkedIn Content Plan for Threadline &middot; linkedin.com/company/threadline-app</p>
+  <a href="https://cooperinteractive.com">Made with care</a>
+</div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+/* ===================================================================
+   Copy caption text to clipboard.
+   Finds the nearest .caption-text sibling inside the same
+   .caption-block container and writes its content to the clipboard.
+   Falls back to execCommand for older browsers.
+   =================================================================== */
+function copyCaption(btn) {
+  const block = btn.closest('.caption-block');
+  const textEl = block.querySelector('.caption-text');
+  const text = textEl.innerText || textEl.textContent;
+
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  }).catch(() => {
+    const range = document.createRange();
+    range.selectNodeContents(textEl);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    document.execCommand('copy');
+    sel.removeAllRanges();
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+/* ===================================================================
+   Copy hashtag text to clipboard.
+   Works the same as copyCaption but targets .hashtag-text within
+   the parent .hashtag-block container.
+   =================================================================== */
+function copyHashtags(btn) {
+  const block = btn.closest('.hashtag-block');
+  const textEl = block.querySelector('.hashtag-text');
+  const text = textEl.innerText || textEl.textContent;
+
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  }).catch(() => {
+    const range = document.createRange();
+    range.selectNodeContents(textEl);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    document.execCommand('copy');
+    sel.removeAllRanges();
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+/* ===================================================================
+   Sticky nav: highlight the active week link as the user scrolls.
+   Iterates through all .week-section elements and checks their
+   vertical position relative to the viewport. The last section
+   whose top edge has scrolled past 120px from the top is marked
+   as "current," and its corresponding nav link gets the .active class.
+   =================================================================== */
+const weekSections = document.querySelectorAll('.week-section');
+const weekLinks = document.querySelectorAll('.week-links a');
+
+function updateActiveWeek() {
+  let current = '';
+  weekSections.forEach(section => {
+    const top = section.getBoundingClientRect().top;
+    if (top <= 120) {
+      current = section.id;
+    }
+  });
+  weekLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) {
+      link.classList.add('active');
+    }
+  });
+}
+
+window.addEventListener('scroll', updateActiveWeek, { passive: true });
+updateActiveWeek();
+</script>
+</body>
+</html>
