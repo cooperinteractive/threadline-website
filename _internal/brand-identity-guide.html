@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ThreadLine — Brand Identity Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Inter:wght@200;300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,600;1,6..72,300;1,6..72,400&family=Material+Symbols+Outlined:wght,FILL@200,0&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF8F5; --bone: #F5F0EB; --warm-gray: #E8E3DE; --sand: #D2C4B9;
+    --taupe: #B5A89C; --brown-gold: #8B6F52; --copper: #C4946A; --dark-brown: #5A4228;
+    --espresso: #3A2A18; --near-black: #1A1714; --void: #0A0A0A;
+    --water: #5A7E8A; --forest: #4A6741; --clay: #8A4A42; --dusty-blue: #627786;
+    --surface-low: #f5f3f0; --surface-container: #efeeeb;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter',sans-serif; background:var(--cream); color:var(--near-black); }
+
+  /* NAV */
+  .sticky-nav { position:sticky; top:0; z-index:100; background:rgba(250,248,245,0.92); backdrop-filter:blur(16px); border-bottom:1px solid rgba(26,23,20,0.06); padding:12px 48px; display:flex; align-items:center; gap:32px; }
+  .sticky-nav .brand { font-family:'Inter',sans-serif; font-weight:200; font-size:16px; letter-spacing:0.15em; text-transform:uppercase; }
+  .sticky-nav .brand .t { color:var(--near-black); }
+  .sticky-nav .brand .l { color:var(--brown-gold); }
+  .sticky-nav a { font-size:11px; font-weight:500; color:var(--taupe); text-decoration:none; letter-spacing:0.04em; padding:4px 8px; border-radius:4px; transition:all 0.15s; }
+  .sticky-nav a:hover, .sticky-nav a.active { color:var(--brown-gold); background:rgba(139,111,82,0.06); }
+
+  .container { max-width:1200px; margin:0 auto; padding:0 48px; }
+
+  /* COVER */
+  .cover {
+    background: linear-gradient(135deg, var(--dark-brown) 0%, var(--brown-gold) 40%, var(--copper) 100%);
+    min-height: 60vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:80px 48px; position:relative; overflow:hidden;
+  }
+  .cover::before {
+    content:''; position:absolute; inset:0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.08) 0%, transparent 60%);
+  }
+  .cover .wordmark {
+    font-family:'Inter',sans-serif; font-weight:200; font-size:80px; letter-spacing:0.3em;
+    text-transform:uppercase; color:rgba(255,255,255,0.92); position:relative; z-index:1;
+  }
+  .cover .wordmark .l { color:rgba(255,255,255,0.55); }
+  .cover .tagline {
+    font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300;
+    font-size:28px; color:rgba(255,255,255,0.6); margin-top:12px; position:relative; z-index:1;
+  }
+  .cover .thread-line { width:60px; height:1px; background:rgba(255,255,255,0.2); margin:24px auto 0; position:relative; z-index:1; }
+  .cover .doc-title {
+    font-size:12px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase;
+    color:rgba(255,255,255,0.35); margin-top:48px; position:relative; z-index:1;
+  }
+
+  /* SECTIONS */
+  .section { padding:80px 0; border-bottom:1px solid rgba(26,23,20,0.06); }
+  .section:last-child { border-bottom:none; }
+  .section-num {
+    font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:500;
+    letter-spacing:0.15em; text-transform:uppercase; color:var(--taupe); margin-bottom:8px;
+  }
+  .section-title {
+    font-family:'Cormorant Garamond',serif; font-weight:300; font-size:36px; margin-bottom:8px;
+  }
+  .section-sub { font-size:14px; color:var(--taupe); margin-bottom:40px; max-width:600px; line-height:1.7; }
+
+  /* LOGO SHOWCASE */
+  .logo-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+  .logo-box {
+    border-radius:12px; padding:48px; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; min-height:200px; position:relative;
+  }
+  .logo-box .label {
+    position:absolute; top:16px; left:16px;
+    font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.1em;
+    text-transform:uppercase; opacity:0.4;
+  }
+  .logo-box.light { background:var(--cream); border:1px solid var(--warm-gray); }
+  .logo-box.dark { background:var(--void); }
+  .logo-box.accent { background:var(--brown-gold); }
+  .logo-box.photo {
+    background:linear-gradient(135deg,#3a3a3a,#1a1a1a);
+    background-size:cover; background-position:center;
+  }
+  .logo-box .wm { font-family:'Inter',sans-serif; font-weight:200; font-size:36px; letter-spacing:0.2em; text-transform:uppercase; }
+
+  /* CLEAR SPACE */
+  .clearspace-demo {
+    background:white; border:1px solid var(--warm-gray); border-radius:12px;
+    padding:48px; text-align:center; margin-top:32px;
+  }
+  .clearspace-inner {
+    display:inline-block; position:relative; padding:40px 60px;
+    border:1px dashed var(--sand);
+  }
+  .clearspace-inner .wm { font-family:'Inter',sans-serif; font-weight:200; font-size:28px; letter-spacing:0.2em; text-transform:uppercase; }
+  .clearspace-inner .measure {
+    position:absolute; font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--clay); opacity:0.7;
+  }
+
+  /* COLOR SYSTEM */
+  .color-row { display:flex; gap:0; border-radius:12px; overflow:hidden; margin-bottom:16px; box-shadow:0 2px 12px rgba(26,23,20,0.06); }
+  .color-chip {
+    flex:1; padding:24px 16px; display:flex; flex-direction:column; justify-content:flex-end;
+    min-height:140px; transition:flex 0.3s ease;
+  }
+  .color-chip:hover { flex:1.3; }
+  .color-chip .c-name { font-size:12px; font-weight:500; margin-bottom:2px; }
+  .color-chip .c-hex { font-family:'JetBrains Mono',monospace; font-size:10px; opacity:0.7; }
+  .color-chip .c-token { font-family:'JetBrains Mono',monospace; font-size:9px; opacity:0.4; margin-top:4px; }
+
+  /* TYPOGRAPHY */
+  .type-stack { display:flex; flex-direction:column; gap:32px; }
+  .type-specimen {
+    background:white; border:1px solid rgba(26,23,20,0.06); border-radius:12px;
+    padding:40px; display:grid; grid-template-columns:200px 1fr; gap:32px; align-items:start;
+  }
+  .type-meta .t-name { font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:500; color:var(--brown-gold); letter-spacing:0.05em; margin-bottom:4px; }
+  .type-meta .t-role { font-size:12px; color:var(--taupe); line-height:1.6; }
+  .type-meta .t-weights { margin-top:12px; display:flex; flex-direction:column; gap:4px; }
+  .type-meta .t-weights span { font-size:11px; color:var(--taupe); }
+
+  /* PHOTOGRAPHY */
+  .photo-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .photo-card {
+    border-radius:12px; overflow:hidden; position:relative; min-height:280px;
+    display:flex; align-items:flex-end; transition:transform 0.3s;
+  }
+  .photo-card:hover { transform:scale(1.01); }
+  .photo-card .photo-label {
+    padding:16px 20px; width:100%; background:linear-gradient(transparent,rgba(0,0,0,0.7));
+    font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; color:white;
+  }
+
+  /* VOICE */
+  .voice-examples { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+  .voice-ex {
+    background:white; border-radius:12px; padding:32px;
+    border:1px solid rgba(26,23,20,0.06);
+  }
+  .voice-ex .v-label {
+    font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:500;
+    letter-spacing:0.1em; text-transform:uppercase; margin-bottom:16px;
+  }
+  .voice-ex .v-label.yes { color:var(--forest); }
+  .voice-ex .v-label.no { color:var(--clay); }
+  .voice-ex blockquote {
+    font-family:'Cormorant Garamond',serif; font-style:italic; font-size:22px;
+    line-height:1.4; border-left:2px solid var(--warm-gray); padding-left:16px;
+    margin-bottom:12px;
+  }
+  .voice-ex p { font-size:13px; color:var(--taupe); line-height:1.7; }
+
+  /* WEBSITE REFERENCE */
+  .web-preview {
+    background:white; border-radius:16px; overflow:hidden;
+    box-shadow:0 2px 20px rgba(26,23,20,0.06); border:1px solid rgba(26,23,20,0.04);
+  }
+  .web-browser-bar {
+    background:var(--surface-low); padding:10px 16px; display:flex; align-items:center; gap:8px;
+    border-bottom:1px solid rgba(26,23,20,0.06);
+  }
+  .web-dot { width:10px; height:10px; border-radius:50%; }
+  .web-url {
+    flex:1; background:var(--surface-container); border-radius:4px; padding:4px 12px;
+    font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--taupe); margin-left:8px;
+  }
+  .web-content { padding:0; }
+
+  /* HERO SECTION PREVIEW */
+  .hero-preview {
+    background:var(--brown-gold); padding:64px 48px; display:grid;
+    grid-template-columns:1fr 1fr; gap:48px; align-items:center;
+  }
+  .hero-preview h2 {
+    font-family:'Cormorant Garamond',serif; font-weight:400; font-size:42px;
+    line-height:1.15; color:white;
+  }
+  .hero-preview h2 em { font-weight:400; }
+  .hero-preview p { font-size:15px; color:rgba(255,255,255,0.8); line-height:1.7; margin-top:16px; max-width:420px; }
+  .hero-preview .cta {
+    display:inline-block; margin-top:24px; background:white; color:var(--brown-gold);
+    padding:12px 32px; font-size:11px; font-weight:600; letter-spacing:0.12em;
+    text-transform:uppercase; border:none; cursor:pointer;
+  }
+  .hero-phone {
+    display:flex; justify-content:center;
+  }
+  .phone-mock {
+    width:200px; height:400px; background:var(--void); border-radius:32px;
+    border:3px solid rgba(255,255,255,0.15); position:relative; overflow:hidden;
+    box-shadow:0 16px 48px rgba(0,0,0,0.3);
+  }
+  .phone-mock .screen {
+    position:absolute; inset:8px; border-radius:24px; background:var(--cream);
+    display:flex; flex-direction:column;
+  }
+  .phone-mock .screen .mini-nav {
+    padding:12px 16px; display:flex; justify-content:space-between; align-items:center;
+    border-bottom:1px solid var(--warm-gray);
+  }
+  .phone-mock .screen .mini-nav span { font-size:8px; font-weight:200; letter-spacing:0.12em; text-transform:uppercase; }
+  .phone-mock .screen .mini-content { flex:1; padding:12px; display:flex; flex-direction:column; gap:8px; }
+  .mini-card {
+    background:white; border-radius:6px; padding:8px; display:flex; gap:8px;
+    border:1px solid rgba(26,23,20,0.04);
+  }
+  .mini-card .mini-photo { width:36px; height:36px; border-radius:4px; flex-shrink:0; }
+  .mini-card .mini-meta { display:flex; flex-direction:column; justify-content:center; }
+  .mini-card .mini-meta .name { font-size:8px; font-weight:500; }
+  .mini-card .mini-meta .store { font-size:7px; color:var(--taupe); }
+  .mini-card .mini-meta .price { font-family:'JetBrains Mono',monospace; font-size:7px; color:var(--brown-gold); }
+
+  /* BENTO FEATURES */
+  .bento-preview {
+    padding:48px; background:var(--cream); display:grid;
+    grid-template-columns:2fr 1fr; gap:16px; grid-auto-rows:200px;
+  }
+  .bento-card {
+    border-radius:16px; padding:24px; display:flex; flex-direction:column; justify-content:flex-end;
+    position:relative; overflow:hidden;
+  }
+  .bento-card h4 { font-family:'Cormorant Garamond',serif; font-weight:400; font-size:22px; margin-bottom:4px; }
+  .bento-card p { font-size:12px; line-height:1.6; opacity:0.7; }
+
+  /* DARK SECTION PREVIEW */
+  .dark-preview {
+    background:var(--near-black); padding:64px 48px; text-align:center;
+  }
+  .dark-preview h2 {
+    font-family:'Cormorant Garamond',serif; font-weight:400; font-size:42px; color:var(--bone);
+  }
+  .dark-preview h2 em { color:var(--bone); }
+  .dark-preview .steps {
+    display:grid; grid-template-columns:repeat(3,1fr); gap:48px; margin-top:48px; text-align:left;
+  }
+  .dark-preview .step-num { font-family:'JetBrains Mono',monospace; font-size:28px; font-style:italic; color:var(--copper); margin-bottom:8px; }
+  .dark-preview .step-title { font-family:'Cormorant Garamond',serif; font-size:20px; color:var(--bone); margin-bottom:8px; }
+  .dark-preview .step-desc { font-size:13px; color:rgba(245,240,235,0.5); line-height:1.7; }
+
+  /* ASSET CHECKLIST */
+  .checklist { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .check-card {
+    background:white; border-radius:10px; padding:20px 24px;
+    border:1px solid rgba(26,23,20,0.06); display:flex; align-items:center; gap:12px;
+  }
+  .check-icon { width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; }
+  .check-icon.done { background:rgba(74,103,65,0.1); color:var(--forest); }
+  .check-icon.pending { background:rgba(139,111,82,0.1); color:var(--brown-gold); }
+  .check-card .check-text { font-size:13px; }
+  .check-card .check-text .sub { font-size:11px; color:var(--taupe); display:block; margin-top:2px; }
+
+  /* FOOTER */
+  .guide-footer {
+    padding:32px 48px; border-top:1px solid var(--warm-gray);
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .guide-footer .made { font-size:12px; color:var(--taupe); }
+  .guide-footer a { color:var(--brown-gold); text-decoration:none; }
+  .guide-footer .conf { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.1em; text-transform:uppercase; color:var(--sand); }
+
+  @media (max-width:900px) {
+    .logo-grid, .voice-examples, .checklist { grid-template-columns:1fr; }
+    .type-specimen { grid-template-columns:1fr; }
+    .hero-preview { grid-template-columns:1fr; }
+    .bento-preview { grid-template-columns:1fr; }
+    .dark-preview .steps { grid-template-columns:1fr; }
+    .cover .wordmark { font-size:36px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="sticky-nav">
+  <a href="index.html" class="brand" style="text-decoration:none;color:inherit;"><span class="t">THREAD</span><span class="l">LINE</span></a>
+  <a class="back" href="index.html" style="color:var(--brown-gold);">← All Pages</a>
+  <a href="#logo">Logo</a>
+  <a href="#color">Color</a>
+  <a href="#type">Typography</a>
+  <a href="#photo">Photography</a>
+  <a href="#voice">Voice</a>
+  <a href="#web">Website</a>
+  <a href="#ghost">Ghost Photos</a>
+  <a href="#assets">Assets</a>
+</nav>
+
+<!-- Cover -->
+<div class="cover">
+  <div class="wordmark">THREAD<span class="l">LINE</span></div>
+  <div class="tagline">From rack to wrap.</div>
+  <div class="thread-line"></div>
+  <div class="doc-title">Brand Identity Guide · v1.0 · March 2026</div>
+</div>
+
+<div class="container">
+
+<!-- ═══════════════ LOGO SYSTEM ═══════════════ -->
+<section class="section" id="logo">
+  <div class="section-num">01</div>
+  <div class="section-title">Logo System</div>
+  <div class="section-sub">The ThreadLine wordmark uses Inter Thin (200) with generous letter-spacing. The two-tone treatment — THREAD in text color, LINE in brand accent — is the primary expression. A needle-and-thread detail extends from the T crossbar.</div>
+
+  <div class="logo-grid">
+    <div class="logo-box light">
+      <span class="label" style="color:var(--taupe)">Light Background</span>
+      <span class="wm"><span style="color:var(--near-black)">THREAD</span><span style="color:var(--brown-gold)">LINE</span></span>
+    </div>
+    <div class="logo-box dark">
+      <span class="label" style="color:rgba(255,255,255,0.3)">Dark Background</span>
+      <span class="wm"><span style="color:var(--bone)">THREAD</span><span style="color:var(--copper)">LINE</span></span>
+    </div>
+    <div class="logo-box accent">
+      <span class="label" style="color:rgba(255,255,255,0.4)">Accent Background</span>
+      <span class="wm" style="color:white">THREADLINE</span>
+    </div>
+    <div class="logo-box photo" style="background:linear-gradient(135deg,#4a3a2a,#2a1a0a)">
+      <span class="label" style="color:rgba(255,255,255,0.3)">Photography Overlay</span>
+      <span class="wm" style="color:rgba(255,255,255,0.85)">THREADLINE</span>
+    </div>
+  </div>
+
+  <!-- Icon Mark -->
+  <div style="margin-top:32px">
+    <div class="section-num" style="margin-bottom:16px">Icon Mark</div>
+    <div class="logo-grid">
+      <div class="logo-box" style="background:linear-gradient(135deg,var(--dark-brown),var(--brown-gold),var(--copper));min-height:240px;border-radius:32px">
+        <div style="width:120px;height:120px;border-radius:28px;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)">
+          <span style="font-family:'Inter',sans-serif;font-weight:200;font-size:56px;color:rgba(255,255,255,0.9)">T</span>
+        </div>
+        <span style="font-size:10px;color:rgba(255,255,255,0.4);letter-spacing:0.1em;text-transform:uppercase;margin-top:12px">Gradient · App Icon</span>
+      </div>
+      <div class="logo-box" style="background:var(--brown-gold);min-height:240px;border-radius:32px">
+        <div style="width:120px;height:120px;border-radius:28px;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center">
+          <span style="font-family:'Inter',sans-serif;font-weight:200;font-size:56px;color:rgba(255,255,255,0.9)">T</span>
+        </div>
+        <span style="font-size:10px;color:rgba(255,255,255,0.4);letter-spacing:0.1em;text-transform:uppercase;margin-top:12px">Flat · Favicon</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Clear Space -->
+  <div class="clearspace-demo">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--taupe);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:20px">Minimum Clear Space</div>
+    <div class="clearspace-inner">
+      <span class="wm"><span style="color:var(--near-black)">THREAD</span><span style="color:var(--brown-gold)">LINE</span></span>
+      <span class="measure" style="top:-16px;left:50%;transform:translateX(-50%)">2x cap height</span>
+      <span class="measure" style="bottom:-16px;left:50%;transform:translateX(-50%)">2x cap height</span>
+      <span class="measure" style="left:-40px;top:50%;transform:translateY(-50%) rotate(-90deg)">2x</span>
+      <span class="measure" style="right:-40px;top:50%;transform:translateY(-50%) rotate(90deg)">2x</span>
+    </div>
+    <p style="font-size:12px;color:var(--taupe);margin-top:16px">Maintain clear space equal to 2× the cap height of the wordmark on all sides.</p>
+  </div>
+</section>
+
+<!-- ═══════════════ COLOR SYSTEM ═══════════════ -->
+<section class="section" id="color">
+  <div class="section-num">02</div>
+  <div class="section-title">Color System</div>
+  <div class="section-sub">A warm, restrained palette inspired by natural materials — linen, leather, bone. Colors communicate through temperature, not saturation. Status colors are muted, never neon.</div>
+
+  <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--taupe);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:12px">Primary Palette</div>
+  <div class="color-row">
+    <div class="color-chip" style="background:var(--cream);color:var(--near-black)"><span class="c-name">Warm Cream</span><span class="c-hex">#FAF8F5</span><span class="c-token">bg.primary (light)</span></div>
+    <div class="color-chip" style="background:var(--bone);color:var(--near-black)"><span class="c-name">Bone</span><span class="c-hex">#F5F0EB</span><span class="c-token">text.primary (dark)</span></div>
+    <div class="color-chip" style="background:var(--brown-gold);color:white"><span class="c-name">Brown Gold</span><span class="c-hex">#8B6F52</span><span class="c-token">accent.primary (light)</span></div>
+    <div class="color-chip" style="background:var(--copper);color:white"><span class="c-name">Copper</span><span class="c-hex">#C4946A</span><span class="c-token">accent.primary (dark)</span></div>
+    <div class="color-chip" style="background:var(--near-black);color:var(--bone)"><span class="c-name">Rich Black</span><span class="c-hex">#1A1714</span><span class="c-token">text.primary (light)</span></div>
+    <div class="color-chip" style="background:var(--void);color:var(--bone)"><span class="c-name">Void</span><span class="c-hex">#0A0A0A</span><span class="c-token">bg.primary (dark)</span></div>
+  </div>
+
+  <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--taupe);letter-spacing:0.1em;text-transform:uppercase;margin:24px 0 12px">Status & Secondary</div>
+  <div class="color-row">
+    <div class="color-chip" style="background:var(--water);color:white"><span class="c-name">Still Water</span><span class="c-hex">#5A7E8A</span><span class="c-token">water.primary</span></div>
+    <div class="color-chip" style="background:var(--forest);color:white"><span class="c-name">Forest</span><span class="c-hex">#4A6741</span><span class="c-token">status: available</span></div>
+    <div class="color-chip" style="background:var(--dusty-blue);color:white"><span class="c-name">Dusty Blue</span><span class="c-hex">#627786</span><span class="c-token">status: in-use</span></div>
+    <div class="color-chip" style="background:var(--clay);color:white"><span class="c-name">Warm Clay</span><span class="c-hex">#8A4A42</span><span class="c-token">status: overdue</span></div>
+    <div class="color-chip" style="background:var(--sand);color:var(--near-black)"><span class="c-name">Sand</span><span class="c-hex">#D2C4B9</span><span class="c-token">border / divider</span></div>
+    <div class="color-chip" style="background:var(--taupe);color:white"><span class="c-name">Taupe</span><span class="c-hex">#B5A89C</span><span class="c-token">tertiary text</span></div>
+  </div>
+</section>
+
+<!-- ═══════════════ TYPOGRAPHY ═══════════════ -->
+<section class="section" id="type">
+  <div class="section-num">03</div>
+  <div class="section-title">Typography</div>
+  <div class="section-sub">Three font families create a clear hierarchy: serif for emotional impact, sans-serif for clarity, monospace for precision. A fourth — Newsreader — serves editorial contexts on the website.</div>
+
+  <div class="type-stack">
+    <div class="type-specimen">
+      <div class="type-meta">
+        <div class="t-name">Cormorant Garamond</div>
+        <div class="t-role">Headlines, marketing, taglines. Emotional, editorial, human.</div>
+        <div class="t-weights">
+          <span>Light 300 — primary</span>
+          <span>Regular 400 — body serif</span>
+          <span>Italic — emphasis, taglines</span>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:42px;line-height:1.15;margin-bottom:12px">
+          The wardrobe truck<br><em>just went digital.</em>
+        </div>
+        <div style="font-family:'Cormorant Garamond',serif;font-weight:400;font-size:18px;line-height:1.5;color:var(--brown-gold);font-style:italic">
+          From rack to wrap.
+        </div>
+      </div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-meta">
+        <div class="t-name">Inter</div>
+        <div class="t-role">UI text, body copy, labels, buttons. Clarity and neutrality.</div>
+        <div class="t-weights">
+          <span>Thin 200 — wordmark</span>
+          <span>Regular 400 — body</span>
+          <span>Medium 500 — labels, buttons</span>
+          <span>Semibold 600 — emphasis</span>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:'Inter',sans-serif;font-weight:400;font-size:15px;line-height:1.7;margin-bottom:16px">
+          Threadline eliminates the clerical burden of film production wardrobe management. Scan barcodes, photograph garments, snap receipts — AI handles the data entry so your team can focus on the craft.
+        </div>
+        <div style="display:flex;gap:12px">
+          <span style="background:var(--brown-gold);color:white;padding:8px 20px;font-size:12px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase">Join Waitlist</span>
+          <span style="border:1px solid var(--brown-gold);color:var(--brown-gold);padding:8px 20px;font-size:12px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase">Learn More</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-meta">
+        <div class="t-name">JetBrains Mono</div>
+        <div class="t-role">Data, prices, timestamps, IDs. Precision and trust.</div>
+        <div class="t-weights">
+          <span>Regular 400 — data display</span>
+          <span>Medium 500 — emphasis</span>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:14px;line-height:1.8;color:var(--brown-gold)">
+          $1,247.50 — Total Spend<br>
+          $892.00 — Refunded<br>
+          $355.50 — Net Cost
+        </div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--taupe);margin-top:12px">
+          ITM-00142 · Nordstrom · 02d 14h remaining
+        </div>
+      </div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-meta">
+        <div class="t-name">Newsreader</div>
+        <div class="t-role">Website editorial, long-form marketing. Bridges serif warmth with screen readability.</div>
+        <div class="t-weights">
+          <span>Light 300 — headlines</span>
+          <span>Regular 400 — body</span>
+          <span>Italic — accent</span>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:'Newsreader',serif;font-weight:300;font-size:28px;line-height:1.4;margin-bottom:8px">
+          Engineered for the craft.
+        </div>
+        <div style="font-family:'Newsreader',serif;font-weight:400;font-size:16px;line-height:1.7;color:var(--taupe)">
+          Every detail of ThreadLine has been considered through the lens of a working wardrobe department — from the way items are photographed to how returns are tracked against store policies.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ PHOTOGRAPHY ═══════════════ -->
+<section class="section" id="photo">
+  <div class="section-num">04</div>
+  <div class="section-title">Photography Direction</div>
+  <div class="section-sub">ThreadLine photography is warm, tactile, and atmospheric. Think: the golden hour of a fitting room. Garments are heroes — shot with depth of field, natural light, and rich texture. Avoid cold studio lighting, stark white backgrounds, or stock photography aesthetics.</div>
+
+  <div class="photo-grid">
+    <div class="photo-card" style="background:linear-gradient(180deg,var(--warm-gray) 0%,var(--sand) 100%)">
+      <div class="photo-label">Garment Details — Close, Textural</div>
+    </div>
+    <div class="photo-card" style="background:linear-gradient(180deg,var(--espresso) 0%,var(--near-black) 100%)">
+      <div class="photo-label">Rack Shots — Depth, Atmosphere</div>
+    </div>
+    <div class="photo-card" style="background:linear-gradient(180deg,var(--brown-gold) 0%,var(--dark-brown) 100%)">
+      <div class="photo-label">Workspace — Warm, Professional</div>
+    </div>
+  </div>
+
+  <div style="background:white;border:1px solid rgba(26,23,20,0.06);border-radius:12px;padding:32px;margin-top:24px">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--taupe);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:16px">Photography Rules</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+      <div>
+        <div style="font-size:13px;font-weight:500;color:var(--forest);margin-bottom:8px">✓ Do</div>
+        <ul style="font-size:13px;color:var(--near-black);line-height:2;list-style:none">
+          <li>· Natural light, warm tones, golden hour</li>
+          <li>· Shallow depth of field on garment details</li>
+          <li>· Textured surfaces (wood, linen, leather)</li>
+          <li>· Real wardrobe trucks and fitting rooms</li>
+          <li>· Desaturated, editorial color grading</li>
+          <li>· Grayscale for secondary/background imagery</li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:500;color:var(--clay);margin-bottom:8px">✗ Don't</div>
+        <ul style="font-size:13px;color:var(--near-black);line-height:2;list-style:none">
+          <li>· Cold fluorescent studio lighting</li>
+          <li>· Stark white backgrounds</li>
+          <li>· Generic stock photography</li>
+          <li>· Over-saturated colors</li>
+          <li>· Lifestyle influencer aesthetics</li>
+          <li>· Faces or identifiable people (privacy)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ BRAND VOICE ═══════════════ -->
+<section class="section" id="voice">
+  <div class="section-num">05</div>
+  <div class="section-title">Brand Voice</div>
+  <div class="section-sub">ThreadLine speaks like the most competent person on set — direct, precise, industry-aware, never condescending. We respect the craft and the people who do it. Intelligence is invisible; it just works.</div>
+
+  <div class="voice-examples">
+    <div class="voice-ex">
+      <div class="v-label yes">✓ ThreadLine Sounds Like</div>
+      <blockquote>"3 items due back to Zara by Friday."</blockquote>
+      <p>Specific, actionable, data-first. No filler, no emotion — just what you need to know to do your job.</p>
+    </div>
+    <div class="voice-ex">
+      <div class="v-label no">✗ ThreadLine Never Sounds Like</div>
+      <blockquote>"Hey there! 🎉 Your AI-Powered Smart Wardrobe Solution is ready!!"</blockquote>
+      <p>No emojis in product. No exclamation marks. No "powered by AI" badges. No buzzwords. If you have to tell people it's smart, it isn't.</p>
+    </div>
+    <div class="voice-ex">
+      <div class="v-label yes">✓ Marketing Copy</div>
+      <blockquote>"The wardrobe truck just went digital."</blockquote>
+      <p>Confident, warm, industry-insider language. Speaks to someone who knows what a wardrobe truck is. Doesn't explain the obvious.</p>
+    </div>
+    <div class="voice-ex">
+      <div class="v-label yes">✓ Feature Description</div>
+      <blockquote>"Scan it. Done."</blockquote>
+      <p>Two words. Respects the user's time. The tool works — that's the whole point. Don't oversell what should be effortless.</p>
+    </div>
+  </div>
+
+  <div style="background:white;border:1px solid rgba(26,23,20,0.06);border-radius:12px;padding:32px;margin-top:24px">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--taupe);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:16px">Voice Attributes</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center">
+      <div><div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--brown-gold);margin-bottom:4px">Confident</div><div style="font-size:12px;color:var(--taupe)">Not arrogant</div></div>
+      <div><div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--brown-gold);margin-bottom:4px">Precise</div><div style="font-size:12px;color:var(--taupe)">Not cold</div></div>
+      <div><div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--brown-gold);margin-bottom:4px">Warm</div><div style="font-size:12px;color:var(--taupe)">Not casual</div></div>
+      <div><div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--brown-gold);margin-bottom:4px">Industry</div><div style="font-size:12px;color:var(--taupe)">Not jargon-heavy</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ WEBSITE DIRECTION ═══════════════ -->
+<section class="section" id="web">
+  <div class="section-num">06</div>
+  <div class="section-title">Website Direction</div>
+  <div class="section-sub">The marketing website is the first impression. It should feel like walking into a high-end boutique — warm lighting, curated displays, confident but not overbearing. Borrowing from your existing design: the brown hero, bento features grid, and dark "three steps" section define the site's rhythm.</div>
+
+  <div class="web-preview">
+    <div class="web-browser-bar">
+      <div class="web-dot" style="background:#FF5F57"></div>
+      <div class="web-dot" style="background:#FFBD2E"></div>
+      <div class="web-dot" style="background:#28CA41"></div>
+      <div class="web-url">threadline.app</div>
+    </div>
+    <div class="web-content">
+      <!-- Hero -->
+      <div class="hero-preview">
+        <div>
+          <h2>The wardrobe truck <br><em>just went digital.</em></h2>
+          <p>Threadline eliminates the clerical burden of film production wardrobe management. Scan barcodes, photograph garments, snap receipts — AI handles the data entry.</p>
+          <span class="cta">Join the Waitlist</span>
+        </div>
+        <div class="hero-phone">
+          <div class="phone-mock">
+            <div class="screen">
+              <div class="mini-nav">
+                <span style="color:var(--near-black)"><span>THREAD</span><span style="color:var(--brown-gold)">LINE</span></span>
+                <span style="font-family:'JetBrains Mono',monospace;color:var(--taupe);font-size:6px">S02E04</span>
+              </div>
+              <div class="mini-content">
+                <div class="mini-card">
+                  <div class="mini-photo" style="background:linear-gradient(135deg,#2a2a2a,#4a4a4a)"></div>
+                  <div class="mini-meta"><span class="name">Black Leather Jacket</span><span class="store">Nordstrom · Jake</span><span class="price">$289.00</span></div>
+                </div>
+                <div class="mini-card">
+                  <div class="mini-photo" style="background:linear-gradient(135deg,#e8ddd0,#c4b8a8)"></div>
+                  <div class="mini-meta"><span class="name">Cream Linen Shirt</span><span class="store">Zara · Maya</span><span class="price">$49.90</span></div>
+                </div>
+                <div class="mini-card">
+                  <div class="mini-photo" style="background:linear-gradient(135deg,#8b1a1a,#5a1212)"></div>
+                  <div class="mini-meta"><span class="name">Burgundy Velvet Blazer</span><span class="store">H&M · Jake</span><span class="price">$79.99</span></div>
+                </div>
+                <div class="mini-card">
+                  <div class="mini-photo" style="background:linear-gradient(135deg,#3a5a4a,#2a4a3a)"></div>
+                  <div class="mini-meta"><span class="name">Olive Cargo Pants</span><span class="store">Uniqlo · Maya</span><span class="price">$39.90</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bento features -->
+      <div class="bento-preview">
+        <div class="bento-card" style="background:var(--surface-container)">
+          <h4>Magic Scan</h4>
+          <p>Barcode, photo, receipt — one tap captures everything.</p>
+        </div>
+        <div class="bento-card" style="background:var(--brown-gold);color:white">
+          <h4 style="color:white">Budget Tracking</h4>
+          <p style="color:rgba(255,255,255,0.7)">Real-time spend, returns credits, instant reports.</p>
+        </div>
+        <div class="bento-card" style="background:var(--surface-container)">
+          <h4>Thread AI</h4>
+          <p>"Show me all blue shirts for Scene 42."</p>
+        </div>
+        <div class="bento-card" style="background:white;border:1px solid var(--warm-gray)">
+          <h4 style="font-style:italic">Returns Rack, Digitized</h4>
+          <p>Countdown timers. Policy matching. One-tap pull lists.</p>
+        </div>
+      </div>
+
+      <!-- Dark section -->
+      <div class="dark-preview">
+        <h2>Three steps to <em>unclutter.</em></h2>
+        <div class="steps">
+          <div>
+            <div class="step-num">01</div>
+            <div class="step-title">Scan It</div>
+            <div class="step-desc">Point your camera at a receipt or tag. ThreadLine extracts every detail instantly.</div>
+          </div>
+          <div>
+            <div class="step-num">02</div>
+            <div class="step-title">Track It</div>
+            <div class="step-desc">Assign garments to characters, scenes, or actors. Build looks digitally.</div>
+          </div>
+          <div>
+            <div class="step-num">03</div>
+            <div class="step-title">Return It</div>
+            <div class="step-desc">One-click return lists. Export your final wrap report in seconds.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ GHOSTED PHOTO TREATMENT ═══════════════ -->
+<section class="section" id="ghost">
+  <div class="section-num">07</div>
+  <div class="section-title">Ghosted Photography Treatment</div>
+  <div class="section-sub">ThreadLine's signature visual technique: real photography at ultra-low opacity, desaturated, behind clean surfaces. The image suggests texture and context without competing with content. Hover any card to see the photo emerge gently.</div>
+
+  <!-- Feature cards with ghosted imagery -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:32px">
+    <div style="border-radius:16px;overflow:hidden;position:relative;min-height:300px;display:flex;flex-direction:column;justify-content:flex-end;background:var(--surface-low);transition:transform 0.3s">
+      <div style="position:absolute;inset:0;background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBdWy7YGvr91as47l5syVXCzvWPOyaTwI1-GEBLWn150_WMIGIAgFKdqTnVMCRBxXnO09SNboHH3MsEKaTRzkPHNLHBFNPVGVfPKzoVdRwRvC12EimN4FnTECxbYwklaowM2-KGIVu19o-akr8GPchHrsNmUPtvHxsIMc0Kvd5GzIU7TjGkjjVFj67AFGYgJNID6pzed8VEDa_TIyak4CZ4xhPSubV1n51oaOj_StisdWvLaUpvtgXji3TKmT7KONbP1DBYV3YgTT8');background-size:cover;background-position:center;opacity:0.12;filter:grayscale(100%);transition:opacity 0.5s,filter 0.5s" onmouseover="this.style.opacity='0.22';this.style.filter='grayscale(50%)'" onmouseout="this.style.opacity='0.12';this.style.filter='grayscale(100%)'"></div>
+      <div style="position:relative;z-index:2;padding:32px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--taupe);margin-bottom:12px">Feature Card · Light</div>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-weight:400;font-size:26px;margin-bottom:8px">Magic Scan</h3>
+        <p style="font-size:13px;color:var(--taupe);line-height:1.6;max-width:360px">Extract barcode data, photo attributes, and receipt lines with one tap. AI categorizes garments automatically.</p>
+      </div>
+    </div>
+
+    <div style="border-radius:16px;overflow:hidden;position:relative;min-height:300px;display:flex;flex-direction:column;justify-content:flex-end;background:var(--brown-gold);transition:transform 0.3s">
+      <div style="position:absolute;inset:0;background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBGchh_ZDL85IckT4KmjLhPcWN1beeI0qH0C7aG8jQuxJzzvPVeuK-f2z-dLsFIUBR3u2zANtK7Zl3PFPS9XbVwV9F8GYRkABrySWvWaCPG2BK9ToO1-tjBi5GCmSaWmrgF5FIgu71bu8vzshtFJ-3I3TVxjoFdzLxwAqtFSRDLW9tOSKwbhG3WwafCaiEe2UXkzyFtuOGwK2ZHsq7Lwj2fN_-mEPSk9EEZYIFEwpkGI02flrXqtdiLZsHq4XQpVHKadNuJPr4TafY');background-size:cover;background-position:center;opacity:0.1;filter:grayscale(100%);mix-blend-mode:overlay;transition:opacity 0.5s" onmouseover="this.style.opacity='0.2'" onmouseout="this.style.opacity='0.1'"></div>
+      <div style="position:relative;z-index:2;padding:32px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:12px">Feature Card · Accent</div>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-weight:400;font-size:26px;color:white;margin-bottom:8px;font-style:italic">The Returns Rack, Digitized</h3>
+        <p style="font-size:13px;color:rgba(255,255,255,0.65);line-height:1.6;max-width:360px">Countdown timers, policy matching, and one-tap pull lists for your PA team.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dark ghost treatment -->
+  <div style="border-radius:16px;overflow:hidden;position:relative;min-height:320px;display:flex;align-items:flex-end;background:var(--void);margin-bottom:32px">
+    <div style="position:absolute;inset:0;background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBeHsToWwEOzB5kog42OQ5LZsWb-pMmXKXXxuWBeE-NADqNYgGSLCWst-fPlj5OUz1xRqdTDiuE7ryJLM_xit1JHxsYq6clQAzj8N4GCoFNvcPvMcSuVnFeONQzhJwHoHJJMZoBW-n8qoX2096U22G553omNxDqgdVdlraGqQ627DRUDcMxcfvnfxiQcbwV9qq9DdRCCiCRc0SHLPybyoduZnSHE39CWK5H-0HBPscvUN86i_8q7WxrZA2ZnkaikvBa6KNFmzmB7Ng');background-size:cover;background-position:center;opacity:0.08;filter:grayscale(100%);transition:opacity 0.5s" onmouseover="this.style.opacity='0.15'" onmouseout="this.style.opacity='0.08'"></div>
+    <div style="position:relative;z-index:2;padding:48px;background:linear-gradient(transparent,rgba(10,10,10,0.8));width:100%">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--copper);margin-bottom:12px">Dark Mode Treatment</div>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:32px;color:var(--bone);margin-bottom:8px">Built for the high-stakes of production.</h3>
+      <p style="font-size:13px;color:rgba(245,240,235,0.45);max-width:480px;line-height:1.7">Photography at 6–10% opacity on void background. Gradient overlay anchors text. Copper accents for labels.</p>
+    </div>
+  </div>
+
+  <!-- CSS Specs -->
+  <div style="background:white;border:1px solid rgba(26,23,20,0.06);border-radius:12px;padding:32px">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--brown-gold);margin-bottom:16px">CSS Specifications</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+      <div>
+        <div style="font-size:12px;font-weight:500;margin-bottom:4px">Opacity</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--taupe)">Resting: 0.08–0.15<br>Hover: 0.18–0.25</div>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:500;margin-bottom:4px">Filter</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--taupe)">grayscale(100%) resting<br>grayscale(40%) hover</div>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:500;margin-bottom:4px">Blend Mode</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--taupe)">normal (light bg)<br>overlay (accent bg)</div>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:500;margin-bottom:4px">Transition</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--taupe)">0.5s ease on opacity + filter</div>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:500;margin-bottom:4px">Subject Matter</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--taupe)">Garment racks, fabric textures,<br>wardrobe truck interiors</div>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:500;margin-bottom:4px">Color Treatment</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--taupe)">Color bleeds in on hover.<br>Slow, cinematic reveal.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ ASSET CHECKLIST ═══════════════ -->
+<section class="section" id="assets">
+  <div class="section-num">08</div>
+  <div class="section-title">Asset Checklist</div>
+  <div class="section-sub">What's been produced and what's still needed for a complete brand identity package.</div>
+
+  <div class="checklist">
+    <div class="check-card"><div class="check-icon done">✓</div><div class="check-text">Wordmark SVG — Light background<span class="sub">brand/logos/threadline-wordmark-light.svg</span></div></div>
+    <div class="check-card"><div class="check-icon done">✓</div><div class="check-text">Wordmark SVG — Dark background<span class="sub">brand/logos/threadline-wordmark-dark.svg</span></div></div>
+    <div class="check-card"><div class="check-icon done">✓</div><div class="check-text">Wordmark SVG — Monochrome<span class="sub">brand/logos/threadline-wordmark-mono.svg</span></div></div>
+    <div class="check-card"><div class="check-icon done">✓</div><div class="check-text">Icon Mark SVG — Gradient<span class="sub">brand/logos/threadline-icon-mark.svg</span></div></div>
+    <div class="check-card"><div class="check-icon done">✓</div><div class="check-text">Icon Mark SVG — Flat<span class="sub">brand/logos/threadline-icon-flat.svg</span></div></div>
+    <div class="check-card"><div class="check-icon done">✓</div><div class="check-text">Tagline Lockup SVG<span class="sub">brand/logos/threadline-tagline-lockup.svg</span></div></div>
+    <div class="check-card"><div class="check-icon done">✓</div><div class="check-text">Color Palette (12 swatches)<span class="sub">Defined in this guide + mood board</span></div></div>
+    <div class="check-card"><div class="check-icon done">✓</div><div class="check-text">Typography System (4 families)<span class="sub">Cormorant Garamond, Inter, JetBrains Mono, Newsreader</span></div></div>
+    <div class="check-card"><div class="check-icon done">✓</div><div class="check-text">Brand Voice Guide<span class="sub">Do's, Don'ts, voice attributes</span></div></div>
+    <div class="check-card"><div class="check-icon done">✓</div><div class="check-text">Photography Direction<span class="sub">Rules, references, do/don't</span></div></div>
+    <div class="check-card"><div class="check-icon done">✓</div><div class="check-text">Mood Board<span class="sub">brand-moodboard.html</span></div></div>
+    <div class="check-card"><div class="check-icon done">✓</div><div class="check-text">Website Direction<span class="sub">Section-by-section reference with mini-preview</span></div></div>
+    <div class="check-card"><div class="check-icon pending">○</div><div class="check-text">OG Image (1200×630)<span class="sub">For social sharing / link previews</span></div></div>
+    <div class="check-card"><div class="check-icon pending">○</div><div class="check-text">Favicon (ICO + PNG set)<span class="sub">16, 32, 180, 192, 512px</span></div></div>
+    <div class="check-card"><div class="check-icon pending">○</div><div class="check-text">Social Media Templates<span class="sub">Instagram post, story, LinkedIn cover</span></div></div>
+    <div class="check-card"><div class="check-icon pending">○</div><div class="check-text">App Store Screenshots<span class="sub">iPad + iPhone frames with brand treatment</span></div></div>
+  </div>
+</section>
+
+</div>
+
+<!-- Footer -->
+<div class="guide-footer">
+  <span class="made"><a href="https://cooperinteractive.com" target="_blank">Made with care</a></span>
+  <span class="conf">ThreadLine · Brand Identity Guide · Confidential</span>
+</div>
+
+<script>
+  // Nav active tracking
+  document.querySelectorAll('.sticky-nav a').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const id = link.getAttribute('href').replace('#','');
+      document.getElementById(id)?.scrollIntoView({behavior:'smooth'});
+    });
+  });
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting) {
+        document.querySelectorAll('.sticky-nav a').forEach(l => l.classList.remove('active'));
+        document.querySelector(`.sticky-nav a[href="#${e.target.id}"]`)?.classList.add('active');
+      }
+    });
+  },{threshold:0.2});
+  document.querySelectorAll('section[id]').forEach(s => obs.observe(s));
+</script>
+
+</body>
+</html>

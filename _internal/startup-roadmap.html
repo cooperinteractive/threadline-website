@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ThreadLine — Startup Launch Roadmap</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAF8F5;
+    --bg-card: #FFFFFF;
+    --text: #1A1714;
+    --text-secondary: #6B6560;
+    --accent: #8B6F52;
+    --accent-light: rgba(139,111,82,0.08);
+    --accent-hover: rgba(139,111,82,0.12);
+    --water: #5A7E8A;
+    --water-light: rgba(90,126,138,0.08);
+    --success: #4A6741;
+    --success-light: rgba(74,103,65,0.08);
+    --warning: #8A6B3A;
+    --warning-light: rgba(138,107,58,0.08);
+    --danger: #8A4A42;
+    --danger-light: rgba(138,74,66,0.08);
+    --border: rgba(26,23,20,0.06);
+    --shadow: 0 1px 3px rgba(26,23,20,0.04), 0 4px 12px rgba(26,23,20,0.03);
+    --radius: 12px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 32px;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 48px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 42px;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .header h1 span { color: var(--accent); }
+
+  .header .tagline {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-secondary);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .header .subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 20px;
+    color: var(--accent);
+    margin-top: 4px;
+  }
+
+  .scope-banner {
+    background: var(--accent-light);
+    border-left: 3px solid var(--accent);
+    padding: 16px 20px;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    margin-bottom: 40px;
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  .scope-banner strong { font-weight: 600; color: var(--accent); }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(26,23,20,0.08);
+  }
+
+  .card-header {
+    padding: 20px 24px 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .card-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .card-header h3 {
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: -0.01em;
+  }
+
+  .card-body {
+    padding: 0 24px 20px;
+  }
+
+  .card-body p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+    line-height: 1.6;
+  }
+
+  .task-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .task-list li {
+    font-size: 13px;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.5;
+  }
+
+  .task-list li:last-child { border-bottom: none; }
+
+  .task-list li::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-top: 7px;
+    flex-shrink: 0;
+    opacity: 0.6;
+  }
+
+  .badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  /* Color-coded workstreams */
+  .stream-market .card-number { background: var(--water-light); color: var(--water); }
+  .stream-market .card-header h3 { color: var(--water); }
+
+  .stream-brand .card-number { background: var(--accent-light); color: var(--accent); }
+  .stream-brand .card-header h3 { color: var(--accent); }
+
+  .stream-website .card-number { background: var(--success-light); color: var(--success); }
+  .stream-website .card-header h3 { color: var(--success); }
+
+  .stream-content .card-number { background: var(--warning-light); color: var(--warning); }
+  .stream-content .card-header h3 { color: var(--warning); }
+
+  .stream-appstore .card-number { background: var(--danger-light); color: var(--danger); }
+  .stream-appstore .card-header h3 { color: var(--danger); }
+
+  .stream-launch .card-number { background: rgba(106,90,140,0.1); color: #6A5A8C; }
+  .stream-launch .card-header h3 { color: #6A5A8C; }
+
+  .badge-now { background: var(--success-light); color: var(--success); }
+  .badge-next { background: var(--warning-light); color: var(--warning); }
+  .badge-later { background: var(--danger-light); color: var(--danger); }
+
+  .priority-section {
+    margin-bottom: 12px;
+  }
+
+  .priority-section h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 24px;
+    margin-bottom: 4px;
+    color: var(--text);
+  }
+
+  .priority-section .label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+  }
+
+  .question-box {
+    background: var(--accent-light);
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin-top: 48px;
+    text-align: center;
+  }
+
+  .question-box h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 26px;
+    margin-bottom: 8px;
+    color: var(--accent);
+  }
+
+  .question-box p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto 24px;
+  }
+
+  .options-row {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .option-btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px 20px;
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--accent);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .option-btn:hover {
+    background: var(--accent);
+    color: white;
+  }
+
+  .option-btn.primary {
+    background: var(--accent);
+    color: white;
+  }
+
+  .option-btn.primary:hover {
+    background: #7A6048;
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  .footer a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+</style>
+</head>
+<body>
+
+<nav style="position:sticky;top:0;z-index:100;background:rgba(250,248,245,0.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(26,23,20,0.06);padding:12px 48px;display:flex;align-items:center;gap:24px;">
+  <a href="index.html" style="font-family:'Inter',sans-serif;font-weight:200;font-size:14px;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;color:inherit;">THREAD<span style="color:var(--accent);">LINE</span></a>
+  <a class="back" href="index.html" style="font-size:11px;font-weight:500;color:var(--accent);text-decoration:none;padding:4px 8px;border-radius:4px;">← All Pages</a>
+</nav>
+
+<div class="header">
+  <h1>THREAD<span>LINE</span></h1>
+  <div class="tagline">From Rack to Wrap</div>
+  <div class="subtitle">Startup Launch Roadmap</div>
+</div>
+
+<div class="scope-banner">
+  <strong>This is a company launch, not a feature build.</strong> I've mapped out 6 independent workstreams below — each one is a sub-project that gets its own cycle of design → plan → execution. We'll tackle them in priority order, and some can run in parallel. The app itself (Phase 2–6) continues as a separate development track.
+</div>
+
+<!-- PHASE 1: DO NOW -->
+<div class="priority-section">
+  <h2>Do Now</h2>
+  <div class="label">These unblock everything else</div>
+</div>
+
+<div class="grid">
+
+  <div class="card stream-market" onclick="window.location='market-analysis.html'" style="cursor:pointer">
+    <div class="card-header">
+      <div class="card-number">1</div>
+      <h3>Market Analysis & Pricing</h3>
+      <span class="badge" style="background:var(--success-light);color:var(--success)">Complete ✓</span>
+    </div>
+    <div class="card-body">
+      <p>Research the competitive landscape for wardrobe/costume management tools in film production. Define pricing strategy informed by real data.</p>
+      <ul class="task-list">
+        <li style="text-decoration:line-through;opacity:0.5"><a href="market-analysis.html#competitors" style="color:inherit">Competitive landscape audit</a> — 5 direct + 3 App Store competitors</li>
+        <li style="text-decoration:line-through;opacity:0.5"><a href="market-analysis.html#sizing" style="color:inherit">Target market sizing</a> — TAM 50K, SAM 12K, SOM Y1 200–400</li>
+        <li style="text-decoration:line-through;opacity:0.5"><a href="market-analysis.html#sizing" style="color:inherit">User persona refinement</a> — PA, Supervisor, Shopper</li>
+        <li style="text-decoration:line-through;opacity:0.5"><a href="market-analysis.html#pricing" style="color:inherit">Pricing model analysis</a> — 3-tier subscription approved</li>
+        <li style="text-decoration:line-through;opacity:0.5"><a href="market-analysis.html#pricing" style="color:inherit">iPad app pricing benchmarks</a></li>
+        <li style="text-decoration:line-through;opacity:0.5"><a href="market-analysis.html#revenue" style="color:inherit">Revenue projections</a> — $54K Y1 → $1.2M Y5</li>
+        <li style="text-decoration:line-through;opacity:0.5"><a href="market-analysis.html#pricing" style="color:inherit">Pricing tiers defined</a> — $14.99 / $29.99 / $199</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card stream-brand" onclick="window.location='brand-identity-guide.html'" style="cursor:pointer">
+    <div class="card-header">
+      <div class="card-number">2</div>
+      <h3>Brand Identity Package</h3>
+      <span class="badge" style="background:rgba(138,107,58,0.1);color:var(--warning)">In Progress</span>
+    </div>
+    <div class="card-body">
+      <p>Finalize and expand brand assets beyond the design system. Create all the pieces needed for a professional company presence.</p>
+      <ul class="task-list">
+        <li style="text-decoration:line-through;opacity:0.5"><a href="brand-identity-guide.html#logo" style="color:inherit">Logo SVGs</a> — wordmark (light/dark/mono), icon mark, tagline lockup</li>
+        <li style="text-decoration:line-through;opacity:0.5"><a href="social-media-templates.html" style="color:inherit">Social media kit</a> — 15 templates (IG, TikTok, FB, LinkedIn)</li>
+        <li style="text-decoration:line-through;opacity:0.5"><a href="brand-identity-guide.html#voice" style="color:inherit">Brand voice guide</a> — do's, don'ts, voice attributes</li>
+        <li style="text-decoration:line-through;opacity:0.5"><a href="brand-identity-guide.html#photo" style="color:inherit">Photography direction</a> — rules, ghosted treatment spec</li>
+        <li style="text-decoration:line-through;opacity:0.5"><a href="brand-moodboard.html" style="color:inherit">Mood board</a> — colors, typography, UI direction, textures</li>
+        <li style="text-decoration:line-through;opacity:0.5">OG image (1200×630) — pending real screenshots</li>
+        <li style="text-decoration:line-through;opacity:0.5"><a href="generate-favicons.html" style="color:inherit">Favicon set</a> — 6 sizes with download buttons</li>
+        <li>App Store creative: icon PNG, screenshots, feature graphics</li>
+        <li style="text-decoration:line-through;opacity:0.5"><a href="boilerplate-descriptions.html" style="color:inherit">Boilerplate descriptions</a> — 8 variants with copy buttons</li>
+        <li style="text-decoration:line-through;opacity:0.5"><a href="privacy-policy.html" style="color:inherit">Privacy Policy</a> — 10 sections, CCPA compliant</li>
+        <li style="text-decoration:line-through;opacity:0.5"><a href="terms-of-service.html" style="color:inherit">Terms of Service</a> — 15 sections, subscription terms</li>
+        <li>Email templates (transactional, marketing) — deferred</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<!-- PHASE 2: BUILD NEXT -->
+<div class="priority-section">
+  <h2>Build Next</h2>
+  <div class="label">The public face of the company</div>
+</div>
+
+<div class="grid">
+
+  <div class="card stream-website" onclick="window.location='website-strategy.html'" style="cursor:pointer">
+    <div class="card-header">
+      <div class="card-number">3</div>
+      <h3>Marketing Website</h3>
+      <span class="badge" style="background:var(--success-light);color:var(--success)">Complete ✓</span>
+    </div>
+    <div class="card-body">
+      <p>Build and deploy a premium sales site. "The wardrobe truck just went digital." Hosted on Cloudflare Pages, matching the ThreadLine brand aesthetic.</p>
+      <ul class="task-list">
+        <li style="text-decoration:line-through;opacity:0.5">Site architecture: Home, Pricing, About + Privacy, Terms</li>
+        <li style="text-decoration:line-through;opacity:0.5">Hero section: tagline, iPhone mockup with scan UI, CTA</li>
+        <li style="text-decoration:line-through;opacity:0.5">Features bento: Magic Scan, Thread AI, Returns, Budget, Wrap</li>
+        <li style="text-decoration:line-through;opacity:0.5">Before/After section with slide-in animations</li>
+        <li style="text-decoration:line-through;opacity:0.5">Pricing page with monthly/annual toggle + FAQ</li>
+        <li style="text-decoration:line-through;opacity:0.5">About page ("The Wardrobe Truck") with origin story + values</li>
+        <li style="text-decoration:line-through;opacity:0.5">Footer: "Made with care" → cooperinteractive.com</li>
+        <li style="text-decoration:line-through;opacity:0.5">Waitlist wired to Supabase (all pages, source-tagged)</li>
+        <li style="text-decoration:line-through;opacity:0.5">GitHub repo: cooperinteractive/threadline-website</li>
+        <li style="text-decoration:line-through;opacity:0.5">Deployed to Cloudflare Pages (auto-deploys on push)</li>
+        <li style="text-decoration:line-through;opacity:0.5">Domain: www.threadlineapp.io (DNS propagating)</li>
+        <li>Social proof section (testimonials, production logos) — needs real users</li>
+        <li>SEO: schema markup, OG images with real screenshots</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card stream-content" onclick="window.location='boilerplate-descriptions.html'" style="cursor:pointer">
+    <div class="card-header">
+      <div class="card-number">4</div>
+      <h3>Content & Copy</h3>
+      <span class="badge" style="background:rgba(138,107,58,0.1);color:var(--warning)">In Progress</span>
+    </div>
+    <div class="card-body">
+      <p>Create all written content for the website, App Store, social, and marketing. Speak to wardrobe professionals — not tech people.</p>
+      <ul class="task-list">
+        <li style="text-decoration:line-through;opacity:0.5">Website copy: all 5 pages written and deployed</li>
+        <li style="text-decoration:line-through;opacity:0.5"><a href="boilerplate-descriptions.html" style="color:inherit">App Store listing</a> — title, subtitle, description, keywords</li>
+        <li style="text-decoration:line-through;opacity:0.5">Feature descriptions: benefit-led copy on homepage + pricing</li>
+        <li style="text-decoration:line-through;opacity:0.5"><a href="instagram-setup-kit.html" style="color:inherit">Instagram setup</a> — bio, first post caption, hashtags, profile assets</li>
+        <li style="text-decoration:line-through;opacity:0.5"><a href="boilerplate-descriptions.html" style="color:inherit">Boilerplate descriptions</a> — 8 variants with copy buttons</li>
+        <li style="text-decoration:line-through;opacity:0.5"><a href="content-calendar.html" style="color:inherit">30-day content calendar</a> — 24 posts (14 IG + 10 LinkedIn), full copy</li>
+        <li style="text-decoration:line-through;opacity:0.5"><a href="press-kit.html" style="color:inherit">Press kit / media one-pager</a> — print-friendly, all key facts</li>
+        <li>Blog launch post: "Why We Built Threadline" — future</li>
+        <li>Email sequences: welcome, onboarding — deferred</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<!-- PHASE 3: LAUNCH -->
+<div class="priority-section">
+  <h2>Launch Preparation</h2>
+  <div class="label">Getting into market</div>
+</div>
+
+<div class="grid">
+
+  <div class="card stream-appstore">
+    <div class="card-header">
+      <div class="card-number">5</div>
+      <h3>App Store Strategy</h3>
+      <span class="badge badge-later">Launch</span>
+    </div>
+    <div class="card-body">
+      <p>Prepare for App Store submission with iPad-forward positioning. Screenshot designs, ASO optimization, and review strategy.</p>
+      <ul class="task-list">
+        <li>iPad-first screenshot designs (12.9" & 11" iPad)</li>
+        <li>iPhone screenshot set (6.7" & 6.1")</li>
+        <li>App Preview video storyboard</li>
+        <li>ASO keyword research & optimization</li>
+        <li>App Store categories & age rating</li>
+        <li>Review strategy & response templates</li>
+        <li>TestFlight beta program setup</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card stream-launch">
+    <div class="card-header">
+      <div class="card-number">6</div>
+      <h3>Go-To-Market & Launch</h3>
+      <span class="badge badge-later">Launch</span>
+    </div>
+    <div class="card-body">
+      <p>The actual launch plan. How we reach wardrobe professionals and get them using ThreadLine on productions.</p>
+      <ul class="task-list">
+        <li>Launch channels: IATSE locals, film industry forums, Instagram</li>
+        <li>Beta program: recruit 5–10 wardrobe PAs for feedback</li>
+        <li>Industry partnerships: costume houses, rental shops</li>
+        <li>Social media strategy: Instagram, LinkedIn (industry-focused)</li>
+        <li>Film industry trade press outreach</li>
+        <li>Referral/word-of-mouth program</li>
+        <li>Post-launch analytics & iteration plan</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<div class="question-box">
+  <h2>Where do we start?</h2>
+  <p>I recommend we kick off with <strong>Market Analysis & Pricing</strong> first — it informs the website copy, pricing page, and positioning for everything else. Then we build the website while I produce content in parallel. Sound right, or do you want to prioritize differently?</p>
+  <div class="options-row">
+    <button class="option-btn primary" onclick="select('market-first')">Market Analysis First (Recommended)</button>
+    <button class="option-btn" onclick="select('website-first')">Website First</button>
+    <button class="option-btn" onclick="select('parallel')">Everything in Parallel</button>
+  </div>
+</div>
+
+<div class="footer">
+  <a href="https://cooperinteractive.com" target="_blank">Made with care</a>
+</div>
+
+<script>
+function select(choice) {
+  document.querySelectorAll('.option-btn').forEach(b => {
+    b.classList.remove('primary');
+    b.style.background = '';
+    b.style.color = '';
+  });
+  event.target.classList.add('primary');
+
+  // Write selection
+  fetch('/event', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({type: 'click', choice: choice, text: event.target.textContent, timestamp: Date.now()})
+  }).catch(() => {});
+}
+</script>
+
+</body>
+</html>

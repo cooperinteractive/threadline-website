@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ThreadLine — Social Media Templates</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream:#FAF8F5;--bone:#F5F0EB;--warm-gray:#E8E3DE;--sand:#D2C4B9;
+    --taupe:#B5A89C;--brown-gold:#8B6F52;--copper:#C4946A;--dark-brown:#5A4228;
+    --espresso:#3A2A18;--near-black:#1A1714;--void:#0A0A0A;
+    --water:#5A7E8A;--forest:#4A6741;--clay:#8A4A42;--dusty-blue:#627786;
+    --surface-low:#f5f3f0;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Inter',sans-serif;background:var(--near-black);color:var(--bone);min-height:100vh;}
+
+  /* NAV */
+  .sticky-nav{position:sticky;top:0;z-index:100;background:rgba(10,10,10,0.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,0.06);padding:12px 48px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;}
+  .sticky-nav .brand{font-family:'Inter',sans-serif;font-weight:200;font-size:14px;letter-spacing:0.15em;text-transform:uppercase;color:var(--bone);}
+  .sticky-nav .brand .l{color:var(--copper);}
+  .sticky-nav a{font-size:10px;font-weight:500;color:var(--taupe);text-decoration:none;letter-spacing:0.04em;padding:4px 8px;border-radius:4px;transition:all 0.15s;}
+  .sticky-nav a:hover,.sticky-nav a.active{color:var(--copper);background:rgba(196,148,106,0.08);}
+
+  .container{max-width:1400px;margin:0 auto;padding:0 48px;}
+
+  .page-head{padding:48px 48px 0;display:flex;justify-content:space-between;align-items:flex-end;}
+  .page-head h1{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--taupe);}
+
+  .hero-title{text-align:center;padding:60px 48px 20px;}
+  .hero-title h2{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:42px;margin-bottom:8px;color:var(--bone);}
+  .hero-title p{font-size:14px;color:var(--taupe);max-width:700px;margin:0 auto;line-height:1.7;}
+
+  /* DIMENSION REFERENCE TABLE */
+  .dim-table{width:100%;border-collapse:collapse;margin:0 auto 64px;max-width:1000px;}
+  .dim-table th{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--copper);padding:12px 16px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.08);}
+  .dim-table td{font-size:12px;padding:10px 16px;border-bottom:1px solid rgba(255,255,255,0.04);color:var(--bone);}
+  .dim-table td.mono{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--copper);}
+  .dim-table tr:hover td{background:rgba(196,148,106,0.04);}
+  .platform-badge{display:inline-block;font-size:9px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;padding:2px 6px;border-radius:3px;margin-right:4px;}
+  .badge-ig{background:rgba(196,148,106,0.15);color:var(--copper);}
+  .badge-tk{background:rgba(90,126,138,0.15);color:var(--water);}
+  .badge-fb{background:rgba(98,119,134,0.15);color:var(--dusty-blue);}
+  .badge-li{background:rgba(74,103,65,0.15);color:var(--forest);}
+
+  /* SECTION LABELS */
+  .sec-label{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--taupe);padding:48px 0 24px;display:flex;align-items:center;gap:12px;}
+  .sec-label::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.06);}
+  .sec-label .platform-icon{font-size:14px;opacity:0.6;}
+
+  /* TEMPLATE GRID */
+  .template-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;padding-bottom:48px;}
+  .template-gallery.story-row{grid-template-columns:repeat(4,1fr);}
+  .template-gallery.wide-row{grid-template-columns:1fr 1fr;}
+  .template-gallery.single-row{grid-template-columns:1fr;}
+
+  .template-wrap{display:flex;flex-direction:column;gap:12px;}
+  .template-info{display:flex;justify-content:space-between;align-items:center;}
+  .template-info .t-name{font-size:12px;font-weight:500;color:var(--bone);}
+  .template-info .t-size{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--taupe);}
+  .template-info .t-use{font-size:10px;color:var(--taupe);font-style:italic;margin-top:2px;}
+
+  .template-frame{border-radius:12px;overflow:hidden;position:relative;box-shadow:0 8px 32px rgba(0,0,0,0.4);transition:transform 0.3s ease,box-shadow 0.3s ease;}
+  .template-frame:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,0.5);}
+
+  /* Ghost image shared style */
+  .ghost-img{position:absolute;inset:0;background-size:cover;background-position:center;filter:grayscale(100%);transition:opacity 0.5s ease,filter 0.5s ease;}
+
+  /* Shared content patterns */
+  .tmpl-wordmark{font-family:'Inter',sans-serif;font-weight:200;letter-spacing:0.15em;text-transform:uppercase;}
+  .tmpl-serif{font-family:'Cormorant Garamond',serif;}
+  .tmpl-mono{font-family:'JetBrains Mono',monospace;}
+  .tmpl-tagline{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;}
+
+  /* Footer */
+  .footer{padding:32px 48px;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;align-items:center;}
+  .footer a{color:var(--copper);text-decoration:none;font-size:12px;}
+  .footer .conf{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.15);}
+
+  @media(max-width:1000px){
+    .template-gallery,.template-gallery.story-row,.template-gallery.wide-row{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="sticky-nav">
+  <a href="index.html" class="brand" style="text-decoration:none;color:var(--bone);">THREAD<span class="l">LINE</span></a>
+  <a class="back" href="index.html" style="color:var(--copper);">← All Pages</a>
+  <a href="#dims">Dimensions</a>
+  <a href="#instagram">Instagram</a>
+  <a href="#tiktok">TikTok</a>
+  <a href="#facebook">Facebook</a>
+  <a href="#linkedin">LinkedIn</a>
+</nav>
+
+<div class="page-head">
+  <h1>ThreadLine — Social Media Templates</h1>
+  <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.2)">Brand Identity · Social Kit · v1.0</span>
+</div>
+
+<div class="hero-title">
+  <h2>Social Media <em style="font-style:italic;color:var(--copper)">Template Library</em></h2>
+  <p>15 templates across Instagram, TikTok, Facebook, and LinkedIn — all using the ghosted photography treatment and ThreadLine brand system. Current 2026 platform dimensions verified.</p>
+</div>
+
+<div class="container">
+
+<!-- ═══════════════════════════════════════════════════
+     DIMENSION REFERENCE
+═══════════════════════════════════════════════════ -->
+<div class="sec-label" id="dims">Platform Dimensions Reference · 2026</div>
+
+<table class="dim-table">
+  <thead>
+    <tr>
+      <th>Platform</th>
+      <th>Format</th>
+      <th>Dimensions</th>
+      <th>Ratio</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><span class="platform-badge badge-ig">IG</span> Instagram</td><td>Feed Post (Portrait)</td><td class="mono">1080 × 1350</td><td class="mono">4:5</td><td>Max vertical feed space — recommended default</td></tr>
+    <tr><td><span class="platform-badge badge-ig">IG</span> Instagram</td><td>Feed Post (Square)</td><td class="mono">1080 × 1080</td><td class="mono">1:1</td><td>Classic square — carousel-friendly</td></tr>
+    <tr><td><span class="platform-badge badge-ig">IG</span> Instagram</td><td>Story / Reel</td><td class="mono">1080 × 1920</td><td class="mono">9:16</td><td>Full-screen vertical. 250px safe zone top/bottom</td></tr>
+    <tr><td><span class="platform-badge badge-ig">IG</span> Instagram</td><td>Profile Photo</td><td class="mono">320 × 320</td><td class="mono">1:1</td><td>Displayed as circle</td></tr>
+    <tr><td><span class="platform-badge badge-tk">TK</span> TikTok</td><td>Video / Photo Post</td><td class="mono">1080 × 1920</td><td class="mono">9:16</td><td>Full-screen vertical. Up to 35 photos in Photo Mode</td></tr>
+    <tr><td><span class="platform-badge badge-tk">TK</span> TikTok</td><td>Profile Photo</td><td class="mono">200 × 200</td><td class="mono">1:1</td><td>Minimum. Displayed as circle</td></tr>
+    <tr><td><span class="platform-badge badge-fb">FB</span> Facebook</td><td>Feed Post (Square)</td><td class="mono">1080 × 1080</td><td class="mono">1:1</td><td>Standard feed post</td></tr>
+    <tr><td><span class="platform-badge badge-fb">FB</span> Facebook</td><td>Feed Post (Portrait)</td><td class="mono">1080 × 1350</td><td class="mono">4:5</td><td>More vertical space in feed</td></tr>
+    <tr><td><span class="platform-badge badge-fb">FB</span> Facebook</td><td>Cover Photo</td><td class="mono">851 × 315</td><td class="mono">2.7:1</td><td>Page/profile cover</td></tr>
+    <tr><td><span class="platform-badge badge-fb">FB</span> Facebook</td><td>Event Cover</td><td class="mono">1920 × 1005</td><td class="mono">1.91:1</td><td>Updated 2026 — prevents mobile cropping</td></tr>
+    <tr><td><span class="platform-badge badge-li">LI</span> LinkedIn</td><td>Feed Post (Landscape)</td><td class="mono">1200 × 627</td><td class="mono">1.91:1</td><td>Standard landscape post</td></tr>
+    <tr><td><span class="platform-badge badge-li">LI</span> LinkedIn</td><td>Feed Post (Square)</td><td class="mono">1080 × 1080</td><td class="mono">1:1</td><td>Higher engagement than landscape</td></tr>
+    <tr><td><span class="platform-badge badge-li">LI</span> LinkedIn</td><td>Personal Banner</td><td class="mono">1584 × 396</td><td class="mono">4:1</td><td>Profile header</td></tr>
+    <tr><td><span class="platform-badge badge-li">LI</span> LinkedIn</td><td>Company Banner</td><td class="mono">1128 × 191</td><td class="mono">5.9:1</td><td>Company page header</td></tr>
+    <tr><td><span class="platform-badge badge-li">LI</span> LinkedIn</td><td>Article Cover</td><td class="mono">2000 × 600</td><td class="mono">3.3:1</td><td>Long-form article header</td></tr>
+  </tbody>
+</table>
+
+<!-- ═══════════════════════════════════════════════════
+     INSTAGRAM — 6 Templates
+═══════════════════════════════════════════════════ -->
+<div class="sec-label" id="instagram">Instagram · 6 Templates</div>
+
+<div class="template-gallery">
+
+  <!-- IG 01: Brand Announcement (Portrait 4:5) -->
+  <div class="template-wrap">
+    <div class="template-info">
+      <span class="t-name"><span class="platform-badge badge-ig">IG</span> 01 · Brand Announcement</span>
+      <span class="t-size">1080×1350 · 4:5</span>
+    </div>
+    <div class="template-frame">
+      <div style="width:100%;aspect-ratio:4/5;background:var(--brown-gold);position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">
+        <div class="ghost-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBdWy7YGvr91as47l5syVXCzvWPOyaTwI1-GEBLWn150_WMIGIAgFKdqTnVMCRBxXnO09SNboHH3MsEKaTRzkPHNLHBFNPVGVfPKzoVdRwRvC12EimN4FnTECxbYwklaowM2-KGIVu19o-akr8GPchHrsNmUPtvHxsIMc0Kvd5GzIU7TjGkjjVFj67AFGYgJNID6pzed8VEDa_TIyak4CZ4xhPSubV1n51oaOj_StisdWvLaUpvtgXji3TKmT7KONbP1DBYV3YgTT8');opacity:0.1;mix-blend-mode:overlay"></div>
+        <div style="position:relative;z-index:2;padding:40px">
+          <div class="tmpl-wordmark" style="font-size:20px;color:white;margin-bottom:20px">THREAD<span style="opacity:0.5">LINE</span></div>
+          <div style="width:40px;height:1px;background:rgba(255,255,255,0.3);margin:0 auto 24px"></div>
+          <div class="tmpl-serif" style="font-weight:300;font-size:26px;color:white;line-height:1.3;margin-bottom:12px">The wardrobe truck<br><em>just went digital.</em></div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:24px;letter-spacing:0.05em">AI-powered wardrobe management for film production</div>
+          <div style="margin-top:24px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-between;align-items:center;width:100%">
+            <span class="tmpl-tagline" style="font-size:11px;color:rgba(255,255,255,0.4)">From rack to wrap.</span>
+            <span class="tmpl-mono" style="font-size:9px;color:rgba(255,255,255,0.3)">threadline.app</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IG 02: Feature Highlight — Magic Scan (Portrait 4:5) -->
+  <div class="template-wrap">
+    <div class="template-info">
+      <span class="t-name"><span class="platform-badge badge-ig">IG</span> 02 · Feature: Magic Scan</span>
+      <span class="t-size">1080×1350 · 4:5</span>
+    </div>
+    <div class="template-frame">
+      <div style="width:100%;aspect-ratio:4/5;background:var(--cream);position:relative;display:flex;flex-direction:column;justify-content:flex-end">
+        <div class="ghost-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBGchh_ZDL85IckT4KmjLhPcWN1beeI0qH0C7aG8jQuxJzzvPVeuK-f2z-dLsFIUBR3u2zANtK7Zl3PFPS9XbVwV9F8GYRkABrySWvWaCPG2BK9ToO1-tjBi5GCmSaWmrgF5FIgu71bu8vzshtFJ-3I3TVxjoFdzLxwAqtFSRDLW9tOSKwbhG3WwafCaiEe2UXkzyFtuOGwK2ZHsq7Lwj2fN_-mEPSk9EEZYIFEwpkGI02flrXqtdiLZsHq4XQpVHKadNuJPr4TafY');opacity:0.12"></div>
+        <div style="position:relative;z-index:2;padding:36px">
+          <div class="tmpl-mono" style="font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--brown-gold);margin-bottom:12px">Feature Spotlight</div>
+          <div class="tmpl-serif" style="font-weight:300;font-size:28px;color:var(--near-black);line-height:1.3;margin-bottom:8px">Magic Scan</div>
+          <div style="font-size:13px;color:var(--taupe);line-height:1.6;max-width:300px">Point your camera at a receipt or garment tag. ThreadLine extracts every detail instantly.</div>
+          <div style="margin-top:20px;padding-top:12px;border-top:1px solid var(--warm-gray);display:flex;justify-content:space-between;align-items:center">
+            <span class="tmpl-wordmark" style="font-size:10px;color:var(--near-black)">THREAD<span style="color:var(--brown-gold)">LINE</span></span>
+            <span class="tmpl-tagline" style="font-size:10px;color:var(--taupe)">From rack to wrap.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IG 03: Industry Stat (Square 1:1) -->
+  <div class="template-wrap">
+    <div class="template-info">
+      <span class="t-name"><span class="platform-badge badge-ig">IG</span> 03 · Industry Stat</span>
+      <span class="t-size">1080×1080 · 1:1</span>
+    </div>
+    <div class="template-frame">
+      <div style="width:100%;aspect-ratio:1/1;background:var(--void);position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">
+        <div class="ghost-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuDIVdvxjvATjLPZM7x0Hmgb-GwlJCLHmKY7rngYsWw4luBsaKLNgGQmvCwJ5M_AnHKGcd6q9_EmnWLQb-bModBEgyjUu8xF6uFDI_jcyYcaA5ssAOrQMTbgCEGkotXSi2Q5tb9MPo52n982Icc0-mjqh8RpOpwBiHq7SzP4l-9Na7vHA35x6WtfmEiexRJdiJ05mCDIXAjpCzs26LxLWGl_jaILvcuJXQZMUppV08C8g8IRiIgmJgDvbYHE0AtxGBnUAhCpYrib1JM');opacity:0.06"></div>
+        <div style="position:relative;z-index:2;padding:48px">
+          <div class="tmpl-mono" style="font-size:56px;font-weight:500;color:var(--copper);line-height:1">80%</div>
+          <div class="tmpl-serif" style="font-style:italic;font-weight:300;font-size:20px;color:var(--bone);margin-top:12px;line-height:1.4">of a wardrobe PA's day<br>is paperwork.</div>
+          <div style="width:40px;height:1px;background:rgba(255,255,255,0.15);margin:20px auto"></div>
+          <div style="font-size:12px;color:rgba(245,240,235,0.4);line-height:1.6">ThreadLine replaces the binder,<br>the spreadsheet, and the Ziploc bag.</div>
+          <div style="margin-top:24px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;align-items:center;width:100%">
+            <span class="tmpl-wordmark" style="font-size:10px;color:var(--bone)">THREAD<span style="color:var(--copper)">LINE</span></span>
+            <span class="tmpl-tagline" style="font-size:10px;color:rgba(255,255,255,0.3)">From rack to wrap.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IG 04: Feature — Returns (Portrait 4:5) -->
+  <div class="template-wrap">
+    <div class="template-info">
+      <span class="t-name"><span class="platform-badge badge-ig">IG</span> 04 · Feature: Returns</span>
+      <span class="t-size">1080×1350 · 4:5</span>
+    </div>
+    <div class="template-frame">
+      <div style="width:100%;aspect-ratio:4/5;background:var(--surface-low);position:relative;display:flex;flex-direction:column;justify-content:space-between">
+        <div class="ghost-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBGchh_ZDL85IckT4KmjLhPcWN1beeI0qH0C7aG8jQuxJzzvPVeuK-f2z-dLsFIUBR3u2zANtK7Zl3PFPS9XbVwV9F8GYRkABrySWvWaCPG2BK9ToO1-tjBi5GCmSaWmrgF5FIgu71bu8vzshtFJ-3I3TVxjoFdzLxwAqtFSRDLW9tOSKwbhG3WwafCaiEe2UXkzyFtuOGwK2ZHsq7Lwj2fN_-mEPSk9EEZYIFEwpkGI02flrXqtdiLZsHq4XQpVHKadNuJPr4TafY');opacity:0.12"></div>
+        <div style="position:relative;z-index:2;padding:36px;flex:1;display:flex;flex-direction:column;justify-content:center">
+          <div class="tmpl-mono" style="font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--brown-gold);margin-bottom:16px">Never miss a window</div>
+          <div class="tmpl-serif" style="font-weight:300;font-size:28px;font-style:italic;color:var(--near-black);line-height:1.3;margin-bottom:16px">The Returns Rack, Digitized</div>
+          <div style="font-size:13px;color:var(--taupe);line-height:1.6;max-width:300px;margin-bottom:24px">Visual countdown timers and one-tap pull lists for your PA team to hit the road efficiently.</div>
+          <div style="display:flex;gap:20px">
+            <div style="text-align:center"><span class="tmpl-mono" style="font-size:24px;color:var(--clay)">02d</span><br><span style="font-size:9px;color:var(--taupe);text-transform:uppercase;letter-spacing:0.08em">Zara</span></div>
+            <div style="text-align:center"><span class="tmpl-mono" style="font-size:24px;color:var(--brown-gold)">05d</span><br><span style="font-size:9px;color:var(--taupe);text-transform:uppercase;letter-spacing:0.08em">Nordstrom</span></div>
+            <div style="text-align:center"><span class="tmpl-mono" style="font-size:24px;color:var(--forest)">14d</span><br><span style="font-size:9px;color:var(--taupe);text-transform:uppercase;letter-spacing:0.08em">H&M</span></div>
+          </div>
+        </div>
+        <div style="position:relative;z-index:2;padding:16px 36px;border-top:1px solid var(--warm-gray);display:flex;justify-content:space-between;align-items:center">
+          <span class="tmpl-wordmark" style="font-size:10px;color:var(--near-black)">THREAD<span style="color:var(--brown-gold)">LINE</span></span>
+          <span class="tmpl-mono" style="font-size:9px;color:var(--taupe)">threadline.app</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IG 05: Waitlist CTA (Square 1:1) -->
+  <div class="template-wrap">
+    <div class="template-info">
+      <span class="t-name"><span class="platform-badge badge-ig">IG</span> 05 · Waitlist CTA</span>
+      <span class="t-size">1080×1080 · 1:1</span>
+    </div>
+    <div class="template-frame">
+      <div style="width:100%;aspect-ratio:1/1;background:var(--cream);position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;border:1px solid var(--warm-gray)">
+        <div style="position:relative;z-index:2;padding:48px">
+          <div class="tmpl-serif" style="font-weight:300;font-size:28px;color:var(--near-black);line-height:1.3;margin-bottom:8px">Ready to threadline<br>your next production?</div>
+          <div style="width:40px;height:1px;background:var(--sand);margin:16px auto"></div>
+          <div style="font-size:12px;color:var(--taupe);line-height:1.6;max-width:280px;margin:0 auto 20px">Join the waitlist. Limited to 50 active productions for the beta.</div>
+          <div style="display:inline-block;padding:10px 28px;background:var(--brown-gold);color:white;font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase">Secure Early Access</div>
+          <div style="margin-top:24px;padding-top:12px;border-top:1px solid var(--warm-gray);display:flex;justify-content:space-between;align-items:center;width:100%">
+            <span class="tmpl-wordmark" style="font-size:10px;color:var(--near-black)">THREAD<span style="color:var(--brown-gold)">LINE</span></span>
+            <span class="tmpl-mono" style="font-size:9px;color:var(--taupe)">threadline.app</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IG 06: Story / Reel (9:16) -->
+  <div class="template-wrap">
+    <div class="template-info">
+      <span class="t-name"><span class="platform-badge badge-ig">IG</span> 06 · Story / Reel Cover</span>
+      <span class="t-size">1080×1920 · 9:16</span>
+    </div>
+    <div class="template-frame">
+      <div style="width:100%;aspect-ratio:9/16;background:var(--void);position:relative;display:flex;flex-direction:column;justify-content:flex-end">
+        <div class="ghost-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBeHsToWwEOzB5kog42OQ5LZsWb-pMmXKXXxuWBeE-NADqNYgGSLCWst-fPlj5OUz1xRqdTDiuE7ryJLM_xit1JHxsYq6clQAzj8N4GCoFNvcPvMcSuVnFeONQzhJwHoHJJMZoBW-n8qoX2096U22G553omNxDqgdVdlraGqQ627DRUDcMxcfvnfxiQcbwV9qq9DdRCCiCRc0SHLPybyoduZnSHE39CWK5H-0HBPscvUN86i_8q7WxrZA2ZnkaikvBa6KNFmzmB7Ng');opacity:0.08"></div>
+        <div style="position:relative;z-index:2;padding:32px;background:linear-gradient(transparent,rgba(10,10,10,0.9) 50%);min-height:45%;display:flex;flex-direction:column;justify-content:flex-end">
+          <div class="tmpl-mono" style="font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--copper);margin-bottom:12px">Now Available</div>
+          <div class="tmpl-wordmark" style="font-size:22px;color:var(--bone);margin-bottom:6px">THREAD<span style="color:var(--copper)">LINE</span></div>
+          <div class="tmpl-tagline" style="font-size:16px;color:rgba(245,240,235,0.5);margin-bottom:20px">From rack to wrap.</div>
+          <div style="font-size:12px;color:rgba(245,240,235,0.4);line-height:1.6;margin-bottom:20px">AI-powered wardrobe management built for the pace of production.</div>
+          <div style="display:inline-block;padding:10px 24px;border:1px solid var(--copper);color:var(--copper);font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;text-align:center">Join Waitlist ↑</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     TIKTOK — 3 Templates
+═══════════════════════════════════════════════════ -->
+<div class="sec-label" id="tiktok">TikTok · 3 Templates</div>
+
+<div class="template-gallery">
+
+  <!-- TK 07: Product Intro (9:16) -->
+  <div class="template-wrap">
+    <div class="template-info">
+      <span class="t-name"><span class="platform-badge badge-tk">TK</span> 07 · Product Intro</span>
+      <span class="t-size">1080×1920 · 9:16</span>
+    </div>
+    <div class="template-frame">
+      <div style="width:100%;aspect-ratio:9/16;background:linear-gradient(180deg,var(--brown-gold) 0%,var(--dark-brown) 100%);position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">
+        <div class="ghost-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBdWy7YGvr91as47l5syVXCzvWPOyaTwI1-GEBLWn150_WMIGIAgFKdqTnVMCRBxXnO09SNboHH3MsEKaTRzkPHNLHBFNPVGVfPKzoVdRwRvC12EimN4FnTECxbYwklaowM2-KGIVu19o-akr8GPchHrsNmUPtvHxsIMc0Kvd5GzIU7TjGkjjVFj67AFGYgJNID6pzed8VEDa_TIyak4CZ4xhPSubV1n51oaOj_StisdWvLaUpvtgXji3TKmT7KONbP1DBYV3YgTT8');opacity:0.1;mix-blend-mode:overlay"></div>
+        <div style="position:relative;z-index:2;padding:40px">
+          <div class="tmpl-wordmark" style="font-size:28px;color:white;margin-bottom:24px">THREAD<span style="opacity:0.5">LINE</span></div>
+          <div class="tmpl-serif" style="font-weight:300;font-size:32px;color:white;line-height:1.2;margin-bottom:16px">The wardrobe truck<br><em>just went digital.</em></div>
+          <div style="width:40px;height:1px;background:rgba(255,255,255,0.3);margin:20px auto"></div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.6);line-height:1.7;max-width:280px;margin:0 auto">Scan barcodes. Photograph garments. Snap receipts. AI handles the rest.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TK 08: Pain Point (9:16) -->
+  <div class="template-wrap">
+    <div class="template-info">
+      <span class="t-name"><span class="platform-badge badge-tk">TK</span> 08 · Pain Point Hook</span>
+      <span class="t-size">1080×1920 · 9:16</span>
+    </div>
+    <div class="template-frame">
+      <div style="width:100%;aspect-ratio:9/16;background:var(--cream);position:relative;display:flex;flex-direction:column;justify-content:center;text-align:center">
+        <div class="ghost-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuDIVdvxjvATjLPZM7x0Hmgb-GwlJCLHmKY7rngYsWw4luBsaKLNgGQmvCwJ5M_AnHKGcd6q9_EmnWLQb-bModBEgyjUu8xF6uFDI_jcyYcaA5ssAOrQMTbgCEGkotXSi2Q5tb9MPo52n982Icc0-mjqh8RpOpwBiHq7SzP4l-9Na7vHA35x6WtfmEiexRJdiJ05mCDIXAjpCzs26LxLWGl_jaILvcuJXQZMUppV08C8g8IRiIgmJgDvbYHE0AtxGBnUAhCpYrib1JM');opacity:0.1"></div>
+        <div style="position:relative;z-index:2;padding:48px">
+          <div class="tmpl-serif" style="font-weight:400;font-size:24px;color:var(--near-black);line-height:1.4;margin-bottom:24px">POV: You're a wardrobe PA<br>and you just found<br>a receipt from 3 weeks ago<br>in your jacket pocket</div>
+          <div style="width:40px;height:1px;background:var(--sand);margin:20px auto"></div>
+          <div style="font-size:13px;color:var(--brown-gold);font-weight:500">There's a better way.</div>
+          <div class="tmpl-wordmark" style="font-size:12px;color:var(--near-black);margin-top:24px">THREAD<span style="color:var(--brown-gold)">LINE</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TK 09: Feature Demo Cover (9:16) -->
+  <div class="template-wrap">
+    <div class="template-info">
+      <span class="t-name"><span class="platform-badge badge-tk">TK</span> 09 · Demo Cover Frame</span>
+      <span class="t-size">1080×1920 · 9:16</span>
+    </div>
+    <div class="template-frame">
+      <div style="width:100%;aspect-ratio:9/16;background:var(--void);position:relative;display:flex;flex-direction:column;justify-content:flex-end">
+        <div class="ghost-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBGchh_ZDL85IckT4KmjLhPcWN1beeI0qH0C7aG8jQuxJzzvPVeuK-f2z-dLsFIUBR3u2zANtK7Zl3PFPS9XbVwV9F8GYRkABrySWvWaCPG2BK9ToO1-tjBi5GCmSaWmrgF5FIgu71bu8vzshtFJ-3I3TVxjoFdzLxwAqtFSRDLW9tOSKwbhG3WwafCaiEe2UXkzyFtuOGwK2ZHsq7Lwj2fN_-mEPSk9EEZYIFEwpkGI02flrXqtdiLZsHq4XQpVHKadNuJPr4TafY');opacity:0.08"></div>
+        <!-- Center play icon -->
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2;width:64px;height:64px;border-radius:50%;border:2px solid rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center">
+          <div style="width:0;height:0;border-left:20px solid rgba(255,255,255,0.6);border-top:12px solid transparent;border-bottom:12px solid transparent;margin-left:4px"></div>
+        </div>
+        <div style="position:relative;z-index:2;padding:32px;background:linear-gradient(transparent,rgba(10,10,10,0.95) 40%)">
+          <div class="tmpl-mono" style="font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--copper);margin-bottom:8px">Watch Demo</div>
+          <div class="tmpl-serif" style="font-weight:300;font-size:24px;color:var(--bone);line-height:1.3;margin-bottom:8px">Scan a receipt in<br><em>under 3 seconds.</em></div>
+          <div style="font-size:11px;color:rgba(245,240,235,0.4)">Magic Scan receipt OCR in action</div>
+          <div style="margin-top:16px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.06)">
+            <span class="tmpl-wordmark" style="font-size:10px;color:var(--bone)">THREAD<span style="color:var(--copper)">LINE</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     FACEBOOK — 3 Templates
+═══════════════════════════════════════════════════ -->
+<div class="sec-label" id="facebook">Facebook · 3 Templates</div>
+
+<div class="template-gallery">
+
+  <!-- FB 10: Feed Post (Square 1:1) -->
+  <div class="template-wrap">
+    <div class="template-info">
+      <span class="t-name"><span class="platform-badge badge-fb">FB</span> 10 · Feed Post</span>
+      <span class="t-size">1080×1080 · 1:1</span>
+    </div>
+    <div class="template-frame">
+      <div style="width:100%;aspect-ratio:1/1;background:var(--brown-gold);position:relative;display:flex;flex-direction:column;justify-content:flex-end">
+        <div class="ghost-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBeHsToWwEOzB5kog42OQ5LZsWb-pMmXKXXxuWBeE-NADqNYgGSLCWst-fPlj5OUz1xRqdTDiuE7ryJLM_xit1JHxsYq6clQAzj8N4GCoFNvcPvMcSuVnFeONQzhJwHoHJJMZoBW-n8qoX2096U22G553omNxDqgdVdlraGqQ627DRUDcMxcfvnfxiQcbwV9qq9DdRCCiCRc0SHLPybyoduZnSHE39CWK5H-0HBPscvUN86i_8q7WxrZA2ZnkaikvBa6KNFmzmB7Ng');opacity:0.1;mix-blend-mode:overlay"></div>
+        <div style="position:relative;z-index:2;padding:36px;background:linear-gradient(transparent,rgba(90,66,40,0.8))">
+          <div class="tmpl-serif" style="font-weight:300;font-size:24px;color:white;line-height:1.3;margin-bottom:8px">AI-powered wardrobe management for film production.</div>
+          <div style="margin-top:16px;display:flex;justify-content:space-between;align-items:center">
+            <span class="tmpl-wordmark" style="font-size:10px;color:white">THREAD<span style="opacity:0.5">LINE</span></span>
+            <span class="tmpl-tagline" style="font-size:10px;color:rgba(255,255,255,0.5)">From rack to wrap.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FB 11: Cover Photo (851×315) -->
+  <div class="template-wrap" style="grid-column:span 2">
+    <div class="template-info">
+      <span class="t-name"><span class="platform-badge badge-fb">FB</span> 11 · Page Cover Photo</span>
+      <span class="t-size">851×315 · 2.7:1</span>
+    </div>
+    <div class="template-frame">
+      <div style="width:100%;aspect-ratio:851/315;background:linear-gradient(135deg,var(--dark-brown),var(--brown-gold));position:relative;display:flex;align-items:center">
+        <div class="ghost-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBdWy7YGvr91as47l5syVXCzvWPOyaTwI1-GEBLWn150_WMIGIAgFKdqTnVMCRBxXnO09SNboHH3MsEKaTRzkPHNLHBFNPVGVfPKzoVdRwRvC12EimN4FnTECxbYwklaowM2-KGIVu19o-akr8GPchHrsNmUPtvHxsIMc0Kvd5GzIU7TjGkjjVFj67AFGYgJNID6pzed8VEDa_TIyak4CZ4xhPSubV1n51oaOj_StisdWvLaUpvtgXji3TKmT7KONbP1DBYV3YgTT8');opacity:0.1;mix-blend-mode:overlay"></div>
+        <div style="position:relative;z-index:2;padding:24px 48px;display:flex;justify-content:space-between;align-items:center;width:100%">
+          <div>
+            <div class="tmpl-wordmark" style="font-size:28px;color:white">THREAD<span style="opacity:0.5">LINE</span></div>
+            <div class="tmpl-tagline" style="font-size:14px;color:rgba(255,255,255,0.5);margin-top:4px">From rack to wrap.</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-size:12px;color:rgba(255,255,255,0.7)">AI-powered wardrobe management</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.4)">for film & television production</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FB 12: Event Cover -->
+<div class="template-gallery single-row">
+  <div class="template-wrap">
+    <div class="template-info">
+      <span class="t-name"><span class="platform-badge badge-fb">FB</span> 12 · Event Cover</span>
+      <span class="t-size">1920×1005 · 1.91:1</span>
+    </div>
+    <div class="template-frame">
+      <div style="width:100%;aspect-ratio:1920/1005;background:var(--void);position:relative;display:flex;align-items:center;justify-content:center">
+        <div class="ghost-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuDIVdvxjvATjLPZM7x0Hmgb-GwlJCLHmKY7rngYsWw4luBsaKLNgGQmvCwJ5M_AnHKGcd6q9_EmnWLQb-bModBEgyjUu8xF6uFDI_jcyYcaA5ssAOrQMTbgCEGkotXSi2Q5tb9MPo52n982Icc0-mjqh8RpOpwBiHq7SzP4l-9Na7vHA35x6WtfmEiexRJdiJ05mCDIXAjpCzs26LxLWGl_jaILvcuJXQZMUppV08C8g8IRiIgmJgDvbYHE0AtxGBnUAhCpYrib1JM');opacity:0.06"></div>
+        <div style="position:relative;z-index:2;text-align:center;padding:48px">
+          <div class="tmpl-mono" style="font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--copper);margin-bottom:12px">Live Demo Event</div>
+          <div class="tmpl-serif" style="font-weight:300;font-size:36px;color:var(--bone);line-height:1.2;margin-bottom:8px">ThreadLine Launch Party</div>
+          <div style="font-size:14px;color:rgba(245,240,235,0.5);margin-bottom:20px">See how AI transforms wardrobe management for film production</div>
+          <div style="display:flex;gap:24px;justify-content:center">
+            <div class="tmpl-mono" style="font-size:12px;color:var(--copper)">APR 15, 2026</div>
+            <div style="width:1px;background:rgba(255,255,255,0.1)"></div>
+            <div class="tmpl-mono" style="font-size:12px;color:var(--copper)">7:00 PM PST</div>
+            <div style="width:1px;background:rgba(255,255,255,0.1)"></div>
+            <div class="tmpl-mono" style="font-size:12px;color:var(--copper)">VIRTUAL</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     LINKEDIN — 3 Templates
+═══════════════════════════════════════════════════ -->
+<div class="sec-label" id="linkedin">LinkedIn · 3 Templates</div>
+
+<div class="template-gallery">
+
+  <!-- LI 13: Feed Post (Square 1:1) -->
+  <div class="template-wrap">
+    <div class="template-info">
+      <span class="t-name"><span class="platform-badge badge-li">LI</span> 13 · Feed Post</span>
+      <span class="t-size">1080×1080 · 1:1</span>
+    </div>
+    <div class="template-frame">
+      <div style="width:100%;aspect-ratio:1/1;background:var(--cream);position:relative;display:flex;flex-direction:column;justify-content:flex-end;border:1px solid var(--warm-gray)">
+        <div class="ghost-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBdWy7YGvr91as47l5syVXCzvWPOyaTwI1-GEBLWn150_WMIGIAgFKdqTnVMCRBxXnO09SNboHH3MsEKaTRzkPHNLHBFNPVGVfPKzoVdRwRvC12EimN4FnTECxbYwklaowM2-KGIVu19o-akr8GPchHrsNmUPtvHxsIMc0Kvd5GzIU7TjGkjjVFj67AFGYgJNID6pzed8VEDa_TIyak4CZ4xhPSubV1n51oaOj_StisdWvLaUpvtgXji3TKmT7KONbP1DBYV3YgTT8');opacity:0.1"></div>
+        <div style="position:relative;z-index:2;padding:36px">
+          <div class="tmpl-mono" style="font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--brown-gold);margin-bottom:12px">Introducing</div>
+          <div class="tmpl-serif" style="font-weight:300;font-size:26px;color:var(--near-black);line-height:1.3;margin-bottom:12px">We're building the future of wardrobe management.</div>
+          <div style="font-size:13px;color:var(--taupe);line-height:1.6;max-width:360px">ThreadLine uses AI to automate the paperwork that consumes 80% of a wardrobe PA's day — so they can focus on the craft.</div>
+          <div style="margin-top:20px;padding-top:12px;border-top:1px solid var(--warm-gray);display:flex;justify-content:space-between;align-items:center">
+            <span class="tmpl-wordmark" style="font-size:10px;color:var(--near-black)">THREAD<span style="color:var(--brown-gold)">LINE</span></span>
+            <span class="tmpl-tagline" style="font-size:10px;color:var(--taupe)">From rack to wrap.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LI 14: Personal Banner (1584×396) -->
+  <div class="template-wrap" style="grid-column:span 2">
+    <div class="template-info">
+      <span class="t-name"><span class="platform-badge badge-li">LI</span> 14 · Personal Profile Banner</span>
+      <span class="t-size">1584×396 · 4:1</span>
+    </div>
+    <div class="template-frame">
+      <div style="width:100%;aspect-ratio:4/1;background:linear-gradient(135deg,var(--dark-brown),var(--brown-gold),var(--copper));position:relative;display:flex;align-items:center">
+        <div class="ghost-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBGchh_ZDL85IckT4KmjLhPcWN1beeI0qH0C7aG8jQuxJzzvPVeuK-f2z-dLsFIUBR3u2zANtK7Zl3PFPS9XbVwV9F8GYRkABrySWvWaCPG2BK9ToO1-tjBi5GCmSaWmrgF5FIgu71bu8vzshtFJ-3I3TVxjoFdzLxwAqtFSRDLW9tOSKwbhG3WwafCaiEe2UXkzyFtuOGwK2ZHsq7Lwj2fN_-mEPSk9EEZYIFEwpkGI02flrXqtdiLZsHq4XQpVHKadNuJPr4TafY');opacity:0.1;mix-blend-mode:overlay"></div>
+        <div style="position:relative;z-index:2;padding:24px 48px;display:flex;justify-content:space-between;align-items:center;width:100%">
+          <div>
+            <div class="tmpl-wordmark" style="font-size:28px;color:white">THREAD<span style="opacity:0.5">LINE</span></div>
+            <div class="tmpl-tagline" style="font-size:14px;color:rgba(255,255,255,0.5);margin-top:4px">From rack to wrap.</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-size:12px;color:rgba(255,255,255,0.7)">AI-powered wardrobe management</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.4)">for film & television production</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- LI 15: Company Banner -->
+<div class="template-gallery single-row" style="padding-bottom:64px">
+  <div class="template-wrap">
+    <div class="template-info">
+      <span class="t-name"><span class="platform-badge badge-li">LI</span> 15 · Company Page Banner</span>
+      <span class="t-size">1128×191 · 5.9:1</span>
+    </div>
+    <div class="template-frame">
+      <div style="width:100%;aspect-ratio:1128/191;background:var(--brown-gold);position:relative;display:flex;align-items:center;justify-content:center">
+        <div class="ghost-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBeHsToWwEOzB5kog42OQ5LZsWb-pMmXKXXxuWBeE-NADqNYgGSLCWst-fPlj5OUz1xRqdTDiuE7ryJLM_xit1JHxsYq6clQAzj8N4GCoFNvcPvMcSuVnFeONQzhJwHoHJJMZoBW-n8qoX2096U22G553omNxDqgdVdlraGqQ627DRUDcMxcfvnfxiQcbwV9qq9DdRCCiCRc0SHLPybyoduZnSHE39CWK5H-0HBPscvUN86i_8q7WxrZA2ZnkaikvBa6KNFmzmB7Ng');opacity:0.1;mix-blend-mode:overlay"></div>
+        <div style="position:relative;z-index:2;display:flex;align-items:center;gap:24px">
+          <span class="tmpl-wordmark" style="font-size:20px;color:white">THREAD<span style="opacity:0.5">LINE</span></span>
+          <span style="width:1px;height:20px;background:rgba(255,255,255,0.2)"></span>
+          <span style="font-size:11px;color:rgba(255,255,255,0.6)">AI-powered wardrobe management for film production</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  <a href="https://cooperinteractive.com">Made with care</a>
+  <span class="conf">ThreadLine · Social Media Templates · 15 of 15 · Confidential</span>
+</div>
+
+<script>
+  document.querySelectorAll('.sticky-nav a').forEach(link=>{
+    link.addEventListener('click',e=>{e.preventDefault();const id=link.getAttribute('href').replace('#','');document.getElementById(id)?.scrollIntoView({behavior:'smooth'});});
+  });
+  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){document.querySelectorAll('.sticky-nav a').forEach(l=>l.classList.remove('active'));document.querySelector(`.sticky-nav a[href="#${e.target.id}"]`)?.classList.add('active');}});},{threshold:0.2});
+  document.querySelectorAll('[id]').forEach(s=>{if(s.id&&document.querySelector(`.sticky-nav a[href="#${s.id}"]`))obs.observe(s);});
+</script>
+
+</body>
+</html>

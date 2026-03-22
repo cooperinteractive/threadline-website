@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ThreadLine — Photography Treatments</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400;500&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300&family=Material+Symbols+Outlined:wght,FILL@200,0&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF8F5; --bone: #F5F0EB; --warm-gray: #E8E3DE; --sand: #D2C4B9;
+    --taupe: #B5A89C; --brown-gold: #8B6F52; --copper: #C4946A; --dark-brown: #5A4228;
+    --espresso: #3A2A18; --near-black: #1A1714; --void: #0A0A0A;
+    --water: #5A7E8A; --forest: #4A6741; --clay: #8A4A42; --dusty-blue: #627786;
+    --surface-low: #f5f3f0; --surface-container: #efeeeb;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter',sans-serif; background:var(--cream); color:var(--near-black); }
+
+  .container { max-width:1200px; margin:0 auto; padding:0 48px; }
+
+  /* Header */
+  .page-head {
+    padding:48px 48px 0;
+    display:flex; justify-content:space-between; align-items:flex-end;
+  }
+  .page-head h1 {
+    font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:500;
+    letter-spacing:0.15em; text-transform:uppercase; color:var(--taupe);
+  }
+  .page-head .date { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--sand); }
+
+  .hero-title {
+    text-align:center; padding:60px 48px 20px;
+  }
+  .hero-title h2 {
+    font-family:'Cormorant Garamond',serif; font-weight:300; font-size:42px; margin-bottom:8px;
+  }
+  .hero-title p { font-size:14px; color:var(--taupe); max-width:600px; margin:0 auto; line-height:1.7; }
+
+  /* Section labels */
+  .sec-label {
+    font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:500;
+    letter-spacing:0.15em; text-transform:uppercase; color:var(--taupe);
+    padding:48px 0 20px; display:flex; align-items:center; gap:12px;
+  }
+  .sec-label::after { content:''; flex:1; height:1px; background:var(--warm-gray); }
+
+  /* ═══════════════════════════════════
+     GHOSTED PHOTO CARD — THE SIGNATURE
+  ═══════════════════════════════════ */
+
+  /* Treatment 1: Feature cards with ghosted imagery */
+  .ghost-grid {
+    display:grid; grid-template-columns:repeat(2,1fr); gap:24px;
+  }
+
+  .ghost-card {
+    border-radius:16px; overflow:hidden; position:relative;
+    min-height:340px; display:flex; flex-direction:column; justify-content:flex-end;
+    transition:transform 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .ghost-card:hover {
+    transform:translateY(-4px);
+    box-shadow:0 12px 40px rgba(26,23,20,0.1);
+  }
+
+  /* The ghosted photo layer */
+  .ghost-card .ghost-img {
+    position:absolute; inset:0;
+    background-size:cover; background-position:center;
+    opacity:0.12; /* Ultra-subtle ghost */
+    filter:grayscale(100%);
+    transition:opacity 0.5s ease, filter 0.5s ease;
+  }
+
+  .ghost-card:hover .ghost-img {
+    opacity:0.2;
+    filter:grayscale(60%);
+  }
+
+  .ghost-card .card-content {
+    position:relative; z-index:2;
+    padding:32px;
+  }
+
+  .ghost-card .card-content h3 {
+    font-family:'Cormorant Garamond',serif; font-weight:400; font-size:28px;
+    margin-bottom:8px;
+  }
+
+  .ghost-card .card-content p {
+    font-size:14px; line-height:1.7; opacity:0.7; max-width:400px;
+  }
+
+  .ghost-card .card-content .mono-label {
+    font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.12em;
+    text-transform:uppercase; opacity:0.4; margin-bottom:16px;
+  }
+
+  /* ═══════════════════════════════════
+     TREATMENT VARIATIONS
+  ═══════════════════════════════════ */
+
+  /* Full-width hero ghost */
+  .ghost-hero {
+    position:relative; border-radius:20px; overflow:hidden;
+    min-height:480px; display:flex; align-items:center;
+    margin-bottom:48px;
+  }
+
+  .ghost-hero .ghost-img {
+    position:absolute; inset:0;
+    background-size:cover; background-position:center;
+    filter:grayscale(100%);
+    transition:opacity 0.6s ease, filter 0.6s ease;
+  }
+
+  .ghost-hero:hover .ghost-img { filter:grayscale(50%); }
+
+  .ghost-hero .hero-content {
+    position:relative; z-index:2; padding:64px;
+    max-width:600px;
+  }
+
+  .ghost-hero .hero-content h2 {
+    font-family:'Cormorant Garamond',serif; font-weight:300; font-size:48px;
+    line-height:1.15; margin-bottom:16px;
+  }
+
+  .ghost-hero .hero-content p {
+    font-size:16px; line-height:1.7; margin-bottom:24px;
+  }
+
+  .ghost-hero .hero-content .cta {
+    display:inline-block; padding:12px 32px; font-size:11px; font-weight:600;
+    letter-spacing:0.1em; text-transform:uppercase; border:none; cursor:pointer;
+    transition:all 0.2s;
+  }
+
+  /* Split ghost — text left, ghosted photo right */
+  .ghost-split {
+    display:grid; grid-template-columns:1fr 1fr; gap:0;
+    border-radius:16px; overflow:hidden; min-height:360px;
+    border:1px solid rgba(26,23,20,0.06);
+  }
+
+  .ghost-split .split-text {
+    padding:48px; display:flex; flex-direction:column; justify-content:center;
+  }
+
+  .ghost-split .split-photo {
+    position:relative; overflow:hidden;
+  }
+
+  .ghost-split .split-photo .ghost-img {
+    position:absolute; inset:0;
+    background-size:cover; background-position:center;
+    filter:grayscale(100%);
+    transition:all 0.5s ease;
+  }
+
+  .ghost-split:hover .split-photo .ghost-img {
+    filter:grayscale(40%);
+    transform:scale(1.03);
+  }
+
+  /* Dark ghost treatment */
+  .ghost-dark {
+    background:var(--void); color:var(--bone);
+    border-radius:16px; overflow:hidden; position:relative;
+    min-height:400px; display:flex; align-items:flex-end;
+  }
+
+  .ghost-dark .ghost-img {
+    position:absolute; inset:0;
+    background-size:cover; background-position:center;
+    opacity:0.08;
+    filter:grayscale(100%);
+    transition:opacity 0.5s ease;
+  }
+
+  .ghost-dark:hover .ghost-img { opacity:0.15; }
+
+  .ghost-dark .dark-content {
+    position:relative; z-index:2; padding:48px; width:100%;
+    background:linear-gradient(transparent 0%, rgba(10,10,10,0.8) 100%);
+  }
+
+  /* Accent ghost */
+  .ghost-accent {
+    background:var(--brown-gold); color:white;
+    border-radius:16px; overflow:hidden; position:relative;
+    min-height:320px; display:flex; align-items:center; justify-content:center;
+    text-align:center;
+  }
+
+  .ghost-accent .ghost-img {
+    position:absolute; inset:0;
+    background-size:cover; background-position:center;
+    opacity:0.1;
+    filter:grayscale(100%);
+    mix-blend-mode:overlay;
+    transition:opacity 0.5s ease;
+  }
+
+  .ghost-accent:hover .ghost-img { opacity:0.2; }
+
+  .ghost-accent .accent-content {
+    position:relative; z-index:2; padding:48px;
+  }
+
+  /* Bento ghost grid */
+  .bento-ghost {
+    display:grid; grid-template-columns:repeat(12,1fr); gap:16px;
+    grid-auto-rows:220px;
+  }
+
+  .bento-ghost .b-card {
+    border-radius:16px; overflow:hidden; position:relative;
+    display:flex; flex-direction:column; justify-content:flex-end;
+  }
+
+  .bento-ghost .b-card .ghost-img {
+    position:absolute; inset:0;
+    background-size:cover; background-position:center;
+    filter:grayscale(100%);
+    transition:all 0.5s ease;
+  }
+
+  .bento-ghost .b-card:hover .ghost-img {
+    filter:grayscale(40%);
+    opacity:0.25;
+  }
+
+  .bento-ghost .b-card .b-content {
+    position:relative; z-index:2; padding:24px;
+  }
+
+  .bento-ghost .b-card .b-content h4 {
+    font-family:'Cormorant Garamond',serif; font-weight:400; font-size:22px; margin-bottom:4px;
+  }
+
+  .bento-ghost .b-card .b-content p {
+    font-size:12px; line-height:1.6; opacity:0.6;
+  }
+
+  /* Specs callout */
+  .spec-box {
+    background:white; border:1px solid var(--warm-gray); border-radius:12px;
+    padding:32px; margin-top:32px;
+  }
+
+  .spec-box .spec-title {
+    font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:500;
+    letter-spacing:0.1em; text-transform:uppercase; color:var(--brown-gold); margin-bottom:16px;
+  }
+
+  .spec-grid {
+    display:grid; grid-template-columns:repeat(3,1fr); gap:24px;
+  }
+
+  .spec-item .spec-label {
+    font-size:11px; font-weight:500; color:var(--near-black); margin-bottom:4px;
+  }
+
+  .spec-item .spec-value {
+    font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--taupe);
+  }
+
+  .footer {
+    padding:32px 48px; border-top:1px solid var(--warm-gray);
+    display:flex; justify-content:space-between; align-items:center; margin-top:64px;
+  }
+  .footer .made { font-size:12px; color:var(--taupe); }
+  .footer a { color:var(--brown-gold); text-decoration:none; }
+
+  @media(max-width:900px) {
+    .ghost-grid { grid-template-columns:1fr; }
+    .ghost-split { grid-template-columns:1fr; }
+    .bento-ghost { grid-template-columns:1fr; }
+    .bento-ghost .b-card { grid-column:auto !important; }
+    .spec-grid { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav style="position:sticky;top:0;z-index:100;background:rgba(250,248,245,0.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(26,23,20,0.06);padding:12px 48px;display:flex;align-items:center;gap:24px;">
+  <a href="index.html" style="font-family:'Inter',sans-serif;font-weight:200;font-size:14px;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;color:inherit;">THREAD<span style="color:var(--brown-gold);">LINE</span></a>
+  <a class="back" href="index.html" style="font-size:11px;font-weight:500;color:var(--brown-gold);text-decoration:none;padding:4px 8px;border-radius:4px;">← All Pages</a>
+</nav>
+
+<div class="page-head">
+  <h1>ThreadLine — Photography Treatments</h1>
+  <span class="date">Brand Identity · Ghosted Imagery</span>
+</div>
+
+<div class="hero-title">
+  <h2>The Ghosted Photo <em style="font-family:'Cormorant Garamond',serif;font-style:italic">Treatment</em></h2>
+  <p>ThreadLine's signature visual technique: real photography at ultra-low opacity, desaturated, behind clean surfaces. The image suggests texture and context without competing with content. Hover any card to see the photo emerge.</p>
+</div>
+
+<div class="container">
+
+<!-- ═══════════════ TREATMENT 1: FEATURE CARDS ═══════════════ -->
+<div class="sec-label">Treatment 01 · Feature Cards</div>
+
+<div class="ghost-grid">
+  <!-- Magic Scan -->
+  <div class="ghost-card" style="background:var(--surface-low)">
+    <div class="ghost-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBdWy7YGvr91as47l5syVXCzvWPOyaTwI1-GEBLWn150_WMIGIAgFKdqTnVMCRBxXnO09SNboHH3MsEKaTRzkPHNLHBFNPVGVfPKzoVdRwRvC12EimN4FnTECxbYwklaowM2-KGIVu19o-akr8GPchHrsNmUPtvHxsIMc0Kvd5GzIU7TjGkjjVFj67AFGYgJNID6pzed8VEDa_TIyak4CZ4xhPSubV1n51oaOj_StisdWvLaUpvtgXji3TKmT7KONbP1DBYV3YgTT8')"></div>
+    <div class="card-content">
+      <div class="mono-label">Feature 01</div>
+      <h3>Magic Scan</h3>
+      <p>Extract barcode data, photo attributes, and receipt lines with one tap. Our AI categorizes garments by color, fabric, and scene automatically.</p>
+    </div>
+  </div>
+
+  <!-- Returns -->
+  <div class="ghost-card" style="background:var(--surface-low)">
+    <div class="ghost-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBGchh_ZDL85IckT4KmjLhPcWN1beeI0qH0C7aG8jQuxJzzvPVeuK-f2z-dLsFIUBR3u2zANtK7Zl3PFPS9XbVwV9F8GYRkABrySWvWaCPG2BK9ToO1-tjBi5GCmSaWmrgF5FIgu71bu8vzshtFJ-3I3TVxjoFdzLxwAqtFSRDLW9tOSKwbhG3WwafCaiEe2UXkzyFtuOGwK2ZHsq7Lwj2fN_-mEPSk9EEZYIFEwpkGI02flrXqtdiLZsHq4XQpVHKadNuJPr4TafY')"></div>
+    <div class="card-content">
+      <div class="mono-label">Feature 02</div>
+      <h3 style="font-style:italic">The Returns Rack, Digitized</h3>
+      <p>Never miss a return window. Visual countdown timers and one-tap pull lists for your PA team to hit the road efficiently.</p>
+    </div>
+  </div>
+
+  <!-- Thread AI -->
+  <div class="ghost-card" style="background:white;border:1px solid rgba(26,23,20,0.06)">
+    <div class="ghost-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuDIVdvxjvATjLPZM7x0Hmgb-GwlJCLHmKY7rngYsWw4luBsaKLNgGQmvCwJ5M_AnHKGcd6q9_EmnWLQb-bModBEgyjUu8xF6uFDI_jcyYcaA5ssAOrQMTbgCEGkotXSi2Q5tb9MPo52n982Icc0-mjqh8RpOpwBiHq7SzP4l-9Na7vHA35x6WtfmEiexRJdiJ05mCDIXAjpCzs26LxLWGl_jaILvcuJXQZMUppV08C8g8IRiIgmJgDvbYHE0AtxGBnUAhCpYrib1JM')"></div>
+    <div class="card-content">
+      <div class="mono-label">Feature 03</div>
+      <h3>Thread AI Assistant</h3>
+      <p>"Show me all blue linen shirts in size Large available for Scene 42." Natural language queries across your entire inventory.</p>
+    </div>
+  </div>
+
+  <!-- Budget -->
+  <div class="ghost-card" style="background:var(--brown-gold);color:white">
+    <div class="ghost-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBeHsToWwEOzB5kog42OQ5LZsWb-pMmXKXXxuWBeE-NADqNYgGSLCWst-fPlj5OUz1xRqdTDiuE7ryJLM_xit1JHxsYq6clQAzj8N4GCoFNvcPvMcSuVnFeONQzhJwHoHJJMZoBW-n8qoX2096U22G553omNxDqgdVdlraGqQ627DRUDcMxcfvnfxiQcbwV9qq9DdRCCiCRc0SHLPybyoduZnSHE39CWK5H-0HBPscvUN86i_8q7WxrZA2ZnkaikvBa6KNFmzmB7Ng');mix-blend-mode:overlay"></div>
+    <div class="card-content">
+      <div class="mono-label" style="color:rgba(255,255,255,0.4)">Feature 04</div>
+      <h3 style="color:white">Budget That Tracks Itself</h3>
+      <p style="color:rgba(255,255,255,0.7)">Real-time cost reports, return credit tracking, and instant export for accounting. No more weekend spreadsheets.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ TREATMENT 2: FULL-WIDTH HERO ═══════════════ -->
+<div class="sec-label">Treatment 02 · Full-Width Hero</div>
+
+<div class="ghost-hero" style="background:var(--surface-low)">
+  <div class="ghost-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBdWy7YGvr91as47l5syVXCzvWPOyaTwI1-GEBLWn150_WMIGIAgFKdqTnVMCRBxXnO09SNboHH3MsEKaTRzkPHNLHBFNPVGVfPKzoVdRwRvC12EimN4FnTECxbYwklaowM2-KGIVu19o-akr8GPchHrsNmUPtvHxsIMc0Kvd5GzIU7TjGkjjVFj67AFGYgJNID6pzed8VEDa_TIyak4CZ4xhPSubV1n51oaOj_StisdWvLaUpvtgXji3TKmT7KONbP1DBYV3YgTT8');opacity:0.15"></div>
+  <div class="hero-content">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--brown-gold);margin-bottom:16px">From rack to wrap</div>
+    <h2>80% of a wardrobe PA's day is <em style="font-style:italic">paperwork.</em></h2>
+    <p style="color:var(--taupe)">Physical binders, Ziploc bags overflowing with receipts, and manual data entry are relics of a slower age. ThreadLine replaces it all.</p>
+    <span class="cta" style="background:var(--brown-gold);color:white">Learn How</span>
+  </div>
+</div>
+
+<!-- ═══════════════ TREATMENT 3: SPLIT LAYOUT ═══════════════ -->
+<div class="sec-label">Treatment 03 · Split Layout</div>
+
+<div class="ghost-split" style="background:white">
+  <div class="split-text">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--taupe);margin-bottom:12px">Built for production</div>
+    <h3 style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:32px;margin-bottom:12px">Works where you work.</h3>
+    <p style="font-size:14px;color:var(--taupe);line-height:1.7;margin-bottom:20px">Sound stages with no signal. Remote locations. Wardrobe trucks at 5am. ThreadLine works offline and syncs when you're back.</p>
+    <div style="display:flex;gap:24px">
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--taupe);text-transform:uppercase;letter-spacing:0.1em">Offline</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--brown-gold);margin-top:4px">100%</div>
+      </div>
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--taupe);text-transform:uppercase;letter-spacing:0.1em">Sync Time</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--brown-gold);margin-top:4px">&lt;2s</div>
+      </div>
+    </div>
+  </div>
+  <div class="split-photo" style="background:var(--surface-low)">
+    <div class="ghost-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuDIVdvxjvATjLPZM7x0Hmgb-GwlJCLHmKY7rngYsWw4luBsaKLNgGQmvCwJ5M_AnHKGcd6q9_EmnWLQb-bModBEgyjUu8xF6uFDI_jcyYcaA5ssAOrQMTbgCEGkotXSi2Q5tb9MPo52n982Icc0-mjqh8RpOpwBiHq7SzP4l-9Na7vHA35x6WtfmEiexRJdiJ05mCDIXAjpCzs26LxLWGl_jaILvcuJXQZMUppV08C8g8IRiIgmJgDvbYHE0AtxGBnUAhCpYrib1JM');opacity:0.2"></div>
+  </div>
+</div>
+
+<!-- ═══════════════ TREATMENT 4: DARK GHOST ═══════════════ -->
+<div class="sec-label">Treatment 04 · Dark Mode Ghost</div>
+
+<div class="ghost-dark">
+  <div class="ghost-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBeHsToWwEOzB5kog42OQ5LZsWb-pMmXKXXxuWBeE-NADqNYgGSLCWst-fPlj5OUz1xRqdTDiuE7ryJLM_xit1JHxsYq6clQAzj8N4GCoFNvcPvMcSuVnFeONQzhJwHoHJJMZoBW-n8qoX2096U22G553omNxDqgdVdlraGqQ627DRUDcMxcfvnfxiQcbwV9qq9DdRCCiCRc0SHLPybyoduZnSHE39CWK5H-0HBPscvUN86i_8q7WxrZA2ZnkaikvBa6KNFmzmB7Ng')"></div>
+  <div class="dark-content">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--copper);margin-bottom:12px">Atelier Standards</div>
+    <h3 style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:36px;color:var(--bone);margin-bottom:8px">Built for the high-stakes of production.</h3>
+    <p style="font-size:14px;color:rgba(245,240,235,0.5);max-width:500px;line-height:1.7">Every decision, from pixel to policy, has been made with the same precision your wardrobe department brings to continuity.</p>
+  </div>
+</div>
+
+<!-- ═══════════════ TREATMENT 5: ACCENT GHOST ═══════════════ -->
+<div class="sec-label">Treatment 05 · Brand Accent Ghost</div>
+
+<div class="ghost-accent">
+  <div class="ghost-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBGchh_ZDL85IckT4KmjLhPcWN1beeI0qH0C7aG8jQuxJzzvPVeuK-f2z-dLsFIUBR3u2zANtK7Zl3PFPS9XbVwV9F8GYRkABrySWvWaCPG2BK9ToO1-tjBi5GCmSaWmrgF5FIgu71bu8vzshtFJ-3I3TVxjoFdzLxwAqtFSRDLW9tOSKwbhG3WwafCaiEe2UXkzyFtuOGwK2ZHsq7Lwj2fN_-mEPSk9EEZYIFEwpkGI02flrXqtdiLZsHq4XQpVHKadNuJPr4TafY')"></div>
+  <div class="accent-content">
+    <div style="font-family:'Inter',sans-serif;font-weight:200;font-size:32px;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:8px">THREAD<span style="opacity:0.6">LINE</span></div>
+    <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:28px;color:rgba(255,255,255,0.8)">From rack to wrap.</div>
+    <div style="width:40px;height:1px;background:rgba(255,255,255,0.3);margin:20px auto"></div>
+    <p style="font-size:13px;color:rgba(255,255,255,0.6);max-width:400px;line-height:1.7">AI-powered wardrobe management for film production.</p>
+  </div>
+</div>
+
+<!-- ═══════════════ TREATMENT 6: BENTO GHOST GRID ═══════════════ -->
+<div class="sec-label">Treatment 06 · Bento Grid with Ghosts</div>
+
+<div class="bento-ghost">
+  <!-- Large card -->
+  <div class="b-card" style="grid-column:1/8;background:var(--surface-low)">
+    <div class="ghost-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBdWy7YGvr91as47l5syVXCzvWPOyaTwI1-GEBLWn150_WMIGIAgFKdqTnVMCRBxXnO09SNboHH3MsEKaTRzkPHNLHBFNPVGVfPKzoVdRwRvC12EimN4FnTECxbYwklaowM2-KGIVu19o-akr8GPchHrsNmUPtvHxsIMc0Kvd5GzIU7TjGkjjVFj67AFGYgJNID6pzed8VEDa_TIyak4CZ4xhPSubV1n51oaOj_StisdWvLaUpvtgXji3TKmT7KONbP1DBYV3YgTT8');opacity:0.15"></div>
+    <div class="b-content">
+      <h4>Magic Scan</h4>
+      <p>One tap captures everything — barcode, photo, receipt.</p>
+    </div>
+  </div>
+
+  <!-- Accent card -->
+  <div class="b-card" style="grid-column:8/13;background:var(--brown-gold);color:white">
+    <div class="ghost-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBeHsToWwEOzB5kog42OQ5LZsWb-pMmXKXXxuWBeE-NADqNYgGSLCWst-fPlj5OUz1xRqdTDiuE7ryJLM_xit1JHxsYq6clQAzj8N4GCoFNvcPvMcSuVnFeONQzhJwHoHJJMZoBW-n8qoX2096U22G553omNxDqgdVdlraGqQ627DRUDcMxcfvnfxiQcbwV9qq9DdRCCiCRc0SHLPybyoduZnSHE39CWK5H-0HBPscvUN86i_8q7WxrZA2ZnkaikvBa6KNFmzmB7Ng');mix-blend-mode:overlay;opacity:0.15"></div>
+    <div class="b-content">
+      <h4 style="color:white">Budget</h4>
+      <p style="color:rgba(255,255,255,0.6)">Real-time cost tracking.</p>
+    </div>
+  </div>
+
+  <!-- Small cards -->
+  <div class="b-card" style="grid-column:1/5;background:white;border:1px solid rgba(26,23,20,0.06)">
+    <div class="ghost-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuDIVdvxjvATjLPZM7x0Hmgb-GwlJCLHmKY7rngYsWw4luBsaKLNgGQmvCwJ5M_AnHKGcd6q9_EmnWLQb-bModBEgyjUu8xF6uFDI_jcyYcaA5ssAOrQMTbgCEGkotXSi2Q5tb9MPo52n982Icc0-mjqh8RpOpwBiHq7SzP4l-9Na7vHA35x6WtfmEiexRJdiJ05mCDIXAjpCzs26LxLWGl_jaILvcuJXQZMUppV08C8g8IRiIgmJgDvbYHE0AtxGBnUAhCpYrib1JM');opacity:0.1"></div>
+    <div class="b-content">
+      <h4>Thread AI</h4>
+      <p>Natural language queries.</p>
+    </div>
+  </div>
+
+  <!-- Wide returns card -->
+  <div class="b-card" style="grid-column:5/13;background:var(--surface-low)">
+    <div class="ghost-img" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBGchh_ZDL85IckT4KmjLhPcWN1beeI0qH0C7aG8jQuxJzzvPVeuK-f2z-dLsFIUBR3u2zANtK7Zl3PFPS9XbVwV9F8GYRkABrySWvWaCPG2BK9ToO1-tjBi5GCmSaWmrgF5FIgu71bu8vzshtFJ-3I3TVxjoFdzLxwAqtFSRDLW9tOSKwbhG3WwafCaiEe2UXkzyFtuOGwK2ZHsq7Lwj2fN_-mEPSk9EEZYIFEwpkGI02flrXqtdiLZsHq4XQpVHKadNuJPr4TafY');opacity:0.12"></div>
+    <div class="b-content">
+      <h4 style="font-style:italic">The Returns Rack, Digitized</h4>
+      <p>Countdown timers. Policy matching. One-tap pull lists.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ CSS SPECIFICATIONS ═══════════════ -->
+<div class="spec-box">
+  <div class="spec-title">Ghosted Photo CSS Specifications</div>
+  <div class="spec-grid">
+    <div class="spec-item">
+      <div class="spec-label">Opacity (resting)</div>
+      <div class="spec-value">0.08 – 0.15<br>Ultra-subtle. Just a whisper.</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">Opacity (hover)</div>
+      <div class="spec-value">0.18 – 0.25<br>Photo reveals on interaction.</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">Filter</div>
+      <div class="spec-value">grayscale(100%) → grayscale(40%)<br>Color bleeds in on hover.</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">Blend Mode</div>
+      <div class="spec-value">normal (light bg)<br>overlay (accent bg)</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">Transition</div>
+      <div class="spec-value">0.5s ease on opacity + filter<br>Slow, cinematic reveal.</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">Photography Subject</div>
+      <div class="spec-value">Garment racks, fabric textures,<br>wardrobe truck interiors</div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  <span class="made"><a href="https://cooperinteractive.com" target="_blank">Made with care</a></span>
+  <span style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--sand)">ThreadLine · Photography Treatments · Confidential</span>
+</div>
+
+</body>
+</html>

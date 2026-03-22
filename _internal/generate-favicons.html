@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ThreadLine Favicon Generator</title>
+
+  <!--
+    ============================================================================
+    THREADLINE FAVICON GENERATOR
+    ============================================================================
+
+    This page renders the ThreadLine logo onto HTML5 canvases at every size
+    needed for a complete favicon / app-icon set, then lets you download each
+    one as a PNG.
+
+    SIZE STRATEGY
+    - Under 64px  : "TL" monogram (Inter 300) -- the full wordmark is
+                    illegible at these sizes.
+    - 180px+      : Stacked "THREAD" / "LINE" wordmark (Inter 200).
+
+    BRAND COLOURS
+    - Gradient stops : #5A4228 -> #8B6F52 -> #C4946A  (top-left to bottom-right)
+    - "THREAD" text  : rgba(255, 255, 255, 0.95)
+    - "LINE" text    : rgba(255, 255, 255, 0.50)
+    - "TL" text      : rgba(255, 255, 255, 0.92)
+
+    ICON SHAPE
+    - Small sizes use a rounded-square clipping path (22 % corner-radius) so
+      they feel native on iOS / Android home screens.
+    - Large sizes also use the rounded square for consistency.
+
+    HOW TO GET A .ICO FILE
+    - Download the 32x32 PNG from this page.
+    - Upload it to https://realfavicongenerator.net or use ImageMagick:
+        convert favicon-32x32.png favicon.ico
+    - Modern browsers accept PNG favicons directly, so you can also just
+      reference the 32x32 PNG in your <link rel="icon"> tag.
+    ============================================================================
+  -->
+
+  <!--
+    Load Inter from Google Fonts. We need weights 200 (extralight) and 300
+    (light) for the wordmark and monogram respectively.
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ------------------------------------------------------------------ */
+    /* PAGE RESET & BASE                                                  */
+    /* ------------------------------------------------------------------ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #FAF8F5;          /* ThreadLine cream background          */
+      color: #3A3025;               /* warm dark brown for body text        */
+      padding: 60px 40px 100px;
+      min-height: 100vh;
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* HEADER                                                             */
+    /* ------------------------------------------------------------------ */
+    .page-header {
+      max-width: 720px;
+      margin: 0 auto 56px;
+      text-align: center;
+    }
+
+    .page-header h1 {
+      font-weight: 200;
+      font-size: 32px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #5A4228;
+      margin-bottom: 12px;
+    }
+
+    .page-header h1 span {
+      color: #B08A68;               /* lighter half of the wordmark         */
+    }
+
+    .page-header p {
+      font-weight: 300;
+      font-size: 14px;
+      color: #8B7A68;
+      line-height: 1.7;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* ICON GRID                                                          */
+    /* ------------------------------------------------------------------ */
+    .icon-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 40px;
+      max-width: 960px;
+      margin: 0 auto 64px;
+    }
+
+    .icon-card {
+      background: #FFFFFF;
+      border: 1px solid rgba(90, 66, 40, 0.08);
+      border-radius: 16px;
+      padding: 32px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      transition: box-shadow 0.2s ease;
+    }
+
+    .icon-card:hover {
+      box-shadow: 0 4px 24px rgba(90, 66, 40, 0.08);
+    }
+
+    /* The canvas itself -- shown at its natural pixel size up to 192px,    */
+    /* then scaled down so the 512px version doesn't dominate the card.     */
+    .icon-card canvas {
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+    }
+
+    .icon-card .label {
+      font-size: 13px;
+      font-weight: 400;
+      color: #8B7A68;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .icon-card .label strong {
+      display: block;
+      font-weight: 500;
+      font-size: 15px;
+      color: #5A4228;
+      margin-bottom: 2px;
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* DOWNLOAD BUTTON                                                    */
+    /* ------------------------------------------------------------------ */
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 18px;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #FAF8F5;
+      background: linear-gradient(135deg, #5A4228, #8B6F52);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: opacity 0.15s ease;
+    }
+
+    .download-btn:hover {
+      opacity: 0.88;
+    }
+
+    .download-btn svg {
+      width: 14px;
+      height: 14px;
+      fill: currentColor;
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* DOWNLOAD-ALL BAR                                                   */
+    /* ------------------------------------------------------------------ */
+    .download-all-section {
+      text-align: center;
+      max-width: 960px;
+      margin: 0 auto 64px;
+    }
+
+    .download-all-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 36px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #FAF8F5;
+      background: linear-gradient(135deg, #5A4228, #8B6F52, #C4946A);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: opacity 0.15s ease;
+    }
+
+    .download-all-btn:hover {
+      opacity: 0.88;
+    }
+
+    .download-all-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* ICO NOTE                                                           */
+    /* ------------------------------------------------------------------ */
+    .ico-note {
+      max-width: 640px;
+      margin: 0 auto;
+      background: #FFFFFF;
+      border: 1px solid rgba(90, 66, 40, 0.08);
+      border-radius: 12px;
+      padding: 28px 32px;
+    }
+
+    .ico-note h2 {
+      font-weight: 400;
+      font-size: 15px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #5A4228;
+      margin-bottom: 12px;
+    }
+
+    .ico-note p {
+      font-weight: 300;
+      font-size: 13px;
+      color: #8B7A68;
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+
+    .ico-note p:last-child {
+      margin-bottom: 0;
+    }
+
+    .ico-note code {
+      font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+      font-size: 12px;
+      background: #F3EDE6;
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #5A4228;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================================================================== -->
+  <!-- NAVIGATION                                                         -->
+  <!-- ================================================================== -->
+  <nav style="position:sticky;top:0;z-index:100;background:rgba(250,248,245,0.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(90,66,40,0.08);padding:12px 40px;display:flex;align-items:center;gap:24px;">
+    <a href="index.html" style="font-family:'Inter',sans-serif;font-weight:200;font-size:14px;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;color:#3A3025;">THREAD<span style="color:#B08A68;">LINE</span></a>
+    <a href="index.html" style="font-size:11px;font-weight:500;color:#8B6F52;text-decoration:none;padding:4px 8px;border-radius:4px;">← All Pages</a>
+  </nav>
+
+  <!-- ================================================================== -->
+  <!-- PAGE HEADER                                                        -->
+  <!-- ================================================================== -->
+  <header class="page-header">
+    <h1>THREAD<span>LINE</span></h1>
+    <p>
+      Favicon &amp; app icon generator. Each canvas renders the logo at the
+      correct size with the brand gradient. Click any download button to save
+      the PNG, then drop it into your project.
+    </p>
+  </header>
+
+  <!-- ================================================================== -->
+  <!-- ICON GRID  (cards are built by JS below)                           -->
+  <!-- ================================================================== -->
+  <section class="icon-grid" id="iconGrid"></section>
+
+  <!-- ================================================================== -->
+  <!-- DOWNLOAD ALL                                                       -->
+  <!-- ================================================================== -->
+  <section class="download-all-section">
+    <button class="download-all-btn" id="downloadAllBtn">
+      <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+      Download All PNGs
+    </button>
+  </section>
+
+  <!-- ================================================================== -->
+  <!-- ICO NOTE                                                           -->
+  <!-- ================================================================== -->
+  <section class="ico-note">
+    <h2>About favicon.ico</h2>
+    <p>
+      The <code>.ico</code> format bundles one or more bitmaps into a single
+      file. To create one from the 32&times;32 PNG this page generates:
+    </p>
+    <p>
+      <strong style="color:#5A4228; font-weight:400;">Option A &mdash; Online tool:</strong>
+      Upload the 32&times;32 PNG to
+      <a href="https://realfavicongenerator.net" target="_blank" rel="noopener"
+         style="color:#8B6F52; text-decoration:underline;">realfavicongenerator.net</a>.
+      It will produce a complete favicon package including the <code>.ico</code>.
+    </p>
+    <p>
+      <strong style="color:#5A4228; font-weight:400;">Option B &mdash; ImageMagick:</strong>
+      <code>convert favicon-32x32.png favicon.ico</code>
+    </p>
+    <p>
+      <strong style="color:#5A4228; font-weight:400;">Option C &mdash; Just use PNG:</strong>
+      Modern browsers (Chrome, Firefox, Safari, Edge) all support PNG favicons.
+      You can skip the <code>.ico</code> entirely and use:<br>
+      <code>&lt;link rel="icon" type="image/png" href="/favicon-32x32.png"&gt;</code>
+    </p>
+  </section>
+
+  <!-- ================================================================== -->
+  <!-- MAIN SCRIPT                                                        -->
+  <!-- ================================================================== -->
+  <script>
+    /**
+     * ====================================================================
+     * FAVICON DEFINITIONS
+     * ====================================================================
+     * Each entry describes one icon to generate.  The `mode` field controls
+     * whether we draw the "TL" monogram or the stacked wordmark.
+     */
+    const ICONS = [
+      { size: 16,  mode: 'monogram', filename: 'favicon-16x16.png',          label: '16 &times; 16',  desc: 'favicon.ico base size' },
+      { size: 32,  mode: 'monogram', filename: 'favicon-32x32.png',          label: '32 &times; 32',  desc: 'favicon.ico / browser tab' },
+      { size: 48,  mode: 'monogram', filename: 'favicon-48x48.png',          label: '48 &times; 48',  desc: 'Windows taskbar' },
+      { size: 180, mode: 'wordmark', filename: 'apple-touch-icon-180x180.png', label: '180 &times; 180', desc: 'Apple Touch Icon' },
+      { size: 192, mode: 'wordmark', filename: 'android-chrome-192x192.png', label: '192 &times; 192', desc: 'Android home screen' },
+      { size: 512, mode: 'wordmark', filename: 'android-chrome-512x512.png', label: '512 &times; 512', desc: 'PWA splash screen' },
+    ];
+
+    /**
+     * ====================================================================
+     * GRADIENT HELPER
+     * ====================================================================
+     * Creates the ThreadLine brand gradient on any canvas context.
+     * Direction: top-left corner to bottom-right corner (135 deg).
+     */
+    function createBrandGradient(ctx, size) {
+      const grad = ctx.createLinearGradient(0, 0, size, size);
+      grad.addColorStop(0,   '#5A4228');
+      grad.addColorStop(0.5, '#8B6F52');
+      grad.addColorStop(1,   '#C4946A');
+      return grad;
+    }
+
+    /**
+     * ====================================================================
+     * ROUNDED-RECT CLIPPING PATH
+     * ====================================================================
+     * Draws a rounded rectangle and clips to it so the icon has the
+     * familiar app-icon shape (22 % corner radius).
+     */
+    function clipRoundedRect(ctx, size) {
+      const r = size * 0.22;   // 22 % border-radius
+      ctx.beginPath();
+      ctx.moveTo(r, 0);
+      ctx.lineTo(size - r, 0);
+      ctx.quadraticCurveTo(size, 0, size, r);
+      ctx.lineTo(size, size - r);
+      ctx.quadraticCurveTo(size, size, size - r, size);
+      ctx.lineTo(r, size);
+      ctx.quadraticCurveTo(0, size, 0, size - r);
+      ctx.lineTo(0, r);
+      ctx.quadraticCurveTo(0, 0, r, 0);
+      ctx.closePath();
+      ctx.clip();
+    }
+
+    /**
+     * ====================================================================
+     * DRAW "TL" MONOGRAM  (sizes < 64 px)
+     * ====================================================================
+     * - Font: Inter weight 300 (light -- slightly heavier than the large
+     *   wordmark for legibility at tiny sizes).
+     * - Colour: rgba(255, 255, 255, 0.92)
+     * - Vertically and horizontally centred.
+     *
+     * Font-size heuristics:
+     *   16px icon -> ~8px font
+     *   32px icon -> ~16px font
+     *   48px icon -> ~24px font
+     * We use 52% of the icon size which hits those marks nicely.
+     */
+    function drawMonogram(ctx, size) {
+      const fontSize = Math.round(size * 0.52);
+      ctx.font = `300 ${fontSize}px 'Inter', sans-serif`;
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.92)';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+
+      /*
+       * Nudge the text up by ~3 % of icon size so it looks optically
+       * centred (the descender area in Inter shifts the baseline down).
+       */
+      const yOffset = size * 0.5 - size * 0.02;
+      ctx.fillText('TL', size / 2, yOffset);
+    }
+
+    /**
+     * ====================================================================
+     * DRAW STACKED WORDMARK  (sizes >= 180 px)
+     * ====================================================================
+     * Two lines, centred:
+     *   "THREAD"  rgba(255,255,255,0.95)   <-- primary
+     *   "LINE"    rgba(255,255,255,0.50)   <-- secondary
+     *
+     * Font: Inter weight 200, uppercase.
+     *
+     * The two lines share a common baseline gap of ~8 % of the icon size.
+     * "THREAD" font size is ~16 % of icon size; "LINE" is ~14 %.  These
+     * ratios keep the pair visually balanced at 180 px through 512 px.
+     */
+    function drawWordmark(ctx, size) {
+      const threadSize = Math.round(size * 0.155);
+      const lineSize   = Math.round(size * 0.135);
+      const gap        = size * 0.06;    // vertical gap between the two words
+
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'alphabetic';
+
+      /*
+       * Calculate vertical placement so the pair is centred as a unit.
+       * Total height of the text block = threadSize + gap + lineSize.
+       * We position so the midpoint of that block sits at size/2.
+       */
+      const blockHeight = threadSize + gap + lineSize;
+      const blockTop    = (size - blockHeight) / 2;
+
+      /* ---- THREAD ---- */
+      ctx.font = `200 ${threadSize}px 'Inter', sans-serif`;
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+      /*
+       * "alphabetic" baseline: the text draws *above* the y we give.
+       * We want the top of the THREAD line at blockTop, so the baseline
+       * is roughly blockTop + threadSize * 0.82  (Inter ascender ratio).
+       */
+      const threadBaseline = blockTop + threadSize * 0.82;
+      ctx.letterSpacing = `${size * 0.016}px`;
+      ctx.fillText('THREAD', size / 2, threadBaseline);
+
+      /* ---- LINE ---- */
+      ctx.font = `200 ${lineSize}px 'Inter', sans-serif`;
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.50)';
+      const lineBaseline = threadBaseline + gap + lineSize * 0.82;
+      ctx.letterSpacing = `${size * 0.025}px`;
+      ctx.fillText('LINE', size / 2, lineBaseline);
+
+      /* Reset letter-spacing so it doesn't leak into subsequent draws. */
+      ctx.letterSpacing = '0px';
+    }
+
+    /**
+     * ====================================================================
+     * RENDER A SINGLE ICON
+     * ====================================================================
+     * 1. Clip to rounded rect.
+     * 2. Fill with brand gradient.
+     * 3. Draw either monogram or wordmark.
+     *
+     * Returns the canvas element.
+     */
+    function renderIcon(iconDef) {
+      const { size, mode } = iconDef;
+      const canvas = document.createElement('canvas');
+      canvas.width  = size;
+      canvas.height = size;
+
+      const ctx = canvas.getContext('2d');
+
+      /* -- Clip & fill background -- */
+      ctx.save();
+      clipRoundedRect(ctx, size);
+      ctx.fillStyle = createBrandGradient(ctx, size);
+      ctx.fillRect(0, 0, size, size);
+
+      /* -- Draw logo treatment -- */
+      if (mode === 'monogram') {
+        drawMonogram(ctx, size);
+      } else {
+        drawWordmark(ctx, size);
+      }
+
+      ctx.restore();
+      return canvas;
+    }
+
+    /**
+     * ====================================================================
+     * TRIGGER DOWNLOAD
+     * ====================================================================
+     * Creates a temporary <a> with a data-URL and clicks it.
+     */
+    function downloadCanvas(canvas, filename) {
+      const link = document.createElement('a');
+      link.download = filename;
+      link.href = canvas.toDataURL('image/png');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    /**
+     * ====================================================================
+     * BUILD THE UI
+     * ====================================================================
+     * We wait for Inter to load before rendering so the canvas text uses
+     * the correct glyphs, not a fallback.
+     */
+    document.fonts.ready.then(() => {
+      const grid = document.getElementById('iconGrid');
+      const canvasMap = [];   // stores { canvas, filename } for "download all"
+
+      ICONS.forEach((icon) => {
+        /* ---- Render the canvas ---- */
+        const canvas = renderIcon(icon);
+        canvasMap.push({ canvas, filename: icon.filename });
+
+        /* ---- Build card ---- */
+        const card = document.createElement('div');
+        card.className = 'icon-card';
+
+        /*
+         * For display purposes, cap the rendered size at 192 CSS pixels so
+         * the 512px icon doesn't blow out the card.  We do this with
+         * inline style on the canvas element.
+         */
+        const displaySize = Math.min(icon.size, 192);
+        canvas.style.width  = displaySize + 'px';
+        canvas.style.height = displaySize + 'px';
+
+        /* ---- Label ---- */
+        const label = document.createElement('div');
+        label.className = 'label';
+        label.innerHTML = `<strong>${icon.label}</strong>${icon.desc}`;
+
+        /* ---- Download button ---- */
+        const btn = document.createElement('button');
+        btn.className = 'download-btn';
+        btn.innerHTML =
+          '<svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>' +
+          'Download PNG';
+        btn.addEventListener('click', () => downloadCanvas(canvas, icon.filename));
+
+        /* ---- Assemble ---- */
+        card.appendChild(canvas);
+        card.appendChild(label);
+        card.appendChild(btn);
+        grid.appendChild(card);
+      });
+
+      /* ---- Download All button ---- */
+      document.getElementById('downloadAllBtn').addEventListener('click', () => {
+        /*
+         * Trigger each download with a tiny delay so the browser doesn't
+         * collapse them into a single save dialog.
+         */
+        canvasMap.forEach(({ canvas, filename }, i) => {
+          setTimeout(() => downloadCanvas(canvas, filename), i * 150);
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>

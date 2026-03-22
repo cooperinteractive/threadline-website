@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ThreadLine — Instagram Profile Setup Kit</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream:#FAF8F5;--bone:#F5F0EB;--warm-gray:#E8E3DE;--sand:#D2C4B9;
+    --taupe:#B5A89C;--brown-gold:#8B6F52;--copper:#C4946A;--dark-brown:#5A4228;
+    --espresso:#3A2A18;--near-black:#1A1714;--void:#0A0A0A;
+    --water:#5A7E8A;--forest:#4A6741;--clay:#8A4A42;--dusty-blue:#627786;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--near-black);}
+
+  .nav{position:sticky;top:0;z-index:100;background:rgba(250,248,245,0.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(26,23,20,0.06);padding:12px 48px;display:flex;align-items:center;gap:24px;}
+  .nav .brand{font-family:'Inter',sans-serif;font-weight:200;font-size:14px;letter-spacing:0.15em;text-transform:uppercase;}
+  .nav .brand .l{color:var(--brown-gold);}
+  .nav a{font-size:11px;font-weight:500;color:var(--taupe);text-decoration:none;padding:4px 8px;border-radius:4px;transition:all 0.15s;}
+  .nav a:hover{color:var(--brown-gold);background:rgba(139,111,82,0.06);}
+  .nav a.back{color:var(--brown-gold);}
+
+  .container{max-width:1000px;margin:0 auto;padding:48px;}
+
+  .page-title{margin-bottom:48px;}
+  .page-title h1{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:36px;margin-bottom:4px;}
+  .page-title p{font-size:14px;color:var(--taupe);line-height:1.7;}
+
+  .section{margin-bottom:48px;padding-bottom:48px;border-bottom:1px solid rgba(26,23,20,0.06);}
+  .section:last-child{border-bottom:none;}
+  .section-label{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--brown-gold);margin-bottom:16px;}
+
+  /* Copy-paste fields */
+  .copy-field{background:white;border:1px solid var(--warm-gray);border-radius:8px;padding:16px 20px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;position:relative;}
+  .copy-field .field-label{font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--taupe);margin-bottom:6px;}
+  .copy-field .field-value{font-size:14px;line-height:1.6;color:var(--near-black);flex:1;white-space:pre-wrap;}
+  .copy-field .field-meta{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--taupe);margin-top:4px;}
+  .copy-btn{background:var(--brown-gold);color:white;border:none;padding:6px 14px;font-size:10px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;border-radius:4px;cursor:pointer;flex-shrink:0;transition:all 0.15s;font-family:'Inter',sans-serif;}
+  .copy-btn:hover{background:var(--dark-brown);}
+  .copy-btn.copied{background:var(--forest);}
+
+  /* Profile picture preview */
+  .profile-grid{display:grid;grid-template-columns:200px 1fr;gap:32px;align-items:start;}
+  .profile-pic-wrap{text-align:center;}
+  .profile-pic{width:180px;height:180px;border-radius:50%;overflow:hidden;margin:0 auto 12px;box-shadow:0 4px 16px rgba(26,23,20,0.1);position:relative;}
+  .profile-pic canvas{width:100%;height:100%;}
+
+  .download-btn{display:inline-block;background:var(--brown-gold);color:white;border:none;padding:8px 20px;font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;border-radius:6px;cursor:pointer;transition:all 0.15s;font-family:'Inter',sans-serif;text-decoration:none;margin:4px;}
+  .download-btn:hover{background:var(--dark-brown);}
+  .download-btn.secondary{background:transparent;color:var(--brown-gold);border:1px solid var(--brown-gold);}
+  .download-btn.secondary:hover{background:rgba(139,111,82,0.06);}
+
+  /* Highlight covers */
+  .highlights-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;margin-top:16px;}
+  .highlight-item{text-align:center;}
+  .highlight-cover{width:100%;aspect-ratio:1/1;border-radius:50%;overflow:hidden;margin-bottom:8px;position:relative;cursor:pointer;transition:transform 0.2s;box-shadow:0 2px 8px rgba(26,23,20,0.08);}
+  .highlight-cover:hover{transform:scale(1.05);}
+  .highlight-cover canvas{width:100%;height:100%;}
+  .highlight-label{font-size:10px;color:var(--taupe);}
+
+  /* Info table */
+  .info-table{width:100%;}
+  .info-table tr td{padding:10px 0;border-bottom:1px solid rgba(26,23,20,0.06);font-size:13px;vertical-align:top;}
+  .info-table tr:last-child td{border-bottom:none;}
+  .info-table .label-cell{font-weight:500;color:var(--near-black);width:180px;}
+  .info-table .value-cell{color:var(--taupe);}
+  .info-table .rec{color:var(--brown-gold);font-weight:500;}
+
+  .note-box{background:rgba(139,111,82,0.06);border-left:3px solid var(--brown-gold);border-radius:0 8px 8px 0;padding:16px 20px;font-size:13px;color:var(--near-black);line-height:1.7;margin-top:16px;}
+
+  .footer{text-align:center;padding:32px;font-size:12px;color:var(--taupe);border-top:1px solid rgba(26,23,20,0.06);}
+  .footer a{color:var(--brown-gold);text-decoration:none;}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="brand" style="text-decoration:none;color:inherit;">THREAD<span class="l">LINE</span></a>
+  <a class="back" href="index.html">← All Pages</a>
+  <a href="#profile">Profile</a>
+  <a href="#bio">Bio & Copy</a>
+  <a href="#picture">Profile Picture</a>
+  <a href="#highlights">Highlights</a>
+  <a href="#settings">Settings</a>
+</nav>
+
+<div class="container">
+
+<div class="page-title">
+  <h1>Instagram Profile <em style="font-family:'Cormorant Garamond',serif;font-style:italic">Setup Kit</em></h1>
+  <p>Everything you need to create the @threadline_app Instagram profile — copy-paste text, downloadable assets, and recommended settings.</p>
+</div>
+
+<!-- ═══════════════ PROFILE INFO ═══════════════ -->
+<div class="section" id="profile">
+  <div class="section-label">Account Information</div>
+
+  <table class="info-table">
+    <tr><td class="label-cell">Username</td><td class="value-cell rec">@threadline_app</td></tr>
+    <tr><td class="label-cell">Display Name</td><td class="value-cell rec">Threadline</td></tr>
+    <tr><td class="label-cell">Account Type</td><td class="value-cell">Business Account</td></tr>
+    <tr><td class="label-cell">Category</td><td class="value-cell rec">Software → Productivity Software</td></tr>
+    <tr><td class="label-cell">Contact Email</td><td class="value-cell">hello@threadlineapp.com <span style="font-size:11px;color:var(--taupe)">(or your preferred email)</span></td></tr>
+    <tr><td class="label-cell">Website</td><td class="value-cell rec">threadlineapp.com <span style="font-size:11px;color:var(--taupe)">(once live)</span></td></tr>
+    <tr><td class="label-cell">Action Button</td><td class="value-cell">Learn More → threadlineapp.com</td></tr>
+  </table>
+
+  <div class="note-box">
+    <strong>Why Business Account?</strong> Gives you access to post insights, reach analytics, contact buttons, and the ability to run ads later. You can always switch. Select "Productivity Software" or "App" as the category — it shows under your name on your profile.
+  </div>
+</div>
+
+<!-- ═══════════════ BIO & COPY ═══════════════ -->
+<div class="section" id="bio">
+  <div class="section-label">Bio & Copy — Ready to Paste</div>
+
+  <div class="copy-field">
+    <div style="flex:1">
+      <div class="field-label">Bio — Option A (Recommended)</div>
+      <div class="field-value" id="bio-a">The wardrobe truck just went digital.
+AI-powered wardrobe management for film & TV.
+Scan. Track. Return. Wrap.
+↓ Join the waitlist</div>
+      <div class="field-meta">148 / 150 characters</div>
+    </div>
+    <button class="copy-btn" onclick="copyText('bio-a', this)">Copy</button>
+  </div>
+
+  <div class="copy-field">
+    <div style="flex:1">
+      <div class="field-label">Bio — Option B (Minimal)</div>
+      <div class="field-value" id="bio-b">From rack to wrap.
+AI wardrobe management for film production.
+Now in beta ↓</div>
+      <div class="field-meta">82 / 150 characters</div>
+    </div>
+    <button class="copy-btn" onclick="copyText('bio-b', this)">Copy</button>
+  </div>
+
+  <div class="copy-field">
+    <div style="flex:1">
+      <div class="field-label">Bio — Option C (Feature-Forward)</div>
+      <div class="field-value" id="bio-c">Scan barcodes. Snap receipts. Track returns.
+AI does the paperwork so you can focus on the craft.
+Built for wardrobe PAs ↓</div>
+      <div class="field-meta">137 / 150 characters</div>
+    </div>
+    <button class="copy-btn" onclick="copyText('bio-c', this)">Copy</button>
+  </div>
+
+  <div class="copy-field">
+    <div style="flex:1">
+      <div class="field-label">Display Name</div>
+      <div class="field-value" id="display-name">Threadline</div>
+      <div class="field-meta">Use the single word — not "ThreadLine" with capital L. Instagram display names are casual.</div>
+    </div>
+    <button class="copy-btn" onclick="copyText('display-name', this)">Copy</button>
+  </div>
+
+  <div class="copy-field">
+    <div style="flex:1">
+      <div class="field-label">First Post Caption — Launch Announcement</div>
+      <div class="field-value" id="caption-1">The wardrobe truck just went digital.
+
+We built Threadline because wardrobe PAs deserve better than Ziploc bags full of receipts and spreadsheets that take all weekend.
+
+Scan a barcode → inventory auto-fills.
+Snap a receipt → every line item captured.
+Return deadline approaching → we'll remind you.
+
+From rack to wrap. Coming soon.
+
+Link in bio for early access.
+
+#wardrobedepartment #filmproduction #costumedesign #wardrobepa #filmcrew #setlife #productionlife #filmindustry #costumesupervisor #filmtech</div>
+    </div>
+    <button class="copy-btn" onclick="copyText('caption-1', this)">Copy</button>
+  </div>
+
+  <div class="copy-field">
+    <div style="flex:1">
+      <div class="field-label">Hashtag Set — Save for All Posts</div>
+      <div class="field-value" id="hashtags">#wardrobedepartment #filmproduction #costumedesign #wardrobepa #filmcrew #setlife #productionlife #filmindustry #costumesupervisor #filmtech #wardrobesupervisor #costumedepartment #filmprod #belowtheline #filmmaking #tvproduction #fashionfilm #wardrobeassistant #costumier #filmwardrobe</div>
+      <div class="field-meta">20 hashtags — Instagram allows up to 30</div>
+    </div>
+    <button class="copy-btn" onclick="copyText('hashtags', this)">Copy</button>
+  </div>
+</div>
+
+<!-- ═══════════════ PROFILE PICTURE ═══════════════ -->
+<div class="section" id="picture">
+  <div class="section-label">Profile Picture — 320×320px</div>
+
+  <div class="profile-grid">
+    <div class="profile-pic-wrap">
+      <div class="profile-pic">
+        <canvas id="profile-canvas" width="640" height="640"></canvas>
+      </div>
+      <div style="margin-top:12px;display:flex;flex-direction:column;gap:6px;align-items:center">
+        <button class="download-btn" onclick="downloadCanvas('profile-canvas','threadline-profile-640.png')">Download 640px</button>
+        <button class="download-btn secondary" onclick="downloadCanvasResized('profile-canvas',320,'threadline-profile-320.png')">Download 320px</button>
+      </div>
+    </div>
+    <div>
+      <table class="info-table">
+        <tr><td class="label-cell">Dimensions</td><td class="value-cell">320×320px minimum (we export at 640px for retina)</td></tr>
+        <tr><td class="label-cell">Shape</td><td class="value-cell">Displayed as circle — key content centered</td></tr>
+        <tr><td class="label-cell">Design</td><td class="value-cell">Brown-gold gradient background with two-tone THREAD LINE wordmark (THREAD in white, LINE in lighter tone)</td></tr>
+        <tr><td class="label-cell">Format</td><td class="value-cell">PNG with solid background</td></tr>
+      </table>
+      <div class="note-box">The profile picture uses the ThreadLine two-tone wordmark — the same treatment used across all brand materials. THREAD in white, LINE in a lighter/translucent tone, stacked on the brand gradient.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ HIGHLIGHT COVERS ═══════════════ -->
+<div class="section" id="highlights">
+  <div class="section-label">Story Highlight Covers — 1080×1920px (displayed as circles)</div>
+
+  <p style="font-size:13px;color:var(--taupe);margin-bottom:16px;line-height:1.7">Six branded highlight covers. Each uses the brown-gold background with a simple white icon/label. Click any cover to download it.</p>
+
+  <div class="highlights-grid">
+    <div class="highlight-item">
+      <div class="highlight-cover"><canvas id="hl-features" width="400" height="400"></canvas></div>
+      <div class="highlight-label">Features</div>
+      <button class="download-btn secondary" style="font-size:9px;padding:4px 10px;margin-top:4px" onclick="downloadCanvas('hl-features','highlight-features.png')">Save</button>
+    </div>
+    <div class="highlight-item">
+      <div class="highlight-cover"><canvas id="hl-demo" width="400" height="400"></canvas></div>
+      <div class="highlight-label">Demo</div>
+      <button class="download-btn secondary" style="font-size:9px;padding:4px 10px;margin-top:4px" onclick="downloadCanvas('hl-demo','highlight-demo.png')">Save</button>
+    </div>
+    <div class="highlight-item">
+      <div class="highlight-cover"><canvas id="hl-bts" width="400" height="400"></canvas></div>
+      <div class="highlight-label">BTS</div>
+      <button class="download-btn secondary" style="font-size:9px;padding:4px 10px;margin-top:4px" onclick="downloadCanvas('hl-bts','highlight-bts.png')">Save</button>
+    </div>
+    <div class="highlight-item">
+      <div class="highlight-cover"><canvas id="hl-tips" width="400" height="400"></canvas></div>
+      <div class="highlight-label">Tips</div>
+      <button class="download-btn secondary" style="font-size:9px;padding:4px 10px;margin-top:4px" onclick="downloadCanvas('hl-tips','highlight-tips.png')">Save</button>
+    </div>
+    <div class="highlight-item">
+      <div class="highlight-cover"><canvas id="hl-beta" width="400" height="400"></canvas></div>
+      <div class="highlight-label">Beta</div>
+      <button class="download-btn secondary" style="font-size:9px;padding:4px 10px;margin-top:4px" onclick="downloadCanvas('hl-beta','highlight-beta.png')">Save</button>
+    </div>
+    <div class="highlight-item">
+      <div class="highlight-cover"><canvas id="hl-faq" width="400" height="400"></canvas></div>
+      <div class="highlight-label">FAQ</div>
+      <button class="download-btn secondary" style="font-size:9px;padding:4px 10px;margin-top:4px" onclick="downloadCanvas('hl-faq','highlight-faq.png')">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ SETTINGS ═══════════════ -->
+<div class="section" id="settings">
+  <div class="section-label">Recommended Settings</div>
+
+  <table class="info-table">
+    <tr><td class="label-cell">Account Privacy</td><td class="value-cell rec">Public</td></tr>
+    <tr><td class="label-cell">Comments</td><td class="value-cell">Allow from everyone (early engagement matters)</td></tr>
+    <tr><td class="label-cell">Message Controls</td><td class="value-cell">Allow message requests from everyone</td></tr>
+    <tr><td class="label-cell">Tagging</td><td class="value-cell">Allow tags from everyone</td></tr>
+    <tr><td class="label-cell">Activity Status</td><td class="value-cell">Off (business accounts don't need this)</td></tr>
+    <tr><td class="label-cell">Cross-posting</td><td class="value-cell">Connect Facebook page when ready (shared content)</td></tr>
+    <tr><td class="label-cell">Reels Remix</td><td class="value-cell">Allow (increases reach)</td></tr>
+    <tr><td class="label-cell">Content Archiving</td><td class="value-cell">Auto-archive stories (reuse as highlights)</td></tr>
+  </table>
+
+  <div class="note-box">
+    <strong>First Week Strategy:</strong> Post the launch announcement, add your 6 highlight covers (even if empty — they establish the grid), follow 50–100 wardrobe professionals, film crew accounts, and costume design hashtags. Engage authentically on posts from wardrobe departments and costume designers. Don't follow/unfollow spam.
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  <a href="https://cooperinteractive.com">Made with care</a>
+</div>
+
+<script>
+// ═══════════════ COPY TO CLIPBOARD ═══════════════
+function copyText(id, btn) {
+  const el = document.getElementById(id);
+  const text = el.innerText || el.textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+// ═══════════════ CANVAS RENDERING ═══════════════
+function drawProfilePic() {
+  const c = document.getElementById('profile-canvas');
+  const ctx = c.getContext('2d');
+  const w = c.width, h = c.height;
+
+  // Gradient background circle
+  const grad = ctx.createLinearGradient(0, 0, w, h);
+  grad.addColorStop(0, '#5A4228');
+  grad.addColorStop(0.5, '#8B6F52');
+  grad.addColorStop(1, '#C4946A');
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.arc(w/2, h/2, w/2, 0, Math.PI*2);
+  ctx.fill();
+
+  // Two-tone wordmark — stacked for circle format
+  // "THREAD" in bright white
+  ctx.fillStyle = 'rgba(255,255,255,0.95)';
+  ctx.font = '200 82px Inter, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.letterSpacing = '12px';
+  ctx.fillText('THREAD', w/2, h/2 - 30);
+
+  // "LINE" in softer white (the two-tone split)
+  ctx.fillStyle = 'rgba(255,255,255,0.5)';
+  ctx.font = '200 82px Inter, sans-serif';
+  ctx.fillText('LINE', w/2, h/2 + 55);
+}
+
+function drawHighlight(canvasId, label) {
+  const c = document.getElementById(canvasId);
+  const ctx = c.getContext('2d');
+  const w = c.width, h = c.height;
+
+  // Solid brown-gold circle
+  ctx.fillStyle = '#8B6F52';
+  ctx.beginPath();
+  ctx.arc(w/2, h/2, w/2, 0, Math.PI*2);
+  ctx.fill();
+
+  // Label text
+  ctx.fillStyle = 'rgba(255,255,255,0.85)';
+  ctx.font = '300 36px "Cormorant Garamond", serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(label, w/2, h/2);
+}
+
+// ═══════════════ DOWNLOAD ═══════════════
+function downloadCanvas(canvasId, filename) {
+  const c = document.getElementById(canvasId);
+  const link = document.createElement('a');
+  link.download = filename;
+  link.href = c.toDataURL('image/png');
+  link.click();
+}
+
+function downloadCanvasResized(canvasId, size, filename) {
+  const src = document.getElementById(canvasId);
+  const tmp = document.createElement('canvas');
+  tmp.width = size; tmp.height = size;
+  const ctx = tmp.getContext('2d');
+  ctx.drawImage(src, 0, 0, size, size);
+  const link = document.createElement('a');
+  link.download = filename;
+  link.href = tmp.toDataURL('image/png');
+  link.click();
+}
+
+// ═══════════════ INIT ═══════════════
+window.addEventListener('load', () => {
+  // Load Inter font then draw
+  document.fonts.ready.then(() => {
+    drawProfilePic();
+    drawHighlight('hl-features', 'Features');
+    drawHighlight('hl-demo', 'Demo');
+    drawHighlight('hl-bts', 'BTS');
+    drawHighlight('hl-tips', 'Tips');
+    drawHighlight('hl-beta', 'Beta');
+    drawHighlight('hl-faq', 'FAQ');
+  });
+});
+</script>
+
+</body>
+</html>

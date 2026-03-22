@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ThreadLine -- Boilerplate Descriptions</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* ============================================================
+           CSS RESET & BASE
+           ============================================================ */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #FAF8F5;
+            --accent: #8B6F52;
+            --accent-light: #A8936F;
+            --accent-hover: #7A6047;
+            --card-bg: #FFFFFF;
+            --text-primary: #1A1A1A;
+            --text-secondary: #5C5C5C;
+            --text-muted: #999999;
+            --border: #E8E4DF;
+            --border-light: #F0EDE9;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.03);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.05), 0 1px 4px rgba(0,0,0,0.03);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.06), 0 2px 8px rgba(0,0,0,0.03);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --nav-height: 64px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: calc(var(--nav-height) + 24px);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 1.65;
+            color: var(--text-primary);
+            background: var(--bg);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ============================================================
+           STICKY NAVIGATION
+           ============================================================ */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(250, 248, 245, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            height: var(--nav-height);
+        }
+
+        .nav-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        /* Two-tone THREAD/LINE wordmark */
+        .wordmark {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-decoration: none;
+            flex-shrink: 0;
+            display: flex;
+            align-items: baseline;
+        }
+
+        .wordmark-thread {
+            color: var(--text-primary);
+        }
+
+        .wordmark-line {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            flex: 1;
+        }
+
+        .nav-links::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-links a {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.03em;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 6px 10px;
+            border-radius: 6px;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+            background: rgba(139, 111, 82, 0.06);
+        }
+
+        .nav-links a.active {
+            color: var(--accent);
+            background: rgba(139, 111, 82, 0.08);
+            font-weight: 500;
+        }
+
+        /* ============================================================
+           MAIN LAYOUT
+           ============================================================ */
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 48px 24px 80px;
+        }
+
+        /* Page header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 56px;
+        }
+
+        .page-header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 36px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
+        }
+
+        .page-header p {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        /* ============================================================
+           DESCRIPTION CARDS
+           ============================================================ */
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 12px;
+            padding-left: 4px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px 28px 20px;
+            box-shadow: var(--shadow-sm);
+            transition: box-shadow 0.25s ease;
+            position: relative;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            gap: 16px;
+        }
+
+        .card-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.3;
+        }
+
+        .card-subtitle {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 400;
+            margin-top: 2px;
+        }
+
+        .card-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .char-count {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+
+        .copy-btn {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            color: var(--accent);
+            background: rgba(139, 111, 82, 0.06);
+            border: 1px solid rgba(139, 111, 82, 0.15);
+            border-radius: 6px;
+            padding: 6px 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .copy-btn:hover {
+            background: rgba(139, 111, 82, 0.12);
+            border-color: rgba(139, 111, 82, 0.25);
+            color: var(--accent-hover);
+        }
+
+        .copy-btn.copied {
+            color: #4A7C59;
+            background: rgba(74, 124, 89, 0.08);
+            border-color: rgba(74, 124, 89, 0.2);
+        }
+
+        .card-body {
+            color: var(--text-primary);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .card-body p {
+            margin-bottom: 12px;
+        }
+
+        .card-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        .card-body ul,
+        .card-body ol {
+            margin: 8px 0 12px 20px;
+        }
+
+        .card-body li {
+            margin-bottom: 4px;
+        }
+
+        .card-body strong {
+            font-weight: 600;
+        }
+
+        .card-body em {
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+
+        .card-body .keywords {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--text-secondary);
+            background: var(--bg);
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            margin-top: 12px;
+            line-height: 1.8;
+        }
+
+        /* Sub-cards within a section (social media bios) */
+        .sub-card {
+            background: var(--bg);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            margin-bottom: 12px;
+        }
+
+        .sub-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .sub-card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            gap: 12px;
+        }
+
+        .sub-card-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        .sub-card-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .sub-card-body {
+            font-size: 14px;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Divider between card sections */
+        .card-divider {
+            border: none;
+            border-top: 1px solid var(--border-light);
+            margin: 16px 0;
+        }
+
+        /* ============================================================
+           FOOTER
+           ============================================================ */
+        footer {
+            text-align: center;
+            padding: 40px 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        footer a {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            letter-spacing: 0.03em;
+            transition: color 0.2s ease;
+        }
+
+        footer a:hover {
+            color: var(--accent);
+        }
+
+        /* ============================================================
+           TOAST NOTIFICATION
+           ============================================================ */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--text-primary);
+            color: #fff;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            font-weight: 400;
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: var(--shadow-lg);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 200;
+        }
+
+        .toast.visible {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 640px) {
+            .nav-inner {
+                padding: 0 16px;
+                gap: 16px;
+            }
+
+            .wordmark {
+                font-size: 18px;
+            }
+
+            .nav-links a {
+                font-size: 10px;
+                padding: 5px 8px;
+            }
+
+            main {
+                padding: 32px 16px 64px;
+            }
+
+            .page-header h1 {
+                font-size: 28px;
+            }
+
+            .card {
+                padding: 20px 20px 16px;
+            }
+
+            .card-header {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .card-meta {
+                align-self: flex-end;
+            }
+
+            .card-title {
+                font-size: 19px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ================================================================
+         STICKY NAVIGATION
+         ================================================================ -->
+    <nav>
+        <div class="nav-inner">
+            <a href="index.html" class="wordmark">
+                <span class="wordmark-thread">THREAD</span><span class="wordmark-line">LINE</span>
+            </a>
+            <a href="index.html" style="font-size:11px;font-weight:500;color:var(--accent);text-decoration:none;padding:4px 8px;border-radius:4px;">← All Pages</a>
+            <div class="nav-links">
+                <a href="#one-liner">One-Liner</a>
+                <a href="#thirty-word">30-Word</a>
+                <a href="#hundred-word">100-Word</a>
+                <a href="#full-description">250-Word</a>
+                <a href="#app-store">App Store</a>
+                <a href="#elevator-pitch">Elevator Pitch</a>
+                <a href="#press-boilerplate">Press</a>
+                <a href="#social-bios">Social Bios</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ================================================================
+         PAGE CONTENT
+         ================================================================ -->
+    <main>
+        <div class="page-header">
+            <h1>Boilerplate Descriptions</h1>
+            <p>Copy-ready marketing descriptions for ThreadLine &mdash; from rack to wrap.</p>
+        </div>
+
+        <!-- ============================================================
+             1. ONE-LINER (~15 words)
+             ============================================================ -->
+        <section class="section" id="one-liner">
+            <div class="section-label">01 / One-Liner</div>
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div class="card-title">One-Liner</div>
+                        <div class="card-subtitle">Social media bios, app store subtitle, quick mentions</div>
+                    </div>
+                    <div class="card-meta">
+                        <span class="char-count" data-target="one-liner-text"></span>
+                        <button class="copy-btn" onclick="copyText('one-liner-text', this)">Copy</button>
+                    </div>
+                </div>
+                <div class="card-body" id="one-liner-text">AI-powered wardrobe management for film and television production. From rack to wrap.</div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             2. 30-WORD DESCRIPTION
+             ============================================================ -->
+        <section class="section" id="thirty-word">
+            <div class="section-label">02 / 30-Word Description</div>
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div class="card-title">30-Word Description</div>
+                        <div class="card-subtitle">Directory listings, short press mentions, partnership briefs</div>
+                    </div>
+                    <div class="card-meta">
+                        <span class="char-count" data-target="thirty-word-text"></span>
+                        <button class="copy-btn" onclick="copyText('thirty-word-text', this)">Copy</button>
+                    </div>
+                </div>
+                <div class="card-body" id="thirty-word-text">ThreadLine is the AI-powered wardrobe management app built for film and television. Scan barcodes, track inventory, manage returns, and monitor budgets in real time -- replacing the paperwork that consumes a wardrobe PA's day.</div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             3. 100-WORD DESCRIPTION
+             ============================================================ -->
+        <section class="section" id="hundred-word">
+            <div class="section-label">03 / 100-Word Description</div>
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div class="card-title">100-Word Description</div>
+                        <div class="card-subtitle">Press releases, about pages, partner communications</div>
+                    </div>
+                    <div class="card-meta">
+                        <span class="char-count" data-target="hundred-word-text"></span>
+                        <button class="copy-btn" onclick="copyText('hundred-word-text', this)">Copy</button>
+                    </div>
+                </div>
+                <div class="card-body" id="hundred-word-text">ThreadLine is the AI-powered wardrobe management platform purpose-built for film and television production. Designed for wardrobe PAs, costume supervisors, and shoppers, ThreadLine replaces the mountains of paperwork that consume up to 80% of a wardrobe professional's workday. The app features Magic Scan technology for instant barcode reading, photo-based AI identification, and receipt OCR -- turning hours of manual data entry into seconds. With real-time inventory tracking, returns management with countdown timers, integrated budget monitoring, and Thread AI, a built-in assistant that understands production workflows, ThreadLine keeps every garment accounted for from the first fitting to final wrap. Available on iPad, iPhone, and desktop web, with full offline support for on-location shoots. Follow @threadline_app on Instagram.</div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             4. 250-WORD DESCRIPTION
+             ============================================================ -->
+        <section class="section" id="full-description">
+            <div class="section-label">04 / 250-Word Description</div>
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div class="card-title">250-Word Description</div>
+                        <div class="card-subtitle">Full press kit, media description, investor materials</div>
+                    </div>
+                    <div class="card-meta">
+                        <span class="char-count" data-target="full-description-text"></span>
+                        <button class="copy-btn" onclick="copyText('full-description-text', this)">Copy</button>
+                    </div>
+                </div>
+                <div class="card-body" id="full-description-text"><p>ThreadLine is the first AI-powered wardrobe management platform designed specifically for the film and television industry. Built by Cooper Interactive, ThreadLine transforms how wardrobe departments operate -- replacing the clipboards, spreadsheets, and shoeboxes of receipts that have defined the role for decades.</p>
+
+<p>The wardrobe truck just went digital.</p>
+
+<p>At the heart of ThreadLine is Magic Scan, a suite of intelligent capture tools that dramatically accelerate data entry. Point your camera at a barcode for instant product lookup. Photograph a garment and let AI identify its type, color, brand, and key attributes. Snap a receipt and watch OCR extract every line item automatically. What once took hours of meticulous paperwork now takes seconds.</p>
+
+<p>Beyond scanning, ThreadLine delivers a comprehensive production wardrobe toolkit: real-time inventory management organized by character, scene, and continuity; returns tracking with countdown timers that ensure nothing slips past a deadline; and integrated budget monitoring that gives supervisors instant visibility into department spending across vendors and episodes.</p>
+
+<p>Thread AI, the platform's built-in assistant, understands production-specific workflows and can answer questions, generate reports, and surface insights from your wardrobe data -- like an experienced colleague who never forgets a detail.</p>
+
+<p>ThreadLine runs natively on iPad (the primary device on set), iPhone (for quick reference on the go), and desktop web (for office-based supervisors and coordinators). Full offline mode ensures uninterrupted access during location shoots where connectivity is unreliable.</p>
+
+<p>Designed for wardrobe PAs, costume supervisors, and shoppers, ThreadLine reclaims the 80% of the workday currently lost to paperwork -- letting wardrobe professionals focus on the creative work that brought them to the industry. Follow @threadline_app on Instagram for updates.</p></div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             5. APP STORE DESCRIPTION
+             ============================================================ -->
+        <section class="section" id="app-store">
+            <div class="section-label">05 / App Store Description</div>
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div class="card-title">Apple App Store Listing</div>
+                        <div class="card-subtitle">Complete App Store listing -- title, subtitle, description, keywords</div>
+                    </div>
+                    <div class="card-meta">
+                        <span class="char-count" data-target="app-store-text"></span>
+                        <button class="copy-btn" onclick="copyText('app-store-text', this)">Copy</button>
+                    </div>
+                </div>
+                <div class="card-body" id="app-store-text"><p><strong>App Name:</strong> ThreadLine -- Wardrobe for Production</p>
+
+<p><strong>Subtitle:</strong> AI-Powered Wardrobe Management</p>
+
+<p><strong>Description:</strong></p>
+
+<p>ThreadLine is the wardrobe management app built for film and television professionals. Whether you're a wardrobe PA tracking hundreds of garments across a multi-episode series or a costume supervisor managing department budgets, ThreadLine puts every tool you need in one place.</p>
+
+<p>The wardrobe truck just went digital.</p>
+
+<p><strong>MAGIC SCAN -- CAPTURE EVERYTHING INSTANTLY</strong></p>
+<ul>
+<li>Barcode scanning with instant product lookup</li>
+<li>Photo AI that identifies garment type, color, brand, and attributes from a single image</li>
+<li>Receipt OCR that extracts line items, prices, vendors, and dates automatically</li>
+<li>Eliminate hours of manual data entry -- scan it once and move on</li>
+</ul>
+
+<p><strong>INVENTORY MANAGEMENT -- EVERY GARMENT, ACCOUNTED FOR</strong></p>
+<ul>
+<li>Organize wardrobe by character, scene, episode, and continuity</li>
+<li>Full garment profiles with photos, purchase info, and fitting notes</li>
+<li>Search and filter across your entire inventory in seconds</li>
+<li>Track garment status from purchase through wrap</li>
+</ul>
+
+<p><strong>RETURNS TRACKING -- NEVER MISS A DEADLINE</strong></p>
+<ul>
+<li>Countdown timers for every pending return</li>
+<li>Automatic alerts before return windows close</li>
+<li>Track return status by vendor and receipt</li>
+<li>Save productions thousands in unreturned merchandise</li>
+</ul>
+
+<p><strong>BUDGET TRACKING -- REAL-TIME SPENDING VISIBILITY</strong></p>
+<ul>
+<li>Monitor department budgets by episode, character, or vendor</li>
+<li>See spending in real time as items are logged</li>
+<li>Generate budget reports ready for production accounting</li>
+<li>Stay on budget without the spreadsheet gymnastics</li>
+</ul>
+
+<p><strong>THREAD AI -- YOUR ON-SET ASSISTANT</strong></p>
+<ul>
+<li>Ask questions about your wardrobe data in natural language</li>
+<li>Generate reports, pull continuity info, and surface insights</li>
+<li>Built to understand production-specific workflows and terminology</li>
+</ul>
+
+<p><strong>BUILT FOR PRODUCTION LIFE</strong></p>
+<ul>
+<li>Full offline mode for remote locations and stages without Wi-Fi</li>
+<li>Designed for iPad as the primary on-set device</li>
+<li>Also available on iPhone and desktop web</li>
+<li>Syncs automatically when you're back online</li>
+</ul>
+
+<p>ThreadLine replaces the 80% of a wardrobe PA's day spent on paperwork. Stop wrestling with spreadsheets. Start doing the work you love.</p>
+
+<p>From rack to wrap. @threadline_app</p>
+
+<p><strong>PRICING</strong></p>
+<ul>
+<li>Individual: $14.99/month</li>
+<li>Team: $29.99/month per seat</li>
+<li>Studio: $199/month flat rate</li>
+</ul>
+
+<p><strong>Terms of Use:</strong> https://cooperinteractive.com/terms</p>
+<p><strong>Privacy Policy:</strong> https://cooperinteractive.com/privacy</p>
+
+<div class="keywords"><strong>Keywords:</strong> wardrobe, costume, film, television, production, inventory, tracking, barcode, scanner, budget, returns, AI, assistant, continuity, fitting, garment, onset, wrap, PA, supervisor</div></div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             6. ELEVATOR PITCH
+             ============================================================ -->
+        <section class="section" id="elevator-pitch">
+            <div class="section-label">06 / Elevator Pitch</div>
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div class="card-title">Elevator Pitch</div>
+                        <div class="card-subtitle">30-second spoken version, conversational tone</div>
+                    </div>
+                    <div class="card-meta">
+                        <span class="char-count" data-target="elevator-pitch-text"></span>
+                        <button class="copy-btn" onclick="copyText('elevator-pitch-text', this)">Copy</button>
+                    </div>
+                </div>
+                <div class="card-body" id="elevator-pitch-text">You know how wardrobe PAs on film sets spend most of their day buried in paperwork -- logging receipts, tracking returns, updating spreadsheets? Like, 80% of the job is just admin. ThreadLine fixes that. It's an app that lets you scan a barcode, photograph a garment, or snap a receipt and it captures everything instantly using AI. It tracks your whole inventory by character and scene, counts down your return deadlines so nothing gets missed, and monitors your budget in real time. It works offline on set, it runs on iPad, and it has a built-in AI assistant that actually understands production workflows. We basically took the wardrobe truck and made it digital. From rack to wrap.</div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             7. PRESS RELEASE BOILERPLATE
+             ============================================================ -->
+        <section class="section" id="press-boilerplate">
+            <div class="section-label">07 / Press Release Boilerplate</div>
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div class="card-title">Press Release Boilerplate</div>
+                        <div class="card-subtitle">"About ThreadLine" paragraph for end of press releases</div>
+                    </div>
+                    <div class="card-meta">
+                        <span class="char-count" data-target="press-boilerplate-text"></span>
+                        <button class="copy-btn" onclick="copyText('press-boilerplate-text', this)">Copy</button>
+                    </div>
+                </div>
+                <div class="card-body" id="press-boilerplate-text"><p><strong>About ThreadLine</strong></p>
+
+<p>ThreadLine is the AI-powered wardrobe management platform built for film and television production. Developed by Cooper Interactive, ThreadLine combines intelligent scanning technology, real-time inventory and budget tracking, returns management, and a production-aware AI assistant to replace the paperwork that consumes up to 80% of a wardrobe professional's workday. Available on iPad, iPhone, and desktop web with full offline support, ThreadLine serves wardrobe PAs, costume supervisors, and shoppers across productions of every scale. From rack to wrap. Learn more at cooperinteractive.com or follow @threadline_app on Instagram.</p></div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             8. SOCIAL MEDIA BIO PACK
+             ============================================================ -->
+        <section class="section" id="social-bios">
+            <div class="section-label">08 / Social Media Bio Pack</div>
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div class="card-title">Social Media Bios</div>
+                        <div class="card-subtitle">Platform-tailored bios ready to paste</div>
+                    </div>
+                </div>
+                <div class="card-body">
+
+                    <!-- Instagram -->
+                    <div class="sub-card">
+                        <div class="sub-card-header">
+                            <div class="sub-card-label">Instagram (150 char limit)</div>
+                            <div class="sub-card-meta">
+                                <span class="char-count" data-target="bio-instagram"></span>
+                                <button class="copy-btn" onclick="copyText('bio-instagram', this)">Copy</button>
+                            </div>
+                        </div>
+                        <div class="sub-card-body" id="bio-instagram">AI wardrobe management for film & TV production. Scan. Track. Wrap. The wardrobe truck just went digital. iPad | iPhone | Web cooperinteractive.com</div>
+                    </div>
+
+                    <!-- LinkedIn -->
+                    <div class="sub-card">
+                        <div class="sub-card-header">
+                            <div class="sub-card-label">LinkedIn Company Page</div>
+                            <div class="sub-card-meta">
+                                <span class="char-count" data-target="bio-linkedin"></span>
+                                <button class="copy-btn" onclick="copyText('bio-linkedin', this)">Copy</button>
+                            </div>
+                        </div>
+                        <div class="sub-card-body" id="bio-linkedin">ThreadLine is the AI-powered wardrobe management platform purpose-built for film and television production. Our tools -- including intelligent barcode scanning, photo-based garment recognition, receipt OCR, real-time inventory tracking, returns management, and integrated budget monitoring -- replace the manual paperwork that consumes up to 80% of a wardrobe professional's workday. With Thread AI, a production-aware assistant, and full offline support for on-location shoots, ThreadLine helps wardrobe PAs, costume supervisors, and shoppers stay organized from the first fitting to final wrap. Available on iPad, iPhone, and desktop web. Developed by Cooper Interactive. Follow us @threadline_app on Instagram.</div>
+                    </div>
+
+                    <!-- Twitter/X -->
+                    <div class="sub-card">
+                        <div class="sub-card-header">
+                            <div class="sub-card-label">Twitter / X (160 char limit)</div>
+                            <div class="sub-card-meta">
+                                <span class="char-count" data-target="bio-twitter"></span>
+                                <button class="copy-btn" onclick="copyText('bio-twitter', this)">Copy</button>
+                            </div>
+                        </div>
+                        <div class="sub-card-body" id="bio-twitter">AI-powered wardrobe management for film & TV. Scan barcodes, track inventory, manage returns, monitor budgets. From rack to wrap. By @cooperintxv</div>
+                    </div>
+
+                    <!-- Facebook -->
+                    <div class="sub-card">
+                        <div class="sub-card-header">
+                            <div class="sub-card-label">Facebook About</div>
+                            <div class="sub-card-meta">
+                                <span class="char-count" data-target="bio-facebook"></span>
+                                <button class="copy-btn" onclick="copyText('bio-facebook', this)">Copy</button>
+                            </div>
+                        </div>
+                        <div class="sub-card-body" id="bio-facebook">ThreadLine is the AI-powered wardrobe management app built for film and television production. Wardrobe PAs spend up to 80% of their day on paperwork -- logging purchases, tracking returns, updating continuity sheets, reconciling budgets. ThreadLine replaces all of that with intelligent tools that work the way production actually moves. Scan a barcode, photograph a garment, or snap a receipt, and ThreadLine captures everything instantly. Track your full inventory by character and scene, manage returns with countdown timers, and monitor department budgets in real time. Thread AI, our built-in assistant, understands production workflows and can answer questions, generate reports, and surface insights from your wardrobe data. Available on iPad, iPhone, and desktop web with full offline mode for on-set use. From rack to wrap. Follow @threadline_app on Instagram for updates. Developed by Cooper Interactive -- cooperinteractive.com</div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ================================================================
+         FOOTER
+         ================================================================ -->
+    <footer>
+        <a href="https://cooperinteractive.com">Made with care</a>
+    </footer>
+
+    <!-- Toast notification element -->
+    <div class="toast" id="toast">Copied to clipboard</div>
+
+    <!-- ================================================================
+         JAVASCRIPT
+         ================================================================ -->
+    <script>
+        /**
+         * copyText(elementId, buttonEl)
+         * -------------------------------------------------------
+         * Copies the text content of the element with the given ID
+         * to the user's clipboard, shows a brief "Copied" state on
+         * the button, and displays a toast notification.
+         */
+        function copyText(elementId, buttonEl) {
+            const el = document.getElementById(elementId);
+            if (!el) return;
+
+            // Grab text content, normalize whitespace (collapse multiple
+            // newlines and trim), so the clipboard gets clean copy.
+            const text = el.innerText.trim();
+
+            navigator.clipboard.writeText(text).then(() => {
+                // Update button state
+                const originalText = buttonEl.textContent;
+                buttonEl.textContent = 'Copied';
+                buttonEl.classList.add('copied');
+
+                // Show toast
+                showToast('Copied to clipboard');
+
+                // Revert button after 2 seconds
+                setTimeout(() => {
+                    buttonEl.textContent = originalText;
+                    buttonEl.classList.remove('copied');
+                }, 2000);
+            }).catch(() => {
+                // Fallback: select the text for manual copy
+                const range = document.createRange();
+                range.selectNodeContents(el);
+                const sel = window.getSelection();
+                sel.removeAllRanges();
+                sel.addRange(range);
+                showToast('Text selected -- press Ctrl+C to copy');
+            });
+        }
+
+        /**
+         * showToast(message)
+         * -------------------------------------------------------
+         * Displays a brief toast notification at the bottom of the
+         * viewport. Auto-hides after 2 seconds.
+         */
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('visible');
+
+            setTimeout(() => {
+                toast.classList.remove('visible');
+            }, 2000);
+        }
+
+        /**
+         * updateCharCounts()
+         * -------------------------------------------------------
+         * Scans every element with a data-target attribute inside
+         * .char-count spans and populates it with the word count
+         * and character count of the referenced element's text.
+         */
+        function updateCharCounts() {
+            document.querySelectorAll('.char-count[data-target]').forEach(counter => {
+                const targetId = counter.getAttribute('data-target');
+                const targetEl = document.getElementById(targetId);
+                if (!targetEl) return;
+
+                const text = targetEl.innerText.trim();
+                const chars = text.length;
+                const words = text.split(/\s+/).filter(w => w.length > 0).length;
+
+                counter.textContent = `${words}w / ${chars}c`;
+            });
+        }
+
+        /**
+         * highlightActiveNav()
+         * -------------------------------------------------------
+         * Uses IntersectionObserver to highlight the nav link
+         * corresponding to the section currently in view.
+         */
+        function highlightActiveNav() {
+            const sections = document.querySelectorAll('section.section');
+            const navLinks = document.querySelectorAll('.nav-links a');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.id;
+                        navLinks.forEach(link => {
+                            link.classList.toggle('active',
+                                link.getAttribute('href') === '#' + id);
+                        });
+                    }
+                });
+            }, {
+                rootMargin: '-80px 0px -60% 0px',
+                threshold: 0
+            });
+
+            sections.forEach(section => observer.observe(section));
+        }
+
+        // Initialize on DOM ready
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCharCounts();
+            highlightActiveNav();
+        });
+    </script>
+
+</body>
+</html>

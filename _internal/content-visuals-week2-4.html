@@ -1,0 +1,2295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ThreadLine -- Content Visuals: Weeks 2, 3 &amp; 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Inter:wght@200;300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ===================================================================
+   THREADLINE CONTENT VISUALS -- WEEKS 2, 3, 4
+   Companion page to the 30-day content calendar.
+   Renders actual social media graphics for posts 8-24.
+   =================================================================== */
+
+:root {
+  /* Brand palette */
+  --cream: #FAF8F5;
+  --bone: #F5F0EB;
+  --linen: #f0ebe4;
+  --warm-gray: #E8E3DE;
+  --sand: #D2C4B9;
+  --taupe: #B5A89C;
+  --brown-gold: #8B6F52;
+  --copper: #C4946A;
+  --dark-brown: #5A4228;
+  --espresso: #3A2A18;
+  --near-black: #1A1714;
+  --void: #0A0A0A;
+  --clay: #8A4A42;
+  --forest: #4A6741;
+  --dusty-blue: #627786;
+
+  /* Platform accent colors */
+  --ig: #8B6F52;
+  --li: #627786;
+
+  /* Typography stacks */
+  --serif: 'Cormorant Garamond', 'Georgia', serif;
+  --body: 'Inter', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', 'Menlo', monospace;
+
+  /* Brand gradient used across graphics */
+  --brand-gradient: linear-gradient(135deg, #5A4228 0%, #8B6F52 50%, #C4946A 100%);
+  --brand-gradient-subtle: linear-gradient(135deg, #5A4228 0%, #6B5438 40%, #8B6F52 100%);
+  --brand-gradient-warm: linear-gradient(135deg, #8B6F52 0%, #C4946A 60%, #D4A87A 100%);
+}
+
+/* --- RESET --- */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--body);
+  background: var(--void);
+  color: #ccc;
+  line-height: 1.7;
+}
+
+::selection {
+  background: var(--copper);
+  color: white;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* --- STICKY NAVIGATION --- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10,10,10,0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: 12px 48px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.nav .brand {
+  font-family: var(--body);
+  font-weight: 200;
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: white;
+  margin-right: 8px;
+}
+
+.nav .brand .accent { color: var(--brown-gold); }
+
+.nav a {
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+  padding: 5px 12px;
+  border-radius: 4px;
+  transition: all 0.15s;
+}
+
+.nav a:hover {
+  color: var(--copper);
+  background: rgba(139,111,82,0.1);
+}
+
+.nav a.back { color: var(--copper); }
+
+.nav .week-links {
+  display: flex;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.nav .week-links a {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 5px 14px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 20px;
+  color: rgba(255,255,255,0.5);
+  transition: all 0.2s;
+}
+
+.nav .week-links a:hover,
+.nav .week-links a.active {
+  background: var(--brown-gold);
+  color: white;
+  border-color: var(--brown-gold);
+}
+
+/* --- MAIN CONTAINER --- */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 48px 32px;
+}
+
+/* --- PAGE HEADER --- */
+.page-header {
+  margin-bottom: 56px;
+  text-align: center;
+}
+
+.page-header h1 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 42px;
+  line-height: 1.2;
+  color: white;
+  margin-bottom: 12px;
+}
+
+.page-header h1 em {
+  font-style: italic;
+  color: var(--copper);
+}
+
+.page-header .subtitle {
+  font-size: 14px;
+  color: var(--taupe);
+  line-height: 1.7;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+/* --- WEEK SECTION DIVIDERS --- */
+.week-section {
+  margin-bottom: 72px;
+  scroll-margin-top: 80px;
+}
+
+.week-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 40px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.week-header h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 28px;
+  color: white;
+}
+
+.week-header .week-range {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--taupe);
+  letter-spacing: 0.04em;
+}
+
+/* --- POST SECTION --- */
+.post-section {
+  margin-bottom: 64px;
+}
+
+.post-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.post-number {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--taupe);
+}
+
+.post-day {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.04em;
+}
+
+.post-title-row {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 22px;
+  color: white;
+  margin-bottom: 16px;
+}
+
+.platform-badge {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 4px;
+  color: white;
+}
+
+.platform-badge.ig { background: var(--ig); }
+.platform-badge.li { background: var(--li); }
+
+.format-badge {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.5);
+}
+
+/* --- GRAPHICS CONTAINER --- */
+.graphics-row {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding-bottom: 16px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Hide scrollbar but keep scrolling */
+.graphics-row::-webkit-scrollbar { height: 6px; }
+.graphics-row::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); border-radius: 3px; }
+.graphics-row::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+.graphics-row::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
+.single-graphic {
+  display: flex;
+  justify-content: center;
+}
+
+/* --- BASE GRAPHIC CARD --- */
+/* Instagram 4:5 aspect ratio card */
+.graphic-card {
+  width: 400px;
+  min-width: 400px;
+  aspect-ratio: 4 / 5;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}
+
+/* LinkedIn 1.91:1 aspect ratio card */
+.graphic-card.linkedin {
+  width: 560px;
+  min-width: 560px;
+  aspect-ratio: 1.91 / 1;
+}
+
+/* --- GHOSTED GARMENT RACK OVERLAY ---
+   Used on select graphics to give them that editorial photography feel.
+   Renders a semi-transparent garment rack silhouette behind the content. */
+.ghost-rack {
+  position: absolute;
+  inset: 0;
+  opacity: 0.10;
+  filter: grayscale(100%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* SVG garment rack silhouette for ghosting treatment */
+.ghost-rack::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    /* Rail at top */
+    linear-gradient(to right, transparent 10%, rgba(0,0,0,0.3) 10%, rgba(0,0,0,0.3) 90%, transparent 90%) no-repeat center 20% / 80% 2px,
+    /* Left leg */
+    linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.15) 100%) no-repeat 15% 20% / 2px 60%,
+    /* Right leg */
+    linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.15) 100%) no-repeat 85% 20% / 2px 60%,
+    /* Hangers - series of triangle shapes represented as gradients */
+    linear-gradient(135deg, transparent 45%, rgba(0,0,0,0.12) 45%, rgba(0,0,0,0.12) 55%, transparent 55%) no-repeat 25% 22% / 40px 30px,
+    linear-gradient(135deg, transparent 45%, rgba(0,0,0,0.1) 45%, rgba(0,0,0,0.1) 55%, transparent 55%) no-repeat 40% 22% / 40px 30px,
+    linear-gradient(135deg, transparent 45%, rgba(0,0,0,0.12) 45%, rgba(0,0,0,0.12) 55%, transparent 55%) no-repeat 55% 22% / 40px 30px,
+    linear-gradient(135deg, transparent 45%, rgba(0,0,0,0.1) 45%, rgba(0,0,0,0.1) 55%, transparent 55%) no-repeat 70% 22% / 40px 30px,
+    /* Garment bodies */
+    linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, transparent 100%) no-repeat 25% 30% / 35px 45%,
+    linear-gradient(to bottom, rgba(0,0,0,0.06) 0%, transparent 100%) no-repeat 40% 28% / 30px 50%,
+    linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, transparent 100%) no-repeat 55% 30% / 32px 48%,
+    linear-gradient(to bottom, rgba(0,0,0,0.06) 0%, transparent 100%) no-repeat 70% 28% / 28px 52%;
+}
+
+/* --- GRAPHIC INTERIOR STYLING ---
+   All graphics use a shared system of flex layout, padding,
+   and brand typography to create a cohesive visual language. */
+
+.g-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 48px 40px;
+}
+
+/* Background variants */
+.bg-cream { background: var(--cream); color: var(--near-black); }
+.bg-bone { background: var(--bone); color: var(--near-black); }
+.bg-gradient { background: var(--brand-gradient); color: white; }
+.bg-gradient-subtle { background: var(--brand-gradient-subtle); color: white; }
+.bg-gradient-warm { background: var(--brand-gradient-warm); color: white; }
+.bg-dark { background: var(--near-black); color: white; }
+.bg-dusty-blue { background: var(--dusty-blue); color: white; }
+.bg-li-cream {
+  background: linear-gradient(180deg, #FAF8F5 0%, #F0EDE8 100%);
+  color: var(--near-black);
+}
+
+/* --- WORDMARK ---
+   "THREAD" in dark/white + "LINE" in brown-gold/copper */
+.wordmark {
+  font-family: var(--body);
+  font-weight: 200;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.wordmark .wm-accent { color: var(--brown-gold); }
+.bg-gradient .wordmark .wm-accent,
+.bg-gradient-subtle .wordmark .wm-accent,
+.bg-dark .wordmark .wm-accent { color: var(--copper); }
+
+/* Handle text */
+.handle {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  color: var(--taupe);
+  margin-top: 2px;
+}
+
+.bg-gradient .handle,
+.bg-gradient-subtle .handle,
+.bg-dark .handle { color: rgba(255,255,255,0.4); }
+
+/* Tagline "From Rack to Wrap" */
+.tagline {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 13px;
+  color: var(--taupe);
+  letter-spacing: 0.02em;
+}
+
+.bg-gradient .tagline,
+.bg-gradient-subtle .tagline,
+.bg-dark .tagline { color: rgba(255,255,255,0.5); }
+
+/* --- TYPOGRAPHY HELPERS --- */
+.g-headline {
+  font-family: var(--serif);
+  font-weight: 300;
+  line-height: 1.15;
+}
+
+.g-headline em, .g-headline i {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.g-body {
+  font-family: var(--body);
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.g-mono {
+  font-family: var(--mono);
+  letter-spacing: 0.04em;
+}
+
+.g-stat {
+  font-family: var(--mono);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* Accent line / divider */
+.accent-line {
+  width: 48px;
+  height: 2px;
+  background: var(--brown-gold);
+}
+
+.bg-gradient .accent-line,
+.bg-gradient-subtle .accent-line { background: rgba(255,255,255,0.3); }
+
+/* Spacer */
+.g-spacer { flex: 1; }
+
+/* Footer bar used at bottom of most graphics */
+.g-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 20px;
+}
+
+/* CTA button style */
+.g-cta {
+  display: inline-block;
+  font-family: var(--body);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 10px 24px;
+  border-radius: 2px;
+}
+
+.g-cta.cta-light {
+  background: white;
+  color: var(--brown-gold);
+}
+
+.g-cta.cta-gold {
+  background: var(--brown-gold);
+  color: white;
+}
+
+.g-cta.cta-outline {
+  background: transparent;
+  border: 1px solid var(--brown-gold);
+  color: var(--brown-gold);
+}
+
+/* Numbered list style for carousel tips */
+.g-numbered-item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.g-num {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 36px;
+  line-height: 1;
+  color: var(--brown-gold);
+  flex-shrink: 0;
+  width: 36px;
+}
+
+.bg-gradient .g-num { color: var(--copper); }
+
+/* Icon circles */
+.g-icon-circle {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.g-icon-circle.gold {
+  background: rgba(139,111,82,0.12);
+  color: var(--brown-gold);
+}
+
+.g-icon-circle.light {
+  background: rgba(255,255,255,0.12);
+  color: white;
+}
+
+/* Calendar / dashboard mockup helpers */
+.mock-bar {
+  height: 8px;
+  border-radius: 4px;
+  background: var(--warm-gray);
+}
+
+.mock-bar.filled { background: var(--brown-gold); }
+.mock-bar.accent { background: var(--copper); }
+.mock-bar.danger { background: var(--clay); }
+.mock-bar.blue { background: var(--dusty-blue); }
+
+/* Checkmark list */
+.check-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.check-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--brown-gold);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  flex-shrink: 0;
+}
+
+/* This-or-That split layout */
+.tot-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100%;
+  position: relative;
+}
+
+.tot-side {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px;
+  text-align: center;
+}
+
+.tot-side.left { background: var(--cream); color: var(--near-black); }
+.tot-side.right { background: var(--bone); color: var(--near-black); }
+
+.tot-divider {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--brown-gold);
+  transform: translateX(-50%);
+}
+
+.tot-or {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--brown-gold);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 14px;
+  z-index: 2;
+}
+
+/* Poll option labels */
+.poll-option {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 0;
+}
+
+.poll-letter {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--brown-gold);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* Department comparison bars */
+.dept-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.dept-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  width: 100px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.dept-bar {
+  flex: 1;
+  height: 28px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  color: white;
+}
+
+/* Scattered receipt mockup */
+.receipt-scatter {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  min-height: 120px;
+}
+
+.receipt-mock {
+  position: absolute;
+  background: white;
+  border: 1px solid #e0dbd6;
+  border-radius: 2px;
+  padding: 8px 10px;
+  font-family: var(--mono);
+  font-size: 7px;
+  line-height: 1.6;
+  color: #999;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transform-origin: center;
+}
+
+/* Clean digital receipt list */
+.receipt-digital {
+  background: white;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.receipt-digital-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  font-size: 10px;
+}
+
+.receipt-digital-row:last-child { border-bottom: none; }
+
+/* Sparkle effect for AI card */
+.sparkle-container {
+  position: relative;
+}
+
+.sparkle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.6;
+  animation: sparkle-pulse 2s infinite alternate;
+}
+
+@keyframes sparkle-pulse {
+  0% { opacity: 0.3; transform: scale(0.8); }
+  100% { opacity: 0.8; transform: scale(1.2); }
+}
+
+/* Countdown timer mockup */
+.countdown-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.countdown-row:last-child { border-bottom: none; }
+
+.countdown-badge {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+.countdown-badge.urgent { background: rgba(138,74,66,0.12); color: var(--clay); }
+.countdown-badge.warning { background: rgba(196,148,106,0.15); color: var(--brown-gold); }
+.countdown-badge.ok { background: rgba(74,103,65,0.12); color: var(--forest); }
+
+/* Blur effect for UI previews */
+.ui-preview {
+  background: white;
+  border-radius: 8px;
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.ui-preview::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 30%, rgba(255,255,255,0.7) 100%);
+  pointer-events: none;
+}
+
+/* Budget bar chart mockup */
+.budget-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.budget-bar-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  width: 80px;
+  text-align: right;
+  flex-shrink: 0;
+  color: var(--taupe);
+}
+
+.budget-bar-track {
+  flex: 1;
+  height: 20px;
+  background: rgba(0,0,0,0.04);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.budget-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+}
+
+.budget-bar-val {
+  font-family: var(--mono);
+  font-size: 9px;
+  width: 50px;
+  color: var(--near-black);
+}
+
+/* --- FOOTER --- */
+.page-footer {
+  text-align: center;
+  padding: 48px 20px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  font-size: 12px;
+  color: rgba(255,255,255,0.3);
+}
+
+.page-footer a {
+  color: var(--copper);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.page-footer a:hover { color: var(--brown-gold); }
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+  .container { padding: 32px 16px 24px; }
+  .nav { padding: 12px 16px; gap: 10px; }
+  .nav .week-links { margin-left: 0; width: 100%; justify-content: center; }
+  .graphic-card { width: 320px; min-width: 320px; }
+  .graphic-card.linkedin { width: 420px; min-width: 420px; }
+  .g-inner { padding: 32px 28px; }
+  .g-headline { font-size: 90% !important; }
+}
+
+@media (max-width: 480px) {
+  .graphic-card { width: 280px; min-width: 280px; }
+  .graphic-card.linkedin { width: 340px; min-width: 340px; }
+  .g-inner { padding: 24px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAVIGATION ===== -->
+<nav class="nav">
+  <a href="index.html" class="brand" style="text-decoration:none;color:white;">THREAD<span class="accent">LINE</span></a>
+  <a class="back" href="index.html">&larr; All Pages</a>
+  <a href="content-visuals-week1.html">Week 1</a>
+  <a href="content-calendar.html">Content Calendar</a>
+  <div class="week-links">
+    <a href="#week2" class="active">Week 2</a>
+    <a href="#week3">Week 3</a>
+    <a href="#week4">Week 4</a>
+  </div>
+</nav>
+
+<div class="container">
+
+<!-- ===== PAGE HEADER ===== -->
+<div class="page-header">
+  <h1>Content <em>Visuals</em></h1>
+  <p class="subtitle">Social media graphics for posts 8 through 24 of the ThreadLine content calendar. Each graphic rendered at the correct aspect ratio for its platform. Weeks 2, 3, and 4.</p>
+</div>
+
+
+<!-- ================================================================
+     WEEK 2 -- DAYS 8-14 -- BUILD TRUST & EDUCATE
+     Posts 8 through 12
+     ================================================================ -->
+<div class="week-section" id="week2">
+<div class="week-header">
+  <h2>Week 2</h2>
+  <span class="week-range">Days 8 - 14 &middot; Build Trust &amp; Educate</span>
+</div>
+
+
+<!-- ============================================================
+     POST 8 -- LinkedIn -- The Return Deadline Problem
+     Day 9, Tuesday | Text Post + Optional Image
+     Visual: Calendar with highlighted return deadlines.
+     "Before it's too late, not after." tagline overlay.
+     Dusty-blue and cream palette for LinkedIn.
+     ============================================================ -->
+<div class="post-section">
+  <div class="post-info">
+    <span class="post-number">Post 8</span>
+    <span class="post-day">Day 9 &middot; Tuesday</span>
+    <span class="platform-badge li">LinkedIn</span>
+    <span class="format-badge">Text + Image</span>
+  </div>
+  <div class="post-title-row">The Return Deadline Problem</div>
+  <div class="single-graphic">
+    <div class="graphic-card linkedin" style="background: linear-gradient(135deg, #F5F0EB 0%, #FAF8F5 100%);">
+      <div class="g-inner" style="padding: 36px 40px;">
+        <!-- Wordmark top left -->
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px;">
+          <div>
+            <div class="wordmark">THREAD<span class="wm-accent">LINE</span></div>
+            <div class="handle">threadlineapp.io</div>
+          </div>
+          <div style="font-family: var(--mono); font-size: 9px; color: var(--dusty-blue); letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 10px; border: 1px solid rgba(98,119,134,0.2); border-radius: 3px;">Return Tracking</div>
+        </div>
+
+        <!-- Calendar mockup with highlighted deadlines -->
+        <div style="flex: 1; display: flex; gap: 28px; align-items: center;">
+          <!-- Left: mini calendar grid -->
+          <div style="flex: 1;">
+            <div style="font-family: var(--mono); font-size: 9px; color: var(--taupe); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px;">Return Deadlines</div>
+            <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px;">
+              <!-- Day headers -->
+              <div style="font-family: var(--mono); font-size: 7px; color: var(--taupe); text-align: center; padding: 4px 0;">M</div>
+              <div style="font-family: var(--mono); font-size: 7px; color: var(--taupe); text-align: center; padding: 4px 0;">T</div>
+              <div style="font-family: var(--mono); font-size: 7px; color: var(--taupe); text-align: center; padding: 4px 0;">W</div>
+              <div style="font-family: var(--mono); font-size: 7px; color: var(--taupe); text-align: center; padding: 4px 0;">T</div>
+              <div style="font-family: var(--mono); font-size: 7px; color: var(--taupe); text-align: center; padding: 4px 0;">F</div>
+              <div style="font-family: var(--mono); font-size: 7px; color: var(--taupe); text-align: center; padding: 4px 0;">S</div>
+              <div style="font-family: var(--mono); font-size: 7px; color: var(--taupe); text-align: center; padding: 4px 0;">S</div>
+              <!-- Week 1 -->
+              <div style="font-family: var(--mono); font-size: 9px; text-align: center; padding: 6px 2px; border-radius: 4px; color: var(--near-black);">1</div>
+              <div style="font-family: var(--mono); font-size: 9px; text-align: center; padding: 6px 2px; border-radius: 4px; color: var(--near-black);">2</div>
+              <div style="font-family: var(--mono); font-size: 9px; text-align: center; padding: 6px 2px; border-radius: 4px; color: var(--near-black);">3</div>
+              <div style="font-family: var(--mono); font-size: 9px; text-align: center; padding: 6px 2px; border-radius: 4px; background: rgba(138,74,66,0.15); color: var(--clay); font-weight: 600;">4</div>
+              <div style="font-family: var(--mono); font-size: 9px; text-align: center; padding: 6px 2px; border-radius: 4px; color: var(--near-black);">5</div>
+              <div style="font-family: var(--mono); font-size: 9px; text-align: center; padding: 6px 2px; border-radius: 4px; color: var(--taupe);">6</div>
+              <div style="font-family: var(--mono); font-size: 9px; text-align: center; padding: 6px 2px; border-radius: 4px; color: var(--taupe);">7</div>
+              <!-- Week 2 -->
+              <div style="font-family: var(--mono); font-size: 9px; text-align: center; padding: 6px 2px; border-radius: 4px; color: var(--near-black);">8</div>
+              <div style="font-family: var(--mono); font-size: 9px; text-align: center; padding: 6px 2px; border-radius: 4px; background: rgba(196,148,106,0.2); color: var(--brown-gold); font-weight: 600;">9</div>
+              <div style="font-family: var(--mono); font-size: 9px; text-align: center; padding: 6px 2px; border-radius: 4px; color: var(--near-black);">10</div>
+              <div style="font-family: var(--mono); font-size: 9px; text-align: center; padding: 6px 2px; border-radius: 4px; color: var(--near-black);">11</div>
+              <div style="font-family: var(--mono); font-size: 9px; text-align: center; padding: 6px 2px; border-radius: 4px; background: rgba(138,74,66,0.15); color: var(--clay); font-weight: 600;">12</div>
+              <div style="font-family: var(--mono); font-size: 9px; text-align: center; padding: 6px 2px; border-radius: 4px; color: var(--taupe);">13</div>
+              <div style="font-family: var(--mono); font-size: 9px; text-align: center; padding: 6px 2px; border-radius: 4px; color: var(--taupe);">14</div>
+              <!-- Week 3 -->
+              <div style="font-family: var(--mono); font-size: 9px; text-align: center; padding: 6px 2px; border-radius: 4px; color: var(--near-black);">15</div>
+              <div style="font-family: var(--mono); font-size: 9px; text-align: center; padding: 6px 2px; border-radius: 4px; color: var(--near-black);">16</div>
+              <div style="font-family: var(--mono); font-size: 9px; text-align: center; padding: 6px 2px; border-radius: 4px; background: rgba(196,148,106,0.2); color: var(--brown-gold); font-weight: 600;">17</div>
+              <div style="font-family: var(--mono); font-size: 9px; text-align: center; padding: 6px 2px; border-radius: 4px; color: var(--near-black);">18</div>
+              <div style="font-family: var(--mono); font-size: 9px; text-align: center; padding: 6px 2px; border-radius: 4px; color: var(--near-black);">19</div>
+              <div style="font-family: var(--mono); font-size: 9px; text-align: center; padding: 6px 2px; border-radius: 4px; color: var(--taupe);">20</div>
+              <div style="font-family: var(--mono); font-size: 9px; text-align: center; padding: 6px 2px; border-radius: 4px; color: var(--taupe);">21</div>
+            </div>
+            <div style="display: flex; gap: 12px; margin-top: 10px;">
+              <div style="display: flex; align-items: center; gap: 4px;"><div style="width: 8px; height: 8px; border-radius: 2px; background: rgba(138,74,66,0.2);"></div><span style="font-family: var(--mono); font-size: 7px; color: var(--taupe);">Urgent</span></div>
+              <div style="display: flex; align-items: center; gap: 4px;"><div style="width: 8px; height: 8px; border-radius: 2px; background: rgba(196,148,106,0.25);"></div><span style="font-family: var(--mono); font-size: 7px; color: var(--taupe);">Approaching</span></div>
+            </div>
+          </div>
+          <!-- Right: tagline -->
+          <div style="flex: 1; text-align: right;">
+            <div class="g-headline" style="font-size: 26px; color: var(--near-black); margin-bottom: 8px;">Before it's<br>too late,<br><em>not after.</em></div>
+            <div style="width: 40px; height: 2px; background: var(--dusty-blue); margin-left: auto; margin-bottom: 12px;"></div>
+            <div style="font-family: var(--body); font-size: 10px; color: var(--taupe); line-height: 1.6;">Automated return deadline<br>tracking with advance alerts.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     POST 9 -- Instagram -- 5 Things Every Wardrobe PA Wishes
+     Producers Understood
+     Day 10, Wednesday | Carousel (6 slides)
+     Visual: Title card on cream, one tip per slide with bold
+     numbers, last slide with ThreadLine logo.
+     ============================================================ -->
+<div class="post-section">
+  <div class="post-info">
+    <span class="post-number">Post 9</span>
+    <span class="post-day">Day 10 &middot; Wednesday</span>
+    <span class="platform-badge ig">Instagram</span>
+    <span class="format-badge">Carousel (6 slides)</span>
+  </div>
+  <div class="post-title-row">5 Things Every Wardrobe PA Wishes Producers Understood</div>
+  <div class="graphics-row">
+    <!-- Slide 1: Title card -->
+    <div class="graphic-card bg-cream">
+      <div class="ghost-rack"></div>
+      <div class="g-inner" style="justify-content: center; align-items: center; text-align: center;">
+        <div style="margin-bottom: 24px;">
+          <div class="g-mono" style="font-size: 10px; color: var(--brown-gold); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px;">Save &middot; Share &middot; Send to Your Producer</div>
+          <div class="g-headline" style="font-size: 34px; color: var(--near-black);">5 Things Every<br>Wardrobe PA Wishes<br><em>Producers Understood</em></div>
+        </div>
+        <div class="accent-line" style="margin: 0 auto 20px;"></div>
+        <div style="font-family: var(--mono); font-size: 9px; color: var(--taupe); letter-spacing: 0.06em;">SWIPE &rarr;</div>
+        <div class="g-footer">
+          <div class="wordmark">THREAD<span class="wm-accent">LINE</span></div>
+          <div class="handle">@threadline_app</div>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 2: Tip 1 -->
+    <div class="graphic-card bg-cream">
+      <div class="g-inner" style="justify-content: center;">
+        <div class="g-numbered-item" style="margin-bottom: 0;">
+          <div class="g-num" style="font-size: 64px; color: rgba(139,111,82,0.2);">1</div>
+          <div style="padding-top: 8px;">
+            <div class="g-headline" style="font-size: 22px; color: var(--near-black); margin-bottom: 12px;">"Just grab something<br>from the store" is never<br><em>that simple.</em></div>
+            <div class="g-body" style="font-size: 12px; color: var(--taupe); max-width: 280px;">Every purchase needs to be tracked, tagged, photographed, entered into inventory, and eventually returned or wrapped. One "quick run" creates an hour of backend work.</div>
+          </div>
+        </div>
+        <div class="g-footer">
+          <div class="wordmark">THREAD<span class="wm-accent">LINE</span></div>
+          <div class="handle">@threadline_app</div>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 3: Tip 2 -->
+    <div class="graphic-card bg-cream">
+      <div class="g-inner" style="justify-content: center;">
+        <div class="g-numbered-item" style="margin-bottom: 0;">
+          <div class="g-num" style="font-size: 64px; color: rgba(139,111,82,0.2);">2</div>
+          <div style="padding-top: 8px;">
+            <div class="g-headline" style="font-size: 22px; color: var(--near-black); margin-bottom: 12px;">Receipt reconciliation<br>takes <em>real time.</em></div>
+            <div class="g-body" style="font-size: 12px; color: var(--taupe); max-width: 280px;">If you want accurate budget reports, you need to give wardrobe the hours to actually do them. This is not busy work. This is how productions avoid surprise overages.</div>
+          </div>
+        </div>
+        <div class="g-footer">
+          <div class="wordmark">THREAD<span class="wm-accent">LINE</span></div>
+          <div class="handle">@threadline_app</div>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 4: Tip 3 -->
+    <div class="graphic-card bg-cream">
+      <div class="g-inner" style="justify-content: center;">
+        <div class="g-numbered-item" style="margin-bottom: 0;">
+          <div class="g-num" style="font-size: 64px; color: rgba(139,111,82,0.2);">3</div>
+          <div style="padding-top: 8px;">
+            <div class="g-headline" style="font-size: 22px; color: var(--near-black); margin-bottom: 12px;">Continuity is a<br><em>full-time job</em> in itself.</div>
+            <div class="g-body" style="font-size: 12px; color: var(--taupe); max-width: 280px;">When an actor wears 15 different looks across 40 shooting days, keeping track of every detail takes serious systems. Not just good memory.</div>
+          </div>
+        </div>
+        <div class="g-footer">
+          <div class="wordmark">THREAD<span class="wm-accent">LINE</span></div>
+          <div class="handle">@threadline_app</div>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 5: Tip 4 + 5 -->
+    <div class="graphic-card bg-cream">
+      <div class="g-inner" style="justify-content: center;">
+        <div class="g-numbered-item" style="margin-bottom: 28px;">
+          <div class="g-num" style="font-size: 48px; color: rgba(139,111,82,0.2);">4</div>
+          <div style="padding-top: 4px;">
+            <div class="g-headline" style="font-size: 18px; color: var(--near-black); margin-bottom: 8px;">Return deadlines don't pause<br>because the <em>schedule changed.</em></div>
+            <div class="g-body" style="font-size: 11px; color: var(--taupe); max-width: 260px;">Wardrobe needs to know about schedule changes immediately.</div>
+          </div>
+        </div>
+        <div class="g-numbered-item">
+          <div class="g-num" style="font-size: 48px; color: rgba(139,111,82,0.2);">5</div>
+          <div style="padding-top: 4px;">
+            <div class="g-headline" style="font-size: 18px; color: var(--near-black); margin-bottom: 8px;">The spreadsheet<br>is <em>not fine.</em></div>
+            <div class="g-body" style="font-size: 11px; color: var(--taupe); max-width: 260px;">It's the only option right now, but that doesn't make it the right one.</div>
+          </div>
+        </div>
+        <div class="g-footer">
+          <div class="wordmark">THREAD<span class="wm-accent">LINE</span></div>
+          <div class="handle">@threadline_app</div>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 6: CTA -->
+    <div class="graphic-card bg-gradient">
+      <div class="g-inner" style="justify-content: center; align-items: center; text-align: center;">
+        <div class="g-headline" style="font-size: 30px; margin-bottom: 16px;">We're building<br><em>for this.</em></div>
+        <div class="accent-line" style="margin: 0 auto 20px;"></div>
+        <div class="g-body" style="font-size: 12px; color: rgba(255,255,255,0.7); margin-bottom: 28px;">Every one of these problems<br>is something Threadline is designed to solve.</div>
+        <div class="g-cta cta-light">Join Early Access</div>
+        <div class="g-footer" style="width: 100%;">
+          <div class="wordmark">THREAD<span class="wm-accent">LINE</span></div>
+          <div class="tagline">From Rack to Wrap</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     POST 10 -- LinkedIn -- Feature Deep Dive: Smart Receipt Capture
+     Day 11, Thursday | Text + Image
+     Visual: Before/after. Left: scattered receipts (messy).
+     Right: clean digital receipt list. Cream background.
+     ============================================================ -->
+<div class="post-section">
+  <div class="post-info">
+    <span class="post-number">Post 10</span>
+    <span class="post-day">Day 11 &middot; Thursday</span>
+    <span class="platform-badge li">LinkedIn</span>
+    <span class="format-badge">Text + Image</span>
+  </div>
+  <div class="post-title-row">Feature Deep Dive: Smart Receipt Capture</div>
+  <div class="single-graphic">
+    <div class="graphic-card linkedin bg-li-cream">
+      <div class="g-inner" style="padding: 32px 36px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
+          <div>
+            <div class="wordmark">THREAD<span class="wm-accent">LINE</span></div>
+            <div class="handle">Smart Receipt Capture</div>
+          </div>
+          <div style="font-family: var(--mono); font-size: 9px; color: var(--dusty-blue); letter-spacing: 0.06em; text-transform: uppercase;">Feature Spotlight</div>
+        </div>
+        <!-- Before / After split -->
+        <div style="display: grid; grid-template-columns: 1fr 24px 1fr; gap: 0; flex: 1; align-items: stretch;">
+          <!-- Before: scattered receipts -->
+          <div style="position: relative; background: rgba(0,0,0,0.02); border-radius: 8px; padding: 16px; overflow: hidden;">
+            <div style="font-family: var(--mono); font-size: 8px; color: var(--clay); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px;">Before</div>
+            <!-- Scattered receipt mockups -->
+            <div style="position: relative; height: 100%; min-height: 100px;">
+              <div style="position: absolute; top: 10px; left: 5px; width: 70px; height: 50px; background: white; border: 1px solid #e8e3de; border-radius: 2px; transform: rotate(-5deg); padding: 4px; font-family: var(--mono); font-size: 5px; color: #bbb; line-height: 1.4; box-shadow: 0 1px 4px rgba(0,0,0,0.04);">Store ABC<br>---<br>Item...$12.99<br>Item...$8.50<br>Tax....$1.72</div>
+              <div style="position: absolute; top: 25px; left: 55px; width: 65px; height: 55px; background: white; border: 1px solid #e8e3de; border-radius: 2px; transform: rotate(8deg); padding: 4px; font-family: var(--mono); font-size: 5px; color: #ccc; line-height: 1.4; box-shadow: 0 1px 4px rgba(0,0,0,0.04);">Fashion Co<br>---<br>Blouse..$45<br>Pants...$62<br>Total..$107</div>
+              <div style="position: absolute; top: 5px; right: 10px; width: 60px; height: 45px; background: white; border: 1px solid #e8e3de; border-radius: 2px; transform: rotate(-12deg); padding: 4px; font-family: var(--mono); font-size: 5px; color: #ddd; line-height: 1.4; box-shadow: 0 1px 4px rgba(0,0,0,0.04);">Rental H<br>---<br>[faded]<br>[unreadable]</div>
+              <div style="position: absolute; bottom: 10px; left: 20px; width: 55px; height: 40px; background: white; border: 1px solid #e8e3de; border-radius: 2px; transform: rotate(3deg); padding: 4px; font-family: var(--mono); font-size: 5px; color: #ccc; line-height: 1.4; box-shadow: 0 1px 4px rgba(0,0,0,0.04);">Alterations<br>Hem...$25<br>???</div>
+            </div>
+          </div>
+          <!-- Arrow -->
+          <div style="display: flex; align-items: center; justify-content: center;">
+            <div style="font-family: var(--body); font-size: 16px; color: var(--brown-gold);">&rarr;</div>
+          </div>
+          <!-- After: clean digital list -->
+          <div style="background: white; border-radius: 8px; padding: 12px 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.04);">
+            <div style="font-family: var(--mono); font-size: 8px; color: var(--forest); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px;">After</div>
+            <div style="display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid rgba(0,0,0,0.04); font-size: 9px;">
+              <div><span style="font-weight: 600; color: var(--near-black);">Fashion Co</span><br><span style="color: var(--taupe); font-size: 8px;">Blouse, Pants</span></div>
+              <div style="font-family: var(--mono); color: var(--near-black); font-size: 9px;">$107.00</div>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid rgba(0,0,0,0.04); font-size: 9px;">
+              <div><span style="font-weight: 600; color: var(--near-black);">Store ABC</span><br><span style="color: var(--taupe); font-size: 8px;">2 items + tax</span></div>
+              <div style="font-family: var(--mono); color: var(--near-black); font-size: 9px;">$23.21</div>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid rgba(0,0,0,0.04); font-size: 9px;">
+              <div><span style="font-weight: 600; color: var(--near-black);">Rental House</span><br><span style="color: var(--taupe); font-size: 8px;">5-day rental</span></div>
+              <div style="font-family: var(--mono); color: var(--near-black); font-size: 9px;">$180.00</div>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 6px 0; font-size: 9px;">
+              <div><span style="font-weight: 600; color: var(--near-black);">Alterations</span><br><span style="color: var(--taupe); font-size: 8px;">Hem adjustment</span></div>
+              <div style="font-family: var(--mono); color: var(--near-black); font-size: 9px;">$25.00</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     POST 11 -- Instagram -- The Spreadsheet That Breaks Every Time
+     Day 12, Friday | Single Image
+     Visual: Screenshot-style mockup of chaotic spreadsheet.
+     Bold overlay: "You know the one." Cream border, editorial.
+     ============================================================ -->
+<div class="post-section">
+  <div class="post-info">
+    <span class="post-number">Post 11</span>
+    <span class="post-day">Day 12 &middot; Friday</span>
+    <span class="platform-badge ig">Instagram</span>
+    <span class="format-badge">Single Image</span>
+  </div>
+  <div class="post-title-row">The Spreadsheet That Breaks Every Time</div>
+  <div class="single-graphic">
+    <div class="graphic-card" style="background: var(--cream);">
+      <div class="g-inner" style="justify-content: space-between;">
+        <!-- Top wordmark -->
+        <div style="margin-bottom: 20px;">
+          <div class="wordmark">THREAD<span class="wm-accent">LINE</span></div>
+        </div>
+        <!-- Chaotic spreadsheet mockup -->
+        <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative;">
+          <!-- Fake spreadsheet grid -->
+          <div style="width: 100%; background: white; border: 1px solid #d0cbc5; border-radius: 4px; overflow: hidden; transform: perspective(600px) rotateX(2deg); box-shadow: 0 8px 32px rgba(0,0,0,0.08); margin-bottom: 28px;">
+            <!-- Tab bar -->
+            <div style="display: flex; gap: 0; border-bottom: 1px solid #d0cbc5; background: #f0ebe4;">
+              <div style="padding: 4px 10px; font-family: var(--mono); font-size: 6px; background: white; border-right: 1px solid #d0cbc5; color: var(--near-black);">Main Inv.</div>
+              <div style="padding: 4px 10px; font-family: var(--mono); font-size: 6px; color: #aaa; border-right: 1px solid #e0dbd6;">Receipts</div>
+              <div style="padding: 4px 10px; font-family: var(--mono); font-size: 6px; color: #aaa; border-right: 1px solid #e0dbd6; background: rgba(138,74,66,0.06);">Returns?!</div>
+              <div style="padding: 4px 10px; font-family: var(--mono); font-size: 6px; color: #aaa; border-right: 1px solid #e0dbd6;">Budget v2</div>
+              <div style="padding: 4px 10px; font-family: var(--mono); font-size: 6px; color: #aaa; border-right: 1px solid #e0dbd6;">Budget FINAL</div>
+              <div style="padding: 4px 10px; font-family: var(--mono); font-size: 6px; color: var(--clay);">FINAL final</div>
+            </div>
+            <!-- Grid rows with chaotic colors -->
+            <div style="display: grid; grid-template-columns: 60px repeat(5, 1fr); font-family: var(--mono); font-size: 6px;">
+              <!-- Header row -->
+              <div style="padding: 3px 4px; background: #e8e3de; border-bottom: 1px solid #d0cbc5; border-right: 1px solid #d0cbc5; font-weight: 600;">Item</div>
+              <div style="padding: 3px 4px; background: #e8e3de; border-bottom: 1px solid #d0cbc5; border-right: 1px solid #d0cbc5; font-weight: 600;">Vendor</div>
+              <div style="padding: 3px 4px; background: #e8e3de; border-bottom: 1px solid #d0cbc5; border-right: 1px solid #d0cbc5; font-weight: 600;">Cost</div>
+              <div style="padding: 3px 4px; background: #e8e3de; border-bottom: 1px solid #d0cbc5; border-right: 1px solid #d0cbc5; font-weight: 600;">Status</div>
+              <div style="padding: 3px 4px; background: rgba(255,255,0,0.2); border-bottom: 1px solid #d0cbc5; border-right: 1px solid #d0cbc5; font-weight: 600;">Return?</div>
+              <div style="padding: 3px 4px; background: rgba(255,200,200,0.3); border-bottom: 1px solid #d0cbc5; font-weight: 600;">NOTES</div>
+              <!-- Data rows with varying highlight colors to simulate chaos -->
+              <div style="padding: 3px 4px; border-bottom: 1px solid #eee; border-right: 1px solid #eee; color: #666;">Blazer #1</div>
+              <div style="padding: 3px 4px; border-bottom: 1px solid #eee; border-right: 1px solid #eee; color: #666;">Nordstrom</div>
+              <div style="padding: 3px 4px; border-bottom: 1px solid #eee; border-right: 1px solid #eee; color: #666;">$245</div>
+              <div style="padding: 3px 4px; border-bottom: 1px solid #eee; border-right: 1px solid #eee; background: rgba(74,103,65,0.1); color: var(--forest);">On set</div>
+              <div style="padding: 3px 4px; border-bottom: 1px solid #eee; border-right: 1px solid #eee; background: rgba(255,255,0,0.15); color: #997700;">Maybe??</div>
+              <div style="padding: 3px 4px; border-bottom: 1px solid #eee; background: rgba(255,200,200,0.15); color: var(--clay);">ASK SARAH</div>
+              <div style="padding: 3px 4px; border-bottom: 1px solid #eee; border-right: 1px solid #eee; color: #666;">Dress (blue)</div>
+              <div style="padding: 3px 4px; border-bottom: 1px solid #eee; border-right: 1px solid #eee; color: #666;">Rental Co</div>
+              <div style="padding: 3px 4px; border-bottom: 1px solid #eee; border-right: 1px solid #eee; background: rgba(255,200,200,0.2); color: var(--clay);">#REF!</div>
+              <div style="padding: 3px 4px; border-bottom: 1px solid #eee; border-right: 1px solid #eee; color: #666;">Rented</div>
+              <div style="padding: 3px 4px; border-bottom: 1px solid #eee; border-right: 1px solid #eee; background: rgba(138,74,66,0.12); color: var(--clay); font-weight: 600;">OVERDUE</div>
+              <div style="padding: 3px 4px; border-bottom: 1px solid #eee; color: var(--clay);">!!!</div>
+              <div style="padding: 3px 4px; border-bottom: 1px solid #eee; border-right: 1px solid #eee; color: #666;">Shoes x4</div>
+              <div style="padding: 3px 4px; border-bottom: 1px solid #eee; border-right: 1px solid #eee; color: #aaa;">[missing]</div>
+              <div style="padding: 3px 4px; border-bottom: 1px solid #eee; border-right: 1px solid #eee; color: #666;">$??</div>
+              <div style="padding: 3px 4px; border-bottom: 1px solid #eee; border-right: 1px solid #eee; background: rgba(255,255,0,0.1); color: #997700;">???</div>
+              <div style="padding: 3px 4px; border-bottom: 1px solid #eee; border-right: 1px solid #eee; color: #aaa;">TBD</div>
+              <div style="padding: 3px 4px; border-bottom: 1px solid #eee; color: #aaa;">lost receipt</div>
+            </div>
+          </div>
+          <!-- Bold overlay text -->
+          <div class="g-headline" style="font-size: 38px; color: var(--near-black); text-align: center; font-style: italic; font-weight: 400;">You know the one.</div>
+        </div>
+        <!-- Footer -->
+        <div class="g-footer">
+          <div class="wordmark">THREAD<span class="wm-accent">LINE</span></div>
+          <div class="handle">@threadline_app</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     POST 12 -- Instagram -- Early Access is Open
+     Day 14, Saturday | Single Image
+     Visual: "Join Early Access" in large Cormorant. Four bullet
+     points. Logo at bottom. Brown-gold accent line. Elegant.
+     ============================================================ -->
+<div class="post-section">
+  <div class="post-info">
+    <span class="post-number">Post 12</span>
+    <span class="post-day">Day 14 &middot; Saturday</span>
+    <span class="platform-badge ig">Instagram</span>
+    <span class="format-badge">Single Image</span>
+  </div>
+  <div class="post-title-row">Early Access is Open</div>
+  <div class="single-graphic">
+    <div class="graphic-card bg-cream">
+      <div class="ghost-rack"></div>
+      <div class="g-inner" style="justify-content: center; align-items: center; text-align: center;">
+        <div class="g-headline" style="font-size: 38px; color: var(--near-black); margin-bottom: 8px;"><em>Join Early Access</em></div>
+        <div class="accent-line" style="margin: 0 auto 28px;"></div>
+        <div style="text-align: left; max-width: 280px; margin-bottom: 32px;">
+          <div class="check-item" style="margin-bottom: 12px;">
+            <div class="check-icon">&check;</div>
+            <span class="g-body" style="font-size: 13px; color: var(--near-black);">First look at new features before anyone else</span>
+          </div>
+          <div class="check-item" style="margin-bottom: 12px;">
+            <div class="check-icon">&check;</div>
+            <span class="g-body" style="font-size: 13px; color: var(--near-black);">Direct input on what gets built next</span>
+          </div>
+          <div class="check-item" style="margin-bottom: 12px;">
+            <div class="check-icon">&check;</div>
+            <span class="g-body" style="font-size: 13px; color: var(--near-black);">Priority onboarding when we launch</span>
+          </div>
+          <div class="check-item">
+            <div class="check-icon">&check;</div>
+            <span class="g-body" style="font-size: 13px; color: var(--near-black);">A say in the tool your department will use on set</span>
+          </div>
+        </div>
+        <div style="font-family: var(--mono); font-size: 10px; color: var(--taupe); letter-spacing: 0.06em; margin-bottom: 4px;">Link in bio &middot; Takes 30 seconds</div>
+        <div class="g-footer" style="width: 100%;">
+          <div class="wordmark">THREAD<span class="wm-accent">LINE</span></div>
+          <div class="tagline">From Rack to Wrap</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end week 2 -->
+
+
+<!-- ================================================================
+     WEEK 3 -- DAYS 15-21 -- DEEPEN & ENGAGE
+     Posts 13 through 18
+     ================================================================ -->
+<div class="week-section" id="week3">
+<div class="week-header">
+  <h2>Week 3</h2>
+  <span class="week-range">Days 15 - 21 &middot; Deepen &amp; Engage</span>
+</div>
+
+
+<!-- ============================================================
+     POST 13 -- Instagram -- Feature Spotlight: Return Tracking
+     Day 15, Monday | Carousel (4 slides)
+     Slide 1: "Never miss another return deadline." on gradient.
+     Slide 2: Return dashboard mockup with countdowns.
+     Slide 3: Alert notification mockup.
+     Slide 4: "From rack to wrap." with CTA.
+     ============================================================ -->
+<div class="post-section">
+  <div class="post-info">
+    <span class="post-number">Post 13</span>
+    <span class="post-day">Day 15 &middot; Monday</span>
+    <span class="platform-badge ig">Instagram</span>
+    <span class="format-badge">Carousel (4 slides)</span>
+  </div>
+  <div class="post-title-row">Feature Spotlight: Return Tracking</div>
+  <div class="graphics-row">
+    <!-- Slide 1: Bold headline on gradient -->
+    <div class="graphic-card bg-gradient">
+      <div class="ghost-rack"></div>
+      <div class="g-inner" style="justify-content: center; align-items: center; text-align: center;">
+        <div style="font-family: var(--mono); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 20px;">Feature Spotlight</div>
+        <div class="g-headline" style="font-size: 36px; margin-bottom: 16px;">Never miss another<br><em>return deadline.</em></div>
+        <div class="accent-line" style="margin: 0 auto 24px;"></div>
+        <div style="font-family: var(--mono); font-size: 10px; color: rgba(255,255,255,0.4); letter-spacing: 0.06em;">SWIPE TO SEE HOW &rarr;</div>
+        <div class="g-footer" style="width: 100%;">
+          <div class="wordmark">THREAD<span class="wm-accent">LINE</span></div>
+          <div class="handle">@threadline_app</div>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 2: Return dashboard with countdowns -->
+    <div class="graphic-card bg-cream">
+      <div class="g-inner">
+        <div style="font-family: var(--mono); font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--brown-gold); margin-bottom: 16px;">Return Tracking Dashboard</div>
+        <div style="background: white; border-radius: 8px; padding: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.04); flex: 1;">
+          <div class="countdown-row">
+            <div class="countdown-badge urgent">2 days</div>
+            <div style="flex: 1;">
+              <div style="font-weight: 600; font-size: 12px; color: var(--near-black);">Costume House LA</div>
+              <div style="font-size: 10px; color: var(--taupe);">12 items &middot; Due Mar 23</div>
+            </div>
+          </div>
+          <div class="countdown-row">
+            <div class="countdown-badge warning">5 days</div>
+            <div style="flex: 1;">
+              <div style="font-weight: 600; font-size: 12px; color: var(--near-black);">Western Costume</div>
+              <div style="font-size: 10px; color: var(--taupe);">8 items &middot; Due Mar 26</div>
+            </div>
+          </div>
+          <div class="countdown-row">
+            <div class="countdown-badge ok">11 days</div>
+            <div style="flex: 1;">
+              <div style="font-weight: 600; font-size: 12px; color: var(--near-black);">Palace Costume</div>
+              <div style="font-size: 10px; color: var(--taupe);">22 items &middot; Due Apr 1</div>
+            </div>
+          </div>
+          <div class="countdown-row">
+            <div class="countdown-badge ok">18 days</div>
+            <div style="flex: 1;">
+              <div style="font-weight: 600; font-size: 12px; color: var(--near-black);">Nordstrom Returns</div>
+              <div style="font-size: 10px; color: var(--taupe);">6 items &middot; Due Apr 8</div>
+            </div>
+          </div>
+        </div>
+        <div class="g-footer">
+          <div class="wordmark">THREAD<span class="wm-accent">LINE</span></div>
+          <div class="handle">@threadline_app</div>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 3: Alert notification mockup -->
+    <div class="graphic-card bg-bone">
+      <div class="g-inner" style="justify-content: center; align-items: center;">
+        <div style="font-family: var(--mono); font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--brown-gold); margin-bottom: 24px;">Advance Alerts</div>
+        <!-- Phone notification mockup -->
+        <div style="width: 280px; background: white; border-radius: 16px; padding: 16px 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.08); margin-bottom: 24px;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+            <div style="width: 28px; height: 28px; border-radius: 6px; background: var(--brand-gradient); display: flex; align-items: center; justify-content: center; color: white; font-family: var(--body); font-size: 8px; font-weight: 700; letter-spacing: 0.05em;">TL</div>
+            <div>
+              <div style="font-weight: 600; font-size: 11px; color: var(--near-black);">Threadline</div>
+              <div style="font-size: 9px; color: var(--taupe);">now</div>
+            </div>
+          </div>
+          <div style="font-size: 12px; color: var(--near-black); line-height: 1.5; margin-bottom: 8px;"><strong>Return deadline approaching:</strong> 12 items from Costume House LA are due in 3 days (Mar 23).</div>
+          <div style="font-size: 10px; color: var(--brown-gold);">Tap to view items &rarr;</div>
+        </div>
+        <div class="g-body" style="font-size: 11px; color: var(--taupe); text-align: center;">Alerts at 7 days, 3 days,<br>and the day before deadline.</div>
+        <div class="g-footer" style="width: 100%;">
+          <div class="wordmark">THREAD<span class="wm-accent">LINE</span></div>
+          <div class="handle">@threadline_app</div>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 4: CTA -->
+    <div class="graphic-card bg-gradient-subtle">
+      <div class="g-inner" style="justify-content: center; align-items: center; text-align: center;">
+        <div class="tagline" style="font-size: 16px; margin-bottom: 24px;">From Rack to Wrap</div>
+        <div class="g-headline" style="font-size: 30px; margin-bottom: 20px;">Stop chasing<br><em>deadlines.</em></div>
+        <div class="accent-line" style="margin: 0 auto 24px;"></div>
+        <div class="g-cta cta-light" style="margin-bottom: 12px;">Join Early Access</div>
+        <div style="font-family: var(--mono); font-size: 9px; color: rgba(255,255,255,0.4); letter-spacing: 0.04em;">Link in bio</div>
+        <div class="g-footer" style="width: 100%;">
+          <div class="wordmark">THREAD<span class="wm-accent">LINE</span></div>
+          <div class="handle">@threadline_app</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     POST 14 -- LinkedIn -- Building With the Community
+     Day 16, Tuesday | Text Post (optional image)
+     Visual: "Built with wardrobe. Not for wardrobe." cream card.
+     ============================================================ -->
+<div class="post-section">
+  <div class="post-info">
+    <span class="post-number">Post 14</span>
+    <span class="post-day">Day 16 &middot; Tuesday</span>
+    <span class="platform-badge li">LinkedIn</span>
+    <span class="format-badge">Text Post</span>
+  </div>
+  <div class="post-title-row">Building With the Community, Not For Them</div>
+  <div class="single-graphic">
+    <div class="graphic-card linkedin bg-li-cream">
+      <div class="g-inner" style="justify-content: center; align-items: center; text-align: center;">
+        <div class="wordmark" style="margin-bottom: 32px;">THREAD<span class="wm-accent">LINE</span></div>
+        <div class="g-headline" style="font-size: 32px; color: var(--near-black); margin-bottom: 12px;">Built <em>with</em> wardrobe.<br>Not <em>for</em> wardrobe.</div>
+        <div class="accent-line" style="margin: 0 auto 20px;"></div>
+        <div class="g-body" style="font-size: 12px; color: var(--taupe); max-width: 380px;">Every feature in our pipeline came directly from conversations with working wardrobe professionals. This is how we think software should be built.</div>
+        <div class="g-footer" style="width: 100%;">
+          <div class="handle" style="color: var(--taupe);">threadlineapp.io</div>
+          <div class="tagline">From Rack to Wrap</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     POST 15 -- Instagram -- This or That: Wardrobe Edition
+     Day 17, Wednesday | Carousel (5 slides)
+     Slide 1: Title card with playful dividing line.
+     Slides 2-5: One question per slide, split design.
+     ============================================================ -->
+<div class="post-section">
+  <div class="post-info">
+    <span class="post-number">Post 15</span>
+    <span class="post-day">Day 17 &middot; Wednesday</span>
+    <span class="platform-badge ig">Instagram</span>
+    <span class="format-badge">Carousel (5 slides)</span>
+  </div>
+  <div class="post-title-row">This or That: Wardrobe Edition</div>
+  <div class="graphics-row">
+    <!-- Slide 1: Title card -->
+    <div class="graphic-card" style="background: var(--cream);">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; height: 100%; position: relative;">
+        <div style="background: var(--cream); display: flex; align-items: center; justify-content: center;"></div>
+        <div style="background: var(--bone); display: flex; align-items: center; justify-content: center;"></div>
+        <div style="position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: var(--brown-gold); transform: translateX(-50%);"></div>
+        <!-- Centered content -->
+        <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; z-index: 2; padding: 40px;">
+          <div style="font-family: var(--mono); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--brown-gold); margin-bottom: 16px;">Wardrobe Department Edition</div>
+          <div class="g-headline" style="font-size: 40px; color: var(--near-black); background: var(--cream); padding: 12px 24px;">This or <em>That?</em></div>
+          <div style="font-family: var(--mono); font-size: 9px; color: var(--taupe); margin-top: 20px; letter-spacing: 0.06em;">Drop your answers in the comments &middot; SWIPE &rarr;</div>
+          <div style="position: absolute; bottom: 32px; left: 40px;"><div class="wordmark">THREAD<span class="wm-accent">LINE</span></div></div>
+          <div style="position: absolute; bottom: 32px; right: 40px;"><div class="handle">@threadline_app</div></div>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 2: Q1 -->
+    <div class="graphic-card" style="background: var(--cream);">
+      <div style="height: 100%; position: relative;">
+        <div class="tot-split" style="height: 100%;">
+          <div class="tot-side left" style="flex-direction: column; gap: 8px;">
+            <div style="font-family: var(--serif); font-size: 22px; font-weight: 400; color: var(--near-black);">Physical<br><em>rack dividers</em></div>
+          </div>
+          <div class="tot-side right" style="flex-direction: column; gap: 8px;">
+            <div style="font-family: var(--serif); font-size: 22px; font-weight: 400; color: var(--near-black);">Colored<br><em>hangers</em></div>
+          </div>
+          <div class="tot-divider"></div>
+          <div class="tot-or"><em>or</em></div>
+        </div>
+        <div style="position: absolute; top: 20px; left: 0; right: 0; text-align: center; font-family: var(--mono); font-size: 9px; color: var(--taupe); letter-spacing: 0.08em; text-transform: uppercase;">Question 1 of 4</div>
+        <div style="position: absolute; bottom: 20px; left: 28px;"><div class="wordmark">THREAD<span class="wm-accent">LINE</span></div></div>
+      </div>
+    </div>
+    <!-- Slide 3: Q2 -->
+    <div class="graphic-card" style="background: var(--cream);">
+      <div style="height: 100%; position: relative;">
+        <div class="tot-split" style="height: 100%;">
+          <div class="tot-side left" style="flex-direction: column; gap: 8px;">
+            <div style="font-family: var(--serif); font-size: 22px; font-weight: 400; color: var(--near-black);"><em>Polaroids</em></div>
+          </div>
+          <div class="tot-side right" style="flex-direction: column; gap: 8px;">
+            <div style="font-family: var(--serif); font-size: 22px; font-weight: 400; color: var(--near-black);">Digital<br><em>continuity photos</em></div>
+          </div>
+          <div class="tot-divider"></div>
+          <div class="tot-or"><em>or</em></div>
+        </div>
+        <div style="position: absolute; top: 20px; left: 0; right: 0; text-align: center; font-family: var(--mono); font-size: 9px; color: var(--taupe); letter-spacing: 0.08em; text-transform: uppercase;">Question 2 of 4</div>
+        <div style="position: absolute; bottom: 20px; left: 28px;"><div class="wordmark">THREAD<span class="wm-accent">LINE</span></div></div>
+      </div>
+    </div>
+    <!-- Slide 4: Q3 -->
+    <div class="graphic-card" style="background: var(--cream);">
+      <div style="height: 100%; position: relative;">
+        <div class="tot-split" style="height: 100%;">
+          <div class="tot-side left" style="flex-direction: column; gap: 8px;">
+            <div style="font-family: var(--serif); font-size: 22px; font-weight: 400; color: var(--near-black);">Shopping<br><em>in-store</em></div>
+          </div>
+          <div class="tot-side right" style="flex-direction: column; gap: 8px;">
+            <div style="font-family: var(--serif); font-size: 22px; font-weight: 400; color: var(--near-black);">Ordering<br><em>online</em></div>
+          </div>
+          <div class="tot-divider"></div>
+          <div class="tot-or"><em>or</em></div>
+        </div>
+        <div style="position: absolute; top: 20px; left: 0; right: 0; text-align: center; font-family: var(--mono); font-size: 9px; color: var(--taupe); letter-spacing: 0.08em; text-transform: uppercase;">Question 3 of 4</div>
+        <div style="position: absolute; bottom: 20px; left: 28px;"><div class="wordmark">THREAD<span class="wm-accent">LINE</span></div></div>
+      </div>
+    </div>
+    <!-- Slide 5: Q4 -->
+    <div class="graphic-card" style="background: var(--cream);">
+      <div style="height: 100%; position: relative;">
+        <div class="tot-split" style="height: 100%;">
+          <div class="tot-side left" style="flex-direction: column; gap: 8px;">
+            <div style="font-family: var(--serif); font-size: 22px; font-weight: 400; color: var(--near-black);"><em>Label maker</em></div>
+          </div>
+          <div class="tot-side right" style="flex-direction: column; gap: 8px;">
+            <div style="font-family: var(--serif); font-size: 20px; font-weight: 400; color: var(--near-black);">Masking tape<br>+ <em>Sharpie</em></div>
+          </div>
+          <div class="tot-divider"></div>
+          <div class="tot-or"><em>or</em></div>
+        </div>
+        <div style="position: absolute; top: 20px; left: 0; right: 0; text-align: center; font-family: var(--mono); font-size: 9px; color: var(--taupe); letter-spacing: 0.08em; text-transform: uppercase;">Question 4 of 4</div>
+        <div style="position: absolute; bottom: 20px; left: 28px;"><div class="wordmark">THREAD<span class="wm-accent">LINE</span></div></div>
+        <div style="position: absolute; bottom: 20px; right: 28px;"><div class="handle" style="font-size: 8px; color: var(--taupe);">Tell us below</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     POST 16 -- LinkedIn -- Why Wardrobe Budgets Go Over
+     Day 18, Thursday | Text + Image
+     Visual: Infographic listing 4 budget killers with icons.
+     Dusty-blue and cream. Professional, shareable.
+     ============================================================ -->
+<div class="post-section">
+  <div class="post-info">
+    <span class="post-number">Post 16</span>
+    <span class="post-day">Day 18 &middot; Thursday</span>
+    <span class="platform-badge li">LinkedIn</span>
+    <span class="format-badge">Text + Image</span>
+  </div>
+  <div class="post-title-row">Why Wardrobe Budgets Go Over (And How to Prevent It)</div>
+  <div class="single-graphic">
+    <div class="graphic-card linkedin bg-li-cream">
+      <div class="g-inner" style="padding: 32px 36px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px;">
+          <div>
+            <div class="wordmark">THREAD<span class="wm-accent">LINE</span></div>
+            <div class="handle">threadlineapp.io</div>
+          </div>
+          <div style="font-family: var(--mono); font-size: 9px; color: var(--dusty-blue); letter-spacing: 0.06em; text-transform: uppercase;">Industry Insights</div>
+        </div>
+        <div class="g-headline" style="font-size: 20px; color: var(--near-black); margin-bottom: 20px;">The 4 Invisible <em>Budget Killers</em></div>
+        <!-- 4 items with icons -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; flex: 1;">
+          <div style="background: white; border-radius: 8px; padding: 16px; box-shadow: 0 1px 6px rgba(0,0,0,0.03);">
+            <div style="font-size: 20px; margin-bottom: 8px;">&#9200;</div>
+            <div style="font-weight: 600; font-size: 11px; color: var(--near-black); margin-bottom: 4px;">Missed Return Deadlines</div>
+            <div style="font-size: 10px; color: var(--taupe); line-height: 1.5;">$50 rental becomes $400 purchase. Across 20 items = $7,000 over budget.</div>
+          </div>
+          <div style="background: white; border-radius: 8px; padding: 16px; box-shadow: 0 1px 6px rgba(0,0,0,0.03);">
+            <div style="font-size: 20px; margin-bottom: 8px;">&#128257;</div>
+            <div style="font-weight: 600; font-size: 11px; color: var(--near-black); margin-bottom: 4px;">Duplicate Purchases</div>
+            <div style="font-size: 10px; color: var(--taupe); line-height: 1.5;">Without real-time visibility, two people buy the same item on the same day.</div>
+          </div>
+          <div style="background: white; border-radius: 8px; padding: 16px; box-shadow: 0 1px 6px rgba(0,0,0,0.03);">
+            <div style="font-size: 20px; margin-bottom: 8px;">&#128196;</div>
+            <div style="font-weight: 600; font-size: 11px; color: var(--near-black); margin-bottom: 4px;">Receipt Gaps</div>
+            <div style="font-size: 10px; color: var(--taupe); line-height: 1.5;">Missing receipts show up as unexplained expenses in the final budget report.</div>
+          </div>
+          <div style="background: white; border-radius: 8px; padding: 16px; box-shadow: 0 1px 6px rgba(0,0,0,0.03);">
+            <div style="font-size: 20px; margin-bottom: 8px;">&#128200;</div>
+            <div style="font-weight: 600; font-size: 11px; color: var(--near-black); margin-bottom: 4px;">Scope Creep</div>
+            <div style="font-size: 10px; color: var(--taupe); line-height: 1.5;">Script changes mean new purchases. Without live tracking, nobody sees the overage building.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     POST 17 -- Instagram -- Feature Spotlight: Thread AI
+     Day 19, Friday | Carousel (4 slides)
+     Slide 1: "Meet Thread AI" with sparkle/glow on gradient.
+     Slides 2-4: AI features as icon cards. Cream and copper.
+     ============================================================ -->
+<div class="post-section">
+  <div class="post-info">
+    <span class="post-number">Post 17</span>
+    <span class="post-day">Day 19 &middot; Friday</span>
+    <span class="platform-badge ig">Instagram</span>
+    <span class="format-badge">Carousel (4 slides)</span>
+  </div>
+  <div class="post-title-row">Feature Spotlight: Thread AI</div>
+  <div class="graphics-row">
+    <!-- Slide 1: Meet Thread AI -->
+    <div class="graphic-card bg-gradient">
+      <div class="g-inner" style="justify-content: center; align-items: center; text-align: center; position: relative; overflow: hidden;">
+        <!-- Sparkle effects -->
+        <div class="sparkle" style="top: 15%; left: 20%; animation-delay: 0s;"></div>
+        <div class="sparkle" style="top: 25%; right: 18%; animation-delay: 0.4s; width: 3px; height: 3px;"></div>
+        <div class="sparkle" style="top: 60%; left: 15%; animation-delay: 0.8s; width: 5px; height: 5px;"></div>
+        <div class="sparkle" style="top: 40%; right: 25%; animation-delay: 1.2s;"></div>
+        <div class="sparkle" style="bottom: 30%; left: 30%; animation-delay: 1.6s; width: 3px; height: 3px;"></div>
+        <div class="sparkle" style="top: 70%; right: 15%; animation-delay: 0.6s; width: 6px; height: 6px;"></div>
+        <div class="sparkle" style="top: 10%; left: 50%; animation-delay: 1s;"></div>
+
+        <div style="font-family: var(--mono); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 20px;">Introducing</div>
+        <div class="g-headline" style="font-size: 44px; margin-bottom: 8px;">Meet<br><em>Thread AI</em></div>
+        <div style="width: 40px; height: 2px; background: rgba(255,255,255,0.3); margin: 16px auto;"></div>
+        <div class="g-body" style="font-size: 13px; color: rgba(255,255,255,0.6); max-width: 260px;">Your wardrobe department's<br>new favorite coworker.</div>
+        <div style="font-family: var(--mono); font-size: 10px; color: rgba(255,255,255,0.3); margin-top: 24px; letter-spacing: 0.06em;">SWIPE TO LEARN MORE &rarr;</div>
+        <div class="g-footer" style="width: 100%;">
+          <div class="wordmark">THREAD<span class="wm-accent">LINE</span></div>
+          <div class="handle">@threadline_app</div>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 2: Auto-categorization + Smart Receipts -->
+    <div class="graphic-card bg-cream">
+      <div class="g-inner" style="justify-content: center;">
+        <!-- Feature 1 -->
+        <div style="display: flex; gap: 16px; align-items: flex-start; margin-bottom: 32px;">
+          <div class="g-icon-circle gold">&#128270;</div>
+          <div>
+            <div style="font-weight: 600; font-size: 14px; color: var(--near-black); margin-bottom: 6px;">Auto-Categorization</div>
+            <div class="g-body" style="font-size: 12px; color: var(--taupe); line-height: 1.6; max-width: 260px;">Photograph a garment and Thread AI identifies the type, suggests a category, and recommends character assignments based on your patterns.</div>
+          </div>
+        </div>
+        <!-- Feature 2 -->
+        <div style="display: flex; gap: 16px; align-items: flex-start;">
+          <div class="g-icon-circle gold">&#128203;</div>
+          <div>
+            <div style="font-weight: 600; font-size: 14px; color: var(--near-black); margin-bottom: 6px;">Smart Receipt Reading</div>
+            <div class="g-body" style="font-size: 12px; color: var(--taupe); line-height: 1.6; max-width: 260px;">Not just OCR. It understands line items, separates tax from subtotals, and flags anything unusual.</div>
+          </div>
+        </div>
+        <div class="g-footer">
+          <div class="wordmark">THREAD<span class="wm-accent">LINE</span></div>
+          <div class="handle">@threadline_app</div>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 3: Budget Forecasting + Continuity -->
+    <div class="graphic-card bg-cream">
+      <div class="g-inner" style="justify-content: center;">
+        <!-- Feature 3 -->
+        <div style="display: flex; gap: 16px; align-items: flex-start; margin-bottom: 32px;">
+          <div class="g-icon-circle gold">&#128202;</div>
+          <div>
+            <div style="font-weight: 600; font-size: 14px; color: var(--near-black); margin-bottom: 6px;">Budget Forecasting</div>
+            <div class="g-body" style="font-size: 12px; color: var(--taupe); line-height: 1.6; max-width: 260px;">Based on spending patterns and schedule, Thread AI projects where your budget is heading and flags potential overruns before they happen.</div>
+          </div>
+        </div>
+        <!-- Feature 4 -->
+        <div style="display: flex; gap: 16px; align-items: flex-start;">
+          <div class="g-icon-circle gold">&#128247;</div>
+          <div>
+            <div style="font-weight: 600; font-size: 14px; color: var(--near-black); margin-bottom: 6px;">Continuity Suggestions</div>
+            <div class="g-body" style="font-size: 12px; color: var(--taupe); line-height: 1.6; max-width: 260px;">Working on a scene last shot weeks ago? Thread AI pulls up the continuity notes and photos automatically.</div>
+          </div>
+        </div>
+        <div class="g-footer">
+          <div class="wordmark">THREAD<span class="wm-accent">LINE</span></div>
+          <div class="handle">@threadline_app</div>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 4: CTA -->
+    <div class="graphic-card bg-gradient-warm">
+      <div class="g-inner" style="justify-content: center; align-items: center; text-align: center;">
+        <div class="g-headline" style="font-size: 26px; margin-bottom: 16px;">AI that does the<br>grunt work so you<br>can focus on the<br><em>creative work.</em></div>
+        <div class="accent-line" style="margin: 0 auto 24px; background: rgba(255,255,255,0.3);"></div>
+        <div class="g-cta cta-light">Join Early Access</div>
+        <div class="g-footer" style="width: 100%;">
+          <div class="wordmark">THREAD<span class="wm-accent">LINE</span></div>
+          <div class="tagline">From Rack to Wrap</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     POST 18 -- Instagram -- Wardrobe PA Survival Kit
+     Day 21, Saturday | Carousel (5 slides)
+     Slide 1: Title with garment bag icon on cream.
+     Slides 2-5: Two tips per slide, numbered callouts.
+     ============================================================ -->
+<div class="post-section">
+  <div class="post-info">
+    <span class="post-number">Post 18</span>
+    <span class="post-day">Day 21 &middot; Saturday</span>
+    <span class="platform-badge ig">Instagram</span>
+    <span class="format-badge">Carousel (5 slides)</span>
+  </div>
+  <div class="post-title-row">Wardrobe PA Survival Kit</div>
+  <div class="graphics-row">
+    <!-- Slide 1: Title -->
+    <div class="graphic-card bg-cream">
+      <div class="ghost-rack"></div>
+      <div class="g-inner" style="justify-content: center; align-items: center; text-align: center;">
+        <div style="font-size: 40px; margin-bottom: 16px;">&#128188;</div>
+        <div style="font-family: var(--mono); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--brown-gold); margin-bottom: 12px;">Save This for Your Next Show</div>
+        <div class="g-headline" style="font-size: 34px; color: var(--near-black);">The Wardrobe PA<br><em>Survival Kit</em></div>
+        <div class="accent-line" style="margin: 20px auto 16px;"></div>
+        <div class="g-body" style="font-size: 12px; color: var(--taupe);">Things nobody tells you on your first day.</div>
+        <div style="font-family: var(--mono); font-size: 9px; color: var(--taupe); margin-top: 20px; letter-spacing: 0.06em;">SWIPE &rarr;</div>
+        <div class="g-footer" style="width: 100%;">
+          <div class="wordmark">THREAD<span class="wm-accent">LINE</span></div>
+          <div class="handle">@threadline_app</div>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 2: Tips 1 & 2 -->
+    <div class="graphic-card bg-cream">
+      <div class="g-inner" style="justify-content: center;">
+        <div class="g-numbered-item" style="margin-bottom: 28px;">
+          <div class="g-num" style="font-size: 48px; color: rgba(139,111,82,0.15);">1</div>
+          <div>
+            <div style="font-weight: 600; font-size: 13px; color: var(--near-black); margin-bottom: 6px;">Photograph both the price tag AND the garment</div>
+            <div class="g-body" style="font-size: 11px; color: var(--taupe);">Before removing any tags. Future you will thank present you.</div>
+          </div>
+        </div>
+        <div class="g-numbered-item">
+          <div class="g-num" style="font-size: 48px; color: rgba(139,111,82,0.15);">2</div>
+          <div>
+            <div style="font-weight: 600; font-size: 13px; color: var(--near-black); margin-bottom: 6px;">Dedicated phone folder for continuity</div>
+            <div class="g-body" style="font-size: 11px; color: var(--taupe);">Name photos by character and scene number, not just date. Finding "IMG_4782" three weeks later helps nobody.</div>
+          </div>
+        </div>
+        <div class="g-footer">
+          <div class="wordmark">THREAD<span class="wm-accent">LINE</span></div>
+          <div class="handle">@threadline_app</div>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 3: Tips 3 & 4 -->
+    <div class="graphic-card bg-cream">
+      <div class="g-inner" style="justify-content: center;">
+        <div class="g-numbered-item" style="margin-bottom: 28px;">
+          <div class="g-num" style="font-size: 48px; color: rgba(139,111,82,0.15);">3</div>
+          <div>
+            <div style="font-weight: 600; font-size: 13px; color: var(--near-black); margin-bottom: 6px;">Return receipts are just as important</div>
+            <div class="g-body" style="font-size: 11px; color: var(--taupe);">File them separately and note which return goes with which original purchase.</div>
+          </div>
+        </div>
+        <div class="g-numbered-item">
+          <div class="g-num" style="font-size: 48px; color: rgba(139,111,82,0.15);">4</div>
+          <div>
+            <div style="font-weight: 600; font-size: 13px; color: var(--near-black); margin-bottom: 6px;">Set return reminders immediately</div>
+            <div class="g-body" style="font-size: 11px; color: var(--taupe);">The day you make the purchase. Not later. Not tomorrow. Right then.</div>
+          </div>
+        </div>
+        <div class="g-footer">
+          <div class="wordmark">THREAD<span class="wm-accent">LINE</span></div>
+          <div class="handle">@threadline_app</div>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 4: Tips 5 & 6 -->
+    <div class="graphic-card bg-cream">
+      <div class="g-inner" style="justify-content: center;">
+        <div class="g-numbered-item" style="margin-bottom: 28px;">
+          <div class="g-num" style="font-size: 48px; color: rgba(139,111,82,0.15);">5</div>
+          <div>
+            <div style="font-weight: 600; font-size: 13px; color: var(--near-black); margin-bottom: 6px;">Label everything</div>
+            <div class="g-body" style="font-size: 11px; color: var(--taupe);">If you think you'll remember which rack is for which character, you won't. Not by day three.</div>
+          </div>
+        </div>
+        <div class="g-numbered-item">
+          <div class="g-num" style="font-size: 48px; color: rgba(139,111,82,0.15);">6</div>
+          <div>
+            <div style="font-weight: 600; font-size: 13px; color: var(--near-black); margin-bottom: 6px;">Back up your spreadsheets daily</div>
+            <div class="g-body" style="font-size: 11px; color: var(--taupe);">To the cloud. Every single night. No exceptions.</div>
+          </div>
+        </div>
+        <div class="g-footer">
+          <div class="wordmark">THREAD<span class="wm-accent">LINE</span></div>
+          <div class="handle">@threadline_app</div>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 5: Bonus + CTA -->
+    <div class="graphic-card bg-gradient">
+      <div class="g-inner" style="justify-content: center; align-items: center; text-align: center;">
+        <div style="font-family: var(--mono); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 16px;">Bonus</div>
+        <div class="g-headline" style="font-size: 26px; margin-bottom: 16px;">Pretty soon, Threadline<br>will handle most of<br>this <em>automatically.</em></div>
+        <div class="accent-line" style="margin: 0 auto 20px; background: rgba(255,255,255,0.3);"></div>
+        <div class="g-body" style="font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 24px;">Until then, the survival kit stands.</div>
+        <div class="g-cta cta-light">Join Early Access</div>
+        <div class="g-footer" style="width: 100%;">
+          <div class="wordmark">THREAD<span class="wm-accent">LINE</span></div>
+          <div class="tagline">From Rack to Wrap</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end week 3 -->
+
+
+<!-- ================================================================
+     WEEK 4 -- DAYS 22-30 -- CONVERT & COMPOUND
+     Posts 19 through 24
+     ================================================================ -->
+<div class="week-section" id="week4">
+<div class="week-header">
+  <h2>Week 4</h2>
+  <span class="week-range">Days 22 - 30 &middot; Convert &amp; Compound</span>
+</div>
+
+
+<!-- ============================================================
+     POST 19 -- Instagram -- A Look at What We're Building
+     Day 22, Monday | Carousel (3 slides)
+     Slide 1: Inventory view mockup (stylized).
+     Slide 2: Budget dashboard preview.
+     Slide 3: Return tracker timeline.
+     ============================================================ -->
+<div class="post-section">
+  <div class="post-info">
+    <span class="post-number">Post 19</span>
+    <span class="post-day">Day 22 &middot; Monday</span>
+    <span class="platform-badge ig">Instagram</span>
+    <span class="format-badge">Carousel (3 slides)</span>
+  </div>
+  <div class="post-title-row">A Look at What We're Building</div>
+  <div class="graphics-row">
+    <!-- Slide 1: Inventory view -->
+    <div class="graphic-card bg-cream">
+      <div class="g-inner">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+          <div>
+            <div class="wordmark">THREAD<span class="wm-accent">LINE</span></div>
+            <div style="font-family: var(--mono); font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--brown-gold); margin-top: 4px;">Inventory View</div>
+          </div>
+          <div style="font-family: var(--mono); font-size: 9px; color: var(--taupe); letter-spacing: 0.04em;">1 of 3</div>
+        </div>
+        <!-- Stylized inventory UI mockup -->
+        <div style="flex: 1; background: white; border-radius: 8px; padding: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.04); overflow: hidden; position: relative;">
+          <!-- Search bar -->
+          <div style="background: var(--bone); border-radius: 6px; padding: 8px 12px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 12px; color: var(--taupe);">&#128269;</span>
+            <span style="font-family: var(--body); font-size: 10px; color: var(--taupe);">Search inventory...</span>
+          </div>
+          <!-- Filter chips -->
+          <div style="display: flex; gap: 6px; margin-bottom: 12px;">
+            <span style="font-family: var(--mono); font-size: 8px; padding: 3px 8px; border-radius: 10px; background: var(--brown-gold); color: white;">All Items</span>
+            <span style="font-family: var(--mono); font-size: 8px; padding: 3px 8px; border-radius: 10px; border: 1px solid var(--warm-gray); color: var(--taupe);">Character A</span>
+            <span style="font-family: var(--mono); font-size: 8px; padding: 3px 8px; border-radius: 10px; border: 1px solid var(--warm-gray); color: var(--taupe);">Rentals</span>
+          </div>
+          <!-- Inventory rows -->
+          <div style="border-top: 1px solid rgba(0,0,0,0.05);">
+            <div style="display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid rgba(0,0,0,0.04);">
+              <div style="width: 32px; height: 32px; border-radius: 4px; background: var(--bone);"></div>
+              <div style="flex: 1;"><div style="font-size: 10px; font-weight: 600;">Navy Blazer</div><div style="font-size: 8px; color: var(--taupe);">Nordstrom &middot; Character A</div></div>
+              <div style="font-family: var(--mono); font-size: 9px; color: var(--forest);">On Set</div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid rgba(0,0,0,0.04);">
+              <div style="width: 32px; height: 32px; border-radius: 4px; background: var(--linen);"></div>
+              <div style="flex: 1;"><div style="font-size: 10px; font-weight: 600;">Silk Blouse (Cream)</div><div style="font-size: 8px; color: var(--taupe);">Rental Co &middot; Character B</div></div>
+              <div style="font-family: var(--mono); font-size: 9px; color: var(--brown-gold);">Rental</div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid rgba(0,0,0,0.04);">
+              <div style="width: 32px; height: 32px; border-radius: 4px; background: var(--warm-gray);"></div>
+              <div style="flex: 1;"><div style="font-size: 10px; font-weight: 600;">Brown Oxford Shoes</div><div style="font-size: 8px; color: var(--taupe);">In-Store Purchase</div></div>
+              <div style="font-family: var(--mono); font-size: 9px; color: var(--near-black);">In Stock</div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px; padding: 8px 0;">
+              <div style="width: 32px; height: 32px; border-radius: 4px; background: var(--bone);"></div>
+              <div style="flex: 1;"><div style="font-size: 10px; font-weight: 600;">Wool Overcoat</div><div style="font-size: 8px; color: var(--taupe);">Western Costume</div></div>
+              <div style="font-family: var(--mono); font-size: 9px; color: var(--clay);">Return Due</div>
+            </div>
+          </div>
+          <!-- Subtle fade overlay -->
+          <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 40px; background: linear-gradient(transparent, white); pointer-events: none;"></div>
+        </div>
+        <div class="g-footer">
+          <div class="handle">@threadline_app</div>
+          <div style="font-family: var(--mono); font-size: 9px; color: var(--taupe); letter-spacing: 0.06em;">SWIPE &rarr;</div>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 2: Budget dashboard -->
+    <div class="graphic-card bg-cream">
+      <div class="g-inner">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+          <div>
+            <div class="wordmark">THREAD<span class="wm-accent">LINE</span></div>
+            <div style="font-family: var(--mono); font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--brown-gold); margin-top: 4px;">Budget Dashboard</div>
+          </div>
+          <div style="font-family: var(--mono); font-size: 9px; color: var(--taupe); letter-spacing: 0.04em;">2 of 3</div>
+        </div>
+        <div style="flex: 1; background: white; border-radius: 8px; padding: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.04);">
+          <!-- Total budget bar -->
+          <div style="margin-bottom: 16px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+              <span style="font-size: 10px; font-weight: 600;">Total Budget</span>
+              <span style="font-family: var(--mono); font-size: 10px;">$42,800 / $65,000</span>
+            </div>
+            <div style="height: 12px; background: var(--bone); border-radius: 6px; overflow: hidden;">
+              <div style="width: 66%; height: 100%; background: var(--brand-gradient); border-radius: 6px;"></div>
+            </div>
+            <div style="font-family: var(--mono); font-size: 9px; color: var(--taupe); margin-top: 4px;">65.8% utilized</div>
+          </div>
+          <!-- Category breakdown -->
+          <div style="font-family: var(--mono); font-size: 8px; color: var(--taupe); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px;">By Category</div>
+          <div class="budget-bar-row">
+            <div class="budget-bar-label">Purchases</div>
+            <div class="budget-bar-track"><div class="budget-bar-fill" style="width: 72%; background: var(--brown-gold);"></div></div>
+            <div class="budget-bar-val">$21,600</div>
+          </div>
+          <div class="budget-bar-row">
+            <div class="budget-bar-label">Rentals</div>
+            <div class="budget-bar-track"><div class="budget-bar-fill" style="width: 45%; background: var(--copper);"></div></div>
+            <div class="budget-bar-val">$13,500</div>
+          </div>
+          <div class="budget-bar-row">
+            <div class="budget-bar-label">Alterations</div>
+            <div class="budget-bar-track"><div class="budget-bar-fill" style="width: 20%; background: var(--dusty-blue);"></div></div>
+            <div class="budget-bar-val">$5,200</div>
+          </div>
+          <div class="budget-bar-row">
+            <div class="budget-bar-label">Returns</div>
+            <div class="budget-bar-track"><div class="budget-bar-fill" style="width: 10%; background: var(--forest);"></div></div>
+            <div class="budget-bar-val">-$2,500</div>
+          </div>
+        </div>
+        <div class="g-footer">
+          <div class="handle">@threadline_app</div>
+          <div style="font-family: var(--mono); font-size: 9px; color: var(--taupe); letter-spacing: 0.06em;">SWIPE &rarr;</div>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 3: Return tracker timeline -->
+    <div class="graphic-card bg-gradient-subtle">
+      <div class="g-inner" style="justify-content: center; align-items: center; text-align: center;">
+        <div style="font-family: var(--mono); font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 20px;">Behind the Scenes</div>
+        <div class="g-headline" style="font-size: 28px; margin-bottom: 16px;">Still refining.<br>Still polishing.<br>Still <em>listening.</em></div>
+        <div style="width: 40px; height: 2px; background: rgba(255,255,255,0.3); margin: 0 auto 20px;"></div>
+        <div class="g-body" style="font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 28px;">Want to see it first?</div>
+        <div class="g-cta cta-light">Link in Bio</div>
+        <div class="g-footer" style="width: 100%;">
+          <div class="wordmark">THREAD<span class="wm-accent">LINE</span></div>
+          <div class="tagline">From Rack to Wrap</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     POST 20 -- LinkedIn -- The Wardrobe Department Deserves
+     Better Tools
+     Day 23, Tuesday | Text Post (optional image)
+     Visual: Department comparison. Camera: digital, Scheduling:
+     digital, Post: digital, Wardrobe: spreadsheet.
+     ============================================================ -->
+<div class="post-section">
+  <div class="post-info">
+    <span class="post-number">Post 20</span>
+    <span class="post-day">Day 23 &middot; Tuesday</span>
+    <span class="platform-badge li">LinkedIn</span>
+    <span class="format-badge">Text Post</span>
+  </div>
+  <div class="post-title-row">The Wardrobe Department Deserves Better Tools</div>
+  <div class="single-graphic">
+    <div class="graphic-card linkedin bg-li-cream">
+      <div class="g-inner" style="padding: 32px 40px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px;">
+          <div class="wordmark">THREAD<span class="wm-accent">LINE</span></div>
+          <div class="handle" style="color: var(--taupe);">threadlineapp.io</div>
+        </div>
+        <div class="g-headline" style="font-size: 18px; color: var(--near-black); margin-bottom: 24px;">Digital Tools by <em>Department</em></div>
+        <!-- Department comparison bars -->
+        <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 4px;">
+          <div class="dept-row">
+            <div class="dept-label" style="color: var(--near-black);">Camera</div>
+            <div class="dept-bar" style="background: var(--dusty-blue); width: 90%;">Digital workflows</div>
+          </div>
+          <div class="dept-row">
+            <div class="dept-label" style="color: var(--near-black);">Scheduling</div>
+            <div class="dept-bar" style="background: var(--dusty-blue); width: 85%;">Dedicated software</div>
+          </div>
+          <div class="dept-row">
+            <div class="dept-label" style="color: var(--near-black);">Post-Production</div>
+            <div class="dept-bar" style="background: var(--dusty-blue); width: 95%;">Entirely digital</div>
+          </div>
+          <div class="dept-row">
+            <div class="dept-label" style="color: var(--near-black);">Production Office</div>
+            <div class="dept-bar" style="background: var(--dusty-blue); width: 80%;">Cloud-based tools</div>
+          </div>
+          <div class="dept-row">
+            <div class="dept-label" style="color: var(--near-black); font-weight: 600;">Wardrobe</div>
+            <div class="dept-bar" style="background: var(--clay); width: 20%; font-weight: 600;">Spreadsheets</div>
+          </div>
+        </div>
+        <div style="font-family: var(--serif); font-style: italic; font-size: 16px; color: var(--near-black); text-align: center; margin-top: 16px;">That's the gap we're here to fill.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     POST 21 -- Instagram -- The Continuity Photo Problem
+     Day 24, Wednesday | Carousel (3 slides)
+     Slide 1: "Which pocket was the handkerchief in?" italic.
+     Slide 2: Scattered phone icons with question marks.
+     Slide 3: Organized Threadline continuity view.
+     ============================================================ -->
+<div class="post-section">
+  <div class="post-info">
+    <span class="post-number">Post 21</span>
+    <span class="post-day">Day 24 &middot; Wednesday</span>
+    <span class="platform-badge ig">Instagram</span>
+    <span class="format-badge">Carousel (3 slides)</span>
+  </div>
+  <div class="post-title-row">The Continuity Photo Problem</div>
+  <div class="graphics-row">
+    <!-- Slide 1: Quote -->
+    <div class="graphic-card bg-cream">
+      <div class="ghost-rack"></div>
+      <div class="g-inner" style="justify-content: center; align-items: center; text-align: center;">
+        <div style="font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--taupe); margin-bottom: 24px;">The Continuity Problem</div>
+        <div class="g-headline" style="font-size: 34px; font-style: italic; font-weight: 400; color: var(--near-black); line-height: 1.25;">"Which pocket was<br>the handkerchief in?"</div>
+        <div class="accent-line" style="margin: 24px auto 16px;"></div>
+        <div class="g-body" style="font-size: 12px; color: var(--taupe);">6 AM. On set. Four weeks since the last shoot.<br>The PA who took the photo already wrapped.</div>
+        <div style="font-family: var(--mono); font-size: 9px; color: var(--taupe); margin-top: 20px; letter-spacing: 0.06em;">SWIPE &rarr;</div>
+        <div class="g-footer" style="width: 100%;">
+          <div class="wordmark">THREAD<span class="wm-accent">LINE</span></div>
+          <div class="handle">@threadline_app</div>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 2: The problem - scattered phones -->
+    <div class="graphic-card bg-bone">
+      <div class="g-inner" style="justify-content: center; align-items: center; text-align: center;">
+        <div style="font-family: var(--mono); font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--clay); margin-bottom: 20px;">The Problem</div>
+        <!-- Scattered phone icons -->
+        <div style="position: relative; width: 280px; height: 200px; margin-bottom: 20px;">
+          <div style="position: absolute; top: 10px; left: 20px; font-size: 32px; transform: rotate(-10deg);">&#128241;</div>
+          <div style="position: absolute; top: 10px; left: 20px; margin-top: 36px; margin-left: 6px; font-size: 14px;">&#10067;</div>
+          <div style="position: absolute; top: 60px; right: 30px; font-size: 32px; transform: rotate(12deg);">&#128241;</div>
+          <div style="position: absolute; top: 60px; right: 30px; margin-top: 36px; margin-left: 6px; font-size: 14px;">&#10067;</div>
+          <div style="position: absolute; bottom: 20px; left: 60px; font-size: 32px; transform: rotate(-5deg);">&#128241;</div>
+          <div style="position: absolute; bottom: 20px; left: 60px; margin-top: 36px; margin-left: 6px; font-size: 14px;">&#10067;</div>
+          <div style="position: absolute; top: 30px; left: 50%; font-size: 32px; transform: rotate(8deg) translateX(-50%);">&#128241;</div>
+          <div style="position: absolute; top: 30px; left: 50%; margin-top: 36px; font-size: 14px; transform: translateX(-50%);">&#10067;</div>
+          <div style="position: absolute; bottom: 40px; right: 50px; font-size: 32px; transform: rotate(-15deg);">&#128241;</div>
+          <div style="position: absolute; bottom: 40px; right: 50px; margin-top: 36px; margin-left: 6px; font-size: 14px;">&#10067;</div>
+        </div>
+        <div class="g-headline" style="font-size: 20px; color: var(--near-black); margin-bottom: 8px;">Photos on random phones.<br>Notes in random places.<br>People who already <em>wrapped.</em></div>
+        <div class="g-body" style="font-size: 11px; color: var(--taupe); margin-top: 8px;">One personnel change away from collapse.</div>
+        <div class="g-footer" style="width: 100%;">
+          <div class="wordmark">THREAD<span class="wm-accent">LINE</span></div>
+          <div class="handle">@threadline_app</div>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 3: The solution - organized continuity -->
+    <div class="graphic-card bg-gradient-subtle">
+      <div class="g-inner" style="justify-content: center; align-items: center; text-align: center;">
+        <div style="font-family: var(--mono); font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 20px;">The Solution</div>
+        <div class="g-headline" style="font-size: 26px; margin-bottom: 16px;">One place.<br>Organized by character.<br>Searchable. <em>Shared.</em></div>
+        <div style="width: 40px; height: 2px; background: rgba(255,255,255,0.3); margin: 0 auto 20px;"></div>
+        <div class="g-body" style="font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 24px;">Because "I think it was the left pocket"<br>isn't good enough when the director is waiting.</div>
+        <div class="g-cta cta-light">Join Early Access</div>
+        <div class="g-footer" style="width: 100%;">
+          <div class="wordmark">THREAD<span class="wm-accent">LINE</span></div>
+          <div class="tagline">From Rack to Wrap</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     POST 22 -- LinkedIn -- Feature Deep Dive: Real-Time Budget
+     Dashboard
+     Day 25, Thursday | Text + Image
+     Visual: Budget dashboard mockup with horizontal bar chart.
+     Cream and dusty-blue. Product preview feel.
+     ============================================================ -->
+<div class="post-section">
+  <div class="post-info">
+    <span class="post-number">Post 22</span>
+    <span class="post-day">Day 25 &middot; Thursday</span>
+    <span class="platform-badge li">LinkedIn</span>
+    <span class="format-badge">Text + Image</span>
+  </div>
+  <div class="post-title-row">Feature Deep Dive: Real-Time Budget Dashboard</div>
+  <div class="single-graphic">
+    <div class="graphic-card linkedin bg-li-cream">
+      <div class="g-inner" style="padding: 32px 36px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
+          <div>
+            <div class="wordmark">THREAD<span class="wm-accent">LINE</span></div>
+            <div class="handle">Budget Dashboard</div>
+          </div>
+          <div style="font-family: var(--mono); font-size: 9px; color: var(--dusty-blue); letter-spacing: 0.06em; text-transform: uppercase;">Feature Deep Dive</div>
+        </div>
+        <!-- Dashboard mockup -->
+        <div style="flex: 1; background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.04);">
+          <!-- Top stats row -->
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px;">
+            <div style="background: var(--bone); border-radius: 6px; padding: 10px 12px; text-align: center;">
+              <div style="font-family: var(--mono); font-size: 16px; font-weight: 600; color: var(--near-black);">$42.8K</div>
+              <div style="font-family: var(--mono); font-size: 7px; color: var(--taupe); letter-spacing: 0.06em; text-transform: uppercase;">Total Spend</div>
+            </div>
+            <div style="background: var(--bone); border-radius: 6px; padding: 10px 12px; text-align: center;">
+              <div style="font-family: var(--mono); font-size: 16px; font-weight: 600; color: var(--forest);">$22.2K</div>
+              <div style="font-family: var(--mono); font-size: 7px; color: var(--taupe); letter-spacing: 0.06em; text-transform: uppercase;">Remaining</div>
+            </div>
+            <div style="background: var(--bone); border-radius: 6px; padding: 10px 12px; text-align: center;">
+              <div style="font-family: var(--mono); font-size: 16px; font-weight: 600; color: var(--brown-gold);">65.8%</div>
+              <div style="font-family: var(--mono); font-size: 7px; color: var(--taupe); letter-spacing: 0.06em; text-transform: uppercase;">Utilized</div>
+            </div>
+          </div>
+          <!-- Category bars -->
+          <div style="font-family: var(--mono); font-size: 8px; color: var(--taupe); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px;">Spend by Category</div>
+          <div class="budget-bar-row">
+            <div class="budget-bar-label">Purchases</div>
+            <div class="budget-bar-track"><div class="budget-bar-fill" style="width: 72%; background: var(--brown-gold);"></div></div>
+            <div class="budget-bar-val">$21.6K</div>
+          </div>
+          <div class="budget-bar-row">
+            <div class="budget-bar-label">Rentals</div>
+            <div class="budget-bar-track"><div class="budget-bar-fill" style="width: 45%; background: var(--dusty-blue);"></div></div>
+            <div class="budget-bar-val">$13.5K</div>
+          </div>
+          <div class="budget-bar-row">
+            <div class="budget-bar-label">Alterations</div>
+            <div class="budget-bar-track"><div class="budget-bar-fill" style="width: 17%; background: var(--copper);"></div></div>
+            <div class="budget-bar-val">$5.2K</div>
+          </div>
+          <div class="budget-bar-row">
+            <div class="budget-bar-label">Returns</div>
+            <div class="budget-bar-track"><div class="budget-bar-fill" style="width: 8%; background: var(--forest);"></div></div>
+            <div class="budget-bar-val">-$2.5K</div>
+          </div>
+          <!-- Projection note -->
+          <div style="margin-top: 12px; padding: 8px 12px; background: rgba(139,111,82,0.06); border-radius: 4px; border-left: 2px solid var(--brown-gold);">
+            <div style="font-family: var(--mono); font-size: 8px; color: var(--brown-gold);">PROJECTED: On track to finish at 89% utilized ($57.9K of $65K)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     POST 23 -- Instagram -- What Feature Would Change Your
+     Life on Set?
+     Day 26, Friday | Single Image
+     Visual: Poll-style graphic with A, B, C, D options in
+     brown-gold circles. Headline in Cormorant Garamond.
+     ============================================================ -->
+<div class="post-section">
+  <div class="post-info">
+    <span class="post-number">Post 23</span>
+    <span class="post-day">Day 26 &middot; Friday</span>
+    <span class="platform-badge ig">Instagram</span>
+    <span class="format-badge">Single Image</span>
+  </div>
+  <div class="post-title-row">What Feature Would Change Your Life on Set?</div>
+  <div class="single-graphic">
+    <div class="graphic-card bg-cream">
+      <div class="ghost-rack"></div>
+      <div class="g-inner" style="justify-content: center;">
+        <div style="text-align: center; margin-bottom: 24px;">
+          <div style="font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brown-gold); margin-bottom: 12px;">We're Genuinely Listening</div>
+          <div class="g-headline" style="font-size: 28px; color: var(--near-black);">What feature would<br>change your life <em>on set?</em></div>
+        </div>
+        <div class="accent-line" style="margin: 0 auto 20px;"></div>
+        <!-- Poll options -->
+        <div style="max-width: 320px; margin: 0 auto;">
+          <div class="poll-option">
+            <div class="poll-letter">A</div>
+            <div class="g-body" style="font-size: 13px; color: var(--near-black);">Automatic vendor contact lookup when you scan a garment</div>
+          </div>
+          <div class="poll-option" style="border-top: 1px solid rgba(0,0,0,0.05);">
+            <div class="poll-letter">B</div>
+            <div class="g-body" style="font-size: 13px; color: var(--near-black);">AI-generated continuity reports at end of each day</div>
+          </div>
+          <div class="poll-option" style="border-top: 1px solid rgba(0,0,0,0.05);">
+            <div class="poll-letter">C</div>
+            <div class="g-body" style="font-size: 13px; color: var(--near-black);">One-tap sharing of inventory lists with production</div>
+          </div>
+          <div class="poll-option" style="border-top: 1px solid rgba(0,0,0,0.05);">
+            <div class="poll-letter">D</div>
+            <div class="g-body" style="font-size: 13px; color: var(--near-black);">Offline mode that syncs when you get back to wifi</div>
+          </div>
+        </div>
+        <div style="text-align: center; margin-top: 16px; font-family: var(--mono); font-size: 9px; color: var(--taupe); letter-spacing: 0.04em;">Drop your letter in the comments</div>
+        <div class="g-footer">
+          <div class="wordmark">THREAD<span class="wm-accent">LINE</span></div>
+          <div class="handle">@threadline_app</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     POST 24 -- LinkedIn -- The Wrap Day Scramble
+     Day 27, Saturday | Text Post (optional image)
+     Visual: "Wrap day should feel like a victory lap." quote
+     on brand gradient. Dusty-blue accent.
+     ============================================================ -->
+<div class="post-section">
+  <div class="post-info">
+    <span class="post-number">Post 24</span>
+    <span class="post-day">Day 27 &middot; Saturday</span>
+    <span class="platform-badge li">LinkedIn</span>
+    <span class="format-badge">Text Post</span>
+  </div>
+  <div class="post-title-row">The Wrap Day Scramble</div>
+  <div class="single-graphic">
+    <div class="graphic-card linkedin" style="background: linear-gradient(135deg, #3A2A18 0%, #5A4228 40%, #627786 100%);">
+      <div class="g-inner" style="justify-content: center; align-items: center; text-align: center; padding: 36px 48px;">
+        <div class="wordmark" style="margin-bottom: 32px; color: white;">THREAD<span class="wm-accent" style="color: var(--copper);">LINE</span></div>
+        <div class="g-headline" style="font-size: 28px; color: white; font-style: italic; font-weight: 400; line-height: 1.3;">Wrap day should<br>feel like a <em>victory lap.</em></div>
+        <div style="width: 40px; height: 2px; background: rgba(255,255,255,0.25); margin: 20px auto;"></div>
+        <div class="g-body" style="font-size: 12px; color: rgba(255,255,255,0.5); max-width: 360px;">For wardrobe departments, it usually feels like a final exam. Threadline is designed to change that.</div>
+        <div style="font-family: var(--mono); font-size: 9px; color: rgba(255,255,255,0.3); margin-top: 24px; letter-spacing: 0.06em;">threadlineapp.io</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end week 4 -->
+
+
+</div><!-- end container -->
+
+<!-- ===== FOOTER ===== -->
+<div class="page-footer">
+  <p style="margin-bottom: 8px;">Content Visuals for @threadline_app &middot; Posts 8 - 24 &middot; Weeks 2, 3 &amp; 4</p>
+  <a href="https://cooperinteractive.com">Made with care</a>
+</div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+/* ===================================================================
+   Sticky nav: highlight active week link on scroll
+   Watches for which week section is currently in view and updates
+   the navigation pills accordingly.
+   =================================================================== */
+const weekSections = document.querySelectorAll('.week-section');
+const weekLinks = document.querySelectorAll('.week-links a');
+
+function updateActiveWeek() {
+  let current = '';
+  weekSections.forEach(section => {
+    const top = section.getBoundingClientRect().top;
+    if (top <= 120) {
+      current = section.id;
+    }
+  });
+  weekLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) {
+      link.classList.add('active');
+    }
+  });
+}
+
+window.addEventListener('scroll', updateActiveWeek, { passive: true });
+updateActiveWeek();
+</script>
+
+</body>
+</html>

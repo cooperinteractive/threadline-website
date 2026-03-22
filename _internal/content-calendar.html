@@ -1,0 +1,1954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ThreadLine — 30-Day Social Media Content Calendar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Inter:wght@200;300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ===================================================================
+   THREADLINE 30-DAY CONTENT CALENDAR
+   Platform colors: brown-gold for Instagram, dusty-blue for LinkedIn
+   Content types get subtle background tints
+   =================================================================== */
+
+:root {
+  --cream: #FAF8F5;
+  --bone: #F5F0EB;
+  --linen: #f0ebe4;
+  --warm-gray: #E8E3DE;
+  --sand: #D2C4B9;
+  --taupe: #B5A89C;
+  --brown-gold: #8B6F52;
+  --copper: #C4946A;
+  --dark-brown: #5A4228;
+  --espresso: #3A2A18;
+  --near-black: #1A1714;
+  --void: #0A0A0A;
+  --water: #5A7E8A;
+  --forest: #4A6741;
+  --clay: #8A4A42;
+  --dusty-blue: #627786;
+
+  --ig: #8B6F52;
+  --ig-bg: rgba(139,111,82,0.06);
+  --ig-border: rgba(139,111,82,0.18);
+  --li: #627786;
+  --li-bg: rgba(98,119,134,0.06);
+  --li-border: rgba(98,119,134,0.18);
+
+  /* Content type tints */
+  --tint-announce: rgba(196,148,106,0.08);
+  --tint-pain: rgba(138,74,66,0.07);
+  --tint-feature: rgba(90,126,138,0.07);
+  --tint-tips: rgba(74,103,65,0.07);
+  --tint-bts: rgba(139,111,82,0.05);
+  --tint-engage: rgba(196,148,106,0.06);
+  --tint-cta: rgba(90,66,40,0.08);
+
+  --serif: 'Cormorant Garamond', 'Georgia', serif;
+  --body: 'Inter', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', 'Menlo', monospace;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--body);
+  background: var(--cream);
+  color: var(--near-black);
+  line-height: 1.7;
+}
+
+::selection {
+  background: var(--copper);
+  color: white;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* --- TOP NAVIGATION (STICKY) --- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(250,248,245,0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(26,23,20,0.06);
+  padding: 12px 48px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.nav .brand {
+  font-family: var(--body);
+  font-weight: 200;
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-right: 8px;
+}
+
+.nav .brand .l { color: var(--brown-gold); }
+
+.nav a {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--taupe);
+  text-decoration: none;
+  padding: 5px 12px;
+  border-radius: 4px;
+  transition: all 0.15s;
+}
+
+.nav a:hover {
+  color: var(--brown-gold);
+  background: rgba(139,111,82,0.06);
+}
+
+.nav a.back { color: var(--brown-gold); }
+
+.nav .week-links {
+  display: flex;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.nav .week-links a {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 5px 14px;
+  border: 1px solid var(--warm-gray);
+  border-radius: 20px;
+  color: var(--near-black);
+  transition: all 0.2s;
+}
+
+.nav .week-links a:hover,
+.nav .week-links a.active {
+  background: var(--brown-gold);
+  color: white;
+  border-color: var(--brown-gold);
+}
+
+/* --- CONTAINER --- */
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 48px 48px 32px;
+}
+
+@media (max-width: 768px) {
+  .container { padding: 32px 20px 24px; }
+  .nav { padding: 12px 20px; gap: 10px; }
+  .nav .week-links { margin-left: 0; width: 100%; justify-content: center; }
+}
+
+/* --- PAGE HEADER --- */
+.page-header {
+  margin-bottom: 48px;
+}
+
+.page-header h1 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 38px;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.page-header h1 em {
+  font-family: var(--serif);
+  font-style: italic;
+}
+
+.page-header .subtitle {
+  font-size: 14px;
+  color: var(--taupe);
+  line-height: 1.7;
+  max-width: 640px;
+}
+
+/* --- SUMMARY STATS --- */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin-bottom: 48px;
+}
+
+.stat-card {
+  background: white;
+  border: 1px solid var(--warm-gray);
+  border-radius: 10px;
+  padding: 20px 24px;
+  text-align: center;
+}
+
+.stat-card .stat-num {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 32px;
+  color: var(--near-black);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.stat-card .stat-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--taupe);
+}
+
+.stat-card.ig { border-left: 3px solid var(--ig); }
+.stat-card.li { border-left: 3px solid var(--li); }
+.stat-card.mix { border-left: 3px solid var(--copper); }
+
+/* --- STRATEGY BOX --- */
+.strategy-box {
+  background: white;
+  border: 1px solid var(--warm-gray);
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 48px;
+}
+
+.strategy-box h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 22px;
+  margin-bottom: 16px;
+}
+
+.strategy-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 640px) {
+  .strategy-grid { grid-template-columns: 1fr; }
+}
+
+.strategy-col h3 {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brown-gold);
+  margin-bottom: 10px;
+}
+
+.strategy-col ul {
+  list-style: none;
+  font-size: 13px;
+  color: var(--near-black);
+  line-height: 2;
+}
+
+.strategy-col ul li::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-right: 10px;
+  position: relative;
+  top: -1px;
+}
+
+.strategy-col.ig-col ul li::before { background: var(--ig); }
+.strategy-col.li-col ul li::before { background: var(--li); }
+
+/* --- CONTENT TYPE LEGEND --- */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 48px;
+}
+
+.legend-item {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  padding: 5px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(26,23,20,0.08);
+}
+
+.legend-item.t-announce { background: var(--tint-announce); }
+.legend-item.t-pain { background: var(--tint-pain); }
+.legend-item.t-feature { background: var(--tint-feature); }
+.legend-item.t-tips { background: var(--tint-tips); }
+.legend-item.t-bts { background: var(--tint-bts); }
+.legend-item.t-engage { background: var(--tint-engage); }
+.legend-item.t-cta { background: var(--tint-cta); }
+
+/* --- WEEK DIVIDER --- */
+.week-section {
+  margin-bottom: 56px;
+  scroll-margin-top: 80px;
+}
+
+.week-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 28px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--near-black);
+}
+
+.week-header h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 28px;
+}
+
+.week-header .week-range {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--taupe);
+  letter-spacing: 0.04em;
+}
+
+/* --- POST CARD --- */
+.post-card {
+  background: white;
+  border: 1px solid var(--warm-gray);
+  border-radius: 12px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+
+.post-card:hover {
+  box-shadow: 0 4px 20px rgba(26,23,20,0.06);
+}
+
+/* Platform stripe */
+.post-card.platform-ig { border-left: 4px solid var(--ig); }
+.post-card.platform-li { border-left: 4px solid var(--li); }
+
+/* Content type tints applied to card header */
+.post-card .card-header {
+  padding: 20px 28px 16px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.post-card.type-announce .card-header { background: var(--tint-announce); }
+.post-card.type-pain .card-header { background: var(--tint-pain); }
+.post-card.type-feature .card-header { background: var(--tint-feature); }
+.post-card.type-tips .card-header { background: var(--tint-tips); }
+.post-card.type-bts .card-header { background: var(--tint-bts); }
+.post-card.type-engage .card-header { background: var(--tint-engage); }
+.post-card.type-cta .card-header { background: var(--tint-cta); }
+
+.card-header .header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.card-header .day-date {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--near-black);
+  letter-spacing: 0.02em;
+}
+
+.card-header .post-title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.3;
+}
+
+.card-header .header-badges {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.badge {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.badge.ig { background: var(--ig); color: white; }
+.badge.li { background: var(--li); color: white; }
+
+.badge.format {
+  background: rgba(26,23,20,0.06);
+  color: var(--near-black);
+}
+
+.badge.type-tag {
+  background: transparent;
+  border: 1px solid var(--sand);
+  color: var(--taupe);
+}
+
+/* Card body */
+.card-body {
+  padding: 0 28px 24px;
+}
+
+/* Meta row */
+.post-meta {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 16px;
+  padding-top: 4px;
+  flex-wrap: wrap;
+}
+
+.meta-item {
+  font-size: 12px;
+  color: var(--taupe);
+}
+
+.meta-item strong {
+  font-weight: 600;
+  color: var(--near-black);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Caption area */
+.caption-block {
+  position: relative;
+  background: var(--bone);
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin-bottom: 16px;
+}
+
+.caption-block .caption-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  margin-bottom: 10px;
+}
+
+.caption-block .caption-text {
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: var(--near-black);
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.caption-block .copy-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: var(--brown-gold);
+  color: white;
+  border: none;
+  padding: 5px 14px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--body);
+  transition: all 0.15s;
+}
+
+.caption-block .copy-btn:hover { background: var(--dark-brown); }
+.caption-block .copy-btn.copied { background: var(--forest); }
+
+/* Hashtags */
+.hashtag-block {
+  background: rgba(139,111,82,0.05);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.hashtag-block .ht-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  white-space: nowrap;
+  padding-top: 2px;
+}
+
+.hashtag-block .ht-text {
+  font-size: 12px;
+  color: var(--brown-gold);
+  line-height: 1.6;
+  word-wrap: break-word;
+}
+
+.hashtag-block .copy-btn-sm {
+  background: transparent;
+  border: 1px solid var(--sand);
+  color: var(--brown-gold);
+  padding: 3px 10px;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: var(--body);
+  flex-shrink: 0;
+  transition: all 0.15s;
+}
+
+.hashtag-block .copy-btn-sm:hover { background: rgba(139,111,82,0.08); }
+.hashtag-block .copy-btn-sm.copied { background: var(--forest); color: white; border-color: var(--forest); }
+
+/* Visual direction */
+.visual-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--taupe);
+  line-height: 1.6;
+  padding-top: 4px;
+}
+
+.visual-note .vn-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  background: var(--warm-gray);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 10px;
+  margin-top: 1px;
+}
+
+/* --- FOOTER --- */
+.page-footer {
+  text-align: center;
+  padding: 40px 20px;
+  border-top: 1px solid rgba(26,23,20,0.06);
+  font-size: 12px;
+  color: var(--taupe);
+}
+
+.page-footer a {
+  color: var(--brown-gold);
+  text-decoration: none;
+}
+
+.page-footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<!-- ===== NAVIGATION ===== -->
+<nav class="nav">
+  <a href="index.html" class="brand" style="text-decoration:none;color:inherit;">THREAD<span class="l">LINE</span></a>
+  <a class="back" href="index.html">&#8592; All Pages</a>
+  <a href="#strategy">Strategy</a>
+  <a href="content-visuals-week1.html">Week 1 Visuals</a>
+  <a href="content-visuals-week2-4.html">Weeks 2-4 Visuals</a>
+  <div class="week-links">
+    <a href="#week1" class="active">Week 1</a>
+    <a href="#week2">Week 2</a>
+    <a href="#week3">Week 3</a>
+    <a href="#week4">Week 4</a>
+  </div>
+</nav>
+
+<div class="container">
+
+<!-- ===== PAGE HEADER ===== -->
+<div class="page-header">
+  <h1>30-Day Content <em>Calendar</em></h1>
+  <p class="subtitle">A complete month of ready-to-post social content for @threadline_app on Instagram and LinkedIn. Every caption written, every hashtag selected, every posting time chosen. Copy, paste, post.</p>
+</div>
+
+<!-- ===== SUMMARY STATS ===== -->
+<div class="stats-bar">
+  <div class="stat-card ig">
+    <div class="stat-num">14</div>
+    <div class="stat-label">Instagram Posts</div>
+  </div>
+  <div class="stat-card li">
+    <div class="stat-num">10</div>
+    <div class="stat-label">LinkedIn Posts</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num">24</div>
+    <div class="stat-label">Total Posts</div>
+  </div>
+  <div class="stat-card mix">
+    <div class="stat-num">7</div>
+    <div class="stat-label">Content Types</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num">30</div>
+    <div class="stat-label">Days Covered</div>
+  </div>
+</div>
+
+<!-- ===== STRATEGY BOX ===== -->
+<div class="strategy-box" id="strategy">
+  <h2>Posting Strategy</h2>
+  <div class="strategy-grid">
+    <div class="strategy-col ig-col">
+      <h3>Instagram @threadline_app</h3>
+      <ul>
+        <li>3-4 posts per week (Mon, Wed, Fri + optional Sat)</li>
+        <li>Visual, punchy, relatable tone</li>
+        <li>Wardrobe humor and insider language</li>
+        <li>Best times: 11:30 AM or 7:00 PM ET</li>
+        <li>20 curated hashtags per post</li>
+      </ul>
+    </div>
+    <div class="strategy-col li-col">
+      <h3>LinkedIn</h3>
+      <ul>
+        <li>2 posts per week (Tue, Thu)</li>
+        <li>Professional, thought-leadership tone</li>
+        <li>Speaks to supervisors and production managers</li>
+        <li>Best times: 8:30 AM or 12:00 PM ET</li>
+        <li>No hashtags (or 3-5 industry tags max)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CONTENT TYPE LEGEND ===== -->
+<div class="legend">
+  <span class="legend-item t-announce">Announcement</span>
+  <span class="legend-item t-pain">Pain Point</span>
+  <span class="legend-item t-feature">Feature Spotlight</span>
+  <span class="legend-item t-tips">Industry Tips</span>
+  <span class="legend-item t-bts">Behind the Scenes</span>
+  <span class="legend-item t-engage">Engagement</span>
+  <span class="legend-item t-cta">Waitlist CTA</span>
+</div>
+
+
+<!-- ╔═══════════════════════════════════════════════════════════╗
+     ║  WEEK 1 — DAYS 1-7                                       ║
+     ╚═══════════════════════════════════════════════════════════╝ -->
+<div class="week-section" id="week1">
+<div class="week-header">
+  <h2>Week 1</h2>
+  <span class="week-range">Days 1 - 7 &middot; Launch &amp; Establish</span>
+</div>
+
+<!-- ═══ POST 1 ═══ -->
+<div class="post-card platform-ig type-announce">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 1 &middot; Monday</div>
+      <div class="post-title">The Wardrobe Truck Just Went Digital</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge ig">Instagram</span>
+      <span class="badge format">Single Image</span>
+      <span class="badge type-tag">Announcement</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="post-meta">
+      <div class="meta-item"><strong>Post Time:</strong> 11:30 AM ET</div>
+      <div class="meta-item"><strong>Day:</strong> Monday</div>
+    </div>
+    <div class="caption-block">
+      <div class="caption-label">Full Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">The wardrobe truck just went digital.
+
+We built Threadline because wardrobe PAs deserve better than Ziploc bags full of receipts and spreadsheets that take all weekend.
+
+Scan a barcode and your inventory auto-fills. Snap a receipt and every line item gets captured. Return deadline coming up? We'll remind you before it's too late.
+
+From rack to wrap. Coming soon.
+
+Link in bio for early access.
+
+#wardrobedepartment #filmproduction #costumedesign #wardrobepa #filmcrew #setlife #productionlife #filmindustry #costumesupervisor #filmtech #wardrobesupervisor #costumedepartment #filmprod #belowtheline #filmmaking #tvproduction #fashionfilm #wardrobeassistant #costumier #filmwardrobe</div>
+    </div>
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Brand gradient background (dark brown to copper) with the Threadline wordmark centered. Clean, editorial. Think perfume ad meets tech launch. The very first impression of the grid.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ POST 2 ═══ -->
+<div class="post-card platform-li type-announce">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 2 &middot; Tuesday</div>
+      <div class="post-title">Introducing Threadline to the Industry</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge li">LinkedIn</span>
+      <span class="badge format">Text Post</span>
+      <span class="badge type-tag">Announcement</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="post-meta">
+      <div class="meta-item"><strong>Post Time:</strong> 8:30 AM ET</div>
+      <div class="meta-item"><strong>Day:</strong> Tuesday</div>
+    </div>
+    <div class="caption-block">
+      <div class="caption-label">Full Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Every film and TV production has a wardrobe department. And almost every single one is running on spreadsheets, paper receipts, and memory.
+
+Wardrobe supervisors manage thousands of garments across dozens of actors. They track purchases, rentals, returns, alterations, and continuity across weeks or months of shooting. And most of them are doing it with tools that haven't changed in 20 years.
+
+We're building Threadline to change that.
+
+Threadline is AI-powered wardrobe management software designed specifically for film and television production. Barcode scanning for instant inventory. Receipt capture that reads every line item. Return tracking with deadline alerts. Budget dashboards that update in real time.
+
+The wardrobe truck just went digital.
+
+We're currently in development and inviting industry professionals to join our early access list. If you work in wardrobe, costume design, or production management, I'd love to hear what your biggest workflow pain points are.
+
+threadlineapp.io</div>
+    </div>
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> No image needed for this LinkedIn text post. The long-form copy performs well natively. If desired, attach a simple branded image with "From Rack to Wrap" tagline on the brand gradient.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ POST 3 ═══ -->
+<div class="post-card platform-ig type-pain">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 3 &middot; Wednesday</div>
+      <div class="post-title">The Receipt Nightmare</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge ig">Instagram</span>
+      <span class="badge format">Carousel (3 slides)</span>
+      <span class="badge type-tag">Pain Point</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="post-meta">
+      <div class="meta-item"><strong>Post Time:</strong> 7:00 PM ET</div>
+      <div class="meta-item"><strong>Day:</strong> Wednesday</div>
+    </div>
+    <div class="caption-block">
+      <div class="caption-label">Full Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Friday night. You're sitting on the floor of your apartment with a shoe box full of receipts, a dying laptop, and a spreadsheet that's already 47 tabs deep.
+
+Sound familiar?
+
+Wardrobe PAs spend more time on paperwork than on actual wardrobe. We've seen people lose entire weekends to receipt reconciliation. Handwritten totals that don't match. Faded thermal paper that's already unreadable. Return deadlines that slipped through the cracks three days ago.
+
+This is not a workflow. This is survival mode.
+
+We're building something better. Threadline captures receipts the moment you snap a photo. Every line item, every total, every date. No more shoe boxes. No more lost weekends.
+
+Link in bio.
+
+#wardrobedepartment #filmproduction #costumedesign #wardrobepa #filmcrew #setlife #productionlife #filmindustry #costumesupervisor #filmtech #wardrobesupervisor #costumedepartment #filmprod #belowtheline #filmmaking #tvproduction #fashionfilm #wardrobeassistant #costumier #filmwardrobe</div>
+    </div>
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Slide 1: Bold text on cream background: "This is not a workflow. This is survival mode." Slide 2: Flat-lay photo concept of scattered receipts, a calculator, and a coffee cup. Slide 3: Clean Threadline receipt capture screen mockup on the brand gradient. Editorial typography throughout.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ POST 4 ═══ -->
+<div class="post-card platform-li type-tips">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 4 &middot; Thursday</div>
+      <div class="post-title">The Hidden Cost of Manual Wardrobe Tracking</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge li">LinkedIn</span>
+      <span class="badge format">Text Post</span>
+      <span class="badge type-tag">Industry Tips</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="post-meta">
+      <div class="meta-item"><strong>Post Time:</strong> 12:00 PM ET</div>
+      <div class="meta-item"><strong>Day:</strong> Thursday</div>
+    </div>
+    <div class="caption-block">
+      <div class="caption-label">Full Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">I want to talk about something that rarely gets discussed in production budgets: the cost of manual wardrobe tracking.
+
+On a mid-size production, a wardrobe department might manage 2,000+ individual garments. Each one needs to be purchased or pulled, tagged, tracked, maintained, and eventually returned or wrapped. Every transaction generates paperwork. Every return has a deadline. Every continuity note needs to be accessible on set.
+
+When this is managed manually, mistakes happen. A missed return deadline becomes a full-price charge. A lost receipt means an unrecoverable expense. A continuity error means a reshoot.
+
+These aren't hypothetical scenarios. They happen on productions every single week.
+
+The industry has invested heavily in digital tools for camera, lighting, and scheduling. Wardrobe departments have been left behind.
+
+That's the gap we're building Threadline to fill: purpose-built software that treats wardrobe management with the same seriousness as every other department on set.
+
+More to come. Follow along or visit threadlineapp.io to join the early access list.</div>
+    </div>
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Optional: a simple stat graphic. "2,000+ garments. Zero purpose-built tools." White text on the dark brand gradient. Clean and factual.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ POST 5 ═══ -->
+<div class="post-card platform-ig type-feature">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 5 &middot; Friday</div>
+      <div class="post-title">Feature Spotlight: Magic Scan</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge ig">Instagram</span>
+      <span class="badge format">Carousel (4 slides)</span>
+      <span class="badge type-tag">Feature Spotlight</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="post-meta">
+      <div class="meta-item"><strong>Post Time:</strong> 11:30 AM ET</div>
+      <div class="meta-item"><strong>Day:</strong> Friday</div>
+    </div>
+    <div class="caption-block">
+      <div class="caption-label">Full Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Scan a barcode. Watch the magic happen.
+
+Threadline's Magic Scan lets you point your phone at any garment barcode and instantly pull in product details. Brand, size, color, price, SKU. All auto-filled. No more typing it out by hand for every single piece.
+
+Swipe to see how it works:
+1. Open the scanner
+2. Point at any barcode or QR code
+3. Product details auto-populate
+4. Add to your inventory with one tap
+
+One garment used to take 2-3 minutes to log. Now it takes about 5 seconds.
+
+When you're processing 200 pieces on a fitting day, that time adds up fast.
+
+Early access coming soon. Link in bio.
+
+#wardrobedepartment #filmproduction #costumedesign #wardrobepa #filmcrew #setlife #productionlife #filmindustry #costumesupervisor #filmtech #wardrobesupervisor #costumedepartment #filmprod #belowtheline #filmmaking #tvproduction #fashionfilm #wardrobeassistant #costumier #filmwardrobe</div>
+    </div>
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> 4-slide carousel. Slide 1: "Magic Scan" headline on brand gradient with a phone scanning icon. Slides 2-4: Step-by-step mockup screens showing the scan flow. Cream backgrounds, brown-gold accents, clean UI screenshots. Editorial feel, not corporate.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ POST 6 ═══ -->
+<div class="post-card platform-ig type-engage">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 7 &middot; Saturday (Optional)</div>
+      <div class="post-title">What's Your Wardrobe Horror Story?</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge ig">Instagram</span>
+      <span class="badge format">Single Image</span>
+      <span class="badge type-tag">Engagement</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="post-meta">
+      <div class="meta-item"><strong>Post Time:</strong> 11:00 AM ET</div>
+      <div class="meta-item"><strong>Day:</strong> Saturday</div>
+    </div>
+    <div class="caption-block">
+      <div class="caption-label">Full Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">We want to hear yours.
+
+The return that was three weeks late. The receipt that disappeared into the void. The continuity photo that was on someone's old phone. The fitting where half the pulls were the wrong size.
+
+Drop your wardrobe department horror story in the comments. We're collecting these because we're genuinely building Threadline to solve the problems you actually deal with.
+
+No judgment. Just solidarity. And maybe a little bit of "oh no, that happened to me too."
+
+#wardrobedepartment #filmproduction #costumedesign #wardrobepa #filmcrew #setlife #productionlife #filmindustry #costumesupervisor #filmtech #wardrobesupervisor #costumedepartment #filmprod #belowtheline #filmmaking #tvproduction #fashionfilm #wardrobeassistant #costumier #filmwardrobe</div>
+    </div>
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Bold text on cream: "What's your wardrobe horror story?" in Cormorant Garamond italic. Subtle garment rack silhouette in the background. Warm, inviting, not salesy.</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- end week 1 -->
+
+
+<!-- ╔═══════════════════════════════════════════════════════════╗
+     ║  WEEK 2 — DAYS 8-14                                      ║
+     ╚═══════════════════════════════════════════════════════════╝ -->
+<div class="week-section" id="week2">
+<div class="week-header">
+  <h2>Week 2</h2>
+  <span class="week-range">Days 8 - 14 &middot; Build Trust &amp; Educate</span>
+</div>
+
+<!-- ═══ POST 7 ═══ -->
+<div class="post-card platform-ig type-bts">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 8 &middot; Monday</div>
+      <div class="post-title">Why We're Building This</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge ig">Instagram</span>
+      <span class="badge format">Carousel (3 slides)</span>
+      <span class="badge type-tag">Behind the Scenes</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="post-meta">
+      <div class="meta-item"><strong>Post Time:</strong> 11:30 AM ET</div>
+      <div class="meta-item"><strong>Day:</strong> Monday</div>
+    </div>
+    <div class="caption-block">
+      <div class="caption-label">Full Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Building in public because wardrobe departments deserve transparency too.
+
+Here's why Threadline exists:
+
+We watched wardrobe PAs work 14-hour days on set and then go home to do hours of data entry. We saw supervisors lose sleep over whether a return deadline had passed. We heard stories about departments getting blamed for budget overruns that were really just the result of bad tracking tools.
+
+The film industry has amazing software for scheduling, for camera, for VFX. But wardrobe? You're still emailing spreadsheets back and forth and hoping nobody overwrites the wrong cell.
+
+That gap is what we're here to close.
+
+Threadline is being built with direct input from working wardrobe professionals. If you want to shape what this becomes, the link is in our bio.
+
+#wardrobedepartment #filmproduction #costumedesign #wardrobepa #filmcrew #setlife #productionlife #filmindustry #costumesupervisor #filmtech #wardrobesupervisor #costumedepartment #filmprod #belowtheline #filmmaking #tvproduction #fashionfilm #wardrobeassistant #costumier #filmwardrobe</div>
+    </div>
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Slide 1: "Why we're building this" in editorial type on cream. Slide 2: A quote-style card with one key insight. Slide 3: "Help us build it right. Link in bio." on the brand gradient. Warm, honest, founder-energy.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ POST 8 ═══ -->
+<div class="post-card platform-li type-pain">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 9 &middot; Tuesday</div>
+      <div class="post-title">The Return Deadline Problem</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge li">LinkedIn</span>
+      <span class="badge format">Text Post</span>
+      <span class="badge type-tag">Pain Point</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="post-meta">
+      <div class="meta-item"><strong>Post Time:</strong> 8:30 AM ET</div>
+      <div class="meta-item"><strong>Day:</strong> Tuesday</div>
+    </div>
+    <div class="caption-block">
+      <div class="caption-label">Full Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">A missed return deadline is one of the most expensive mistakes in wardrobe management. And it happens all the time.
+
+Here's the scenario: Your department pulls 40 rental pieces for a show. Each one has a different return window. Some vendors give you 5 days, others give you 14. A few are on net-30 terms. The deadlines live in a mix of emails, sticky notes, and someone's memory.
+
+Shooting wraps late. The schedule shifts. Suddenly you've missed three deadlines and the production is on the hook for full retail price on garments that were supposed to be $50 rentals.
+
+I've heard this exact story from wardrobe supervisors on productions of every size. It's not a matter of competence. It's a systems problem. When there's no centralized place to track deadlines, things fall through.
+
+Threadline tracks every return deadline automatically and sends alerts before they expire. Not after. Before.
+
+This is one of those features that sounds simple but can save a production thousands of dollars on a single show.
+
+More at threadlineapp.io</div>
+    </div>
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Optional image: a clean graphic showing a calendar with highlighted return deadlines. "Before it's too late, not after." as a tagline overlay. Dusty-blue and cream palette for LinkedIn.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ POST 9 ═══ -->
+<div class="post-card platform-ig type-tips">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 10 &middot; Wednesday</div>
+      <div class="post-title">5 Things Every Wardrobe PA Wishes Producers Understood</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge ig">Instagram</span>
+      <span class="badge format">Carousel (6 slides)</span>
+      <span class="badge type-tag">Industry Tips</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="post-meta">
+      <div class="meta-item"><strong>Post Time:</strong> 7:00 PM ET</div>
+      <div class="meta-item"><strong>Day:</strong> Wednesday</div>
+    </div>
+    <div class="caption-block">
+      <div class="caption-label">Full Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Wardrobe PAs, this one's for you. Save it, share it, send it to your line producer.
+
+5 things every wardrobe PA wishes producers understood:
+
+1. "Just grab something from the store" is never as simple as it sounds. Every purchase needs to be tracked, tagged, photographed, entered into inventory, and eventually returned or wrapped. One "quick run" creates an hour of backend work.
+
+2. Receipt reconciliation takes real time. If you want accurate budget reports, you need to give wardrobe the hours to actually do them. This is not busy work. This is how productions avoid surprise overages.
+
+3. Continuity is a full-time job in itself. When an actor wears 15 different looks across 40 shooting days, keeping track of every detail takes serious systems. Not just good memory.
+
+4. Return deadlines don't pause because the schedule changed. A shifted shooting date doesn't shift the vendor's return window. Wardrobe needs to know about schedule changes immediately.
+
+5. The spreadsheet is not fine. It's the only option right now, but that doesn't make it the right one.
+
+We're building Threadline to help with every single one of these. Tag a producer who needs to see this.
+
+#wardrobedepartment #filmproduction #costumedesign #wardrobepa #filmcrew #setlife #productionlife #filmindustry #costumesupervisor #filmtech #wardrobesupervisor #costumedepartment #filmprod #belowtheline #filmmaking #tvproduction #fashionfilm #wardrobeassistant #costumier #filmwardrobe</div>
+    </div>
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> 6-slide carousel. Slide 1: Title card "5 Things Every Wardrobe PA Wishes Producers Understood" on cream. Slides 2-6: One tip per slide, bold number, short text, cream background with brown-gold accents. Last slide: Threadline logo + "We're building for this." Shareable, save-worthy format.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ POST 10 ═══ -->
+<div class="post-card platform-li type-feature">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 11 &middot; Thursday</div>
+      <div class="post-title">Feature Deep Dive: Smart Receipt Capture</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge li">LinkedIn</span>
+      <span class="badge format">Text + Image</span>
+      <span class="badge type-tag">Feature Spotlight</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="post-meta">
+      <div class="meta-item"><strong>Post Time:</strong> 12:00 PM ET</div>
+      <div class="meta-item"><strong>Day:</strong> Thursday</div>
+    </div>
+    <div class="caption-block">
+      <div class="caption-label">Full Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Let's talk about receipts.
+
+On any production, the wardrobe department generates hundreds of receipts. Every shopping run, every rental pickup, every alteration. These receipts are the backbone of the department's budget tracking.
+
+Today, most departments handle this by:
+- Keeping physical receipts in envelopes or bags
+- Manually entering each line item into a spreadsheet
+- Hoping the thermal paper doesn't fade before wrap
+
+Threadline's receipt capture works differently. You take a photo of the receipt with your phone. Our AI reads every line item automatically: store name, date, individual items, prices, tax, and total. It categorizes the expense and links it to the right project and budget category.
+
+No manual data entry. No transcription errors. No faded receipts you can't read three weeks later.
+
+For wardrobe supervisors managing six-figure budgets across multi-month productions, this isn't a nice-to-have. It's the difference between confident budget reporting and constant anxiety about whether the numbers are right.
+
+Currently in development. Join the early access list at threadlineapp.io</div>
+    </div>
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> A clean before/after graphic. Left side: scattered paper receipts (messy). Right side: clean digital receipt list in the Threadline UI. Cream background, professional layout for LinkedIn audience.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ POST 11 ═══ -->
+<div class="post-card platform-ig type-pain">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 12 &middot; Friday</div>
+      <div class="post-title">The Spreadsheet That Breaks Every Time</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge ig">Instagram</span>
+      <span class="badge format">Single Image</span>
+      <span class="badge type-tag">Pain Point</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="post-meta">
+      <div class="meta-item"><strong>Post Time:</strong> 11:30 AM ET</div>
+      <div class="meta-item"><strong>Day:</strong> Friday</div>
+    </div>
+    <div class="caption-block">
+      <div class="caption-label">Full Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">You know the one.
+
+The master spreadsheet. 47 tabs. Three people editing it at once. Formulas that break if you look at them wrong. A color-coding system that made sense to the person who started it but nobody else.
+
+Every production starts a new one. Every production swears this time it'll be organized from the start. And every production ends up with the same tangled mess by week three.
+
+It's not your fault. Spreadsheets were never designed for wardrobe management. You're trying to track physical inventory, financial transactions, vendor relationships, and return deadlines all in a tool that was built for accounting.
+
+You need something that was built for you. That's Threadline.
+
+#wardrobedepartment #filmproduction #costumedesign #wardrobepa #filmcrew #setlife #productionlife #filmindustry #costumesupervisor #filmtech #wardrobesupervisor #costumedepartment #filmprod #belowtheline #filmmaking #tvproduction #fashionfilm #wardrobeassistant #costumier #filmwardrobe</div>
+    </div>
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Screenshot-style mockup of a chaotic, over-colored spreadsheet (blurred/fake data). Bold overlay text: "You know the one." Cream border, editorial typography. Relatable and shareable.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ POST 12 ═══ -->
+<div class="post-card platform-ig type-cta">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 14 &middot; Saturday (Optional)</div>
+      <div class="post-title">Early Access is Open</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge ig">Instagram</span>
+      <span class="badge format">Single Image</span>
+      <span class="badge type-tag">Waitlist CTA</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="post-meta">
+      <div class="meta-item"><strong>Post Time:</strong> 11:00 AM ET</div>
+      <div class="meta-item"><strong>Day:</strong> Saturday</div>
+    </div>
+    <div class="caption-block">
+      <div class="caption-label">Full Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">We're building Threadline with the people who'll actually use it.
+
+If you work in wardrobe, costume design, or production management, we want you involved early. Not just to test the app, but to help shape what it becomes.
+
+Early access members get:
+- First look at new features before anyone else
+- Direct input on what gets built next
+- Priority onboarding when we launch
+- A say in the tool your department will actually use on set
+
+This isn't a mailing list that sends you marketing emails. This is a real conversation with the people building the thing.
+
+Link in bio. Takes 30 seconds.
+
+#wardrobedepartment #filmproduction #costumedesign #wardrobepa #filmcrew #setlife #productionlife #filmindustry #costumesupervisor #filmtech #wardrobesupervisor #costumedepartment #filmprod #belowtheline #filmmaking #tvproduction #fashionfilm #wardrobeassistant #costumier #filmwardrobe</div>
+    </div>
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Clean card on cream: "Join Early Access" in large Cormorant Garamond. Below it: the four bullet points in smaller Inter text. Threadline logo at bottom. Brown-gold accent line. Elegant, not pushy.</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- end week 2 -->
+
+
+<!-- ╔═══════════════════════════════════════════════════════════╗
+     ║  WEEK 3 — DAYS 15-21                                     ║
+     ╚═══════════════════════════════════════════════════════════╝ -->
+<div class="week-section" id="week3">
+<div class="week-header">
+  <h2>Week 3</h2>
+  <span class="week-range">Days 15 - 21 &middot; Deepen &amp; Engage</span>
+</div>
+
+<!-- ═══ POST 13 ═══ -->
+<div class="post-card platform-ig type-feature">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 15 &middot; Monday</div>
+      <div class="post-title">Feature Spotlight: Return Tracking</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge ig">Instagram</span>
+      <span class="badge format">Carousel (4 slides)</span>
+      <span class="badge type-tag">Feature Spotlight</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="post-meta">
+      <div class="meta-item"><strong>Post Time:</strong> 11:30 AM ET</div>
+      <div class="meta-item"><strong>Day:</strong> Monday</div>
+    </div>
+    <div class="caption-block">
+      <div class="caption-label">Full Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Never miss another return deadline.
+
+Threadline tracks every rental and purchase return automatically. When you log a garment, we capture the vendor's return window and start counting down. You get alerts at 7 days, 3 days, and the day before a deadline hits.
+
+Here's what that looks like in practice:
+
+You pull 30 pieces from a rental house with a 14-day return window. Shooting goes long. Day 10, you get an alert: "4 days remaining on 30 items from [Vendor]." You can plan the return around the schedule instead of discovering the deadline after it's already passed.
+
+No more sticky notes on the wardrobe truck mirror. No more calendar reminders that you set and then snoozed. Just clear, automatic tracking that watches the deadlines so you can focus on the work.
+
+Swipe to see the return tracking dashboard.
+
+#wardrobedepartment #filmproduction #costumedesign #wardrobepa #filmcrew #setlife #productionlife #filmindustry #costumesupervisor #filmtech #wardrobesupervisor #costumedepartment #filmprod #belowtheline #filmmaking #tvproduction #fashionfilm #wardrobeassistant #costumier #filmwardrobe</div>
+    </div>
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Slide 1: "Never miss another return deadline." bold on brand gradient. Slide 2: UI mockup of the return tracking dashboard showing countdown timers. Slide 3: Alert notification mockup. Slide 4: "From rack to wrap." with early access CTA. Clean, functional, beautiful.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ POST 14 ═══ -->
+<div class="post-card platform-li type-bts">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 16 &middot; Tuesday</div>
+      <div class="post-title">Building With the Community, Not For Them</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge li">LinkedIn</span>
+      <span class="badge format">Text Post</span>
+      <span class="badge type-tag">Behind the Scenes</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="post-meta">
+      <div class="meta-item"><strong>Post Time:</strong> 8:30 AM ET</div>
+      <div class="meta-item"><strong>Day:</strong> Tuesday</div>
+    </div>
+    <div class="caption-block">
+      <div class="caption-label">Full Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">One of the first things we did when we started building Threadline was reach out to wardrobe professionals and ask a simple question: what would you actually use?
+
+Not "what sounds cool." Not "what would look good in a pitch deck." But what would genuinely change your day-to-day on set?
+
+The answers shaped everything. Return deadline tracking came up in almost every conversation. Receipt capture was the second most requested feature. Budget visibility came up more from supervisors than PAs, which told us we needed role-based views.
+
+Some requests surprised us. People wanted the ability to photograph a garment and have AI suggest its category, season, and character assignment. We didn't have that on our roadmap. Now it's one of our core features.
+
+This is how we think software should be built. Not in isolation. Not by people guessing what an industry needs from the outside. But in direct conversation with the people who'll be using it every day on set.
+
+If you work in wardrobe or production management and want to be part of that conversation, visit threadlineapp.io. We read every response.</div>
+    </div>
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> No image needed. The authentic, long-form narrative works best on LinkedIn as a pure text post. If desired, a simple image: "Built with wardrobe. Not for wardrobe." on a cream card.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ POST 15 ═══ -->
+<div class="post-card platform-ig type-engage">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 17 &middot; Wednesday</div>
+      <div class="post-title">This or That: Wardrobe Edition</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge ig">Instagram</span>
+      <span class="badge format">Carousel (5 slides)</span>
+      <span class="badge type-tag">Engagement</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="post-meta">
+      <div class="meta-item"><strong>Post Time:</strong> 7:00 PM ET</div>
+      <div class="meta-item"><strong>Day:</strong> Wednesday</div>
+    </div>
+    <div class="caption-block">
+      <div class="caption-label">Full Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">This or That: Wardrobe Department Edition. Drop your answers in the comments.
+
+1. Physical rack dividers or colored hangers?
+2. Polaroids or digital continuity photos?
+3. Shopping in-store or ordering online?
+4. Labeling with a label maker or masking tape and Sharpie?
+
+Be honest. We're not judging. (Okay, if you said masking tape, we're judging a little.)
+
+This is the stuff we think about when we're building Threadline. The small daily choices that add up to a whole system. Your answers genuinely help us understand how departments actually work, not just how people think they should work.
+
+Tell us your picks below.
+
+#wardrobedepartment #filmproduction #costumedesign #wardrobepa #filmcrew #setlife #productionlife #filmindustry #costumesupervisor #filmtech #wardrobesupervisor #costumedepartment #filmprod #belowtheline #filmmaking #tvproduction #fashionfilm #wardrobeassistant #costumier #filmwardrobe</div>
+    </div>
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> 5-slide carousel. Slide 1: "This or That" title card on cream with playful dividing line. Slides 2-5: One question per slide, split design with each option on opposite sides. Brown-gold and cream palette. Fun but on-brand. Highly interactive format.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ POST 16 ═══ -->
+<div class="post-card platform-li type-tips">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 18 &middot; Thursday</div>
+      <div class="post-title">Why Wardrobe Budgets Go Over (And How to Prevent It)</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge li">LinkedIn</span>
+      <span class="badge format">Text + Image</span>
+      <span class="badge type-tag">Industry Tips</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="post-meta">
+      <div class="meta-item"><strong>Post Time:</strong> 12:00 PM ET</div>
+      <div class="meta-item"><strong>Day:</strong> Thursday</div>
+    </div>
+    <div class="caption-block">
+      <div class="caption-label">Full Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Wardrobe budgets don't blow up because of bad planning. They blow up because of invisible problems.
+
+After talking with dozens of wardrobe supervisors, I've noticed the same patterns:
+
+1. Missed return deadlines. A $50 rental becomes a $400 purchase. Multiply that across 20 pieces and you're suddenly $7,000 over budget.
+
+2. Duplicate purchases. Without real-time inventory visibility, two people on the same team buy the same item on the same day. It happens more often than anyone wants to admit.
+
+3. Receipt reconciliation gaps. When receipts are managed manually, some always go missing. Those gaps show up as unexplained expenses in the final budget report.
+
+4. Scope creep without cost tracking. Script changes mean new looks. New looks mean new purchases. But if those purchases aren't tracked against the original budget in real time, nobody sees the overage building until it's too late.
+
+The common thread here isn't carelessness. It's a lack of tools that give wardrobe departments the same real-time financial visibility that other departments take for granted.
+
+Threadline's budget dashboard gives supervisors live spend tracking across every category, vendor, and project. When the numbers shift, you see it immediately.
+
+Learn more at threadlineapp.io</div>
+    </div>
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> A clean infographic-style image listing the four budget killers with simple icons. Dusty-blue and cream palette. Professional, shareable for LinkedIn. Include Threadline logo and URL at the bottom.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ POST 17 ═══ -->
+<div class="post-card platform-ig type-feature">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 19 &middot; Friday</div>
+      <div class="post-title">Feature Spotlight: Thread AI</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge ig">Instagram</span>
+      <span class="badge format">Carousel (4 slides)</span>
+      <span class="badge type-tag">Feature Spotlight</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="post-meta">
+      <div class="meta-item"><strong>Post Time:</strong> 11:30 AM ET</div>
+      <div class="meta-item"><strong>Day:</strong> Friday</div>
+    </div>
+    <div class="caption-block">
+      <div class="caption-label">Full Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Meet Thread AI. Your wardrobe department's new favorite coworker.
+
+Thread AI is the intelligence layer built into Threadline. It reads your receipts, categorizes your inventory, and learns how your department works over time.
+
+Here's what it does:
+
+Auto-categorization: Photograph a garment and Thread AI identifies the type, suggests a category, and can even recommend character assignments based on your past patterns.
+
+Smart receipt reading: It doesn't just OCR the text. It understands line items, separates tax from subtotals, and flags anything that looks unusual.
+
+Budget forecasting: Based on your spending patterns and upcoming schedule, Thread AI can project where your budget is heading and flag potential overruns before they happen.
+
+Continuity suggestions: Working on a scene that was last shot three weeks ago? Thread AI pulls up the continuity notes and photos automatically.
+
+This isn't AI for the sake of AI. This is AI that does the grunt work so you can focus on the creative work you actually got into this industry to do.
+
+#wardrobedepartment #filmproduction #costumedesign #wardrobepa #filmcrew #setlife #productionlife #filmindustry #costumesupervisor #filmtech #wardrobesupervisor #costumedepartment #filmprod #belowtheline #filmmaking #tvproduction #fashionfilm #wardrobeassistant #costumier #filmwardrobe</div>
+    </div>
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Slide 1: "Meet Thread AI" with a subtle sparkle/glow effect on the brand gradient. Slides 2-4: Each AI feature as a mini-mockup or icon card. Clean, modern, not gimmicky. The AI should feel helpful, not threatening. Cream and copper accents.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ POST 18 ═══ -->
+<div class="post-card platform-ig type-tips">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 21 &middot; Saturday (Optional)</div>
+      <div class="post-title">Wardrobe PA Survival Kit</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge ig">Instagram</span>
+      <span class="badge format">Carousel (5 slides)</span>
+      <span class="badge type-tag">Industry Tips</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="post-meta">
+      <div class="meta-item"><strong>Post Time:</strong> 11:00 AM ET</div>
+      <div class="meta-item"><strong>Day:</strong> Saturday</div>
+    </div>
+    <div class="caption-block">
+      <div class="caption-label">Full Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Save this for your next show.
+
+The Wardrobe PA Survival Kit: things nobody tells you on your first day.
+
+1. Always photograph both the price tag AND the garment before removing any tags. Future you will thank present you.
+
+2. Keep a dedicated folder on your phone for continuity photos. Name them by character and scene number, not just the date. Finding "IMG_4782" three weeks later helps nobody.
+
+3. Return receipts are just as important as purchase receipts. File them separately and note which return goes with which original purchase.
+
+4. Set calendar reminders for return deadlines the day you make the purchase. Not later. Not tomorrow. Right then.
+
+5. Label everything. If you think you'll remember which rack is for which character, you won't. Not by day three.
+
+6. Back up your spreadsheets daily. To the cloud. Every single night.
+
+Bonus: Pretty soon, Threadline will handle most of this automatically. Until then, the survival kit stands.
+
+What would you add to this list? Drop it in the comments.
+
+#wardrobedepartment #filmproduction #costumedesign #wardrobepa #filmcrew #setlife #productionlife #filmindustry #costumesupervisor #filmtech #wardrobesupervisor #costumedepartment #filmprod #belowtheline #filmmaking #tvproduction #fashionfilm #wardrobeassistant #costumier #filmwardrobe</div>
+    </div>
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> 5-slide carousel. Slide 1: "The Wardrobe PA Survival Kit" on cream with a small garment bag icon. Slides 2-5: Two tips per slide in clean editorial layout with numbered callouts. Branded footer on each slide. Designed to be saved and shared. Brown-gold and cream.</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- end week 3 -->
+
+
+<!-- ╔═══════════════════════════════════════════════════════════╗
+     ║  WEEK 4 — DAYS 22-30                                     ║
+     ╚═══════════════════════════════════════════════════════════╝ -->
+<div class="week-section" id="week4">
+<div class="week-header">
+  <h2>Week 4</h2>
+  <span class="week-range">Days 22 - 30 &middot; Convert &amp; Compound</span>
+</div>
+
+<!-- ═══ POST 19 ═══ -->
+<div class="post-card platform-ig type-bts">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 22 &middot; Monday</div>
+      <div class="post-title">A Look at What We're Building</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge ig">Instagram</span>
+      <span class="badge format">Carousel (3 slides)</span>
+      <span class="badge type-tag">Behind the Scenes</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="post-meta">
+      <div class="meta-item"><strong>Post Time:</strong> 11:30 AM ET</div>
+      <div class="meta-item"><strong>Day:</strong> Monday</div>
+    </div>
+    <div class="caption-block">
+      <div class="caption-label">Full Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Here's a peek behind the curtain.
+
+We've been heads-down building Threadline for months now and things are starting to come together. Wanted to share a few snapshots of where we are.
+
+The inventory view lets you see every garment across your entire production at a glance. Filter by character, by vendor, by status. Search by any field. It's the bird's-eye view that spreadsheets try to give you but never quite manage.
+
+The budget dashboard updates in real time as expenses are logged. No more waiting until Friday to find out where you stand. You'll know after every single purchase.
+
+And the return tracker. This one might be my favorite. A clean timeline of every deadline across every vendor. Color-coded by urgency. Alerts built in.
+
+Still refining, still polishing, still listening to feedback from our early access community. But it's real, and it's getting closer every day.
+
+Want to see it first? Link in bio.
+
+#wardrobedepartment #filmproduction #costumedesign #wardrobepa #filmcrew #setlife #productionlife #filmindustry #costumesupervisor #filmtech #wardrobesupervisor #costumedepartment #filmprod #belowtheline #filmmaking #tvproduction #fashionfilm #wardrobeassistant #costumier #filmwardrobe</div>
+    </div>
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> 3-slide carousel with UI preview mockups. Slide 1: Inventory view screenshot (tastefully blurred or stylized). Slide 2: Budget dashboard preview. Slide 3: Return tracker timeline. Each on cream backgrounds with Threadline branding. Show enough to excite, not enough to fully reveal.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ POST 20 ═══ -->
+<div class="post-card platform-li type-announce">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 23 &middot; Tuesday</div>
+      <div class="post-title">The Wardrobe Department Deserves Better Tools</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge li">LinkedIn</span>
+      <span class="badge format">Text Post</span>
+      <span class="badge type-tag">Announcement</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="post-meta">
+      <div class="meta-item"><strong>Post Time:</strong> 8:30 AM ET</div>
+      <div class="meta-item"><strong>Day:</strong> Tuesday</div>
+    </div>
+    <div class="caption-block">
+      <div class="caption-label">Full Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Here's something that's been on my mind.
+
+The film industry has embraced digital transformation in almost every department. Camera teams use sophisticated digital workflows. The AD department has dedicated scheduling software. Post-production is entirely digital. Even the production office has moved to cloud-based tools.
+
+But wardrobe departments are still using the same tools they used 20 years ago. Spreadsheets. Paper receipts. Physical binders of continuity photos. Sticky notes for return deadlines.
+
+This isn't because wardrobe professionals are resistant to technology. It's because nobody has built technology specifically for them.
+
+Think about it. When was the last time you heard about a startup focused on below-the-line production tools? Not production management broadly. Not something designed for producers and directors. Something built specifically for the people in the wardrobe truck.
+
+That's the opportunity we saw with Threadline. And the response from the wardrobe community has confirmed that this gap is real, it's painful, and people are ready for a solution.
+
+We're in active development and building alongside working wardrobe professionals. If you know someone in the industry who should be part of this conversation, I'd appreciate the introduction.
+
+threadlineapp.io</div>
+    </div>
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Optional: A simple comparison graphic showing digital tools by department. Camera: digital. Scheduling: digital. Post: digital. Wardrobe: spreadsheet. Clean, professional, makes the point visually.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ POST 21 ═══ -->
+<div class="post-card platform-ig type-pain">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 24 &middot; Wednesday</div>
+      <div class="post-title">The Continuity Photo Problem</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge ig">Instagram</span>
+      <span class="badge format">Carousel (3 slides)</span>
+      <span class="badge type-tag">Pain Point</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="post-meta">
+      <div class="meta-item"><strong>Post Time:</strong> 7:00 PM ET</div>
+      <div class="meta-item"><strong>Day:</strong> Wednesday</div>
+    </div>
+    <div class="caption-block">
+      <div class="caption-label">Full Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">"Which pocket was the handkerchief in?"
+
+It's 6 AM. You're standing on set. The scene you're shooting today was last filmed four weeks ago. And the continuity note you need is on a phone that no longer exists because the day player PA who took the photo finished their contract three weeks ago.
+
+This is not a rare occurrence. This is Tuesday.
+
+Continuity in wardrobe is brutal because the details are so specific. Which button was undone. Where the scarf was tucked. Which ring was on which finger. Whether the sleeves were rolled once or twice.
+
+When these photos and notes live in random camera rolls across multiple people's phones, the system is one personnel change away from collapse.
+
+Threadline keeps all continuity photos and notes in one place, organized by character, scene, and shooting day. Everyone on the department has access. Nobody's personal phone is the single point of failure.
+
+Because "I think it was the left pocket" isn't good enough when the director is waiting.
+
+#wardrobedepartment #filmproduction #costumedesign #wardrobepa #filmcrew #setlife #productionlife #filmindustry #costumesupervisor #filmtech #wardrobesupervisor #costumedepartment #filmprod #belowtheline #filmmaking #tvproduction #fashionfilm #wardrobeassistant #costumier #filmwardrobe</div>
+    </div>
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Slide 1: "Which pocket was the handkerchief in?" in large italic Cormorant Garamond on cream. Slide 2: The problem visualized: scattered phone icons with question marks. Slide 3: The Threadline continuity view: organized, searchable, shared. Clean transition from chaos to order.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ POST 22 ═══ -->
+<div class="post-card platform-li type-feature">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 25 &middot; Thursday</div>
+      <div class="post-title">Feature Deep Dive: Real-Time Budget Dashboard</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge li">LinkedIn</span>
+      <span class="badge format">Text + Image</span>
+      <span class="badge type-tag">Feature Spotlight</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="post-meta">
+      <div class="meta-item"><strong>Post Time:</strong> 12:00 PM ET</div>
+      <div class="meta-item"><strong>Day:</strong> Thursday</div>
+    </div>
+    <div class="caption-block">
+      <div class="caption-label">Full Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Ask a wardrobe supervisor how their budget is looking and you'll usually get one of two answers:
+
+"I think we're okay."
+"I'll know after I finish the spreadsheet this weekend."
+
+Neither of those is great when you're managing a six-figure wardrobe budget.
+
+The problem isn't that supervisors don't care about budget tracking. The problem is that getting accurate numbers requires hours of manual data entry, receipt reconciliation, and formula management. So the budget view is always lagging behind reality.
+
+Threadline's budget dashboard solves this by eliminating the lag entirely.
+
+Every receipt captured in the app flows directly into the budget. Categorized automatically. Allocated to the right project, department, or character. The dashboard updates the moment an expense is logged.
+
+Supervisors can see:
+- Total spend vs. allocated budget (with a real-time percentage)
+- Spend by category (purchases, rentals, alterations, returns credited)
+- Spend by vendor
+- Projected budget trajectory based on current patterns
+- Flagged items approaching or exceeding category limits
+
+For production managers and line producers, this means getting accurate wardrobe budget reports without waiting for end-of-week reconciliation. For supervisors, it means confidence in the numbers without the weekend data entry marathon.
+
+Currently in development. See more at threadlineapp.io</div>
+    </div>
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> A clean mockup of the budget dashboard showing spend categories as a horizontal bar chart. Cream and dusty-blue palette for LinkedIn. Professional, data-forward, with the Threadline logo. The visual should feel like a product preview, not a concept.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ POST 23 ═══ -->
+<div class="post-card platform-ig type-engage">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 26 &middot; Friday</div>
+      <div class="post-title">What Feature Would Change Your Life on Set?</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge ig">Instagram</span>
+      <span class="badge format">Single Image</span>
+      <span class="badge type-tag">Engagement</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="post-meta">
+      <div class="meta-item"><strong>Post Time:</strong> 11:30 AM ET</div>
+      <div class="meta-item"><strong>Day:</strong> Friday</div>
+    </div>
+    <div class="caption-block">
+      <div class="caption-label">Full Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">We're asking because we're genuinely listening.
+
+If you could wave a magic wand and add one feature to a wardrobe management app, what would it be?
+
+A. Automatic vendor contact lookup when you scan a garment
+B. AI-generated continuity reports at the end of each shooting day
+C. One-tap sharing of inventory lists with production
+D. Offline mode that syncs everything when you get back to wifi
+
+Drop your letter in the comments. Or tell us something we haven't even thought of yet. We've built real features based on DMs and comments from this community, so your answers actually matter here.
+
+And if your answer is E. "all of the above," well... we're working on it.
+
+#wardrobedepartment #filmproduction #costumedesign #wardrobepa #filmcrew #setlife #productionlife #filmindustry #costumesupervisor #filmtech #wardrobesupervisor #costumedepartment #filmprod #belowtheline #filmmaking #tvproduction #fashionfilm #wardrobeassistant #costumier #filmwardrobe</div>
+    </div>
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Clean poll-style graphic on cream. Four options listed with letter labels (A, B, C, D) in brown-gold circles. "What feature would change your life on set?" as the headline in Cormorant Garamond. Threadline brand footer. Interactive, save-worthy.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ POST 24 ═══ -->
+<div class="post-card platform-li type-pain">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 27 &middot; Saturday (Optional)</div>
+      <div class="post-title">The Wrap Day Scramble</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge li">LinkedIn</span>
+      <span class="badge format">Text Post</span>
+      <span class="badge type-tag">Pain Point</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="post-meta">
+      <div class="meta-item"><strong>Post Time:</strong> 9:00 AM ET</div>
+      <div class="meta-item"><strong>Day:</strong> Saturday</div>
+    </div>
+    <div class="caption-block">
+      <div class="caption-label">Full Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Wrap day should feel like a victory lap. For wardrobe departments, it usually feels like a final exam.
+
+Here's what wrap looks like for most wardrobe teams:
+
+Hundreds of garments need to be sorted. Some get returned to vendors. Some go back to the rental house. Some get shipped to storage. Some get released to actors. Each category has different paperwork, different timelines, and different people who need to sign off.
+
+And all of this needs to happen while simultaneously reconciling the final budget, completing return paperwork, and documenting everything for the production's records.
+
+Now imagine doing all of that while also realizing that several return deadlines actually expired two days ago and the rental invoices have already been updated to reflect full purchase prices.
+
+This is why wardrobe PAs dread wrap day more than any other day on the schedule. Not because the work is hard. Because the systems they have to work within make it exponentially harder than it needs to be.
+
+Threadline is designed to make wrap day straightforward. Every garment's status is already tracked. Every return deadline is already monitored. Every expense is already reconciled. When wrap comes, you're not starting from scratch. You're just confirming what the system already knows.
+
+That's the goal. And we're getting close.
+
+threadlineapp.io</div>
+    </div>
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Optional: "Wrap day should feel like a victory lap." as a quote graphic on the brand gradient. Clean, simple, resonant. Dusty-blue accent for LinkedIn.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ POST 25 (filling Day 29) ═══ -->
+<div class="post-card platform-ig type-cta">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 29 &middot; Monday</div>
+      <div class="post-title">One Month In. Here's Where We Stand.</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge ig">Instagram</span>
+      <span class="badge format">Carousel (3 slides)</span>
+      <span class="badge type-tag">Waitlist CTA</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="post-meta">
+      <div class="meta-item"><strong>Post Time:</strong> 11:30 AM ET</div>
+      <div class="meta-item"><strong>Day:</strong> Monday</div>
+    </div>
+    <div class="caption-block">
+      <div class="caption-label">Full Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">One month of @threadline_app. Here's what's happened so far.
+
+We've talked with wardrobe professionals across TV, film, and commercial production. We've heard your stories about the receipts, the spreadsheets, the missed deadlines, and the wrap-day scrambles. We've taken notes on every single one.
+
+Here's what we're building based on what you've told us:
+
+Magic Scan for instant barcode inventory
+Smart receipt capture that reads every line item
+Automated return deadline tracking with advance alerts
+Real-time budget dashboards that update with every expense
+AI-powered continuity management
+Role-based access so supervisors and PAs see what they need
+
+This isn't vaporware. It's in active development and early access is coming.
+
+If you've been following along and haven't joined the waitlist yet, now's the time. The early access list is how we decide who gets in first. And the people who've been here from the beginning are at the front of that line.
+
+Link in bio. From rack to wrap.
+
+#wardrobedepartment #filmproduction #costumedesign #wardrobepa #filmcrew #setlife #productionlife #filmindustry #costumesupervisor #filmtech #wardrobesupervisor #costumedepartment #filmprod #belowtheline #filmmaking #tvproduction #fashionfilm #wardrobeassistant #costumier #filmwardrobe</div>
+    </div>
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Slide 1: "One Month In" in large Cormorant Garamond on cream with a subtle "30" watermark. Slide 2: Feature list as a clean checklist graphic with checkmarks next to each item. Slide 3: "Join Early Access. Link in bio." on the brand gradient. Celebratory but restrained. Editorial quality.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ POST 26 (filling Day 30) ═══ -->
+<div class="post-card platform-li type-cta">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 30 &middot; Tuesday</div>
+      <div class="post-title">Thank You. And What's Next.</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge li">LinkedIn</span>
+      <span class="badge format">Text Post</span>
+      <span class="badge type-tag">Waitlist CTA</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="post-meta">
+      <div class="meta-item"><strong>Post Time:</strong> 8:30 AM ET</div>
+      <div class="meta-item"><strong>Day:</strong> Tuesday</div>
+    </div>
+    <div class="caption-block">
+      <div class="caption-label">Full Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">One month ago, we introduced Threadline to the world. Here's a quick reflection on what we've learned.
+
+The response from the wardrobe community has been incredible. Not because of the numbers, but because of the specificity. People aren't just saying "yeah, we need better tools." They're telling us exactly what breaks in their current workflow, exactly when it breaks, and exactly what a fix would look like.
+
+That level of detail is a gift when you're building a product. And we're treating it accordingly.
+
+Every feature in our current development pipeline came directly from conversations with wardrobe supervisors, costume designers, and PAs. Return tracking with advance alerts. Smart receipt capture. Real-time budget visibility. Centralized continuity management. These aren't features we dreamed up in a conference room. They're solutions to problems people described to us in their own words.
+
+We're heading into our next phase of development with this feedback guiding every decision. If you work in wardrobe or production and want to be part of what happens next, we'd love to have you.
+
+Join the early access list at threadlineapp.io. Or just reach out directly. We answer every message.
+
+Thank you to everyone who's engaged, commented, shared, and signed up over the past month. This is just the beginning.
+
+From rack to wrap.</div>
+    </div>
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> No image needed. The long-form reflective tone works best as pure text on LinkedIn. If desired: "From Rack to Wrap" in elegant type on the brand gradient. A dignified closing to the first month.</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- end week 4 -->
+
+
+</div><!-- end container -->
+
+<!-- ===== FOOTER ===== -->
+<div class="page-footer">
+  <p style="margin-bottom: 8px;">30-Day Content Calendar for @threadline_app &middot; threadlineapp.io</p>
+  <a href="https://cooperinteractive.com">Made with care</a>
+</div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+/* ═══════════════════════════════════════════════════════
+   Copy caption text to clipboard
+   ═══════════════════════════════════════════════════════ */
+function copyCaption(btn) {
+  /* Get the caption text from the sibling .caption-text element */
+  const block = btn.closest('.caption-block');
+  const textEl = block.querySelector('.caption-text');
+  const text = textEl.innerText || textEl.textContent;
+
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  }).catch(() => {
+    /* Fallback for older browsers */
+    const range = document.createRange();
+    range.selectNodeContents(textEl);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    document.execCommand('copy');
+    sel.removeAllRanges();
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+/* Copy hashtag text */
+function copyHashtags(btn) {
+  const block = btn.closest('.hashtag-block');
+  const textEl = block.querySelector('.ht-text');
+  const text = textEl.innerText || textEl.textContent;
+
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+/* ═══════════════════════════════════════════════════════
+   Sticky nav: highlight active week link on scroll
+   ═══════════════════════════════════════════════════════ */
+const weekSections = document.querySelectorAll('.week-section');
+const weekLinks = document.querySelectorAll('.week-links a');
+
+function updateActiveWeek() {
+  let current = '';
+  weekSections.forEach(section => {
+    const top = section.getBoundingClientRect().top;
+    if (top <= 120) {
+      current = section.id;
+    }
+  });
+  weekLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) {
+      link.classList.add('active');
+    }
+  });
+}
+
+window.addEventListener('scroll', updateActiveWeek, { passive: true });
+updateActiveWeek();
+</script>
+
+</body>
+</html>

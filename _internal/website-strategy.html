@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ThreadLine: Website Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@200;300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream:#FAF8F5;--bone:#F5F0EB;--warm-gray:#E8E3DE;--sand:#D2C4B9;
+    --taupe:#B5A89C;--brown-gold:#8B6F52;--copper:#C4946A;--dark-brown:#5A4228;
+    --espresso:#3A2A18;--near-black:#1A1714;--void:#0A0A0A;
+    --water:#5A7E8A;--forest:#4A6741;--clay:#8A4A42;--dusty-blue:#627786;
+    --surface-low:#f5f3f0;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--near-black);line-height:1.7;}
+
+  .nav{position:sticky;top:0;z-index:100;background:rgba(250,248,245,0.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(26,23,20,0.06);padding:12px 48px;display:flex;align-items:center;gap:24px;}
+  .nav .brand{font-family:'Inter',sans-serif;font-weight:200;font-size:14px;letter-spacing:0.15em;text-transform:uppercase;}
+  .nav .brand .l{color:var(--brown-gold);}
+  .nav a{font-size:11px;font-weight:500;color:var(--taupe);text-decoration:none;padding:4px 8px;border-radius:4px;transition:all 0.15s;}
+  .nav a:hover{color:var(--brown-gold);background:rgba(139,111,82,0.06);}
+  .nav a.back{color:var(--brown-gold);}
+
+  .container{max-width:1100px;margin:0 auto;padding:48px;}
+
+  .page-title{margin-bottom:48px;}
+  .page-title h1{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:36px;margin-bottom:4px;}
+  .page-title .sub{font-size:14px;color:var(--taupe);max-width:700px;}
+  .page-title .date{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--sand);margin-top:4px;}
+
+  .section{margin-bottom:56px;padding-bottom:56px;border-bottom:1px solid rgba(26,23,20,0.06);}
+  .section:last-child{border-bottom:none;}
+  .sec-label{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--brown-gold);margin-bottom:20px;display:flex;align-items:center;gap:12px;}
+  .sec-label::after{content:'';flex:1;height:1px;background:var(--warm-gray);}
+
+  h2{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:28px;margin-bottom:12px;}
+  h3{font-size:15px;font-weight:600;margin-bottom:8px;margin-top:24px;}
+
+  p{font-size:14px;color:#4a4540;margin-bottom:12px;}
+
+  .insight-box{background:rgba(139,111,82,0.06);border-left:3px solid var(--brown-gold);border-radius:0 8px 8px 0;padding:20px 24px;margin:20px 0;}
+  .insight-box strong{color:var(--brown-gold);}
+
+  /* Story arc */
+  .story-arc{display:flex;gap:0;margin:24px 0;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(26,23,20,0.06);}
+  .arc-step{flex:1;padding:28px 24px;position:relative;display:flex;flex-direction:column;}
+  .arc-step .arc-num{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;}
+  .arc-step h4{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:22px;margin-bottom:8px;}
+  .arc-step p{font-size:12px;line-height:1.6;flex:1;}
+  .arc-step .arc-quote{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;margin-top:12px;opacity:0.8;border-top:1px solid rgba(255,255,255,0.15);padding-top:12px;}
+
+  /* Page flow cards */
+  .page-flow{display:flex;flex-direction:column;gap:0;}
+  .flow-section{background:white;border:1px solid rgba(26,23,20,0.06);padding:32px;position:relative;display:grid;grid-template-columns:200px 1fr;gap:24px;align-items:start;}
+  .flow-section:first-child{border-radius:12px 12px 0 0;}
+  .flow-section:last-child{border-radius:0 0 12px 12px;}
+  .flow-section+.flow-section{border-top:none;}
+
+  .flow-label{position:sticky;top:80px;}
+  .flow-label .flow-num{font-family:'JetBrains Mono',monospace;font-size:32px;font-weight:500;color:var(--brown-gold);opacity:0.3;line-height:1;}
+  .flow-label .flow-name{font-size:13px;font-weight:600;margin-top:4px;}
+  .flow-label .flow-height{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--taupe);margin-top:4px;}
+
+  .flow-content h4{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:20px;margin-bottom:8px;}
+  .flow-content p{font-size:13px;color:var(--taupe);margin-bottom:8px;}
+  .flow-content .copy-example{background:var(--surface-low);border-radius:8px;padding:16px;margin:12px 0;font-size:13px;line-height:1.6;}
+  .flow-content .copy-example .headline{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:24px;color:var(--near-black);margin-bottom:4px;}
+  .flow-content .copy-example .subhead{font-size:13px;color:var(--taupe);}
+  .flow-content .elements{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+  .flow-content .el-tag{font-size:10px;font-weight:500;padding:3px 8px;border-radius:4px;background:rgba(139,111,82,0.08);color:var(--brown-gold);}
+
+  /* Site map */
+  .sitemap{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:20px 0;}
+  .sitemap-card{background:white;border:1px solid rgba(26,23,20,0.06);border-radius:8px;padding:16px;text-align:center;transition:all 0.2s;}
+  .sitemap-card:hover{box-shadow:0 4px 12px rgba(26,23,20,0.06);transform:translateY(-2px);}
+  .sitemap-card .page-name{font-size:13px;font-weight:600;margin-bottom:4px;}
+  .sitemap-card .page-desc{font-size:11px;color:var(--taupe);line-height:1.5;}
+  .sitemap-card.primary{border-color:var(--brown-gold);border-width:2px;}
+  .sitemap-card.primary .page-name{color:var(--brown-gold);}
+
+  /* Comparison table */
+  .compare{display:grid;grid-template-columns:1fr 1fr;gap:0;border-radius:12px;overflow:hidden;margin:20px 0;box-shadow:0 2px 12px rgba(26,23,20,0.06);}
+  .compare-col{padding:32px;}
+  .compare-col h4{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:22px;margin-bottom:16px;}
+  .compare-col ul{list-style:none;padding:0;}
+  .compare-col ul li{font-size:13px;padding:8px 0;border-bottom:1px solid rgba(0,0,0,0.06);display:flex;align-items:flex-start;gap:8px;}
+  .compare-col ul li:last-child{border-bottom:none;}
+  .compare-col ul li::before{content:'';width:6px;height:6px;border-radius:50%;margin-top:6px;flex-shrink:0;}
+
+  .footer{text-align:center;padding:32px;font-size:12px;color:var(--taupe);border-top:1px solid rgba(26,23,20,0.06);}
+  .footer a{color:var(--brown-gold);text-decoration:none;}
+
+  @media(max-width:900px){
+    .story-arc{flex-direction:column;}
+    .flow-section{grid-template-columns:1fr;}
+    .sitemap{grid-template-columns:repeat(2,1fr);}
+    .compare{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="brand" style="text-decoration:none;color:inherit;">THREAD<span class="l">LINE</span></a>
+  <a class="back" href="index.html">← All Pages</a>
+  <a href="#story">Story</a>
+  <a href="#pages">Pages</a>
+  <a href="#flow">Section Flow</a>
+  <a href="#hooks">Hooks</a>
+</nav>
+
+<div class="container">
+
+<div class="page-title">
+  <h1>Website Strategy & <em style="font-family:'Cormorant Garamond',serif;font-style:italic">Storytelling</em></h1>
+  <div class="sub">Research-backed strategy for the ThreadLine marketing website. What pages we need, what story to tell, and how to convert wardrobe professionals into waitlist signups.</div>
+  <div class="date">2026-03-21 · Research complete</div>
+</div>
+
+<!-- ═══════════════ CORE INSIGHT ═══════════════ -->
+<div class="section">
+  <div class="sec-label">The Big Insight</div>
+
+  <div class="insight-box">
+    <strong>Don't sell software. Sell the end of paperwork.</strong><br><br>
+    Wardrobe professionals don't want an app. They want their weekends back. They want to stop filing receipts in Ziploc bags. They want to never miss another return deadline. The website doesn't sell ThreadLine the product. It sells the transformation: from chaos to craft.
+  </div>
+
+  <p>Research from 2026 SaaS conversion studies confirms: <strong>pain-first storytelling converts up to 30% better</strong> than feature-first messaging. For niche professional tools, the formula is:</p>
+
+  <div style="text-align:center;padding:24px 0;font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--brown-gold)">
+    Pain → Recognition → Transformation → Proof → Action
+  </div>
+
+  <p>The visitor should feel understood before they see a single feature. They should nod and think "this person has been in a wardrobe truck" before they see a screenshot.</p>
+</div>
+
+<!-- ═══════════════ THE STORY ARC ═══════════════ -->
+<div class="section" id="story">
+  <div class="sec-label">The Story Arc: What the Visitor Feels</div>
+
+  <div class="story-arc">
+    <div class="arc-step" style="background:var(--clay);color:white">
+      <div class="arc-num" style="color:rgba(255,255,255,0.5)">Act 1</div>
+      <h4>The Pain</h4>
+      <p>Show them their own life. The mess they live in every day. Make them feel seen.</p>
+      <div class="arc-quote">"I have 47 receipts in my bag and I can't remember which Zara has the leather jacket."</div>
+    </div>
+    <div class="arc-step" style="background:var(--near-black);color:var(--bone)">
+      <div class="arc-num" style="color:var(--copper)">Act 2</div>
+      <h4>The Shift</h4>
+      <p>Introduce the idea, not the product, the idea that it doesn't have to be this way.</p>
+      <div class="arc-quote">"The wardrobe truck just went digital."</div>
+    </div>
+    <div class="arc-step" style="background:var(--brown-gold);color:white">
+      <div class="arc-num" style="color:rgba(255,255,255,0.5)">Act 3</div>
+      <h4>The New World</h4>
+      <p>Show the transformation. Not features, outcomes. What their day looks like now.</p>
+      <div class="arc-quote">"Scan it. Done. You just saved 20 minutes."</div>
+    </div>
+    <div class="arc-step" style="background:var(--forest);color:white">
+      <div class="arc-num" style="color:rgba(255,255,255,0.5)">Act 4</div>
+      <h4>The Proof</h4>
+      <p>Show it's real. Numbers, testimonials, the actual product. Build trust.</p>
+      <div class="arc-quote">"Used on 12 productions. 3 hours saved per day."</div>
+    </div>
+    <div class="arc-step" style="background:var(--cream);color:var(--near-black);border:1px solid var(--warm-gray)">
+      <div class="arc-num" style="color:var(--brown-gold)">Act 5</div>
+      <h4>The Ask</h4>
+      <p>One clear action. No confusion. Join the waitlist or start your trial.</p>
+      <div class="arc-quote" style="color:var(--brown-gold);border-top-color:var(--warm-gray)">"Secure early access."</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ SITE MAP ═══════════════ -->
+<div class="section" id="pages">
+  <div class="sec-label">Site Architecture: What Pages We Build</div>
+
+  <p>Research says: <strong>one primary CTA per page, no exceptions.</strong> Every page drives to the waitlist. We start with a focused 4-page site (plus legal). We don't need 20 pages to launch.</p>
+
+  <div class="sitemap">
+    <div class="sitemap-card primary">
+      <div class="page-name">Home</div>
+      <div class="page-desc">The full story arc. Pain → Shift → Features → Proof → CTA. This is the page that does 80% of the selling.</div>
+    </div>
+    <div class="sitemap-card">
+      <div class="page-name">Features</div>
+      <div class="page-desc">Deep dive into Magic Scan, Returns, Budget, Thread AI. For visitors who want details before signing up.</div>
+    </div>
+    <div class="sitemap-card">
+      <div class="page-name">Pricing</div>
+      <div class="page-desc">3-tier pricing cards. FAQ. "Start free trial" CTA. Addresses the "how much?" question directly.</div>
+    </div>
+    <div class="sitemap-card">
+      <div class="page-name">About</div>
+      <div class="page-desc">"The Truck" origin story, why we built this, Cooper Interactive. Human connection.</div>
+    </div>
+  </div>
+
+  <div class="sitemap" style="grid-template-columns:repeat(3,1fr);opacity:0.6">
+    <div class="sitemap-card">
+      <div class="page-name" style="font-size:11px">Privacy Policy</div>
+      <div class="page-desc">Already written</div>
+    </div>
+    <div class="sitemap-card">
+      <div class="page-name" style="font-size:11px">Terms of Service</div>
+      <div class="page-desc">Already written</div>
+    </div>
+    <div class="sitemap-card">
+      <div class="page-name" style="font-size:11px">Blog (later)</div>
+      <div class="page-desc">SEO + content marketing</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ HOMEPAGE FLOW ═══════════════ -->
+<div class="section" id="flow">
+  <div class="sec-label">Homepage Section-by-Section Flow</div>
+
+  <p style="margin-bottom:24px">The homepage tells the complete story in one scroll. Each section maps to the story arc. Visitor should go from "that's my life" to "I need this" in under 60 seconds.</p>
+
+  <div class="page-flow">
+
+    <!-- Section 1: Hero -->
+    <div class="flow-section">
+      <div class="flow-label">
+        <div class="flow-num">01</div>
+        <div class="flow-name">Hero</div>
+        <div class="flow-height">~100vh</div>
+      </div>
+      <div class="flow-content">
+        <h4>The Shift: Announce the Change</h4>
+        <p>Full viewport. Brand accent background (#8B6F52). Ghosted garment rack photography. The slogan hits immediately. Device mockup showing the app. One CTA.</p>
+        <div class="copy-example">
+          <div class="headline">The wardrobe truck just went digital.</div>
+          <div class="subhead">ThreadLine eliminates the clerical burden of film production wardrobe management. Scan barcodes, photograph garments, snap receipts, and AI handles the data entry.</div>
+        </div>
+        <div class="elements">
+          <span class="el-tag">H1 under 8 words</span>
+          <span class="el-tag">iPad mockup</span>
+          <span class="el-tag">Ghosted photo bg</span>
+          <span class="el-tag">Join Waitlist CTA</span>
+          <span class="el-tag">Build version badge</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 2: The Pain -->
+    <div class="flow-section">
+      <div class="flow-label">
+        <div class="flow-num">02</div>
+        <div class="flow-name">The Pain</div>
+        <div class="flow-height">~60vh</div>
+      </div>
+      <div class="flow-content">
+        <h4>80% of a wardrobe PA's day is paperwork.</h4>
+        <p>Split layout: sticky headline left, pain point cards right. Use their language. Show you've been in the truck. This is where they nod and think "this person gets it."</p>
+        <div class="copy-example">
+          <div class="headline" style="font-size:20px">Physical binders, Ziploc bags overflowing with receipts, and manual data entry are relics of a slower age.</div>
+        </div>
+        <p>Pain point cards with left border accent:</p>
+        <div class="elements">
+          <span class="el-tag">Lost receipt panic</span>
+          <span class="el-tag">Weekend spreadsheets</span>
+          <span class="el-tag">Missed return windows</span>
+          <span class="el-tag">Binder bulk</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3: Features Bento -->
+    <div class="flow-section">
+      <div class="flow-label">
+        <div class="flow-num">03</div>
+        <div class="flow-name">Features</div>
+        <div class="flow-height">~80vh</div>
+      </div>
+      <div class="flow-content">
+        <h4>Engineered for the craft.</h4>
+        <p>Bento grid layout with ghosted photography treatment. Each card is a feature shown as an outcome, not a spec. Large card for Magic Scan (the hero feature), smaller cards for Budget, Thread AI, Returns.</p>
+        <div class="elements">
+          <span class="el-tag">Magic Scan (8-col, ghosted photo)</span>
+          <span class="el-tag">Budget Tracking (4-col, accent bg)</span>
+          <span class="el-tag">Thread AI (4-col, light bg)</span>
+          <span class="el-tag">Returns Rack (8-col, countdown timers)</span>
+        </div>
+        <p style="margin-top:12px;color:var(--brown-gold);font-weight:500">Key principle: benefit-led, not feature-led. "Never miss a return window" not "Return policy database with 50+ retailers."</p>
+      </div>
+    </div>
+
+    <!-- Section 4: How It Works -->
+    <div class="flow-section">
+      <div class="flow-label">
+        <div class="flow-num">04</div>
+        <div class="flow-name">How It Works</div>
+        <div class="flow-height">~70vh</div>
+      </div>
+      <div class="flow-content">
+        <h4>Three steps to unclutter.</h4>
+        <p>Dark section (near-black background, bone text). Cinematic contrast shift. Three numbered steps with serif numbers and short descriptions. This is the "it's actually simple" reassurance.</p>
+        <div class="copy-example" style="background:var(--near-black);color:var(--bone)">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:left">
+            <div><span style="font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--copper);font-style:italic">01</span><br><span style="font-family:'Cormorant Garamond',serif;font-size:18px">Scan It</span><br><span style="font-size:11px;color:var(--taupe)">Camera → data. Instant.</span></div>
+            <div><span style="font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--copper);font-style:italic">02</span><br><span style="font-family:'Cormorant Garamond',serif;font-size:18px">Track It</span><br><span style="font-size:11px;color:var(--taupe)">Characters, scenes, budget.</span></div>
+            <div><span style="font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--copper);font-style:italic">03</span><br><span style="font-family:'Cormorant Garamond',serif;font-size:18px">Return It</span><br><span style="font-size:11px;color:var(--taupe)">One-tap lists. Wrap reports.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 5: Built for Production -->
+    <div class="flow-section">
+      <div class="flow-label">
+        <div class="flow-num">05</div>
+        <div class="flow-name">Production</div>
+        <div class="flow-height">~60vh</div>
+      </div>
+      <div class="flow-content">
+        <h4>Built for the high-stakes of production.</h4>
+        <p>Trust-building section. Show this isn't a toy; it's built for real sets. Offline mode, multi-user sync, cross-platform (iPad/iPhone/desktop), dark mode for late fittings. Photo grid with ghosted treatment.</p>
+        <div class="elements">
+          <span class="el-tag">Offline Mode</span>
+          <span class="el-tag">Multi-user Sync</span>
+          <span class="el-tag">iPad + iPhone + Web</span>
+          <span class="el-tag">Dark Mode</span>
+        </div>
+        <p style="margin-top:12px">Use the "Atelier Standards" pill badge from your original design. It signals quality without being heavy.</p>
+      </div>
+    </div>
+
+    <!-- Section 6: Social Proof -->
+    <div class="flow-section">
+      <div class="flow-label">
+        <div class="flow-num">06</div>
+        <div class="flow-name">Proof</div>
+        <div class="flow-height">~40vh</div>
+      </div>
+      <div class="flow-content">
+        <h4>From productions like yours.</h4>
+        <p>Testimonial cards or stat blocks. Pre-launch, use projected metrics or beta tester quotes. Post-launch, replace with real testimonials.</p>
+        <div class="copy-example">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:center">
+            <div><span style="font-family:'JetBrains Mono',monospace;font-size:28px;color:var(--brown-gold)">3hrs</span><br><span style="font-size:11px;color:var(--taupe)">saved per day</span></div>
+            <div><span style="font-family:'JetBrains Mono',monospace;font-size:28px;color:var(--brown-gold)">$0</span><br><span style="font-size:11px;color:var(--taupe)">missed returns</span></div>
+            <div><span style="font-family:'JetBrains Mono',monospace;font-size:28px;color:var(--brown-gold)">50+</span><br><span style="font-size:11px;color:var(--taupe)">store policies built in</span></div>
+          </div>
+        </div>
+        <p style="color:var(--brown-gold);font-style:italic;font-size:13px">Pre-launch: use projected/calculated stats. Replace with real data as you get beta feedback.</p>
+      </div>
+    </div>
+
+    <!-- Section 7: CTA -->
+    <div class="flow-section">
+      <div class="flow-label">
+        <div class="flow-num">07</div>
+        <div class="flow-name">Final CTA</div>
+        <div class="flow-height">~50vh</div>
+      </div>
+      <div class="flow-content">
+        <h4>Ready to threadline your next production?</h4>
+        <p>Clean, centered, lots of whitespace. Email input with underline styling (not boxed). One button. Scarcity note: "Limited to 50 active productions for the beta." Build version number for credibility.</p>
+        <div class="copy-example" style="text-align:center">
+          <div class="headline" style="font-size:28px">Ready to threadline your<br>next production?</div>
+          <div style="margin:16px auto;width:300px;border-bottom:1px solid var(--sand);padding:12px 0;font-style:italic;color:var(--taupe);font-size:14px">production-office@studio.com</div>
+          <div style="display:inline-block;padding:12px 32px;background:var(--brown-gold);color:white;font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;margin-top:12px">Secure Early Access</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--taupe);margin-top:16px">Limited to 50 active productions · v1.0-beta</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="flow-section" style="border-radius:0 0 12px 12px">
+      <div class="flow-label">
+        <div class="flow-num" style="opacity:0.15">08</div>
+        <div class="flow-name">Footer</div>
+      </div>
+      <div class="flow-content">
+        <h4>Minimal footer</h4>
+        <p>Two-tone wordmark, nav links (Privacy, Terms, Contact, Press Kit), "Made with care" → cooperinteractive.com. No newsletter signup here, that's what the CTA above does.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════ HOOKS & CONVERSION ═══════════════ -->
+<div class="section" id="hooks">
+  <div class="sec-label">What Gets Them Hooked</div>
+
+  <h2>The Before & After</h2>
+  <p>The most powerful conversion technique for niche professional tools: show their current reality vs. the ThreadLine reality. Not as a feature comparison, but as an emotional contrast.</p>
+
+  <div class="compare">
+    <div class="compare-col" style="background:var(--surface-low)">
+      <h4 style="color:var(--clay)">Before ThreadLine</h4>
+      <ul>
+        <li style="color:var(--near-black)"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--clay);margin-right:8px;flex-shrink:0;margin-top:6px"></span>47 receipts in a Ziploc bag, and one of them is the wrong Zara</li>
+        <li style="color:var(--near-black)"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--clay);margin-right:8px;flex-shrink:0;margin-top:6px"></span>Hand-typing every item into a spreadsheet on Sunday night</li>
+        <li style="color:var(--near-black)"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--clay);margin-right:8px;flex-shrink:0;margin-top:6px"></span>Return window closed, so that $400 jacket is now a permanent purchase</li>
+        <li style="color:var(--near-black)"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--clay);margin-right:8px;flex-shrink:0;margin-top:6px"></span>"What size shirt does Jake wear?" Flipping through a binder</li>
+        <li style="color:var(--near-black)"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--clay);margin-right:8px;flex-shrink:0;margin-top:6px"></span>End-of-show wrap report takes an entire weekend to compile</li>
+      </ul>
+    </div>
+    <div class="compare-col" style="background:var(--near-black);color:var(--bone)">
+      <h4 style="color:var(--copper)">After ThreadLine</h4>
+      <ul>
+        <li style="color:var(--bone)"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--forest);margin-right:8px;flex-shrink:0;margin-top:6px"></span>Snap the receipt at checkout, and every line item is captured instantly</li>
+        <li style="color:var(--bone)"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--forest);margin-right:8px;flex-shrink:0;margin-top:6px"></span>Scan the barcode, and inventory auto-fills in seconds</li>
+        <li style="color:var(--bone)"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--forest);margin-right:8px;flex-shrink:0;margin-top:6px"></span>Alert: "3 items due back to Zara by Friday." You're already on it</li>
+        <li style="color:var(--bone)"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--forest);margin-right:8px;flex-shrink:0;margin-top:6px"></span>"Jake's shirt size?" Ask Thread AI, answer in 2 seconds</li>
+        <li style="color:var(--bone)"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--forest);margin-right:8px;flex-shrink:0;margin-top:6px"></span>Tap "Generate Wrap Report," done before lunch</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="insight-box" style="margin-top:24px">
+    <strong>The hook that works for this audience:</strong> They don't need to be convinced that wardrobe management is hard. They live it. The hook is showing them that someone finally understood the problem well enough to build the right tool. The specificity is the hook: Zara return policies, Ziploc bags, weekend spreadsheets. That's their world. When they see it described perfectly, they trust that the solution is real too.
+  </div>
+
+  <h3 style="margin-top:32px">Conversion Principles (Research-Backed)</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px">
+    <div style="background:white;border:1px solid rgba(26,23,20,0.06);border-radius:8px;padding:20px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--brown-gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px">H1 Headline</div>
+      <p style="font-size:13px;margin:0">Under 8 words (44 chars max). Simplified copy doubles conversion rates.</p>
+    </div>
+    <div style="background:white;border:1px solid rgba(26,23,20,0.06);border-radius:8px;padding:20px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--brown-gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px">One CTA Per Section</div>
+      <p style="font-size:13px;margin:0">No exceptions. Every CTA says "Join Waitlist" or "Secure Early Access." Don't split attention.</p>
+    </div>
+    <div style="background:white;border:1px solid rgba(26,23,20,0.06);border-radius:8px;padding:20px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--brown-gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px">Social Proof Near CTA</div>
+      <p style="font-size:13px;margin:0">83% trust recommendations from peers. Place proof right next to the action.</p>
+    </div>
+    <div style="background:white;border:1px solid rgba(26,23,20,0.06);border-radius:8px;padding:20px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--brown-gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px">Email-Only Signup</div>
+      <p style="font-size:13px;margin:0">One field. Email only. 3-5 field forms convert best, but for waitlists, just email maximizes signups.</p>
+    </div>
+  </div>
+
+  <h3 style="margin-top:32px">Design Execution Rules</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px">
+    <div style="background:white;border:1px solid rgba(26,23,20,0.06);border-radius:8px;padding:20px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--brown-gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px">Linear-Style Polish</div>
+      <p style="font-size:13px;margin:0">Purposeful animation, product-forward, minimal. Every element earns its space. No decoration for decoration's sake.</p>
+    </div>
+    <div style="background:white;border:1px solid rgba(26,23,20,0.06);border-radius:8px;padding:20px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--brown-gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px">Ghosted Photography</div>
+      <p style="font-size:13px;margin:0">Use the brand's signature treatment throughout. Real garment/rack photos at 8-15% opacity behind content cards.</p>
+    </div>
+    <div style="background:white;border:1px solid rgba(26,23,20,0.06);border-radius:8px;padding:20px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--brown-gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px">Contrast Shifts</div>
+      <p style="font-size:13px;margin:0">Alternate light/dark/accent sections to create rhythm. Hero (accent) → Pain (light) → Features (light) → How It Works (dark) → Production (light) → CTA (light).</p>
+    </div>
+    <div style="background:white;border:1px solid rgba(26,23,20,0.06);border-radius:8px;padding:20px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--brown-gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px">Industry Language</div>
+      <p style="font-size:13px;margin:0">Use "production" not "project." Use "wrap" not "finish." Use "on set" not "at work." Speak their language.</p>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  <a href="https://cooperinteractive.com">Made with care</a>
+</div>
+
+<script>
+  document.querySelectorAll('.nav a:not(.back)').forEach(link=>{
+    link.addEventListener('click',e=>{e.preventDefault();const id=link.getAttribute('href').replace('#','');document.getElementById(id)?.scrollIntoView({behavior:'smooth'});});
+  });
+</script>
+
+</body>
+</html>

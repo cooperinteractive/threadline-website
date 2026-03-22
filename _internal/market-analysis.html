@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ThreadLine — Market Analysis & Pricing Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAF8F5;
+    --bg-card: #FFFFFF;
+    --text: #1A1714;
+    --text-secondary: #6B6560;
+    --text-tertiary: #9A9590;
+    --accent: #8B6F52;
+    --accent-light: rgba(139,111,82,0.08);
+    --accent-mid: rgba(139,111,82,0.15);
+    --water: #5A7E8A;
+    --water-light: rgba(90,126,138,0.08);
+    --success: #4A6741;
+    --success-light: rgba(74,103,65,0.08);
+    --warning: #8A6B3A;
+    --warning-light: rgba(138,107,58,0.08);
+    --danger: #8A4A42;
+    --danger-light: rgba(138,74,66,0.08);
+    --purple: #6A5A8C;
+    --purple-light: rgba(106,90,140,0.08);
+    --border: rgba(26,23,20,0.06);
+    --border-strong: rgba(26,23,20,0.12);
+    --shadow: 0 1px 3px rgba(26,23,20,0.04), 0 4px 12px rgba(26,23,20,0.03);
+    --shadow-hover: 0 4px 16px rgba(26,23,20,0.08);
+    --radius: 12px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(250,248,245,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 32px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .nav-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 20px;
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 4px;
+  }
+
+  .nav-link {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 6px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .nav-link:hover, .nav-link.active {
+    background: var(--accent-light);
+    color: var(--accent);
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 32px;
+  }
+
+  .page-header {
+    margin-bottom: 40px;
+  }
+
+  .page-header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 36px;
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+  }
+
+  .page-header .subtitle {
+    font-size: 14px;
+    color: var(--text-secondary);
+  }
+
+  .page-header .date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-tertiary);
+    margin-top: 4px;
+  }
+
+  /* Section styles */
+  .section {
+    margin-bottom: 48px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 26px;
+  }
+
+  .section-header .tag {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: var(--accent-light);
+    color: var(--accent);
+  }
+
+  /* Stat cards */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+  }
+
+  .stat-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    margin-bottom: 8px;
+  }
+
+  .stat-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.2;
+  }
+
+  .stat-sub {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+  }
+
+  /* Competitor table */
+  .comp-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+
+  .comp-table thead {
+    background: var(--accent-light);
+  }
+
+  .comp-table th {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding: 14px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .comp-table td {
+    font-size: 13px;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  .comp-table tr:last-child td { border-bottom: none; }
+
+  .comp-table tr:hover { background: rgba(139,111,82,0.02); }
+
+  .comp-table .name {
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .comp-table .tag-cell {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+
+  .micro-tag {
+    font-size: 10px;
+    font-weight: 500;
+    padding: 2px 6px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .micro-tag.web { background: var(--water-light); color: var(--water); }
+  .micro-tag.enterprise { background: var(--purple-light); color: var(--purple); }
+  .micro-tag.generalist { background: var(--warning-light); color: var(--warning); }
+  .micro-tag.niche { background: var(--success-light); color: var(--success); }
+  .micro-tag.legacy { background: var(--danger-light); color: var(--danger); }
+  .micro-tag.euro { background: rgba(90,126,138,0.1); color: var(--water); }
+
+  /* Threadline row highlight */
+  .comp-table tr.highlight {
+    background: var(--accent-light);
+  }
+
+  .comp-table tr.highlight td {
+    font-weight: 500;
+    color: var(--accent);
+    border-bottom-color: var(--accent-mid);
+  }
+
+  /* Gap analysis */
+  .gaps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .gap-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 20px;
+    box-shadow: var(--shadow);
+  }
+
+  .gap-card h4 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+
+  .gap-card p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .gap-card .icon {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+
+  /* Market sizing */
+  .funnel {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .funnel-stage {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 16px 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    position: relative;
+  }
+
+  .funnel-stage:first-child { border-radius: var(--radius) var(--radius) 0 0; }
+  .funnel-stage:last-child { border-radius: 0 0 var(--radius) var(--radius); }
+  .funnel-stage + .funnel-stage { border-top: none; }
+
+  .funnel-bar {
+    height: 8px;
+    border-radius: 4px;
+    background: var(--accent);
+    flex-shrink: 0;
+    transition: width 0.6s ease;
+  }
+
+  .funnel-label {
+    font-size: 13px;
+    color: var(--text);
+    flex-shrink: 0;
+    min-width: 200px;
+  }
+
+  .funnel-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--accent);
+    flex-shrink: 0;
+    min-width: 100px;
+    text-align: right;
+  }
+
+  /* Pricing section */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 24px;
+  }
+
+  .price-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .price-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .price-card.recommended {
+    border: 2px solid var(--accent);
+    background: linear-gradient(180deg, rgba(139,111,82,0.03) 0%, var(--bg-card) 100%);
+  }
+
+  .price-card.recommended::before {
+    content: 'MOST POPULAR';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent);
+    color: white;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    padding: 3px 12px;
+    border-radius: 10px;
+  }
+
+  .price-tier {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+  }
+
+  .price-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 24px;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+
+  .price-amount {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 36px;
+    font-weight: 500;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .price-period {
+    font-size: 13px;
+    color: var(--text-tertiary);
+    margin-bottom: 4px;
+  }
+
+  .price-annual {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--success);
+    margin-bottom: 20px;
+  }
+
+  .price-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    min-height: 40px;
+  }
+
+  .feature-list {
+    list-style: none;
+    text-align: left;
+    padding: 0;
+  }
+
+  .feature-list li {
+    font-size: 13px;
+    padding: 8px 0;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .feature-list li::before {
+    content: '✓';
+    color: var(--success);
+    font-weight: 700;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+
+  .feature-list li.highlight-feature {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  /* Revenue projection */
+  .revenue-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 20px;
+  }
+
+  .rev-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+
+  .rev-card .year {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-tertiary);
+    margin-bottom: 4px;
+  }
+
+  .rev-card .arr {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  .rev-card .users {
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  .rev-card .growth {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--success);
+    margin-top: 4px;
+  }
+
+  /* Rationale box */
+  .rationale {
+    background: var(--accent-light);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 20px 24px;
+    margin-top: 24px;
+  }
+
+  .rationale h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  .rationale p, .rationale li {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  .rationale ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 8px;
+  }
+
+  .rationale li {
+    padding: 4px 0;
+    padding-left: 16px;
+    position: relative;
+  }
+
+  .rationale li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+
+  /* Bottom nav */
+  .bottom-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+
+  .btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px 24px;
+    border-radius: 8px;
+    border: 1px solid var(--accent);
+    cursor: pointer;
+    transition: all 0.15s;
+    text-decoration: none;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+
+  .btn-primary:hover { background: #7A6048; }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--accent);
+  }
+
+  .btn-secondary:hover { background: var(--accent-light); }
+
+  .footer {
+    text-align: center;
+    padding: 24px;
+    font-size: 12px;
+    color: var(--text-tertiary);
+  }
+
+  .footer a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .gaps-grid { grid-template-columns: 1fr; }
+    .revenue-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-brand" href="index.html">THREADLINE</a>
+  <a class="back" href="index.html" style="font-size:11px;font-weight:500;color:var(--accent);text-decoration:none;padding:4px 8px;border-radius:4px;">← All Pages</a>
+  <div class="nav-links">
+    <a class="nav-link active" href="#market">Market</a>
+    <a class="nav-link" href="#competitors">Competitors</a>
+    <a class="nav-link" href="#opportunity">Opportunity</a>
+    <a class="nav-link" href="#sizing">Sizing</a>
+    <a class="nav-link" href="#pricing">Pricing</a>
+    <a class="nav-link" href="#revenue">Revenue</a>
+  </div>
+</nav>
+
+<div class="container">
+
+  <div class="page-header">
+    <h1>Market Analysis & Pricing Strategy</h1>
+    <div class="subtitle">Wardrobe Department Software for Film & Television Production</div>
+    <div class="date">2026-03-21 · ThreadLine, Inc. · Internal</div>
+  </div>
+
+  <!-- MARKET OVERVIEW -->
+  <section class="section" id="market">
+    <div class="section-header">
+      <h2>Market Overview</h2>
+      <span class="tag">Landscape</span>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Film Clothing & Props Market</div>
+        <div class="stat-value">$1.5B</div>
+        <div class="stat-sub">Growing to $2.8B by 2032 (7.2% CAGR)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">US Productions / Year</div>
+        <div class="stat-value">~857</div>
+        <div class="stat-sub">Scripted film & TV (2024), recovering post-strike</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">IATSE Members</div>
+        <div class="stat-value">170K+</div>
+        <div class="stat-sub">Costume Designers Guild (Local 892): ~1,200</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Current Solution</div>
+        <div class="stat-value">Paper</div>
+        <div class="stat-sub">80%+ use spreadsheets, binders, Ziploc bags</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPETITOR ANALYSIS -->
+  <section class="section" id="competitors">
+    <div class="section-header">
+      <h2>Competitive Landscape</h2>
+      <span class="tag">5 Players</span>
+    </div>
+
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th style="width:15%">Product</th>
+          <th style="width:15%">Pricing</th>
+          <th style="width:10%">Platform</th>
+          <th style="width:25%">Strengths</th>
+          <th style="width:25%">Weaknesses</th>
+          <th style="width:10%">Tags</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="name">SyncOnSet</td>
+          <td>$250/4wks + $100/wk<br><span style="color:var(--text-tertiary);font-size:11px">Custom studio deals</span></td>
+          <td>Web</td>
+          <td>Industry leader. Used on Game of Thrones, major studio productions. Owned by Entertainment Partners. Script breakdown + continuity.</td>
+          <td>Enterprise-heavy. Not mobile-first. Expensive for indie. Complex onboarding. No AI. No receipt scanning.</td>
+          <td class="tag-cell"><span class="micro-tag enterprise">Enterprise</span><span class="micro-tag web">Web</span></td>
+        </tr>
+        <tr>
+          <td class="name">Ready4Set</td>
+          <td>Per-project tiers<br><span style="color:var(--text-tertiary);font-size:11px">€45–400 extensions</span></td>
+          <td>Web</td>
+          <td>Purpose-built for costume depts. Covers Hair & Makeup too. Multi-title discounts. European film market.</td>
+          <td>Euro-centric. No mobile app. No AI features. No barcode scanning. Limited US market presence.</td>
+          <td class="tag-cell"><span class="micro-tag niche">Niche</span><span class="micro-tag euro">EUR</span></td>
+        </tr>
+        <tr>
+          <td class="name">Dramatify</td>
+          <td>$21–45/mo<br><span style="color:var(--text-tertiary);font-size:11px">3–5 seats included</span></td>
+          <td>Web</td>
+          <td>Full production management. Affordable. Free read-only crew access. Script breakdown + scheduling.</td>
+          <td>Generalist tool — wardrobe is one module of many. No dedicated returns tracking. No receipt OCR. No AI assistant.</td>
+          <td class="tag-cell"><span class="micro-tag generalist">Generalist</span><span class="micro-tag web">Web</span></td>
+        </tr>
+        <tr>
+          <td class="name">WardrobeTools</td>
+          <td>Undisclosed<br><span style="color:var(--text-tertiary);font-size:11px">"Easy on budget"</span></td>
+          <td>Desktop</td>
+          <td>Simple inventory management. Photo association. Outfit assembly. Cross-industry (entertainment + fashion).</td>
+          <td>Dated UI. Desktop-only. No cloud collaboration. No mobile. No AI. Small user base.</td>
+          <td class="tag-cell"><span class="micro-tag legacy">Legacy</span></td>
+        </tr>
+        <tr>
+          <td class="name">Prosanity / CPlotPro</td>
+          <td>Undisclosed<br><span style="color:var(--text-tertiary);font-size:11px">Legacy licensing</span></td>
+          <td>Desktop</td>
+          <td>Pioneer in the space. Costume breakdown + money tracking.</td>
+          <td>Legacy product — largely superseded by SyncOnSet. Minimal ongoing development.</td>
+          <td class="tag-cell"><span class="micro-tag legacy">Legacy</span></td>
+        </tr>
+        <tr class="highlight">
+          <td class="name" style="font-size:14px">✦ ThreadLine</td>
+          <td>TBD below<br><span style="font-size:11px">App Store subscription</span></td>
+          <td><strong>iPad · iPhone · Web</strong></td>
+          <td><strong>AI-powered (Magic Scan, Thread assistant). Receipt OCR. Barcode scanning. Returns tracking with countdown timers. iPad-native. Offline mode. Premium design.</strong></td>
+          <td>New entrant. No brand recognition yet. Unproven in production environments. Solo founder.</td>
+          <td class="tag-cell"><span class="micro-tag niche" style="background:var(--accent-light);color:var(--accent)">AI-Native</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- GAP ANALYSIS / OPPORTUNITY -->
+  <section class="section" id="opportunity">
+    <div class="section-header">
+      <h2>ThreadLine's Unfair Advantages</h2>
+      <span class="tag">Market Gaps</span>
+    </div>
+
+    <div class="gaps-grid">
+      <div class="gap-card">
+        <div class="icon">📸</div>
+        <h4>No One Has AI Scanning</h4>
+        <p>Zero competitors offer receipt OCR, barcode auto-fill, or AI garment identification. ThreadLine's Magic Scan eliminates 80% of manual data entry — the #1 pain point for wardrobe PAs.</p>
+      </div>
+      <div class="gap-card">
+        <div class="icon">📱</div>
+        <h4>No iPad-Native Competitor</h4>
+        <p>Every competitor is web-only or desktop-only. Wardrobe PAs work on set, in fitting rooms, in wardrobe trucks. iPad is the perfect form factor — camera, portability, screen real estate.</p>
+      </div>
+      <div class="gap-card">
+        <div class="icon">🔄</div>
+        <h4>Returns Tracking Is Unserved</h4>
+        <p>No competitor has dedicated returns management with policy matching, countdown timers, or proactive alerts. This is the money feature — literally saving productions thousands in missed return windows.</p>
+      </div>
+      <div class="gap-card">
+        <div class="icon">🤖</div>
+        <h4>Thread AI Assistant</h4>
+        <p>A conversational AI that understands wardrobe context. Speak naturally: "black jacket from Nordstrom for Jake, $89" and the form fills itself. No competitor has anything remotely like this.</p>
+      </div>
+      <div class="gap-card">
+        <div class="icon">✨</div>
+        <h4>Design That Respects the Craft</h4>
+        <p>Wardrobe professionals are fashion-forward people. Every competitor looks like enterprise software. ThreadLine looks like Nordstrom. This matters to this audience more than any other.</p>
+      </div>
+      <div class="gap-card">
+        <div class="icon">📴</div>
+        <h4>Offline-First for Real Sets</h4>
+        <p>Film sets have terrible connectivity — warehouse stages, remote locations, basements. ThreadLine works offline and syncs when connected. Web-only competitors simply can't do this.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARKET SIZING -->
+  <section class="section" id="sizing">
+    <div class="section-header">
+      <h2>Addressable Market Sizing</h2>
+      <span class="tag">TAM → SAM → SOM</span>
+    </div>
+
+    <div class="funnel">
+      <div class="funnel-stage">
+        <div class="funnel-label"><strong>TAM</strong> — All wardrobe workers globally</div>
+        <div class="funnel-bar" style="width:100%;background:var(--accent);opacity:0.2"></div>
+        <div class="funnel-value">~50,000</div>
+      </div>
+      <div class="funnel-stage">
+        <div class="funnel-label"><strong>SAM</strong> — US/Canada film & TV wardrobe depts</div>
+        <div class="funnel-bar" style="width:60%;background:var(--accent);opacity:0.4"></div>
+        <div class="funnel-value">~12,000</div>
+      </div>
+      <div class="funnel-stage">
+        <div class="funnel-label"><strong>SOM Year 1</strong> — Early adopters, iPad users</div>
+        <div class="funnel-bar" style="width:15%;background:var(--accent);opacity:0.7"></div>
+        <div class="funnel-value">~200–400</div>
+      </div>
+      <div class="funnel-stage">
+        <div class="funnel-label"><strong>SOM Year 3</strong> — Word-of-mouth, industry recognition</div>
+        <div class="funnel-bar" style="width:35%;background:var(--accent)"></div>
+        <div class="funnel-value">~1,500–3,000</div>
+      </div>
+    </div>
+
+    <div class="rationale" style="margin-top:24px">
+      <h4>Sizing Methodology</h4>
+      <p>~857 scripted US productions/year × avg 5 wardrobe crew = ~4,300 production-seats. Add commercials, non-union, theater, and fashion = ~12,000 SAM. Conservative SOM assumes 3–5% penetration Year 1, growing to 15–25% by Year 3 through industry word-of-mouth (wardrobe departments are tight-knit communities).</p>
+    </div>
+  </section>
+
+  <!-- PRICING STRATEGY -->
+  <section class="section" id="pricing">
+    <div class="section-header">
+      <h2>Recommended Pricing</h2>
+      <span class="tag">App Store Subscription</span>
+    </div>
+
+    <div class="rationale" style="margin-bottom:24px;border-left-color:var(--water)">
+      <h4 style="color:var(--water)">Pricing Philosophy</h4>
+      <p>A wardrobe PA earning IATSE rates ($35–45/hr) spending 80% of their day on paperwork = $140–180/day in administrative time. ThreadLine saves 3+ hours/day → <strong>the app pays for itself in the first hour of use.</strong> This justifies premium pricing. Vertical SaaS in niche markets commands 15–30% premiums. We price at the top of "affordable" — below SyncOnSet's enterprise pricing, above Dramatify's generalist pricing.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-tier">Starter</div>
+        <div class="price-name">Individual</div>
+        <div class="price-amount">$14.99</div>
+        <div class="price-period">/month</div>
+        <div class="price-annual">$149.99/year (save 17%)</div>
+        <div class="price-desc">Perfect for freelance wardrobe PAs and shoppers</div>
+        <ul class="feature-list">
+          <li>1 active production</li>
+          <li>Magic Scan (barcode + photo)</li>
+          <li>Full inventory management</li>
+          <li>Returns tracking & alerts</li>
+          <li>Budget tracking</li>
+          <li>PDF & CSV exports</li>
+          <li>5 Thread AI queries/day</li>
+        </ul>
+      </div>
+
+      <div class="price-card recommended">
+        <div class="price-tier">Pro</div>
+        <div class="price-name">Team</div>
+        <div class="price-amount">$29.99</div>
+        <div class="price-period">/month per seat</div>
+        <div class="price-annual">$299.99/year per seat (save 17%)</div>
+        <div class="price-desc">For costume departments running full productions</div>
+        <ul class="feature-list">
+          <li>Unlimited productions</li>
+          <li class="highlight-feature">Receipt OCR scanning</li>
+          <li class="highlight-feature">Unlimited Thread AI</li>
+          <li>Team collaboration (up to 10)</li>
+          <li>Character measurements & continuity</li>
+          <li>Wrap management & reports</li>
+          <li>Offline mode</li>
+          <li>Priority support</li>
+        </ul>
+      </div>
+
+      <div class="price-card">
+        <div class="price-tier">Production</div>
+        <div class="price-name">Studio</div>
+        <div class="price-amount">$199</div>
+        <div class="price-period">/month flat</div>
+        <div class="price-annual">$1,999/year flat (save 17%)</div>
+        <div class="price-desc">Unlimited seats for an entire production</div>
+        <ul class="feature-list">
+          <li>Unlimited team members</li>
+          <li>Everything in Team</li>
+          <li class="highlight-feature">Admin dashboard & permissions</li>
+          <li class="highlight-feature">Multi-production management</li>
+          <li>Custom report templates</li>
+          <li>API access</li>
+          <li>Dedicated onboarding</li>
+          <li>Invoice billing (net-30)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="rationale" style="margin-top:24px">
+      <h4>Why This Pricing Works</h4>
+      <ul>
+        <li><strong>$14.99/mo Individual</strong> — Lower than SyncOnSet ($250/4wks), accessible to freelancers. Cheaper than a single lunch on set. Productions expense software — this is a rounding error on a wardrobe budget.</li>
+        <li><strong>$29.99/mo Team</strong> — Sweet spot. A 5-person dept costs $150/mo = $600 for a 4-month production. Vs. SyncOnSet at $250+ for 4 weeks alone. Clear value.</li>
+        <li><strong>$199/mo Studio</strong> — Unlimited seats model. For productions with 10+ wardrobe crew, this is dramatically cheaper than per-seat. Enterprise anchor.</li>
+        <li><strong>App Store distribution</strong> — Apple takes 15% (small business program). Annual pricing reduces churn and Apple's effective cut. Free 14-day trial converts lookers.</li>
+        <li><strong>No free tier</strong> — This is a professional tool. Free tiers attract the wrong users and devalue the product. 14-day trial with full access is sufficient.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- REVENUE PROJECTIONS -->
+  <section class="section" id="revenue">
+    <div class="section-header">
+      <h2>Revenue Projections</h2>
+      <span class="tag">Conservative Estimates</span>
+    </div>
+
+    <div class="revenue-grid">
+      <div class="rev-card">
+        <div class="year">YEAR 1</div>
+        <div class="arr">$54K</div>
+        <div class="users">~200 users</div>
+        <div class="growth" style="color:var(--text-tertiary)">Launch year</div>
+      </div>
+      <div class="rev-card">
+        <div class="year">YEAR 2</div>
+        <div class="arr">$216K</div>
+        <div class="users">~600 users</div>
+        <div class="growth">+300% growth</div>
+      </div>
+      <div class="rev-card">
+        <div class="year">YEAR 3</div>
+        <div class="arr">$540K</div>
+        <div class="users">~1,500 users</div>
+        <div class="growth">+150% growth</div>
+      </div>
+      <div class="rev-card">
+        <div class="year">YEAR 5</div>
+        <div class="arr">$1.2M</div>
+        <div class="users">~3,000 users</div>
+        <div class="growth">ARR milestone</div>
+      </div>
+    </div>
+
+    <div class="rationale" style="margin-top:24px">
+      <h4>Assumptions</h4>
+      <ul>
+        <li><strong>Blended ARPU:</strong> ~$22/mo ($264/yr) — mix of Individual ($14.99), Team ($29.99), and Studio ($199) plans weighted toward Individual in early years</li>
+        <li><strong>Year 1:</strong> 200 users by month 12 (17/mo net new). Industry word-of-mouth, Instagram marketing, IATSE local outreach, 1–2 beta production partnerships</li>
+        <li><strong>Churn:</strong> ~5% monthly Year 1 (production-based usage), dropping to ~3% by Year 3 as annual plans increase</li>
+        <li><strong>Growth levers:</strong> Each wardrobe PA who loves it tells their next production's team. Film industry is 2 degrees of separation. One power user = 5+ referrals/year</li>
+        <li><strong>Apple's cut:</strong> 15% (Small Business Program under $1M). Projections are pre-Apple-cut gross revenue</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="bottom-actions">
+    <button class="btn btn-primary" onclick="window.location.hash='pricing'">Approve Pricing →</button>
+    <button class="btn btn-secondary" onclick="window.location.hash='market'">Back to Top</button>
+  </div>
+
+</div>
+
+<div class="footer">
+  <a href="https://cooperinteractive.com" target="_blank">Made with care</a>
+</div>
+
+<script>
+  // Smooth scroll for nav
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const id = link.getAttribute('href').replace('#','');
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+      document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+    });
+  });
+
+  // Active nav tracking
+  const sections = document.querySelectorAll('section[id]');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        document.querySelector(`.nav-link[href="#${entry.target.id}"]`)?.classList.add('active');
+      }
+    });
+  }, { threshold: 0.3 });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
