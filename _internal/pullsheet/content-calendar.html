@@ -1,0 +1,1756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PullSheet -- 30-Day Content Calendar</title>
+
+<!-- ============================================================
+     PULLSHEET 30-DAY CONTENT CALENDAR
+     Self-contained HTML with inline CSS and Google Fonts only.
+     Matches THREADLINE _internal pattern: sticky nav with
+     PULL/SHEET wordmark, back link, container layout.
+
+     SECTIONS:
+     01 - Summary Stats (post counts by platform)
+     02 - Content Theme Legend (color-coded tags)
+     03 - Week 1: Launch Week (Days 1-5, heavy posting)
+     04 - Week 2: Feature Deep Dives (Days 8-12)
+     05 - Week 3: Community & Context (Days 15-19)
+     06 - Week 4: Momentum (Days 22-26)
+
+     TO MODIFY:
+     - CSS custom properties in :root control all colors
+     - Theme tints use rgba overlays on card headers
+     - Platform badges: .badge.ig, .badge.fb, .badge.li
+     - Content theme tags: .badge.theme-* for color coding
+     - Copy buttons call copyCaption() and copyHashtags()
+     - Week links highlight on scroll via JS observer
+     ============================================================ -->
+
+<!-- Google Fonts: Three families shared with THREADLINE
+     Cormorant Garamond = serif headings, editorial, taglines
+     Inter = sans-serif body, UI, wordmark
+     JetBrains Mono = monospace data, labels, metadata -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   CSS CUSTOM PROPERTIES (Design Tokens)
+   Shared palette with THREADLINE. PullSheet adds Facebook-
+   specific platform color (--fb) and six content theme tints
+   for Before/After, Feature Spotlight, Speed Demo, Wardrobe
+   Tips, BTS / On-Set, and Product Update.
+   ============================================================ */
+:root {
+  /* --- Core palette --- */
+  --cream: #FAF8F5;        /* Page background */
+  --bone: #F5F0EB;         /* Slightly darker cream, caption blocks */
+  --warm-gray: #E8E3DE;    /* Dividers, subtle borders */
+  --sand: #D2C4B9;         /* Muted decorative elements */
+  --taupe: #B5A89C;        /* Secondary text, metadata */
+  --brown-gold: #8B6F52;   /* Primary brand accent */
+  --copper: #C4946A;       /* Brand accent (highlights) */
+  --dark-brown: #5A4228;   /* Deep accent */
+  --espresso: #3A2A18;     /* Deep warm brown */
+  --near-black: #1A1714;   /* Primary text color */
+  --void: #0A0A0A;         /* Near-black backgrounds */
+  --water: #5A7E8A;        /* Secondary accent (blue-teal) */
+  --forest: #4A6741;       /* Success states, wardrobe tips */
+  --clay: #8A4A42;         /* Before/After theme accent */
+  --dusty-blue: #627786;   /* BTS / On-Set theme accent */
+
+  /* --- Platform colors --- */
+  --ig: #8B6F52;           /* Instagram: brown-gold */
+  --fb: #4A6741;           /* Facebook: forest green */
+  --li: #627786;           /* LinkedIn: dusty-blue */
+
+  /* --- Content theme tints (card header backgrounds) --- */
+  --tint-before-after: rgba(138,74,66,0.07);    /* clay-based */
+  --tint-feature: rgba(139,111,82,0.08);         /* brown-gold-based */
+  --tint-speed: rgba(90,126,138,0.07);           /* water-based */
+  --tint-tips: rgba(74,103,65,0.07);             /* forest-based */
+  --tint-bts: rgba(98,119,134,0.07);             /* dusty-blue-based */
+  --tint-update: rgba(196,148,106,0.08);         /* copper-based */
+
+  /* --- Font stacks --- */
+  --serif: 'Cormorant Garamond', 'Georgia', serif;
+  --body: 'Inter', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', 'Menlo', monospace;
+}
+
+/* ============================================================
+   RESET & BASE STYLES
+   Minimal reset. Body uses Inter as default sans-serif.
+   Cream background matches light-mode-first approach.
+   ============================================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--body);
+  background: var(--cream);
+  color: var(--near-black);
+  line-height: 1.7;
+}
+
+/* Text selection uses copper accent */
+::selection {
+  background: var(--copper);
+  color: white;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ============================================================
+   STICKY NAVIGATION BAR
+   Frosted glass effect with blur backdrop.
+   PULL/SHEET wordmark on left (PULL = near-black, SHEET = brown-gold).
+   Back link to index.html in brown-gold accent.
+   Week pill links on the right for quick navigation.
+   ============================================================ */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(250,248,245,0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(26,23,20,0.06);
+  padding: 12px 48px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Wordmark in nav: PULL in near-black, SHEET in brown-gold */
+.nav .brand {
+  font-family: var(--body);
+  font-weight: 200;
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-right: 8px;
+}
+.nav .brand .pull { color: var(--near-black); }
+.nav .brand .sheet { color: var(--brown-gold); }
+
+/* Nav links: small caps, subtle hover state with accent tint */
+.nav a {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--taupe);
+  text-decoration: none;
+  padding: 5px 12px;
+  border-radius: 4px;
+  transition: all 0.15s;
+}
+.nav a:hover {
+  color: var(--brown-gold);
+  background: rgba(139,111,82,0.06);
+}
+
+/* Back link styled in brown-gold accent */
+.nav a.back { color: var(--brown-gold); }
+
+/* Week navigation pill links, aligned right */
+.nav .week-links {
+  display: flex;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.nav .week-links a {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 5px 14px;
+  border: 1px solid var(--warm-gray);
+  border-radius: 20px;
+  color: var(--near-black);
+  transition: all 0.2s;
+}
+
+.nav .week-links a:hover,
+.nav .week-links a.active {
+  background: var(--brown-gold);
+  color: white;
+  border-color: var(--brown-gold);
+}
+
+/* ============================================================
+   CONTAINER
+   Max-width wrapper centered on page. Horizontal padding
+   collapses on mobile via media query below.
+   ============================================================ */
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 48px 48px 32px;
+}
+
+/* ============================================================
+   RESPONSIVE: Mobile breakpoint
+   Reduces container and nav padding. Week links wrap to
+   full width and center. Stats grid stacks to 2 columns.
+   ============================================================ */
+@media (max-width: 768px) {
+  .container { padding: 32px 20px 24px; }
+  .nav { padding: 12px 20px; gap: 10px; }
+  .nav .week-links { margin-left: 0; width: 100%; justify-content: center; }
+  .stats-bar { grid-template-columns: repeat(2, 1fr); }
+  .card-header { flex-direction: column; }
+  .card-header .header-badges { width: 100%; }
+  .caption-block { padding: 16px 18px; }
+  .caption-block .copy-btn { position: static; margin-top: 12px; display: block; width: 100%; text-align: center; }
+}
+
+/* ============================================================
+   PAGE HEADER
+   Title uses Cormorant Garamond serif at 38px.
+   Subtitle is muted taupe body text, max 640px width.
+   ============================================================ */
+.page-header {
+  margin-bottom: 48px;
+}
+
+.page-header h1 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 38px;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+/* Italic emphasis within heading */
+.page-header h1 em {
+  font-family: var(--serif);
+  font-style: italic;
+}
+
+.page-header .subtitle {
+  font-size: 14px;
+  color: var(--taupe);
+  line-height: 1.7;
+  max-width: 640px;
+}
+
+/* ============================================================
+   SUMMARY STATS BAR
+   Responsive grid of stat cards. Each shows a large number
+   (serif) and a monospace label. Platform-specific cards get
+   a colored left border stripe.
+   ============================================================ */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin-bottom: 48px;
+}
+
+.stat-card {
+  background: white;
+  border: 1px solid var(--warm-gray);
+  border-radius: 10px;
+  padding: 20px 24px;
+  text-align: center;
+}
+
+/* Large number: serif, lightweight */
+.stat-card .stat-num {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 32px;
+  color: var(--near-black);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+/* Label: monospace, tiny, all caps */
+.stat-card .stat-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--taupe);
+}
+
+/* Platform-specific left border stripes */
+.stat-card.ig { border-left: 3px solid var(--ig); }
+.stat-card.fb { border-left: 3px solid var(--fb); }
+.stat-card.li { border-left: 3px solid var(--li); }
+.stat-card.mix { border-left: 3px solid var(--copper); }
+
+/* ============================================================
+   CONTENT THEME LEGEND
+   Horizontal row of color-coded pill tags showing the six
+   content themes used throughout the calendar. Each gets
+   a subtle background tint matching its card header tint.
+   ============================================================ */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 48px;
+}
+
+.legend-item {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  padding: 5px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(26,23,20,0.08);
+}
+
+/* Each theme type gets its own tint color */
+.legend-item.t-before-after { background: var(--tint-before-after); }
+.legend-item.t-feature { background: var(--tint-feature); }
+.legend-item.t-speed { background: var(--tint-speed); }
+.legend-item.t-tips { background: var(--tint-tips); }
+.legend-item.t-bts { background: var(--tint-bts); }
+.legend-item.t-update { background: var(--tint-update); }
+
+/* ============================================================
+   WEEK SECTION & HEADER
+   Each week is a distinct section with scroll-margin for
+   sticky nav offset. Week header shows week title with
+   a range subtitle in monospace, separated by a thick
+   bottom border.
+   ============================================================ */
+.week-section {
+  margin-bottom: 56px;
+  scroll-margin-top: 80px;
+}
+
+.week-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 28px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--near-black);
+}
+
+.week-header h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 28px;
+}
+
+.week-header .week-range {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--taupe);
+  letter-spacing: 0.04em;
+}
+
+/* ============================================================
+   POST CARD
+   Each day's content is a white card with rounded corners,
+   subtle border, and hover shadow. Cards get a colored left
+   border stripe based on primary platform and a tinted
+   header based on content theme.
+   ============================================================ */
+.post-card {
+  background: white;
+  border: 1px solid var(--warm-gray);
+  border-radius: 12px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+
+.post-card:hover {
+  box-shadow: 0 4px 20px rgba(26,23,20,0.06);
+}
+
+/* Content theme tints applied to the card header area */
+.post-card.type-before-after .card-header { background: var(--tint-before-after); }
+.post-card.type-feature .card-header { background: var(--tint-feature); }
+.post-card.type-speed .card-header { background: var(--tint-speed); }
+.post-card.type-tips .card-header { background: var(--tint-tips); }
+.post-card.type-bts .card-header { background: var(--tint-bts); }
+.post-card.type-update .card-header { background: var(--tint-update); }
+
+/* ============================================================
+   CARD HEADER
+   Top section of each post card. Contains day/date on the
+   left and platform + theme badges on the right. Flexbox
+   with wrap for mobile responsiveness.
+   ============================================================ */
+.card-header {
+  padding: 20px 28px 16px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.card-header .header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Day number and weekday in monospace */
+.card-header .day-date {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--near-black);
+  letter-spacing: 0.02em;
+}
+
+/* Post title in serif */
+.card-header .post-title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.3;
+}
+
+/* Badge container: wraps platform and theme badges */
+.card-header .header-badges {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+/* ============================================================
+   BADGES
+   Small pill-shaped tags for platforms (IG, FB, LI) and
+   content theme. Platform badges are filled with the
+   platform color. Theme tags have a subtle outline.
+   ============================================================ */
+.badge {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+/* Platform badges: filled background with white text */
+.badge.ig { background: var(--ig); color: white; }
+.badge.fb { background: var(--fb); color: white; }
+.badge.li { background: var(--li); color: white; }
+
+/* Content theme badge: outline style, muted */
+.badge.type-tag {
+  background: transparent;
+  border: 1px solid var(--sand);
+  color: var(--taupe);
+}
+
+/* Color-coded theme badges for the legend-matching feel */
+.badge.theme-before-after { border-color: var(--clay); color: var(--clay); }
+.badge.theme-feature { border-color: var(--brown-gold); color: var(--brown-gold); }
+.badge.theme-speed { border-color: var(--water); color: var(--water); }
+.badge.theme-tips { border-color: var(--forest); color: var(--forest); }
+.badge.theme-bts { border-color: var(--dusty-blue); color: var(--dusty-blue); }
+.badge.theme-update { border-color: var(--copper); color: var(--copper); }
+
+/* ============================================================
+   CARD BODY
+   Contains the platform-specific copy blocks, hashtags,
+   and visual direction note for each post.
+   ============================================================ */
+.card-body {
+  padding: 0 28px 24px;
+}
+
+/* ============================================================
+   CAPTION BLOCK
+   Cream-tinted box containing the full post copy for a
+   specific platform. Includes a "Copy" button positioned
+   at the top-right corner for one-click clipboard copy.
+   ============================================================ */
+.caption-block {
+  position: relative;
+  background: var(--bone);
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin-bottom: 16px;
+}
+
+/* Platform label above the caption text */
+.caption-block .caption-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  margin-bottom: 10px;
+}
+
+/* Full caption text: pre-wrap to preserve line breaks */
+.caption-block .caption-text {
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: var(--near-black);
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Copy button: positioned top-right, brown-gold fill */
+.caption-block .copy-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: var(--brown-gold);
+  color: white;
+  border: none;
+  padding: 5px 14px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--body);
+  transition: all 0.15s;
+}
+.caption-block .copy-btn:hover { background: var(--dark-brown); }
+.caption-block .copy-btn.copied { background: var(--forest); }
+
+/* ============================================================
+   HASHTAG BLOCK
+   Light brown-tinted row showing hashtags with a copy button.
+   Hashtag text is displayed in brown-gold for visual distinction.
+   ============================================================ */
+.hashtag-block {
+  background: rgba(139,111,82,0.05);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+/* "Hashtags" label in monospace */
+.hashtag-block .ht-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  white-space: nowrap;
+  padding-top: 2px;
+}
+
+/* Hashtag text in brand accent color */
+.hashtag-block .ht-text {
+  font-size: 12px;
+  color: var(--brown-gold);
+  line-height: 1.6;
+  word-wrap: break-word;
+  flex: 1;
+}
+
+/* Small copy button for hashtags */
+.hashtag-block .copy-btn-sm {
+  background: transparent;
+  border: 1px solid var(--sand);
+  color: var(--brown-gold);
+  padding: 3px 10px;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: var(--body);
+  flex-shrink: 0;
+  transition: all 0.15s;
+}
+.hashtag-block .copy-btn-sm:hover { background: rgba(139,111,82,0.08); }
+.hashtag-block .copy-btn-sm.copied { background: var(--forest); color: white; border-color: var(--forest); }
+
+/* ============================================================
+   VISUAL DIRECTION NOTE
+   Small metadata row at the bottom of each card describing
+   the recommended visual treatment for the post. Uses a
+   small square icon prefix for visual anchoring.
+   ============================================================ */
+.visual-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--taupe);
+  line-height: 1.6;
+  padding-top: 4px;
+}
+
+.visual-note .vn-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  background: var(--warm-gray);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 10px;
+  margin-top: 1px;
+}
+
+/* ============================================================
+   FOOTER
+   Centered text footer with "Made with care" link.
+   Separated from content by a subtle top border.
+   ============================================================ */
+.footer {
+  text-align: center;
+  padding: 40px 20px;
+  border-top: 1px solid rgba(26,23,20,0.06);
+  font-size: 12px;
+  color: var(--taupe);
+}
+
+.footer a {
+  color: var(--brown-gold);
+  text-decoration: none;
+}
+
+.footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<!-- ===================================================================
+     NAVIGATION
+     Sticky frosted nav bar. PULL/SHEET wordmark on left, back link
+     to PullSheet index, and week navigation pills on right.
+     =================================================================== -->
+<nav class="nav">
+  <a href="index.html" class="brand" style="text-decoration:none;color:inherit;">PULL<span class="sheet">SHEET</span></a>
+  <a class="back" href="index.html">&larr; All Pages</a>
+  <div class="week-links">
+    <a href="#week1" class="active">Week 1</a>
+    <a href="#week2">Week 2</a>
+    <a href="#week3">Week 3</a>
+    <a href="#week4">Week 4</a>
+  </div>
+</nav>
+
+<div class="container">
+
+<!-- ===================================================================
+     PAGE HEADER
+     Title with italic emphasis. Subtitle describes the calendar's
+     scope: Instagram, Facebook, LinkedIn with full copy and hashtags.
+     =================================================================== -->
+<div class="page-header">
+  <h1>30-Day Content <em>Calendar</em></h1>
+  <p class="subtitle">Master posting schedule across Instagram, Facebook, and LinkedIn with full copy, hashtags, and visual direction.</p>
+</div>
+
+<!-- ===================================================================
+     SUMMARY STATS
+     Grid of five stat cards showing total posts and per-platform
+     breakdowns. Each platform card gets its colored left border.
+     =================================================================== -->
+<div class="stats-bar">
+  <div class="stat-card ig">
+    <div class="stat-num">18</div>
+    <div class="stat-label">Instagram Posts</div>
+  </div>
+  <div class="stat-card fb">
+    <div class="stat-num">14</div>
+    <div class="stat-label">Facebook Posts</div>
+  </div>
+  <div class="stat-card li">
+    <div class="stat-num">8</div>
+    <div class="stat-label">LinkedIn Posts</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num">20</div>
+    <div class="stat-label">Total Posts</div>
+  </div>
+  <div class="stat-card mix">
+    <div class="stat-num">6</div>
+    <div class="stat-label">Content Themes</div>
+  </div>
+</div>
+
+<!-- ===================================================================
+     CONTENT THEME LEGEND
+     Color-coded pill tags showing all six content themes used in the
+     calendar. Colors match the card header tints for each theme type.
+     =================================================================== -->
+<div class="legend">
+  <span class="legend-item t-before-after">Before/After</span>
+  <span class="legend-item t-feature">Feature Spotlight</span>
+  <span class="legend-item t-speed">Speed Demo</span>
+  <span class="legend-item t-tips">Wardrobe Tips</span>
+  <span class="legend-item t-bts">BTS / On-Set</span>
+  <span class="legend-item t-update">Product Update</span>
+</div>
+
+
+<!-- ===================================================================
+
+     WEEK 1 - LAUNCH WEEK (HEAVY POSTING)
+     Days 1-5. Five posts across all three platforms.
+     Focus: Announce PullSheet, establish the problem it solves,
+     and spotlight the three hero features (canvas, AI cutout, PDF).
+
+     =================================================================== -->
+<div class="week-section" id="week1">
+<div class="week-header">
+  <h2>Week 1</h2>
+  <span class="week-range">Days 1 - 5 &middot; Launch Week</span>
+</div>
+
+<!-- ============================
+     DAY 1: Launch Announcement
+     Platforms: IG, FB, LI
+     Theme: Product Update
+     ============================ -->
+<div class="post-card type-update">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 1 &middot; Monday</div>
+      <div class="post-title">Launch Announcement</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge ig">IG</span>
+      <span class="badge fb">FB</span>
+      <span class="badge li">LI</span>
+      <span class="badge type-tag theme-update">Product Update</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Instagram copy -->
+    <div class="caption-block">
+      <div class="caption-label">Instagram Copy</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">See the look before the fitting. We're building PullSheet, the visual lookbook builder for film &amp; TV wardrobe teams. Drag garments. Remove backgrounds. Export lookbooks. Coming Summer 2026. Link in bio.</div>
+    </div>
+
+    <!-- Facebook copy: slightly longer with link prompt -->
+    <div class="caption-block">
+      <div class="caption-label">Facebook Copy</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">See the look before the fitting.
+
+We're building PullSheet, the visual lookbook builder designed specifically for film &amp; TV wardrobe teams. Drag garments from your inventory onto a freeform canvas. Remove backgrounds with one tap. Export polished, print-ready lookbooks.
+
+Coming Summer 2026. Sign up for early access at the link below.</div>
+    </div>
+
+    <!-- LinkedIn copy: professional tone, longer format -->
+    <div class="caption-block">
+      <div class="caption-label">LinkedIn Copy</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Wardrobe departments on film and television productions still rely on printed photos, corkboards, and manual assembly to communicate looks to directors and talent.
+
+We're building PullSheet to change that.
+
+PullSheet is a visual lookbook builder purpose-built for wardrobe professionals. It connects to your existing inventory, lets you drag garments onto a freeform canvas, removes backgrounds automatically, and exports print-ready PDFs with cover pages, tables of contents, and garment details.
+
+Every look. Every talent. Every episode. Organized, visual, and professional.
+
+Coming Summer 2026. We'll be opening beta access soon.</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text">#PullSheet #wardrobedepartment #costumedesign #filmproduction #lookbook</span>
+      <button class="copy-btn-sm" onclick="copyHashtags(this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> PULLSHEET wordmark announcement graphic. Brand gradient background (dark brown to copper) with the wordmark centered. Clean, editorial. First impression of the brand on all platforms.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================
+     DAY 2: Problem Statement
+     Platforms: IG, FB
+     Theme: Before/After
+     ============================ -->
+<div class="post-card type-before-after">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 2 &middot; Tuesday</div>
+      <div class="post-title">Problem Statement</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge ig">IG</span>
+      <span class="badge fb">FB</span>
+      <span class="badge type-tag theme-before-after">Before/After</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Shared copy for IG and FB -->
+    <div class="caption-block">
+      <div class="caption-label">Instagram + Facebook Copy</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">You're still taping Polaroids to a corkboard? There's a better way to show the director what you're thinking.</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text">#PullSheet #wardrobedepartment #costumedesign #lookbook #filmproduction #setlife #wardrobesupervisor</span>
+      <button class="copy-btn-sm" onclick="copyHashtags(this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Split image. Left side: messy corkboard with Polaroids, tape, handwritten labels. Right side: clean, digital lookboard with professional cutouts. The contrast tells the story.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================
+     DAY 3: Feature - Canvas
+     Platforms: IG, LI
+     Theme: Feature Spotlight
+     ============================ -->
+<div class="post-card type-feature">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 3 &middot; Wednesday</div>
+      <div class="post-title">Feature: Canvas</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge ig">IG</span>
+      <span class="badge li">LI</span>
+      <span class="badge type-tag theme-feature">Feature Spotlight</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Shared copy for IG and LI -->
+    <div class="caption-block">
+      <div class="caption-label">Instagram + LinkedIn Copy</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Build looks the way you think about them. Drag garments from your inventory onto a freeform canvas. Resize, rotate, layer. Your digital lookboard.</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text">#PullSheet #lookbook #costumedesign #wardrobedepartment #filmproduction #digitalwardrobe</span>
+      <button class="copy-btn-sm" onclick="copyHashtags(this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Canvas editor UI mockup showing garments arranged on a freeform board. Clean interface, no clutter. Focus on the drag-and-drop interaction.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================
+     DAY 4: Feature - AI Cutout
+     Platforms: IG, FB
+     Theme: Before/After
+     ============================ -->
+<div class="post-card type-before-after">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 4 &middot; Thursday</div>
+      <div class="post-title">Feature: AI Cutout</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge ig">IG</span>
+      <span class="badge fb">FB</span>
+      <span class="badge type-tag theme-before-after">Before/After</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Shared copy for IG and FB -->
+    <div class="caption-block">
+      <div class="caption-label">Instagram + Facebook Copy</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">One tap. Clean cutout. That phone photo taken on a crowded rack becomes catalog-quality in seconds.</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text">#PullSheet #AIcutout #wardrobedepartment #costumedesign #lookbook #filmproduction #backgroundremoval</span>
+      <button class="copy-btn-sm" onclick="copyHashtags(this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Before/After split. Left: phone photo of a garment on a messy rack with hangers and tags visible. Right: same garment, clean cutout on transparent/white background. Catalog quality.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================
+     DAY 5: Feature - PDF Export
+     Platforms: IG, FB, LI
+     Theme: Feature Spotlight
+     ============================ -->
+<div class="post-card type-feature">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 5 &middot; Friday</div>
+      <div class="post-title">Feature: PDF Export</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge ig">IG</span>
+      <span class="badge fb">FB</span>
+      <span class="badge li">LI</span>
+      <span class="badge type-tag theme-feature">Feature Spotlight</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Shared copy for all platforms -->
+    <div class="caption-block">
+      <div class="caption-label">All Platforms Copy</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Print-ready in two taps. Export single looks or multi-page lookbooks with cover pages, tables of contents, and garment details.</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text">#PullSheet #lookbook #PDFexport #wardrobedepartment #costumedesign #filmproduction #printready</span>
+      <button class="copy-btn-sm" onclick="copyHashtags(this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> PDF mockup showing a multi-page lookbook fanned out. Cover page with talent name, table of contents page, and a look page with garment cutouts and metadata. Professional, polished.</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- end week 1 -->
+
+
+<!-- ===================================================================
+
+     WEEK 2 - FEATURE DEEP DIVES
+     Days 8-12. Five posts focused on deeper feature explanations,
+     THREADLINE integration, and the first speed demo video concept.
+
+     =================================================================== -->
+<div class="week-section" id="week2">
+<div class="week-header">
+  <h2>Week 2</h2>
+  <span class="week-range">Days 8 - 12 &middot; Feature Deep Dives</span>
+</div>
+
+<!-- ============================
+     DAY 8: THREADLINE Connection
+     Platforms: IG, LI
+     Theme: Feature Spotlight
+     ============================ -->
+<div class="post-card type-feature">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 8 &middot; Monday</div>
+      <div class="post-title">THREADLINE Connection</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge ig">IG</span>
+      <span class="badge li">LI</span>
+      <span class="badge type-tag theme-feature">Feature Spotlight</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Shared copy for IG and LI -->
+    <div class="caption-block">
+      <div class="caption-label">Instagram + LinkedIn Copy</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Your inventory is already here. PullSheet connects to THREADLINE. Every garment you've catalogued is ready to drag onto a lookboard. Zero re-entry.</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text">#PullSheet #THREADLINE #wardrobedepartment #costumedesign #lookbook #filmproduction #inventorymanagement</span>
+      <button class="copy-btn-sm" onclick="copyHashtags(this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Both app icons (THREADLINE and PullSheet) with a connecting line or arrow between them. Clean, minimal. Shows the two-app ecosystem working as one.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================
+     DAY 9: Talent Organization
+     Platforms: IG, FB
+     Theme: Feature Spotlight
+     ============================ -->
+<div class="post-card type-feature">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 9 &middot; Tuesday</div>
+      <div class="post-title">Talent Organization</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge ig">IG</span>
+      <span class="badge fb">FB</span>
+      <span class="badge type-tag theme-feature">Feature Spotlight</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Shared copy -->
+    <div class="caption-block">
+      <div class="caption-label">Instagram + Facebook Copy</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Every look, every talent, every episode. Filter and browse by talent, scene, or episode. Build continuity bibles visually.</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text">#PullSheet #wardrobedepartment #costumedesign #lookbook #filmproduction #continuitybible #talentwardrobe</span>
+      <button class="copy-btn-sm" onclick="copyHashtags(this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> UI mockup showing talent filter sidebar with episode/scene breakdown. Multiple lookboard thumbnails organized by talent name. Clean, organized hierarchy.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================
+     DAY 10: Wardrobe Tip
+     Platforms: IG
+     Theme: Wardrobe Tips
+     ============================ -->
+<div class="post-card type-tips">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 10 &middot; Wednesday</div>
+      <div class="post-title">Wardrobe Tip: Start With the Hero Piece</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge ig">IG</span>
+      <span class="badge type-tag theme-tips">Wardrobe Tips</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- IG copy -->
+    <div class="caption-block">
+      <div class="caption-label">Instagram Copy</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Pro tip: Start your lookboard with the hero piece first. Build outward from there. It's how the best wardrobe supervisors think about a look.</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text">#PullSheet #wardrobetips #costumedesign #wardrobedepartment #lookbook #setlife #wardrobesupervisor</span>
+      <button class="copy-btn-sm" onclick="copyHashtags(this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Text-based tip card on brand gradient background. Elegant typography, no UI screenshots. Educational, shareable format.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================
+     DAY 11: Speed Demo
+     Platforms: IG, FB
+     Theme: Speed Demo
+     ============================ -->
+<div class="post-card type-speed">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 11 &middot; Thursday</div>
+      <div class="post-title">60 Seconds: Rack to Lookboard</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge ig">IG</span>
+      <span class="badge fb">FB</span>
+      <span class="badge type-tag theme-speed">Speed Demo</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Shared copy -->
+    <div class="caption-block">
+      <div class="caption-label">Instagram + Facebook Copy</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">60 seconds from rack to lookboard. Watch how fast it goes: browse inventory, drag, cutout, arrange, export. Done.</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text">#PullSheet #speeddemo #wardrobedepartment #costumedesign #lookbook #filmproduction #workflow</span>
+      <button class="copy-btn-sm" onclick="copyHashtags(this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Step-by-step mockup showing the five stages: browse inventory, drag to canvas, one-tap cutout, arrange the look, export PDF. Numbered steps, clean layout. Could also be a short video/reel.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================
+     DAY 12: Before/After Director View
+     Platforms: IG, FB, LI
+     Theme: Before/After
+     ============================ -->
+<div class="post-card type-before-after">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 12 &middot; Friday</div>
+      <div class="post-title">What the Director Gets</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge ig">IG</span>
+      <span class="badge fb">FB</span>
+      <span class="badge li">LI</span>
+      <span class="badge type-tag theme-before-after">Before/After</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Shared copy -->
+    <div class="caption-block">
+      <div class="caption-label">All Platforms Copy</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">What the director gets today vs what the director could get. Which one earns more trust?</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text">#PullSheet #wardrobedepartment #costumedesign #lookbook #filmproduction #directorapproval #professional</span>
+      <button class="copy-btn-sm" onclick="copyHashtags(this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Side-by-side comparison. Left: printed photo stack, wrinkled, taped together, hard to read. Right: professional PDF lookbook with clean cutouts, metadata, cover page. The credibility gap is obvious.</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- end week 2 -->
+
+
+<!-- ===================================================================
+
+     WEEK 3 - COMMUNITY & CONTEXT
+     Days 15-19. Five posts shifting toward community engagement,
+     industry context, team features, and the first waitlist push.
+
+     =================================================================== -->
+<div class="week-section" id="week3">
+<div class="week-header">
+  <h2>Week 3</h2>
+  <span class="week-range">Days 15 - 19 &middot; Community &amp; Context</span>
+</div>
+
+<!-- ============================
+     DAY 15: Industry Context
+     Platforms: LI
+     Theme: BTS / On-Set
+     ============================ -->
+<div class="post-card type-bts">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 15 &middot; Monday</div>
+      <div class="post-title">Industry Context</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge li">LI</span>
+      <span class="badge type-tag theme-bts">BTS / On-Set</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- LinkedIn long-form copy -->
+    <div class="caption-block">
+      <div class="caption-label">LinkedIn Copy</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">The film industry has digitized nearly every department. Cameras are digital. Editing is digital. VFX, color, sound, scheduling, budgets, call sheets. All digital.
+
+But walk into a wardrobe truck on most productions and you'll find binders of Polaroids, handwritten tags, and spreadsheets that haven't been updated since last Friday.
+
+Wardrobe professionals manage thousands of garments across dozens of talent across entire seasons of television. They track purchases, rentals, returns, alterations, and continuity. They build lookboards for director approvals. They maintain records that determine whether a production gets its deposit back.
+
+And most of them are doing all of this with tools that were designed for something else entirely.
+
+We're building tools designed specifically for this workflow. THREADLINE handles inventory, scanning, and tracking. PullSheet handles visualization and presentation. Together, they're the wardrobe management stack that this industry has been waiting for.</div>
+    </div>
+
+    <!-- Hashtags (minimal for LinkedIn) -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text">#PullSheet #THREADLINE #filmproduction #wardrobetechnology</span>
+      <button class="copy-btn-sm" onclick="copyHashtags(this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> No image needed for LinkedIn long-form. If desired, a simple brand-colored header image with the PullSheet wordmark. Let the writing carry this one.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================
+     DAY 16: Team Feature
+     Platforms: IG, FB
+     Theme: Feature Spotlight
+     ============================ -->
+<div class="post-card type-feature">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 16 &middot; Tuesday</div>
+      <div class="post-title">Team Sharing</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge ig">IG</span>
+      <span class="badge fb">FB</span>
+      <span class="badge type-tag theme-feature">Feature Spotlight</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Shared copy -->
+    <div class="caption-block">
+      <div class="caption-label">Instagram + Facebook Copy</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Your supervisor approves. Your team sees. Share lookboards with your wardrobe team. (Approval workflow coming v1.1.)</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text">#PullSheet #wardrobedepartment #costumedesign #lookbook #teamwork #filmproduction #collaboration</span>
+      <button class="copy-btn-sm" onclick="copyHashtags(this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> UI mockup showing share/export dialog. Emphasis on team collaboration. Could show multiple user avatars or a shared lookboard view.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================
+     DAY 17: Wardrobe Tip
+     Platforms: IG
+     Theme: Wardrobe Tips
+     ============================ -->
+<div class="post-card type-tips">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 17 &middot; Wednesday</div>
+      <div class="post-title">Wardrobe Tip: Organize by Talent First</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge ig">IG</span>
+      <span class="badge type-tag theme-tips">Wardrobe Tips</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- IG copy -->
+    <div class="caption-block">
+      <div class="caption-label">Instagram Copy</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Organize by talent first, then by scene. It's how directors think about wardrobe, so it's how your lookbook should flow.</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text">#PullSheet #wardrobetips #costumedesign #wardrobedepartment #lookbook #setlife #filmwardrobe</span>
+      <button class="copy-btn-sm" onclick="copyHashtags(this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Text-based tip card on brand gradient background. Same format as Day 10 tip. Consistent series branding for the "wardrobe tips" content theme.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================
+     DAY 18: Beta Waitlist
+     Platforms: IG, FB, LI
+     Theme: Product Update
+     ============================ -->
+<div class="post-card type-update">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 18 &middot; Thursday</div>
+      <div class="post-title">Beta Access Opening Soon</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge ig">IG</span>
+      <span class="badge fb">FB</span>
+      <span class="badge li">LI</span>
+      <span class="badge type-tag theme-update">Product Update</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Shared copy -->
+    <div class="caption-block">
+      <div class="caption-label">All Platforms Copy</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Beta access opening soon. Join the waitlist to be first in. Link in bio.</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text">#PullSheet #betaaccess #wardrobedepartment #costumedesign #lookbook #filmproduction #comingsoon</span>
+      <button class="copy-btn-sm" onclick="copyHashtags(this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Waitlist announcement graphic. PullSheet wordmark with "Beta Access" subline. Clean, urgent but not aggressive. CTA-focused.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================
+     DAY 19: Behind the Scenes
+     Platforms: IG
+     Theme: BTS / On-Set
+     ============================ -->
+<div class="post-card type-bts">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 19 &middot; Friday</div>
+      <div class="post-title">Building PullSheet on Set</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge ig">IG</span>
+      <span class="badge type-tag theme-bts">BTS / On-Set</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- IG copy -->
+    <div class="caption-block">
+      <div class="caption-label">Instagram Copy</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Building PullSheet on set. Every feature starts with a real workflow problem.</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text">#PullSheet #BTS #behindthescenes #wardrobedepartment #costumedesign #setlife #filmproduction #buildinpublic</span>
+      <button class="copy-btn-sm" onclick="copyHashtags(this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Authentic behind-the-scenes photo. Could be a wardrobe truck, a rack of garments, a laptop with PullSheet open on set. Real, not staged. Shows the origin story.</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- end week 3 -->
+
+
+<!-- ===================================================================
+
+     WEEK 4 - MOMENTUM
+     Days 22-26. Five posts building momentum with more before/after
+     content, the undo/redo feature, a storytelling wardrobe tip,
+     the cross-promo with THREADLINE, and a final waitlist push.
+
+     =================================================================== -->
+<div class="week-section" id="week4">
+<div class="week-header">
+  <h2>Week 4</h2>
+  <span class="week-range">Days 22 - 26 &middot; Momentum</span>
+</div>
+
+<!-- ============================
+     DAY 22: Before/After - Monday Prep
+     Platforms: IG, FB
+     Theme: Before/After
+     ============================ -->
+<div class="post-card type-before-after">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 22 &middot; Monday</div>
+      <div class="post-title">Monday Morning Lookboard Prep</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge ig">IG</span>
+      <span class="badge fb">FB</span>
+      <span class="badge type-tag theme-before-after">Before/After</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Shared copy -->
+    <div class="caption-block">
+      <div class="caption-label">Instagram + Facebook Copy</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Monday morning lookboard prep. Before: 3 hours of printing and cutting. After: 15 minutes on PullSheet.</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text">#PullSheet #wardrobedepartment #costumedesign #lookbook #filmproduction #timesaver #mondaymorning</span>
+      <button class="copy-btn-sm" onclick="copyHashtags(this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Before/After split with time emphasis. Left: clock showing 3 hours, pile of printed photos, scissors, tape. Right: clock showing 15 minutes, clean PullSheet lookboard on screen. Time is the hero metric.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================
+     DAY 23: Feature - Undo/Redo
+     Platforms: IG
+     Theme: Feature Spotlight
+     ============================ -->
+<div class="post-card type-feature">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 23 &middot; Tuesday</div>
+      <div class="post-title">Feature: Undo/Redo</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge ig">IG</span>
+      <span class="badge type-tag theme-feature">Feature Spotlight</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- IG copy -->
+    <div class="caption-block">
+      <div class="caption-label">Instagram Copy</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Experiment freely. 50 levels of undo means you can try anything without fear.</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text">#PullSheet #undoredo #wardrobedepartment #costumedesign #lookbook #designtools #experiment</span>
+      <button class="copy-btn-sm" onclick="copyHashtags(this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Minimal UI detail showing undo/redo controls. Could be an animation concept: garments appearing and disappearing on a canvas, showing the freedom to experiment. Playful but polished.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================
+     DAY 24: Wardrobe Tip - Storytelling
+     Platforms: IG, LI
+     Theme: Wardrobe Tips
+     ============================ -->
+<div class="post-card type-tips">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 24 &middot; Wednesday</div>
+      <div class="post-title">Wardrobe Tip: Tell a Story</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge ig">IG</span>
+      <span class="badge li">LI</span>
+      <span class="badge type-tag theme-tips">Wardrobe Tips</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Shared copy -->
+    <div class="caption-block">
+      <div class="caption-label">Instagram + LinkedIn Copy</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">The best lookbooks tell a story. Start with a title page, then walk through the talent's wardrobe arc scene by scene.</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text">#PullSheet #wardrobetips #costumedesign #wardrobedepartment #lookbook #storytelling #wardrobearc</span>
+      <button class="copy-btn-sm" onclick="copyHashtags(this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Text-based tip card on brand gradient background. Same series format as Days 10 and 17. Consistent, recognizable wardrobe tips branding.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================
+     DAY 25: Cross-Promo
+     Platforms: IG, FB, LI
+     Theme: Product Update
+     ============================ -->
+<div class="post-card type-update">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 25 &middot; Thursday</div>
+      <div class="post-title">Two Apps. One Workflow.</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge ig">IG</span>
+      <span class="badge fb">FB</span>
+      <span class="badge li">LI</span>
+      <span class="badge type-tag theme-update">Product Update</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Shared copy -->
+    <div class="caption-block">
+      <div class="caption-label">All Platforms Copy</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Two apps. One workflow. THREADLINE scans and tracks. PullSheet visualizes and presents. Together, they replace the entire wardrobe management stack.</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text">#PullSheet #THREADLINE #wardrobedepartment #costumedesign #filmproduction #wardrobemanagement #workflow</span>
+      <button class="copy-btn-sm" onclick="copyHashtags(this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Dual-brand graphic. THREADLINE wordmark on one side, PullSheet on the other, connected by a flow arrow or shared visual element. Shows the ecosystem story. Both brand identities visible.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================
+     DAY 26: Waitlist Push
+     Platforms: IG, FB, LI
+     Theme: Product Update
+     ============================ -->
+<div class="post-card type-update">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 26 &middot; Friday</div>
+      <div class="post-title">Waitlist Push</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge ig">IG</span>
+      <span class="badge fb">FB</span>
+      <span class="badge li">LI</span>
+      <span class="badge type-tag theme-update">Product Update</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Shared copy -->
+    <div class="caption-block">
+      <div class="caption-label">All Platforms Copy</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Summer 2026. Your wardrobe, visualized. Join the waitlist. Link in bio.</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text">#PullSheet #wardrobedepartment #costumedesign #lookbook #filmproduction #comingsoon #waitlist #summer2026</span>
+      <button class="copy-btn-sm" onclick="copyHashtags(this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Closing CTA graphic. PullSheet wordmark with "Summer 2026" and a waitlist prompt. Brand gradient, clean and direct. Bookends the launch announcement from Day 1.</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- end week 4 -->
+
+
+</div><!-- end container -->
+
+<!-- ===================================================================
+     FOOTER
+     Centered footer with page description and "Made with care" link.
+     =================================================================== -->
+<div class="footer">
+  <a href="https://cooperinteractive.com">Made with care</a>
+</div>
+
+<!-- ===================================================================
+     JAVASCRIPT
+     Two functions:
+     1. copyCaption() - copies full caption text to clipboard
+     2. copyHashtags() - copies hashtag text to clipboard
+     Both show "Copied!" confirmation for 2 seconds, then revert.
+     Also: scroll observer highlights active week in sticky nav.
+     =================================================================== -->
+<script>
+/* ===================================================================
+   Copy caption text to clipboard
+   Called by the "Copy" button inside each .caption-block.
+   Uses navigator.clipboard API with a fallback for older browsers.
+   Shows "Copied!" for 2 seconds, then reverts to "Copy".
+   =================================================================== */
+function copyCaption(btn) {
+  /* Get the caption text from the sibling .caption-text element */
+  const block = btn.closest('.caption-block');
+  const textEl = block.querySelector('.caption-text');
+  const text = textEl.innerText || textEl.textContent;
+
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  }).catch(() => {
+    /* Fallback for older browsers: select and copy via execCommand */
+    const range = document.createRange();
+    range.selectNodeContents(textEl);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    document.execCommand('copy');
+    sel.removeAllRanges();
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+/* ===================================================================
+   Copy hashtag text to clipboard
+   Called by the small "Copy" button inside each .hashtag-block.
+   Same clipboard API + fallback pattern as copyCaption().
+   =================================================================== */
+function copyHashtags(btn) {
+  /* Get the hashtag text from the sibling .ht-text element */
+  const block = btn.closest('.hashtag-block');
+  const textEl = block.querySelector('.ht-text');
+  const text = textEl.innerText || textEl.textContent;
+
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  }).catch(() => {
+    /* Fallback for older browsers */
+    const range = document.createRange();
+    range.selectNodeContents(textEl);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    document.execCommand('copy');
+    sel.removeAllRanges();
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+/* ===================================================================
+   Sticky nav: highlight active week link on scroll
+   Observes each .week-section and updates the corresponding
+   .week-links pill to .active as the user scrolls through weeks.
+   =================================================================== */
+const weekSections = document.querySelectorAll('.week-section');
+const weekLinks = document.querySelectorAll('.week-links a');
+
+function updateActiveWeek() {
+  let current = '';
+  weekSections.forEach(section => {
+    const top = section.getBoundingClientRect().top;
+    /* 120px offset accounts for sticky nav height */
+    if (top <= 120) {
+      current = section.id;
+    }
+  });
+  weekLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) {
+      link.classList.add('active');
+    }
+  });
+}
+
+/* Passive scroll listener for performance */
+window.addEventListener('scroll', updateActiveWeek, { passive: true });
+updateActiveWeek();
+</script>
+
+</body>
+</html>

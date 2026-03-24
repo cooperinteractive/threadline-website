@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PullSheet -- Website Strategy</title>
+
+<!-- ============================================================
+     PULLSHEET WEBSITE STRATEGY
+     Self-contained HTML with inline CSS and Google Fonts only.
+     Research-backed storytelling arc for the PullSheet marketing site.
+
+     SECTIONS:
+     01 - Storytelling Arc (Pain > Vision > Proof > Action)
+     02 - Section-by-Section Content Strategy (pullsheetapp.io)
+     03 - Conversion Principles (urgency, proof, risk reduction)
+     04 - Design Execution Rules (aesthetic, mockup, imagery)
+
+     TO MODIFY:
+     - Section content is plain text, easily editable
+     - Arc cards use .arc-card with .arc-num and .arc-content
+     - Page section cards use .page-section-card
+     - Principles use .principle-card grid
+     ============================================================ -->
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  /* ============================================================
+     CSS CUSTOM PROPERTIES (Design Tokens)
+     ============================================================ */
+  :root {
+    --cream:#FAF8F5;
+    --bone:#F5F0EB;
+    --warm-gray:#E8E3DE;
+    --sand:#D2C4B9;
+    --taupe:#B5A89C;
+    --brown-gold:#8B6F52;
+    --copper:#C4946A;
+    --dark-brown:#5A4228;
+    --espresso:#3A2A18;
+    --near-black:#1A1714;
+    --void:#0A0A0A;
+    --water:#5A7E8A;
+    --forest:#4A6741;
+    --clay:#8A4A42;
+    --dusty-blue:#627786;
+  }
+
+  /* ============================================================
+     RESET & BASE
+     ============================================================ */
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'Inter',sans-serif;
+    background:var(--cream);
+    color:var(--near-black);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+
+  /* ============================================================
+     STICKY NAVIGATION
+     ============================================================ */
+  .sticky-nav {
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(250,248,245,0.92);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    border-bottom:1px solid rgba(26,23,20,0.06);
+    padding:12px 48px;
+    display:flex;
+    align-items:center;
+    gap:32px;
+  }
+  .sticky-nav .brand {
+    font-family:'Inter',sans-serif;
+    font-weight:200;
+    font-size:16px;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    text-decoration:none;
+    color:inherit;
+  }
+  .sticky-nav .brand .pull { color:var(--near-black); }
+  .sticky-nav .brand .sheet { color:var(--brown-gold); }
+  .sticky-nav a {
+    font-size:11px;
+    font-weight:500;
+    color:var(--taupe);
+    text-decoration:none;
+    letter-spacing:0.04em;
+    padding:4px 8px;
+    border-radius:4px;
+    transition:all 0.15s;
+  }
+  .sticky-nav a:hover,
+  .sticky-nav a.active {
+    color:var(--brown-gold);
+    background:rgba(139,111,82,0.06);
+  }
+
+  /* ============================================================
+     CONTAINER & SECTIONS
+     ============================================================ */
+  .container { max-width:1200px; margin:0 auto; padding:0 48px; }
+  .section {
+    padding:80px 0;
+    border-bottom:1px solid var(--warm-gray);
+  }
+  .section:last-of-type { border-bottom:none; }
+  .section-num {
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    margin-bottom:12px;
+  }
+  .section-title {
+    font-family:'Cormorant Garamond',serif;
+    font-weight:300;
+    font-size:36px;
+    line-height:1.2;
+    margin-bottom:8px;
+  }
+  .section-subtitle {
+    font-size:15px;
+    color:var(--taupe);
+    line-height:1.7;
+    max-width:640px;
+    margin-bottom:40px;
+  }
+
+  /* ============================================================
+     COVER
+     ============================================================ */
+  .cover {
+    background: linear-gradient(135deg, var(--dark-brown) 0%, var(--brown-gold) 40%, var(--copper) 100%);
+    min-height:50vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:80px 48px;
+    position:relative;
+    overflow:hidden;
+  }
+  .cover::before {
+    content:'';
+    position:absolute;
+    inset:0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.08) 0%, transparent 60%);
+  }
+  .cover .wordmark {
+    font-family:'Inter',sans-serif;
+    font-weight:200;
+    font-size:80px;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.92);
+    position:relative;
+    z-index:1;
+  }
+  .cover .wordmark .sheet { color:rgba(255,255,255,0.55); }
+  .cover .tagline {
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;
+    font-weight:300;
+    font-size:28px;
+    color:rgba(255,255,255,0.6);
+    margin-top:12px;
+    position:relative;
+    z-index:1;
+  }
+  .cover .divider-line {
+    width:60px;
+    height:1px;
+    background:linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    margin:24px auto 0;
+    position:relative;
+    z-index:1;
+  }
+  .cover .doc-title {
+    font-size:12px;
+    font-weight:500;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.35);
+    margin-top:48px;
+    position:relative;
+    z-index:1;
+  }
+
+  /* ============================================================
+     STORYTELLING ARC CARDS
+     Four-step horizontal flow: Pain > Vision > Proof > Action.
+     Each card has a number, title, hook text, and description.
+     ============================================================ */
+  .arc-flow {
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:24px;
+    margin-bottom:48px;
+  }
+  .arc-card {
+    border:1px solid var(--warm-gray);
+    border-radius:12px;
+    background:white;
+    overflow:hidden;
+    position:relative;
+  }
+  .arc-header {
+    padding:24px 24px 16px;
+    position:relative;
+  }
+  .arc-num {
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    margin-bottom:8px;
+  }
+  .arc-title {
+    font-family:'Cormorant Garamond',serif;
+    font-weight:400;
+    font-size:24px;
+    color:var(--near-black);
+    margin-bottom:4px;
+  }
+  .arc-hook {
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;
+    font-weight:300;
+    font-size:16px;
+    color:var(--brown-gold);
+    line-height:1.5;
+    padding:0 24px 16px;
+  }
+  .arc-body {
+    font-size:13px;
+    line-height:1.7;
+    color:var(--taupe);
+    padding:0 24px 24px;
+  }
+  /* Arrow connectors between arc cards */
+  .arc-card::after {
+    content:'';
+    position:absolute;
+    right:-14px;
+    top:50%;
+    transform:translateY(-50%);
+    width:0;
+    height:0;
+    border-top:8px solid transparent;
+    border-bottom:8px solid transparent;
+    border-left:8px solid var(--sand);
+    z-index:10;
+  }
+  .arc-card:last-child::after { display:none; }
+
+  /* Color accents for each arc step */
+  .arc-card.pain { border-top:3px solid var(--clay); }
+  .arc-card.vision { border-top:3px solid var(--brown-gold); }
+  .arc-card.proof { border-top:3px solid var(--forest); }
+  .arc-card.action { border-top:3px solid var(--copper); }
+
+  /* ============================================================
+     PAGE SECTION CARDS
+     Detailed content strategy for each section of the website.
+     Numbered sequence with purpose, content, and design notes.
+     ============================================================ */
+  .page-sections {
+    display:flex;
+    flex-direction:column;
+    gap:24px;
+  }
+  .page-section-card {
+    border:1px solid var(--warm-gray);
+    border-radius:12px;
+    background:white;
+    overflow:hidden;
+    display:grid;
+    grid-template-columns:80px 1fr;
+  }
+  .ps-num {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'JetBrains Mono',monospace;
+    font-size:20px;
+    font-weight:500;
+    color:var(--brown-gold);
+    background:var(--bone);
+    border-right:1px solid var(--warm-gray);
+  }
+  .ps-content {
+    padding:28px 32px;
+  }
+  .ps-label {
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    margin-bottom:4px;
+  }
+  .ps-title {
+    font-family:'Cormorant Garamond',serif;
+    font-weight:400;
+    font-size:22px;
+    margin-bottom:8px;
+  }
+  .ps-purpose {
+    font-size:14px;
+    line-height:1.7;
+    color:var(--near-black);
+    margin-bottom:16px;
+  }
+  .ps-purpose strong {
+    color:var(--brown-gold);
+  }
+  .ps-details {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+  }
+  .ps-detail-block h5 {
+    font-family:'JetBrains Mono',monospace;
+    font-size:9px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    margin-bottom:6px;
+  }
+  .ps-detail-block p,
+  .ps-detail-block ul {
+    font-size:13px;
+    line-height:1.7;
+    color:var(--taupe);
+  }
+  .ps-detail-block ul {
+    list-style:none;
+    padding:0;
+  }
+  .ps-detail-block li {
+    padding:2px 0;
+    padding-left:14px;
+    position:relative;
+  }
+  .ps-detail-block li::before {
+    content:'';
+    position:absolute;
+    left:0;
+    top:10px;
+    width:4px;
+    height:4px;
+    border-radius:50%;
+    background:var(--sand);
+  }
+
+  /* ============================================================
+     CONVERSION PRINCIPLES
+     Three-column grid with principle cards.
+     ============================================================ */
+  .principles-grid {
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:24px;
+  }
+  .principle-card {
+    border:1px solid var(--warm-gray);
+    border-radius:12px;
+    background:white;
+    padding:32px;
+  }
+  .principle-num {
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    margin-bottom:8px;
+  }
+  .principle-title {
+    font-family:'Cormorant Garamond',serif;
+    font-weight:400;
+    font-size:22px;
+    margin-bottom:12px;
+  }
+  .principle-desc {
+    font-size:14px;
+    line-height:1.7;
+    color:var(--taupe);
+    margin-bottom:16px;
+  }
+  .principle-examples {
+    list-style:none;
+    padding:0;
+  }
+  .principle-examples li {
+    font-size:13px;
+    line-height:1.7;
+    color:var(--near-black);
+    padding:4px 0 4px 16px;
+    position:relative;
+  }
+  .principle-examples li::before {
+    content:'+';
+    position:absolute;
+    left:0;
+    color:var(--brown-gold);
+    font-weight:600;
+  }
+
+  /* ============================================================
+     DESIGN RULES
+     Two-column do/don't grid with visual examples.
+     ============================================================ */
+  .rules-grid {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+  }
+  .rule-card {
+    border:1px solid var(--warm-gray);
+    border-radius:12px;
+    background:white;
+    padding:28px;
+  }
+  .rule-card.do-card { border-left:3px solid var(--forest); }
+  .rule-card.dont-card { border-left:3px solid var(--clay); }
+  .rule-card h4 {
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    margin-bottom:12px;
+  }
+  .rule-card.do-card h4 { color:var(--forest); }
+  .rule-card.dont-card h4 { color:var(--clay); }
+  .rule-card ul {
+    list-style:none;
+    padding:0;
+  }
+  .rule-card li {
+    font-size:14px;
+    line-height:1.7;
+    color:var(--near-black);
+    padding:4px 0 4px 18px;
+    position:relative;
+  }
+  .rule-card.do-card li::before {
+    content:'+';
+    position:absolute;
+    left:0;
+    color:var(--forest);
+    font-weight:600;
+  }
+  .rule-card.dont-card li::before {
+    content:'-';
+    position:absolute;
+    left:0;
+    color:var(--clay);
+    font-weight:600;
+  }
+
+  /* ============================================================
+     CALLOUT BOX
+     Highlighted content block for key insights.
+     ============================================================ */
+  .callout {
+    background:var(--bone);
+    border-left:3px solid var(--brown-gold);
+    border-radius:0 8px 8px 0;
+    padding:24px 28px;
+    margin:32px 0;
+  }
+  .callout p {
+    font-size:15px;
+    line-height:1.7;
+    color:var(--near-black);
+  }
+  .callout strong {
+    color:var(--brown-gold);
+  }
+
+  /* ============================================================
+     FOOTER
+     ============================================================ */
+  .footer{text-align:center;padding:32px;font-size:12px;color:var(--taupe);border-top:1px solid rgba(26,23,20,0.06);}
+  .footer a{color:var(--brown-gold);text-decoration:none;}
+
+  /* ============================================================
+     RESPONSIVE
+     ============================================================ */
+  @media (max-width:768px) {
+    .sticky-nav { padding:12px 20px; gap:16px; flex-wrap:wrap; }
+    .cover { padding:48px 20px; min-height:40vh; }
+    .cover .wordmark { font-size:36px; letter-spacing:0.2em; }
+    .cover .tagline { font-size:20px; }
+    .container { padding:0 20px; }
+    .section { padding:48px 0; }
+    .section-title { font-size:28px; }
+    .arc-flow { grid-template-columns:1fr; }
+    .arc-card::after { display:none; }
+    .page-section-card { grid-template-columns:1fr; }
+    .ps-num { padding:16px; justify-content:flex-start; border-right:none; border-bottom:1px solid var(--warm-gray); }
+    .ps-details { grid-template-columns:1fr; }
+    .principles-grid { grid-template-columns:1fr; }
+    .rules-grid { grid-template-columns:1fr; }
+    .footer { padding:24px 20px; }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- ============================================================
+     NAVIGATION
+     ============================================================ -->
+<nav class="sticky-nav">
+  <a href="index.html" class="brand" style="text-decoration:none;color:inherit;">PULL<span class="sheet">SHEET</span></a>
+  <a class="back" href="index.html">&larr; All Pages</a>
+  <a href="#arc">Story Arc</a>
+  <a href="#sections">Page Sections</a>
+  <a href="#conversion">Conversion</a>
+  <a href="#design">Design Rules</a>
+</nav>
+
+<!-- ============================================================
+     COVER
+     ============================================================ -->
+<div class="cover">
+  <div class="wordmark"><span class="pull">Pull</span><span class="sheet">Sheet</span></div>
+  <div class="tagline">Research-backed storytelling arc for the PullSheet marketing site</div>
+  <div class="divider-line"></div>
+  <div class="doc-title">Website Strategy</div>
+</div>
+
+<div class="container">
+
+  <!-- ============================================================
+       SECTION 01: STORYTELLING ARC
+       Four-phase narrative: Pain > Vision > Proof > Action
+       ============================================================ -->
+  <div class="section" id="arc">
+    <div class="section-num">01 / Storytelling Arc</div>
+    <div class="section-title">Pain, Vision, Proof, Action</div>
+    <div class="section-subtitle">
+      Every effective product page follows a narrative arc. The visitor arrives with
+      a problem, sees a better future, believes it through evidence, and takes action.
+      PullSheet's website should move visitors through this arc in a single scroll.
+    </div>
+
+    <div class="arc-flow">
+
+      <div class="arc-card pain">
+        <div class="arc-header">
+          <div class="arc-num">Phase 01</div>
+          <div class="arc-title">Pain</div>
+        </div>
+        <div class="arc-hook">"You're still taping Polaroids to a corkboard?"</div>
+        <div class="arc-body">
+          Name the problem the visitor already feels. Wardrobe professionals know their
+          current workflow is fragmented: Polaroids pinned to corkboards, fabric swatches
+          scattered across tables, mental lookbooks that never get documented. Make them
+          feel seen. The visitor should think, "Yes, that's exactly my problem."
+        </div>
+      </div>
+
+      <div class="arc-card vision">
+        <div class="arc-header">
+          <div class="arc-num">Phase 02</div>
+          <div class="arc-title">Vision</div>
+        </div>
+        <div class="arc-hook">"See the look before the fitting"</div>
+        <div class="arc-body">
+          Paint the better future. Show what the workflow looks like with PullSheet:
+          polished digital lookboards assembled in minutes, garment cutouts arranged
+          on a canvas, everything shareable and exportable. The visitor should feel
+          the gap between their reality and this vision.
+        </div>
+      </div>
+
+      <div class="arc-card proof">
+        <div class="arc-header">
+          <div class="arc-num">Phase 03</div>
+          <div class="arc-title">Proof</div>
+        </div>
+        <div class="arc-hook">"Built by wardrobe professionals, for wardrobe professionals"</div>
+        <div class="arc-body">
+          Close the credibility gap. Show features that prove PullSheet can deliver
+          on its vision: AI background removal, the canvas builder, THREADLINE
+          integration, export options. Include workflow speed comparisons. When
+          testimonials are available, add them here.
+        </div>
+      </div>
+
+      <div class="arc-card action">
+        <div class="arc-header">
+          <div class="arc-num">Phase 04</div>
+          <div class="arc-title">Action</div>
+        </div>
+        <div class="arc-hook">"Join the waitlist. Free during beta."</div>
+        <div class="arc-body">
+          Make the action obvious and low-risk. A single email field, a clear value
+          proposition ("free during beta"), and urgency ("limited spots"). Remove
+          every possible friction point. No account creation, no credit card,
+          just an email address.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="callout">
+      <p>
+        <strong>Key insight:</strong> The arc is not four separate pages. It is one continuous
+        scroll on a single page. Each section flows into the next. The visitor should never
+        feel lost or need to navigate. By the time they reach the final CTA, the story
+        has already convinced them.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SECTION 02: PAGE SECTIONS
+       Detailed content strategy for each section of pullsheetapp.io.
+       ============================================================ -->
+  <div class="section" id="sections">
+    <div class="section-num">02 / Page Sections</div>
+    <div class="section-title">Section-by-Section Content Strategy</div>
+    <div class="section-subtitle">
+      The pullsheetapp.io homepage is a single long-scroll page with 8 distinct
+      sections. Each section has a specific purpose in the storytelling arc.
+    </div>
+
+    <div class="page-sections">
+
+      <!-- Section 1: Hero -->
+      <div class="page-section-card">
+        <div class="ps-num">01</div>
+        <div class="ps-content">
+          <div class="ps-label">Arc Phase: Pain + Vision</div>
+          <div class="ps-title">Hero</div>
+          <div class="ps-purpose">
+            <strong>Purpose:</strong> Emotional hook that names the problem and shows the solution
+            in a single screen. The visitor decides within 3 seconds whether to keep scrolling.
+          </div>
+          <div class="ps-details">
+            <div class="ps-detail-block">
+              <h5>Content Elements</h5>
+              <ul>
+                <li>Headline: "See the look before the fitting"</li>
+                <li>Subheadline: "Build visual lookboards from your wardrobe inventory"</li>
+                <li>Primary CTA: "Join the Waitlist"</li>
+                <li>iPad mockup showing PullSheet canvas with a lookboard in progress</li>
+              </ul>
+            </div>
+            <div class="ps-detail-block">
+              <h5>Design Notes</h5>
+              <ul>
+                <li>Full viewport height</li>
+                <li>Cream background with ghosted garment photography</li>
+                <li>iPad mockup (not phone) positioned right-of-center</li>
+                <li>PULLSHEET wordmark in top-left nav</li>
+                <li>Minimal nav: Features, Pricing, About, Waitlist CTA</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2: Pain Point -->
+      <div class="page-section-card">
+        <div class="ps-num">02</div>
+        <div class="ps-content">
+          <div class="ps-label">Arc Phase: Pain</div>
+          <div class="ps-title">The Corkboard Problem</div>
+          <div class="ps-purpose">
+            <strong>Purpose:</strong> Deepen the pain. Make the visitor feel the frustration of
+            their current workflow before showing the solution.
+          </div>
+          <div class="ps-details">
+            <div class="ps-detail-block">
+              <h5>Content Elements</h5>
+              <ul>
+                <li>Headline: "Your lookboard lives in your head"</li>
+                <li>3 pain points in a horizontal row:</li>
+                <li>"Polaroids fall off the corkboard. Again."</li>
+                <li>"Your director asks for the look. You describe it from memory."</li>
+                <li>"You rebuild the same board for every project."</li>
+              </ul>
+            </div>
+            <div class="ps-detail-block">
+              <h5>Design Notes</h5>
+              <ul>
+                <li>Bone or warm-gray background to shift visual tone</li>
+                <li>Ghosted corkboard image at 0.06 opacity</li>
+                <li>Pain points in cards with clay/muted accents</li>
+                <li>Keep text sharp and empathetic, never condescending</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 3: Before/After -->
+      <div class="page-section-card">
+        <div class="ps-num">03</div>
+        <div class="ps-content">
+          <div class="ps-label">Arc Phase: Pain + Vision</div>
+          <div class="ps-title">Before/After Workflow</div>
+          <div class="ps-purpose">
+            <strong>Purpose:</strong> Side-by-side comparison that makes the value instantly
+            visual. The "before" column is the pain; the "after" column is the vision.
+          </div>
+          <div class="ps-details">
+            <div class="ps-detail-block">
+              <h5>Before Column</h5>
+              <ul>
+                <li>Manual: "Photograph, print, pin, rearrange by hand"</li>
+                <li>Fragile: "One gust of wind ruins an hour of work"</li>
+                <li>Unshareable: "Your director has to come see it in person"</li>
+                <li>Temporary: "Break it down after the project"</li>
+              </ul>
+            </div>
+            <div class="ps-detail-block">
+              <h5>After Column</h5>
+              <ul>
+                <li>Digital: "Browse, cut out, drag to canvas"</li>
+                <li>Permanent: "Every lookboard saved and searchable"</li>
+                <li>Shareable: "Export as PDF, PNG, or send a link"</li>
+                <li>Connected: "Powered by your THREADLINE inventory"</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 4: Features Bento -->
+      <div class="page-section-card">
+        <div class="ps-num">04</div>
+        <div class="ps-content">
+          <div class="ps-label">Arc Phase: Proof</div>
+          <div class="ps-title">Features Bento Grid</div>
+          <div class="ps-purpose">
+            <strong>Purpose:</strong> Concrete feature showcase in a bento grid layout.
+            Each cell highlights one capability with a mini visual and brief text.
+          </div>
+          <div class="ps-details">
+            <div class="ps-detail-block">
+              <h5>Bento Cells</h5>
+              <ul>
+                <li>Canvas Builder (large cell, spans 2 columns)</li>
+                <li>AI Background Removal (standard cell)</li>
+                <li>Export Options: PDF, PNG, shareable link (standard cell)</li>
+                <li>THREADLINE Connection (standard cell with companion badge)</li>
+              </ul>
+            </div>
+            <div class="ps-detail-block">
+              <h5>Design Notes</h5>
+              <ul>
+                <li>Bento grid: asymmetric card sizes for visual interest</li>
+                <li>Each cell has a ghosted screenshot or icon</li>
+                <li>Brown-gold accent on the main feature cell</li>
+                <li>Dark mode cell for the THREADLINE connection</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 5: How It Works -->
+      <div class="page-section-card">
+        <div class="ps-num">05</div>
+        <div class="ps-content">
+          <div class="ps-label">Arc Phase: Proof</div>
+          <div class="ps-title">How It Works</div>
+          <div class="ps-purpose">
+            <strong>Purpose:</strong> Reduce complexity to three simple steps. If the visitor
+            remembers nothing else, they should remember this flow.
+          </div>
+          <div class="ps-details">
+            <div class="ps-detail-block">
+              <h5>Three Steps</h5>
+              <ul>
+                <li>Step 1: Browse your THREADLINE inventory and select garments</li>
+                <li>Step 2: Build a lookboard on the freeform canvas with AI cutouts</li>
+                <li>Step 3: Export as PDF, PNG, or share a live link with your team</li>
+              </ul>
+            </div>
+            <div class="ps-detail-block">
+              <h5>Design Notes</h5>
+              <ul>
+                <li>Horizontal 3-column layout with numbered circles</li>
+                <li>Each step has an iPad mockup showing the relevant screen</li>
+                <li>Connecting line or arrow between steps</li>
+                <li>Cream background, minimal decoration</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 6: THREADLINE Connection -->
+      <div class="page-section-card">
+        <div class="ps-num">06</div>
+        <div class="ps-content">
+          <div class="ps-label">Arc Phase: Proof</div>
+          <div class="ps-title">THREADLINE Connection</div>
+          <div class="ps-purpose">
+            <strong>Purpose:</strong> Position PullSheet as a companion to THREADLINE,
+            not a standalone tool. This adds credibility and depth to the product story.
+          </div>
+          <div class="ps-details">
+            <div class="ps-detail-block">
+              <h5>Content Elements</h5>
+              <ul>
+                <li>Headline: "Powered by THREADLINE"</li>
+                <li>Explain the companion relationship</li>
+                <li>THREADLINE manages inventory; PullSheet visualizes it</li>
+                <li>Deep linking between apps</li>
+                <li>Link to THREADLINE marketing site</li>
+              </ul>
+            </div>
+            <div class="ps-detail-block">
+              <h5>Design Notes</h5>
+              <ul>
+                <li>Dark (near-black) background section for contrast</li>
+                <li>Both wordmarks displayed: THREADLINE + PULLSHEET</li>
+                <li>Ghosted photo treatment with mix-blend-mode: overlay</li>
+                <li>Subtle connecting line/icon between the two brands</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 7: Social Proof -->
+      <div class="page-section-card">
+        <div class="ps-num">07</div>
+        <div class="ps-content">
+          <div class="ps-label">Arc Phase: Proof</div>
+          <div class="ps-title">Social Proof</div>
+          <div class="ps-purpose">
+            <strong>Purpose:</strong> Build trust through numbers and testimonials.
+            Pre-launch, use stats and beta waitlist numbers. Post-launch, add user quotes.
+          </div>
+          <div class="ps-details">
+            <div class="ps-detail-block">
+              <h5>Pre-Launch Content</h5>
+              <ul>
+                <li>Stat: Number of waitlist sign-ups</li>
+                <li>Stat: Time saved per lookboard (estimated)</li>
+                <li>Stat: Number of export formats</li>
+                <li>"Built by a wardrobe department veteran" founder story</li>
+              </ul>
+            </div>
+            <div class="ps-detail-block">
+              <h5>Post-Launch Content</h5>
+              <ul>
+                <li>2 to 3 user testimonial cards with photos</li>
+                <li>Updated usage statistics</li>
+                <li>Logos of productions or studios using PullSheet</li>
+                <li>Star rating or NPS score when available</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 8: Final CTA -->
+      <div class="page-section-card">
+        <div class="ps-num">08</div>
+        <div class="ps-content">
+          <div class="ps-label">Arc Phase: Action</div>
+          <div class="ps-title">Final CTA: Waitlist Signup</div>
+          <div class="ps-purpose">
+            <strong>Purpose:</strong> Close the deal. By this point the visitor has been through
+            the entire arc. The CTA should feel inevitable, not pushy.
+          </div>
+          <div class="ps-details">
+            <div class="ps-detail-block">
+              <h5>Content Elements</h5>
+              <ul>
+                <li>Headline: "Ready to ditch the corkboard?"</li>
+                <li>Subheadline: "Join the beta. Free while it lasts."</li>
+                <li>Single email input field</li>
+                <li>"Join the Waitlist" button</li>
+                <li>Reassurance: "No credit card. No commitment."</li>
+              </ul>
+            </div>
+            <div class="ps-detail-block">
+              <h5>Design Notes</h5>
+              <ul>
+                <li>Brown-gold gradient background (matches hero)</li>
+                <li>Large centered text, minimal distraction</li>
+                <li>Email input: white field with brown-gold submit button</li>
+                <li>Ghost photo at 0.04 opacity (barely there)</li>
+                <li>Footer sits directly below this section</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /.page-sections -->
+  </div>
+
+  <!-- ============================================================
+       SECTION 03: CONVERSION PRINCIPLES
+       Three core conversion strategies.
+       ============================================================ -->
+  <div class="section" id="conversion">
+    <div class="section-num">03 / Conversion</div>
+    <div class="section-title">Conversion Principles</div>
+    <div class="section-subtitle">
+      Three research-backed principles that should inform every design and copy decision
+      on the PullSheet marketing site.
+    </div>
+
+    <div class="principles-grid">
+
+      <div class="principle-card">
+        <div class="principle-num">Principle 01</div>
+        <div class="principle-title">Urgency</div>
+        <div class="principle-desc">
+          Create a reason to act now, not later. Limited beta access provides natural
+          scarcity without feeling manufactured.
+        </div>
+        <ul class="principle-examples">
+          <li>"Limited beta spots available"</li>
+          <li>"Free during beta, then [pricing]"</li>
+          <li>Waitlist counter showing sign-up momentum</li>
+          <li>"Early access members get lifetime pricing"</li>
+          <li>Launch date countdown (when set)</li>
+        </ul>
+      </div>
+
+      <div class="principle-card">
+        <div class="principle-num">Principle 02</div>
+        <div class="principle-title">Social Proof</div>
+        <div class="principle-desc">
+          People follow people. Even pre-launch, show that others are interested
+          and that the product is real, not vaporware.
+        </div>
+        <ul class="principle-examples">
+          <li>Waitlist count displayed live</li>
+          <li>Testimonials from beta testers (when available)</li>
+          <li>"Built by a working wardrobe professional"</li>
+          <li>Production logos or studio affiliations</li>
+          <li>THREADLINE connection as implied credibility</li>
+        </ul>
+      </div>
+
+      <div class="principle-card">
+        <div class="principle-num">Principle 03</div>
+        <div class="principle-title">Risk Reduction</div>
+        <div class="principle-desc">
+          Remove every reason not to sign up. The less risk the visitor perceives,
+          the more likely they are to take action.
+        </div>
+        <ul class="principle-examples">
+          <li>"Free during the beta period"</li>
+          <li>"No credit card required"</li>
+          <li>"Cancel anytime, no questions"</li>
+          <li>"Your data stays yours" (privacy assurance)</li>
+          <li>Simple email-only waitlist (no account needed)</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SECTION 04: DESIGN EXECUTION RULES
+       Visual and aesthetic guidelines for the marketing site.
+       ============================================================ -->
+  <div class="section" id="design">
+    <div class="section-num">04 / Design Execution</div>
+    <div class="section-title">Design Execution Rules</div>
+    <div class="section-subtitle">
+      The PullSheet marketing site must match the same aesthetic system as THREADLINE.
+      These rules ensure visual consistency across every page and section.
+    </div>
+
+    <div class="rules-grid">
+
+      <div class="rule-card do-card">
+        <h4>Design Rules</h4>
+        <ul>
+          <li>Use the THREADLINE design system (same colors, typography, spacing)</li>
+          <li>Light-mode-first approach: cream backgrounds, dark text</li>
+          <li>One dark section per page maximum (THREADLINE connection section)</li>
+          <li>iPad mockups exclusively (PullSheet is tablet-first, not phone)</li>
+          <li>Ghosted photo treatment on hero and CTA sections</li>
+          <li>Lookboard-focused imagery (the output, not the tool)</li>
+          <li>Cormorant Garamond for headlines, Inter for body, JetBrains Mono for labels</li>
+          <li>Brown-gold as the primary action color (buttons, links, accents)</li>
+        </ul>
+      </div>
+
+      <div class="rule-card dont-card">
+        <h4>Never Do</h4>
+        <ul>
+          <li>Use phone mockups (PullSheet is an iPad/tablet app)</li>
+          <li>Show stock photography of models or lifestyle scenes</li>
+          <li>Use bright or saturated colors outside the palette</li>
+          <li>Add animations that delay content visibility</li>
+          <li>Use more than one CTA per viewport (focus, not clutter)</li>
+          <li>Show unfinished UI or wireframes in marketing materials</li>
+          <li>Use technical jargon that non-technical wardrobe pros would not understand</li>
+          <li>Add a dark mode toggle on the marketing site (light mode only)</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="callout">
+      <p>
+        <strong>Imagery hierarchy:</strong> The marketing site should show the
+        output of PullSheet (beautiful lookboards), not screenshots of the UI.
+        Visitors should imagine the end result, not the interface. The interface
+        appears in the "How It Works" section and iPad mockups, but it is never
+        the hero image.
+      </p>
+    </div>
+  </div>
+
+</div><!-- /.container -->
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<div class="footer">
+  <a href="https://cooperinteractive.com">Made with care</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,2297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PullSheet -- Instagram Content (4 Weeks)</title>
+
+<!-- ============================================================
+     PULLSHEET INSTAGRAM CONTENT (4 WEEKS)
+     Self-contained HTML with inline CSS and Google Fonts only.
+     20 ready-to-post Instagram posts with full copy, CSS-rendered
+     visual mockups at 1:1 ratio (1080x1080), and hashtag sets.
+
+     SECTIONS:
+     01 - Summary stats bar (18 posts, 4 weeks, 6 themes)
+     02 - Content theme legend (color-coded pills)
+     03 - Week 1: Launch Week (Days 1-5, 5 posts)
+     04 - Week 2: Feature Deep Dives (Days 8-12, 5 posts)
+     05 - Week 3: Community & Context (Days 15-19, 5 posts)
+     06 - Week 4: Momentum (Days 22-26, 3 posts + extras = 3 posts)
+
+     TO MODIFY:
+     - CSS custom properties in :root control all colors
+     - Theme tints use rgba overlays on card headers
+     - Content theme badges: .badge.theme-* for color coding
+     - Copy buttons call copyText(id, btn) with element IDs
+     - Week nav pills highlight on scroll via IntersectionObserver
+     ============================================================ -->
+
+<!-- Google Fonts: Three families shared with THREADLINE
+     Cormorant Garamond = serif headings, editorial, taglines
+     Inter = sans-serif body, UI, wordmark
+     JetBrains Mono = monospace data, labels, metadata -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   CSS CUSTOM PROPERTIES (Design Tokens)
+   Shared palette with THREADLINE. PullSheet uses a cream/light
+   background. Six content theme tints for card headers match
+   the content calendar page.
+   ============================================================ */
+:root {
+  /* --- Core palette --- */
+  --cream: #FAF8F5;        /* Page background */
+  --bone: #F5F0EB;         /* Slightly darker cream, caption blocks */
+  --warm-gray: #E8E3DE;    /* Dividers, subtle borders */
+  --sand: #D2C4B9;         /* Muted decorative elements */
+  --taupe: #B5A89C;        /* Secondary text, metadata */
+  --brown-gold: #8B6F52;   /* Primary brand accent */
+  --copper: #C4946A;       /* Brand accent (highlights) */
+  --dark-brown: #5A4228;   /* Deep accent */
+  --espresso: #3A2A18;     /* Deep warm brown */
+  --near-black: #1A1714;   /* Primary text color */
+  --void: #0A0A0A;         /* Near-black backgrounds */
+  --water: #5A7E8A;        /* Secondary accent (blue-teal) */
+  --forest: #4A6741;       /* Success states, wardrobe tips */
+  --clay: #8A4A42;         /* Before/After theme accent */
+  --dusty-blue: #627786;   /* BTS / On-Set theme accent */
+
+  /* --- Content theme tints (card header backgrounds) --- */
+  --tint-before-after: rgba(138,74,66,0.07);    /* clay-based */
+  --tint-feature: rgba(139,111,82,0.08);         /* brown-gold-based */
+  --tint-speed: rgba(90,126,138,0.07);           /* water-based */
+  --tint-tips: rgba(74,103,65,0.07);             /* forest-based */
+  --tint-bts: rgba(98,119,134,0.07);             /* dusty-blue-based */
+  --tint-update: rgba(196,148,106,0.08);         /* copper-based */
+
+  /* --- Font stacks --- */
+  --serif: 'Cormorant Garamond', 'Georgia', serif;
+  --body: 'Inter', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', 'Menlo', monospace;
+}
+
+/* ============================================================
+   RESET & BASE STYLES
+   Minimal reset. Body uses Inter as default sans-serif.
+   Cream background for light-mode PullSheet pages.
+   ============================================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--body);
+  background: var(--cream);
+  color: var(--near-black);
+  line-height: 1.7;
+}
+
+/* Text selection uses copper accent */
+::selection {
+  background: var(--copper);
+  color: white;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ============================================================
+   STICKY NAVIGATION BAR
+   Frosted glass effect with blur backdrop on cream.
+   PULL/SHEET wordmark on left (PULL = near-black, SHEET = brown-gold).
+   Back link to index.html in brown-gold accent.
+   Week pill links on the right for quick navigation.
+   ============================================================ */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(250,248,245,0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(26,23,20,0.06);
+  padding: 12px 48px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Wordmark in nav: PULL in near-black, SHEET in brown-gold */
+.nav .brand {
+  font-family: var(--body);
+  font-weight: 200;
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-right: 8px;
+}
+.nav .brand .pull { color: var(--near-black); }
+.nav .brand .sheet { color: var(--brown-gold); }
+
+/* Nav links: small caps, subtle hover state with accent tint */
+.nav a {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--taupe);
+  text-decoration: none;
+  padding: 5px 12px;
+  border-radius: 4px;
+  transition: all 0.15s;
+}
+.nav a:hover {
+  color: var(--brown-gold);
+  background: rgba(139,111,82,0.06);
+}
+
+/* Back link styled in brown-gold accent */
+.nav a.back { color: var(--brown-gold); }
+
+/* Week navigation pill links, aligned right */
+.nav .week-links {
+  display: flex;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.nav .week-links a {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 5px 14px;
+  border: 1px solid var(--warm-gray);
+  border-radius: 20px;
+  color: var(--near-black);
+  transition: all 0.2s;
+}
+
+.nav .week-links a:hover,
+.nav .week-links a.active {
+  background: var(--brown-gold);
+  color: white;
+  border-color: var(--brown-gold);
+}
+
+/* ============================================================
+   CONTAINER
+   Max-width wrapper centered on page. 1000px as specified.
+   Horizontal padding collapses on mobile.
+   ============================================================ */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 48px 48px 32px;
+}
+
+/* ============================================================
+   PAGE HEADER
+   Title uses Cormorant Garamond serif at 38px.
+   Subtitle is muted taupe body text, max 640px width.
+   ============================================================ */
+.page-header {
+  margin-bottom: 48px;
+}
+
+.page-header h1 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 38px;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+/* Italic emphasis within heading */
+.page-header h1 em {
+  font-family: var(--serif);
+  font-style: italic;
+}
+
+.page-header .subtitle {
+  font-size: 14px;
+  color: var(--taupe);
+  line-height: 1.7;
+  max-width: 640px;
+}
+
+/* ============================================================
+   SUMMARY STATS BAR
+   Responsive grid of stat cards. Each shows a large number
+   (serif) and a monospace label.
+   ============================================================ */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.stat-card {
+  background: white;
+  border: 1px solid var(--warm-gray);
+  border-radius: 10px;
+  padding: 20px 24px;
+  text-align: center;
+}
+
+/* Large number: serif, lightweight */
+.stat-card .stat-num {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 32px;
+  color: var(--near-black);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+/* Label: monospace, tiny, all caps */
+.stat-card .stat-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--taupe);
+}
+
+/* ============================================================
+   CONTENT THEME LEGEND
+   Horizontal row of color-coded pill tags showing the six
+   content themes. Each gets a subtle background tint and
+   a left border stripe in the theme color.
+   ============================================================ */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 48px;
+}
+
+.legend-item {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  padding: 5px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(26,23,20,0.08);
+}
+
+/* Each theme type gets its own tint color */
+.legend-item.t-before-after { background: var(--tint-before-after); color: var(--clay); }
+.legend-item.t-feature { background: var(--tint-feature); color: var(--brown-gold); }
+.legend-item.t-speed { background: var(--tint-speed); color: var(--water); }
+.legend-item.t-tips { background: var(--tint-tips); color: var(--forest); }
+.legend-item.t-bts { background: var(--tint-bts); color: var(--dusty-blue); }
+.legend-item.t-update { background: var(--tint-update); color: var(--copper); }
+
+/* ============================================================
+   WEEK SECTION & HEADER
+   Each week is a distinct section with scroll-margin for
+   sticky nav offset. Week header shows week title with a
+   range subtitle in monospace.
+   ============================================================ */
+.week-section {
+  margin-bottom: 56px;
+  scroll-margin-top: 80px;
+}
+
+.week-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 28px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--near-black);
+}
+
+.week-header h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 28px;
+}
+
+.week-header .week-range {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--taupe);
+  letter-spacing: 0.04em;
+}
+
+/* ============================================================
+   POST CARD
+   Each post is a white card with rounded corners, subtle
+   border, and hover shadow. Cards get a tinted header
+   based on content theme.
+   ============================================================ */
+.post-card {
+  background: white;
+  border: 1px solid var(--warm-gray);
+  border-radius: 12px;
+  margin-bottom: 24px;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+
+.post-card:hover {
+  box-shadow: 0 4px 20px rgba(26,23,20,0.06);
+}
+
+/* Content theme tints applied to the card header area */
+.post-card.type-before-after .card-header { background: var(--tint-before-after); }
+.post-card.type-feature .card-header { background: var(--tint-feature); }
+.post-card.type-speed .card-header { background: var(--tint-speed); }
+.post-card.type-tips .card-header { background: var(--tint-tips); }
+.post-card.type-bts .card-header { background: var(--tint-bts); }
+.post-card.type-update .card-header { background: var(--tint-update); }
+
+/* ============================================================
+   CARD HEADER
+   Top section of each post card. Day/date on the left,
+   theme badge on the right.
+   ============================================================ */
+.card-header {
+  padding: 20px 28px 16px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.card-header .header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Day number and weekday in monospace */
+.card-header .day-date {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--near-black);
+  letter-spacing: 0.02em;
+}
+
+/* Post title in serif */
+.card-header .post-title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.3;
+}
+
+/* Badge container */
+.card-header .header-badges {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+/* ============================================================
+   BADGES
+   Small pill-shaped tags for content theme. Outline style
+   with theme-specific color coding.
+   ============================================================ */
+.badge {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+  background: transparent;
+  border: 1px solid var(--sand);
+  color: var(--taupe);
+}
+
+/* Color-coded theme badges */
+.badge.theme-before-after { border-color: var(--clay); color: var(--clay); }
+.badge.theme-feature { border-color: var(--brown-gold); color: var(--brown-gold); }
+.badge.theme-speed { border-color: var(--water); color: var(--water); }
+.badge.theme-tips { border-color: var(--forest); color: var(--forest); }
+.badge.theme-bts { border-color: var(--dusty-blue); color: var(--dusty-blue); }
+.badge.theme-update { border-color: var(--copper); color: var(--copper); }
+
+/* ============================================================
+   CARD BODY
+   Contains the visual mockup, caption, hashtags, and
+   visual direction note.
+   ============================================================ */
+.card-body {
+  padding: 0 28px 24px;
+}
+
+/* ============================================================
+   INSTAGRAM VISUAL MOCKUP
+   1:1 aspect ratio container (1080x1080 equivalent).
+   Rendered entirely with CSS. Centered within the card body
+   with rounded corners and a subtle shadow.
+   ============================================================ */
+.ig-mockup-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.ig-mockup {
+  width: 100%;
+  max-width: 480px;
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(26,23,20,0.12);
+  position: relative;
+}
+
+/* ============================================================
+   CAPTION BLOCK
+   Bone-tinted box containing the full post copy. Includes
+   a "Copy" button at top-right for one-click clipboard copy.
+   ============================================================ */
+.caption-block {
+  position: relative;
+  background: var(--bone);
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin-bottom: 16px;
+}
+
+/* Label above the caption text */
+.caption-block .caption-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  margin-bottom: 10px;
+}
+
+/* Full caption text: pre-wrap to preserve line breaks */
+.caption-block .caption-text {
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: var(--near-black);
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Copy button: positioned top-right, brown-gold fill */
+.caption-block .copy-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: var(--brown-gold);
+  color: white;
+  border: none;
+  padding: 5px 14px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--body);
+  transition: all 0.15s;
+}
+.caption-block .copy-btn:hover { background: var(--dark-brown); }
+.caption-block .copy-btn.copied { background: var(--forest); }
+
+/* ============================================================
+   HASHTAG BLOCK
+   Light brown-tinted row showing hashtags with a copy button.
+   Hashtag text in brown-gold for visual distinction.
+   ============================================================ */
+.hashtag-block {
+  background: rgba(139,111,82,0.05);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+/* "Hashtags" label in monospace */
+.hashtag-block .ht-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  white-space: nowrap;
+  padding-top: 2px;
+}
+
+/* Hashtag text in brand accent color */
+.hashtag-block .ht-text {
+  font-size: 12px;
+  color: var(--brown-gold);
+  line-height: 1.6;
+  word-wrap: break-word;
+  flex: 1;
+}
+
+/* Small copy button for hashtags */
+.hashtag-block .copy-btn-sm {
+  background: transparent;
+  border: 1px solid var(--sand);
+  color: var(--brown-gold);
+  padding: 3px 10px;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: var(--body);
+  flex-shrink: 0;
+  transition: all 0.15s;
+}
+.hashtag-block .copy-btn-sm:hover { background: rgba(139,111,82,0.08); }
+.hashtag-block .copy-btn-sm.copied { background: var(--forest); color: white; border-color: var(--forest); }
+
+/* ============================================================
+   VISUAL DIRECTION NOTE
+   Monospace note at the bottom of each card describing the
+   recommended visual treatment for the actual photo/graphic.
+   ============================================================ */
+.visual-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--taupe);
+  line-height: 1.6;
+  padding-top: 4px;
+}
+
+.visual-note .vn-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  background: var(--warm-gray);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 10px;
+  margin-top: 1px;
+}
+
+/* ============================================================
+   FOOTER
+   Centered text footer with "Made with care" link.
+   Separated from content by a subtle top border.
+   ============================================================ */
+.footer {
+  text-align: center;
+  padding: 40px 20px;
+  border-top: 1px solid rgba(26,23,20,0.06);
+  font-size: 12px;
+  color: var(--taupe);
+}
+
+.footer a {
+  color: var(--brown-gold);
+  text-decoration: none;
+}
+
+.footer a:hover { text-decoration: underline; }
+
+/* ============================================================
+   PULSE ANIMATION
+   Used for the connecting dot between app icons in the
+   "Two Apps, One Workflow" post (Day 25).
+   ============================================================ */
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.5); }
+}
+
+/* ============================================================
+   RESPONSIVE: Mobile breakpoint
+   Reduces container and nav padding. Week links wrap to
+   full width and center. Stats grid stacks.
+   ============================================================ */
+@media (max-width: 768px) {
+  .container { padding: 32px 20px 24px; }
+  .nav { padding: 12px 20px; gap: 10px; }
+  .nav .week-links { margin-left: 0; width: 100%; justify-content: center; }
+  .stats-bar { grid-template-columns: 1fr; }
+  .card-header { flex-direction: column; }
+  .card-header .header-badges { width: 100%; }
+  .card-body { padding: 0 20px 20px; }
+  .caption-block { padding: 16px 18px; }
+  .caption-block .copy-btn { position: static; margin-top: 12px; display: block; width: 100%; text-align: center; }
+  .ig-mockup { max-width: 100%; }
+  .hashtag-block { flex-direction: column; gap: 8px; }
+  .hashtag-block .copy-btn-sm { align-self: flex-start; }
+  .page-header h1 { font-size: 28px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===================================================================
+     NAVIGATION
+     Sticky frosted nav bar. PULL/SHEET wordmark on left, back link
+     to PullSheet index, and week navigation pills on right.
+     =================================================================== -->
+<nav class="nav">
+  <a href="index.html" class="brand" style="text-decoration:none;color:inherit;">PULL<span class="sheet">SHEET</span></a>
+  <a class="back" href="index.html">&larr; All Pages</a>
+  <div class="week-links">
+    <a href="#week1" class="active">Week 1</a>
+    <a href="#week2">Week 2</a>
+    <a href="#week3">Week 3</a>
+    <a href="#week4">Week 4</a>
+  </div>
+</nav>
+
+<div class="container">
+
+<!-- ===================================================================
+     PAGE HEADER
+     Title with italic emphasis. Subtitle describes the page scope:
+     18 posts, full copy, visual mockups, hashtags for @pullsheet_app.
+     =================================================================== -->
+<div class="page-header">
+  <h1>Instagram Content <em>(4 Weeks)</em></h1>
+  <p class="subtitle">20 ready-to-post Instagram posts with full copy, visual mockups, and hashtags for @pullsheet_app.</p>
+</div>
+
+<!-- ===================================================================
+     SUMMARY STATS BAR
+     Three stat cards showing total posts, weeks, and content themes.
+     =================================================================== -->
+<div class="stats-bar">
+  <div class="stat-card">
+    <div class="stat-num">20</div>
+    <div class="stat-label">Posts</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num">4</div>
+    <div class="stat-label">Weeks</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num">6</div>
+    <div class="stat-label">Content Themes</div>
+  </div>
+</div>
+
+<!-- ===================================================================
+     CONTENT THEME LEGEND
+     Color-coded pill tags showing all six content themes used across
+     the 18 posts. Colors match card header tints.
+     =================================================================== -->
+<div class="legend">
+  <span class="legend-item t-before-after">Before/After</span>
+  <span class="legend-item t-feature">Feature Spotlight</span>
+  <span class="legend-item t-speed">Speed Demo</span>
+  <span class="legend-item t-tips">Wardrobe Tips</span>
+  <span class="legend-item t-bts">BTS / On-Set</span>
+  <span class="legend-item t-update">Product Update</span>
+</div>
+
+
+<!-- ===================================================================
+
+     WEEK 1 - LAUNCH WEEK
+     Days 1-5. Five posts establishing PullSheet's brand, problem
+     statement, and three hero features (canvas, AI cutout, PDF export).
+
+     =================================================================== -->
+<div class="week-section" id="week1">
+<div class="week-header">
+  <h2>Week 1</h2>
+  <span class="week-range">Days 1 - 5 &middot; Launch Week</span>
+</div>
+
+
+<!-- ============================
+     DAY 1: Launch Announcement
+     Theme: Product Update
+     ============================ -->
+<div class="post-card type-update">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 1 &middot; Monday</div>
+      <div class="post-title">Launch Announcement</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge theme-update">Product Update</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Visual mockup: Brown-gold gradient, PULLSHEET wordmark, tagline -->
+    <div class="ig-mockup-wrapper">
+      <div class="ig-mockup" style="background:linear-gradient(135deg, var(--dark-brown) 0%, var(--brown-gold) 50%, var(--copper) 100%); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;">
+        <!-- Subtle noise texture overlay -->
+        <div style="position:absolute; inset:0; background:repeating-conic-gradient(rgba(255,255,255,0.02) 0% 25%, transparent 0% 50%) 0 0 / 3px 3px; pointer-events:none;"></div>
+        <!-- Content -->
+        <div style="position:relative; z-index:2; padding:48px 36px;">
+          <!-- PULLSHEET wordmark: large, weight 200, wide tracking -->
+          <div style="font-family:'Inter',sans-serif; font-weight:200; font-size:32px; letter-spacing:0.22em; text-transform:uppercase; color:white; margin-bottom:32px;">PULL<span style="color:rgba(255,255,255,0.6)">SHEET</span></div>
+          <!-- Thin divider -->
+          <div style="width:40px; height:1px; background:rgba(255,255,255,0.3); margin:0 auto 32px;"></div>
+          <!-- Tagline in italic Cormorant Garamond -->
+          <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300; font-size:22px; color:rgba(255,255,255,0.85); line-height:1.4; margin-bottom:40px;">See the look<br>before the fitting.</div>
+          <!-- Divider -->
+          <div style="width:40px; height:1px; background:rgba(255,255,255,0.15); margin:0 auto 32px;"></div>
+          <!-- Coming date in monospace -->
+          <div style="font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:400; color:rgba(255,255,255,0.45); letter-spacing:0.12em; text-transform:uppercase;">Coming Summer 2026</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Caption -->
+    <div class="caption-block">
+      <div class="caption-label">Caption</div>
+      <button class="copy-btn" onclick="copyText('cap-d1', this)">Copy</button>
+      <div class="caption-text" id="cap-d1">See the look before the fitting.
+
+We're building PullSheet -- the visual lookbook builder for film &amp; TV wardrobe teams.
+
+Drag garments from your inventory onto a canvas. Remove backgrounds with one tap. Export professional PDF lookbooks.
+
+Your wardrobe, visualized. Coming Summer 2026.
+
+Link in bio for early access.</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text" id="ht-d1">#PullSheet #wardrobedepartment #costumedesign #filmproduction #lookbook #setlife #filmcrew #productionlife #costumesupervisor #filmtech</span>
+      <button class="copy-btn-sm" onclick="copyText('ht-d1', this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span>Brown-gold gradient background with large PULLSHEET wordmark centered. Tagline in italic serif. Clean, editorial first impression. Monospace date at bottom.</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================
+     DAY 2: The Problem
+     Theme: Before/After
+     ============================ -->
+<div class="post-card type-before-after">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 2 &middot; Tuesday</div>
+      <div class="post-title">The Problem</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge theme-before-after">Before/After</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Visual mockup: Split layout - messy corkboard vs clean digital -->
+    <div class="ig-mockup-wrapper">
+      <div class="ig-mockup" style="display:flex; flex-direction:row; overflow:hidden;">
+        <!-- LEFT: Messy corkboard simulation -->
+        <div style="flex:1; background:var(--bone); position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden;">
+          <!-- Scattered photo rectangles simulating pinned Polaroids -->
+          <div style="position:absolute; width:50px; height:60px; background:white; border:2px solid #ddd; transform:rotate(-8deg); top:18%; left:12%; box-shadow:1px 2px 4px rgba(0,0,0,0.08);"></div>
+          <div style="position:absolute; width:45px; height:55px; background:white; border:2px solid #ddd; transform:rotate(12deg); top:25%; left:55%; box-shadow:1px 2px 4px rgba(0,0,0,0.08);"></div>
+          <div style="position:absolute; width:55px; height:65px; background:white; border:2px solid #ddd; transform:rotate(-3deg); top:48%; left:28%; box-shadow:1px 2px 4px rgba(0,0,0,0.08);"></div>
+          <div style="position:absolute; width:40px; height:50px; background:white; border:2px solid #ddd; transform:rotate(18deg); top:60%; left:60%; box-shadow:1px 2px 4px rgba(0,0,0,0.08);"></div>
+          <div style="position:absolute; width:48px; height:58px; background:white; border:2px solid #ddd; transform:rotate(-15deg); top:10%; left:42%; box-shadow:1px 2px 4px rgba(0,0,0,0.08);"></div>
+          <div style="position:absolute; width:42px; height:52px; background:white; border:2px solid #ddd; transform:rotate(6deg); top:72%; left:20%; box-shadow:1px 2px 4px rgba(0,0,0,0.08);"></div>
+          <!-- Tape marks -->
+          <div style="position:absolute; width:24px; height:8px; background:rgba(200,190,140,0.5); transform:rotate(-5deg); top:16%; left:20%;"></div>
+          <div style="position:absolute; width:20px; height:7px; background:rgba(200,190,140,0.5); transform:rotate(8deg); top:46%; left:38%;"></div>
+          <div style="position:absolute; width:22px; height:7px; background:rgba(200,190,140,0.5); transform:rotate(-12deg); top:58%; left:68%;"></div>
+          <!-- BEFORE label -->
+          <div style="position:absolute; bottom:16px; left:50%; transform:translateX(-50%); font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:500; color:var(--clay); letter-spacing:0.12em; text-transform:uppercase;">Before</div>
+        </div>
+        <!-- CENTER divider -->
+        <div style="width:2px; background:var(--warm-gray); flex-shrink:0;"></div>
+        <!-- RIGHT: Clean digital lookboard -->
+        <div style="flex:1; background:var(--near-black); position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden;">
+          <!-- Neatly arranged garment shapes (clean rectangles with rounded corners) -->
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; padding:40px 24px;">
+            <div style="width:60px; height:72px; background:var(--dark-brown); border-radius:6px; opacity:0.7;"></div>
+            <div style="width:60px; height:72px; background:var(--brown-gold); border-radius:6px; opacity:0.7;"></div>
+            <div style="width:60px; height:72px; background:var(--copper); border-radius:6px; opacity:0.7;"></div>
+            <div style="width:60px; height:72px; background:var(--taupe); border-radius:6px; opacity:0.7;"></div>
+          </div>
+          <!-- AFTER label -->
+          <div style="position:absolute; bottom:16px; left:50%; transform:translateX(-50%); font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:500; color:var(--copper); letter-spacing:0.12em; text-transform:uppercase;">After</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Caption -->
+    <div class="caption-block">
+      <div class="caption-label">Caption</div>
+      <button class="copy-btn" onclick="copyText('cap-d2', this)">Copy</button>
+      <div class="caption-text" id="cap-d2">You're still taping Polaroids to a corkboard?
+
+There's a better way to show the director what you're thinking.
+
+PullSheet lets you build digital lookboards in minutes. No printing. No scissors. No tape.</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text" id="ht-d2">#PullSheet #wardrobedepartment #filmproduction #lookbook #costumedesign #setlife #behindthescenes #filmcrew</span>
+      <button class="copy-btn-sm" onclick="copyText('ht-d2', this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span>Split layout. Left: messy corkboard with scattered Polaroids and tape. Right: clean dark digital lookboard with neatly arranged garment shapes. BEFORE/AFTER labels at bottom of each side.</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================
+     DAY 3: Feature - Canvas
+     Theme: Feature Spotlight
+     ============================ -->
+<div class="post-card type-feature">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 3 &middot; Wednesday</div>
+      <div class="post-title">Feature: Canvas</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge theme-feature">Feature Spotlight</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Visual mockup: Cream background with "THE CANVAS" heading and simplified editor -->
+    <div class="ig-mockup-wrapper">
+      <div class="ig-mockup" style="background:var(--cream); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; position:relative;">
+        <!-- Content -->
+        <div style="position:relative; z-index:2; padding:48px 36px; width:100%;">
+          <!-- THE CANVAS heading -->
+          <div style="font-family:'Cormorant Garamond',serif; font-weight:300; font-size:36px; color:var(--near-black); margin-bottom:32px; letter-spacing:0.02em;">THE CANVAS</div>
+          <!-- Simplified canvas editor area -->
+          <div style="background:white; border:1px solid var(--warm-gray); border-radius:8px; width:80%; margin:0 auto; aspect-ratio:4/3; position:relative; overflow:hidden; box-shadow:0 2px 12px rgba(26,23,20,0.04);">
+            <!-- Garment shapes arranged as an outfit -->
+            <div style="position:absolute; top:12%; left:30%; width:40%; height:28%; background:var(--dark-brown); border-radius:6px; opacity:0.75;"></div>
+            <div style="position:absolute; top:44%; left:25%; width:22%; height:32%; background:var(--brown-gold); border-radius:6px; opacity:0.65;"></div>
+            <div style="position:absolute; top:44%; left:53%; width:22%; height:32%; background:var(--copper); border-radius:6px; opacity:0.65;"></div>
+            <div style="position:absolute; top:80%; left:32%; width:15%; height:12%; background:var(--taupe); border-radius:4px; opacity:0.55;"></div>
+            <div style="position:absolute; top:80%; left:53%; width:15%; height:12%; background:var(--taupe); border-radius:4px; opacity:0.55;"></div>
+          </div>
+        </div>
+        <!-- PULLSHEET wordmark bottom corner -->
+        <div style="position:absolute; bottom:16px; right:20px; font-family:'Inter',sans-serif; font-weight:200; font-size:9px; letter-spacing:0.15em; text-transform:uppercase; color:var(--taupe);"><span style="color:var(--near-black);">PULL</span><span style="color:var(--brown-gold);">SHEET</span></div>
+      </div>
+    </div>
+
+    <!-- Caption -->
+    <div class="caption-block">
+      <div class="caption-label">Caption</div>
+      <button class="copy-btn" onclick="copyText('cap-d3', this)">Copy</button>
+      <div class="caption-text" id="cap-d3">Build looks the way you think about them.
+
+Drag garments from your inventory onto a freeform canvas. Resize. Rotate. Layer.
+
+Portrait, landscape, or square. Your digital lookboard, your way.</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text" id="ht-d3">#PullSheet #lookbook #wardrobedepartment #costumedesign #filmproduction #digitalwardrobe #filmtech</span>
+      <button class="copy-btn-sm" onclick="copyText('ht-d3', this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span>Cream background with "THE CANVAS" in large Cormorant Garamond. Below it, a simplified canvas editor mockup showing garment shapes arranged as an outfit composition. PULLSHEET wordmark in corner.</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================
+     DAY 4: Feature - AI Cutout
+     Theme: Before/After
+     ============================ -->
+<div class="post-card type-before-after">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 4 &middot; Thursday</div>
+      <div class="post-title">Feature: AI Cutout</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge theme-before-after">Before/After</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Visual mockup: Side-by-side - garment on busy bg vs clean cutout -->
+    <div class="ig-mockup-wrapper">
+      <div class="ig-mockup" style="background:white; display:flex; flex-direction:row; overflow:hidden;">
+        <!-- LEFT: Garment on busy patterned background (simulating rack photo) -->
+        <div style="flex:1; position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden;">
+          <!-- Busy background pattern (hangers, rack bars, other garments) -->
+          <div style="position:absolute; inset:0; background:linear-gradient(135deg, #c4b5a3 0%, #d8c9b8 30%, #bfad9a 60%, #d2c4b4 100%);"></div>
+          <!-- Horizontal rack bars -->
+          <div style="position:absolute; top:15%; left:0; right:0; height:3px; background:rgba(120,100,80,0.3);"></div>
+          <div style="position:absolute; top:85%; left:0; right:0; height:3px; background:rgba(120,100,80,0.3);"></div>
+          <!-- Vertical noise lines (other garments behind) -->
+          <div style="position:absolute; top:15%; left:10%; width:20px; height:70%; background:rgba(100,80,60,0.15); border-radius:2px;"></div>
+          <div style="position:absolute; top:18%; left:70%; width:18px; height:65%; background:rgba(90,70,50,0.12); border-radius:2px;"></div>
+          <!-- The garment shape (jacket silhouette) -->
+          <div style="position:relative; z-index:2; width:55%; height:50%; background:var(--dark-brown); border-radius:8px 8px 12px 12px; opacity:0.9;"></div>
+        </div>
+        <!-- CENTER: Arrow with ONE TAP label -->
+        <div style="width:48px; background:white; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; flex-shrink:0;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:7px; font-weight:500; color:var(--brown-gold); letter-spacing:0.08em; text-transform:uppercase; writing-mode:vertical-lr; transform:rotate(180deg);">One Tap</div>
+          <div style="font-size:16px; color:var(--brown-gold);">&#8594;</div>
+        </div>
+        <!-- RIGHT: Clean cutout on transparency-style background -->
+        <div style="flex:1; position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden;">
+          <!-- Checkered transparency pattern -->
+          <div style="position:absolute; inset:0; background-image:repeating-conic-gradient(#f0f0f0 0% 25%, white 0% 50%); background-size:16px 16px;"></div>
+          <!-- The same garment shape, clean -->
+          <div style="position:relative; z-index:2; width:55%; height:50%; background:var(--dark-brown); border-radius:8px 8px 12px 12px; box-shadow:0 4px 16px rgba(0,0,0,0.1);"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Caption -->
+    <div class="caption-block">
+      <div class="caption-label">Caption</div>
+      <button class="copy-btn" onclick="copyText('cap-d4', this)">Copy</button>
+      <div class="caption-text" id="cap-d4">One tap. Clean cutout.
+
+That phone photo you took on a crowded rack? PullSheet's AI removes the background instantly.
+
+Every look goes from phone-photo to catalog-quality.</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text" id="ht-d4">#PullSheet #AIbackgroundremoval #wardrobedepartment #costumedesign #filmproduction #lookbook #filmtech</span>
+      <button class="copy-btn-sm" onclick="copyText('ht-d4', this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span>Side-by-side comparison. Left: garment on a busy rack background. Right: same garment cleanly cut out on a transparency checkerboard. "ONE TAP" label in brown-gold between the two panels.</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================
+     DAY 5: Feature - PDF Export
+     Theme: Feature Spotlight
+     ============================ -->
+<div class="post-card type-feature">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 5 &middot; Friday</div>
+      <div class="post-title">Feature: PDF Export</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge theme-feature">Feature Spotlight</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Visual mockup: Dark background with PDF document mockup -->
+    <div class="ig-mockup-wrapper">
+      <div class="ig-mockup" style="background:var(--near-black); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; position:relative;">
+        <!-- EXPORT label top -->
+        <div style="position:absolute; top:24px; left:50%; transform:translateX(-50%); font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:500; color:rgba(255,255,255,0.35); letter-spacing:0.15em; text-transform:uppercase;">Export</div>
+        <!-- PDF document mockup -->
+        <div style="background:white; border-radius:8px; width:55%; aspect-ratio:8.5/11; position:relative; overflow:hidden; box-shadow:0 12px 40px rgba(0,0,0,0.4);">
+          <!-- Cover page content -->
+          <div style="padding:16px 14px; height:100%; display:flex; flex-direction:column;">
+            <!-- Header bar -->
+            <div style="font-family:'Inter',sans-serif; font-weight:200; font-size:7px; letter-spacing:0.12em; text-transform:uppercase; color:var(--near-black); margin-bottom:8px;"><span>PULL</span><span style="color:var(--brown-gold);">SHEET</span></div>
+            <!-- Divider -->
+            <div style="height:1px; background:var(--warm-gray); margin-bottom:10px;"></div>
+            <!-- Production title -->
+            <div style="font-family:'Cormorant Garamond',serif; font-size:10px; font-weight:400; color:var(--near-black); margin-bottom:4px;">Production Title</div>
+            <!-- Talent name -->
+            <div style="font-family:'JetBrains Mono',monospace; font-size:6px; color:var(--taupe); letter-spacing:0.05em; margin-bottom:12px;">TALENT: ALEX CHEN</div>
+            <!-- Garment grid (2x2) -->
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; flex:1;">
+              <div style="background:var(--bone); border-radius:3px;"></div>
+              <div style="background:var(--bone); border-radius:3px;"></div>
+              <div style="background:var(--bone); border-radius:3px;"></div>
+              <div style="background:var(--bone); border-radius:3px;"></div>
+            </div>
+          </div>
+        </div>
+        <!-- PULLSHEET wordmark bottom -->
+        <div style="position:absolute; bottom:16px; font-family:'Inter',sans-serif; font-weight:200; font-size:9px; letter-spacing:0.15em; text-transform:uppercase;"><span style="color:rgba(255,255,255,0.5);">PULL</span><span style="color:var(--copper);">SHEET</span></div>
+      </div>
+    </div>
+
+    <!-- Caption -->
+    <div class="caption-block">
+      <div class="caption-label">Caption</div>
+      <button class="copy-btn" onclick="copyText('cap-d5', this)">Copy</button>
+      <div class="caption-text" id="cap-d5">Print-ready in two taps.
+
+Export single looks or multi-page lookbooks with cover pages, tables of contents, and garment details.
+
+Hand it to the director. Email it to the department head. Print it for the fitting room wall.</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text" id="ht-d5">#PullSheet #lookbook #wardrobedepartment #filmproduction #costumedesign #PDFexport #filmtech</span>
+      <button class="copy-btn-sm" onclick="copyText('ht-d5', this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span>Dark (near-black) background with centered PDF document mockup in white. Shows a cover page layout with PULLSHEET header, production title, talent name, and a 2x2 garment grid. "EXPORT" in monospace at top.</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- end week 1 -->
+
+
+<!-- ===================================================================
+
+     WEEK 2 - FEATURE DEEP DIVES
+     Days 8-12. Five posts diving deeper into features, workflow
+     integrations, and professional tips.
+
+     =================================================================== -->
+<div class="week-section" id="week2">
+<div class="week-header">
+  <h2>Week 2</h2>
+  <span class="week-range">Days 8 - 12 &middot; Feature Deep Dives</span>
+</div>
+
+
+<!-- ============================
+     DAY 8: THREADLINE Connection
+     Theme: Feature Spotlight
+     ============================ -->
+<div class="post-card type-feature">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 8 &middot; Monday</div>
+      <div class="post-title">THREADLINE Connection</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge theme-feature">Feature Spotlight</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Visual mockup: Two brands side by side with connection arrow -->
+    <div class="ig-mockup-wrapper">
+      <div class="ig-mockup" style="background:var(--cream); display:flex; flex-direction:row; align-items:center; justify-content:center; position:relative; overflow:hidden;">
+        <!-- LEFT: THREADLINE brand -->
+        <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:24px;">
+          <div style="font-family:'Inter',sans-serif; font-weight:200; font-size:16px; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:12px;"><span style="color:var(--near-black);">THREAD</span><span style="color:var(--brown-gold);">LINE</span></div>
+          <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300; font-size:12px; color:var(--taupe);">Scan. Track. Return.</div>
+        </div>
+        <!-- CENTER: Vertical divider with connection arrow -->
+        <div style="width:1px; height:40%; background:var(--brown-gold); position:relative; flex-shrink:0;">
+          <!-- Arrow icon (simple CSS triangle approach) -->
+          <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:28px; height:28px; background:var(--cream); border:1px solid var(--brown-gold); border-radius:50%; display:flex; align-items:center; justify-content:center;">
+            <div style="font-size:12px; color:var(--brown-gold);">&#8596;</div>
+          </div>
+        </div>
+        <!-- RIGHT: PULLSHEET brand -->
+        <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:24px;">
+          <div style="font-family:'Inter',sans-serif; font-weight:200; font-size:16px; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:12px;"><span style="color:var(--near-black);">PULL</span><span style="color:var(--brown-gold);">SHEET</span></div>
+          <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300; font-size:12px; color:var(--taupe);">Build. Cutout. Export.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Caption -->
+    <div class="caption-block">
+      <div class="caption-label">Caption</div>
+      <button class="copy-btn" onclick="copyText('cap-d8', this)">Copy</button>
+      <div class="caption-text" id="cap-d8">Your inventory is already here.
+
+PullSheet connects directly to THREADLINE. Every garment you've catalogued is ready to drag onto a lookboard.
+
+No re-scanning. No re-entering data. No double work.
+
+Two apps. One workflow.</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text" id="ht-d8">#PullSheet #THREADLINE #wardrobedepartment #filmproduction #costumedesign #filmtech #productiontools</span>
+      <button class="copy-btn-sm" onclick="copyText('ht-d8', this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span>Cream background split by a thin vertical brown-gold line. Left: THREADLINE wordmark with "Scan. Track. Return." below. Right: PULLSHEET wordmark with "Build. Cutout. Export." below. Circular connection icon centered on the divider.</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================
+     DAY 9: Talent Organization
+     Theme: Feature Spotlight
+     ============================ -->
+<div class="post-card type-feature">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 9 &middot; Tuesday</div>
+      <div class="post-title">Talent Organization</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge theme-feature">Feature Spotlight</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Visual mockup: Filter chips and lookboard thumbnails -->
+    <div class="ig-mockup-wrapper">
+      <div class="ig-mockup" style="background:var(--cream); display:flex; flex-direction:column; align-items:center; position:relative; overflow:hidden;">
+        <div style="width:100%; padding:40px 32px;">
+          <!-- Filter chips row -->
+          <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:28px;">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:8px; font-weight:400; padding:5px 12px; border-radius:16px; background:white; border:1px solid var(--warm-gray); color:var(--taupe);">All Boards</div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:8px; font-weight:400; padding:5px 12px; border-radius:16px; background:var(--brown-gold); border:1px solid var(--brown-gold); color:white;">By Talent</div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:8px; font-weight:400; padding:5px 12px; border-radius:16px; background:white; border:1px solid var(--warm-gray); color:var(--taupe);">By Scene</div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:8px; font-weight:400; padding:5px 12px; border-radius:16px; background:white; border:1px solid var(--warm-gray); color:var(--taupe);">By Episode</div>
+          </div>
+          <!-- Lookboard thumbnail cards -->
+          <div style="display:flex; flex-direction:column; gap:12px;">
+            <!-- Card 1 -->
+            <div style="background:white; border:1px solid var(--warm-gray); border-radius:8px; padding:14px 16px; display:flex; align-items:center; gap:14px;">
+              <div style="width:48px; height:48px; background:var(--bone); border-radius:6px; flex-shrink:0; display:flex; align-items:center; justify-content:center;">
+                <div style="width:24px; height:28px; background:var(--dark-brown); border-radius:3px; opacity:0.6;"></div>
+              </div>
+              <div>
+                <div style="font-family:'Cormorant Garamond',serif; font-size:13px; font-weight:400; color:var(--near-black);">Alex - Sc. 1</div>
+                <div style="font-family:'JetBrains Mono',monospace; font-size:7px; color:var(--taupe); letter-spacing:0.04em;">4 GARMENTS</div>
+              </div>
+            </div>
+            <!-- Card 2 -->
+            <div style="background:white; border:1px solid var(--warm-gray); border-radius:8px; padding:14px 16px; display:flex; align-items:center; gap:14px;">
+              <div style="width:48px; height:48px; background:var(--bone); border-radius:6px; flex-shrink:0; display:flex; align-items:center; justify-content:center;">
+                <div style="width:24px; height:28px; background:var(--brown-gold); border-radius:3px; opacity:0.6;"></div>
+              </div>
+              <div>
+                <div style="font-family:'Cormorant Garamond',serif; font-size:13px; font-weight:400; color:var(--near-black);">Alex - Sc. 4</div>
+                <div style="font-family:'JetBrains Mono',monospace; font-size:7px; color:var(--taupe); letter-spacing:0.04em;">3 GARMENTS</div>
+              </div>
+            </div>
+            <!-- Card 3 -->
+            <div style="background:white; border:1px solid var(--warm-gray); border-radius:8px; padding:14px 16px; display:flex; align-items:center; gap:14px;">
+              <div style="width:48px; height:48px; background:var(--bone); border-radius:6px; flex-shrink:0; display:flex; align-items:center; justify-content:center;">
+                <div style="width:24px; height:28px; background:var(--copper); border-radius:3px; opacity:0.6;"></div>
+              </div>
+              <div>
+                <div style="font-family:'Cormorant Garamond',serif; font-size:13px; font-weight:400; color:var(--near-black);">Jordan - Sc. 2</div>
+                <div style="font-family:'JetBrains Mono',monospace; font-size:7px; color:var(--taupe); letter-spacing:0.04em;">5 GARMENTS</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- PULLSHEET wordmark bottom corner -->
+        <div style="position:absolute; bottom:16px; right:20px; font-family:'Inter',sans-serif; font-weight:200; font-size:9px; letter-spacing:0.15em; text-transform:uppercase;"><span style="color:var(--near-black);">PULL</span><span style="color:var(--brown-gold);">SHEET</span></div>
+      </div>
+    </div>
+
+    <!-- Caption -->
+    <div class="caption-block">
+      <div class="caption-label">Caption</div>
+      <button class="copy-btn" onclick="copyText('cap-d9', this)">Copy</button>
+      <div class="caption-text" id="cap-d9">Every look, every talent, every episode.
+
+Filter and browse your lookboards by talent, scene, or episode. Build continuity bibles visually.
+
+Never lose track of a look again.</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text" id="ht-d9">#PullSheet #continuity #wardrobedepartment #costumedesign #filmproduction #lookbook #filmtech</span>
+      <button class="copy-btn-sm" onclick="copyText('ht-d9', this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span>Cream background with filter chip pills at top ("By Talent" highlighted in brown-gold). Three lookboard thumbnail cards below, labeled by talent and scene. PULLSHEET wordmark in bottom corner.</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================
+     DAY 10: Wardrobe Tip (Hero Piece)
+     Theme: Wardrobe Tips
+     ============================ -->
+<div class="post-card type-tips">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 10 &middot; Wednesday</div>
+      <div class="post-title">Pro Tip: Start with the Hero Piece</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge theme-tips">Wardrobe Tips</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Visual mockup: Pro tip quote card -->
+    <div class="ig-mockup-wrapper">
+      <div class="ig-mockup" style="background:var(--bone); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; position:relative; overflow:hidden;">
+        <!-- Large decorative quotation mark -->
+        <div style="position:absolute; top:60px; left:50%; transform:translateX(-50%); font-family:'Cormorant Garamond',serif; font-size:180px; font-weight:300; color:var(--brown-gold); opacity:0.12; line-height:0.8;">&ldquo;</div>
+        <!-- Content -->
+        <div style="position:relative; z-index:2; padding:60px 40px;">
+          <!-- PRO TIP label -->
+          <div style="font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:var(--forest); margin-bottom:32px;">Pro Tip</div>
+          <!-- Tip text in italic Cormorant -->
+          <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300; font-size:22px; color:var(--near-black); line-height:1.5; max-width:320px; margin:0 auto;">Start your lookboard with the hero piece first. The jacket. The signature dress. The one item that defines the look.</div>
+        </div>
+        <!-- PULLSHEET wordmark bottom -->
+        <div style="position:absolute; bottom:16px; font-family:'Inter',sans-serif; font-weight:200; font-size:9px; letter-spacing:0.15em; text-transform:uppercase;"><span style="color:var(--near-black);">PULL</span><span style="color:var(--brown-gold);">SHEET</span></div>
+      </div>
+    </div>
+
+    <!-- Caption -->
+    <div class="caption-block">
+      <div class="caption-label">Caption</div>
+      <button class="copy-btn" onclick="copyText('cap-d10', this)">Copy</button>
+      <div class="caption-text" id="cap-d10">Pro tip: Start your lookboard with the hero piece first.
+
+The jacket. The signature dress. The one item that defines the look.
+
+Then build outward. Layer the supporting pieces around it. It's how the best wardrobe supervisors think about a look -- and it's how PullSheet is designed to work.</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text" id="ht-d10">#PullSheet #wardrobetips #costumedesign #wardrobedepartment #filmproduction #setlife #protip</span>
+      <button class="copy-btn-sm" onclick="copyText('ht-d10', this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span>Bone/cream background with large decorative quotation mark in brown-gold at low opacity. "PRO TIP" in monospace at top. Tip text in Cormorant Garamond italic centered. PULLSHEET wordmark at bottom.</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================
+     DAY 11: Speed Demo
+     Theme: Speed Demo
+     ============================ -->
+<div class="post-card type-speed">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 11 &middot; Thursday</div>
+      <div class="post-title">60 Seconds: Rack to Lookboard</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge theme-speed">Speed Demo</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Visual mockup: Dark background with "60 SECONDS" and timeline -->
+    <div class="ig-mockup-wrapper">
+      <div class="ig-mockup" style="background:var(--near-black); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; position:relative;">
+        <div style="position:relative; z-index:2; padding:48px 32px; width:100%;">
+          <!-- 60 SECONDS headline -->
+          <div style="font-family:'Inter',sans-serif; font-weight:600; font-size:52px; color:white; letter-spacing:-0.02em; margin-bottom:8px;">60 SECONDS</div>
+          <!-- Subtitle -->
+          <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300; font-size:18px; color:rgba(255,255,255,0.5); margin-bottom:48px;">from rack to lookboard</div>
+          <!-- Horizontal timeline with 5 steps -->
+          <div style="display:flex; align-items:center; justify-content:center; gap:0; width:80%; margin:0 auto;">
+            <!-- Step 1: Browse -->
+            <div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
+              <div style="width:20px; height:20px; border-radius:50%; background:var(--copper); display:flex; align-items:center; justify-content:center;">
+                <div style="width:8px; height:8px; border-radius:50%; background:white;"></div>
+              </div>
+              <div style="font-family:'JetBrains Mono',monospace; font-size:7px; color:rgba(255,255,255,0.5); letter-spacing:0.06em;">BROWSE</div>
+            </div>
+            <!-- Connector line -->
+            <div style="flex:1; height:1px; background:rgba(255,255,255,0.15);"></div>
+            <!-- Step 2: Drag -->
+            <div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
+              <div style="width:20px; height:20px; border-radius:50%; background:var(--copper); display:flex; align-items:center; justify-content:center;">
+                <div style="width:8px; height:8px; border-radius:50%; background:white;"></div>
+              </div>
+              <div style="font-family:'JetBrains Mono',monospace; font-size:7px; color:rgba(255,255,255,0.5); letter-spacing:0.06em;">DRAG</div>
+            </div>
+            <!-- Connector line -->
+            <div style="flex:1; height:1px; background:rgba(255,255,255,0.15);"></div>
+            <!-- Step 3: Cutout -->
+            <div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
+              <div style="width:20px; height:20px; border-radius:50%; background:var(--copper); display:flex; align-items:center; justify-content:center;">
+                <div style="width:8px; height:8px; border-radius:50%; background:white;"></div>
+              </div>
+              <div style="font-family:'JetBrains Mono',monospace; font-size:7px; color:rgba(255,255,255,0.5); letter-spacing:0.06em;">CUTOUT</div>
+            </div>
+            <!-- Connector line -->
+            <div style="flex:1; height:1px; background:rgba(255,255,255,0.15);"></div>
+            <!-- Step 4: Arrange -->
+            <div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
+              <div style="width:20px; height:20px; border-radius:50%; background:var(--copper); display:flex; align-items:center; justify-content:center;">
+                <div style="width:8px; height:8px; border-radius:50%; background:white;"></div>
+              </div>
+              <div style="font-family:'JetBrains Mono',monospace; font-size:7px; color:rgba(255,255,255,0.5); letter-spacing:0.06em;">ARRANGE</div>
+            </div>
+            <!-- Connector line -->
+            <div style="flex:1; height:1px; background:rgba(255,255,255,0.15);"></div>
+            <!-- Step 5: Export -->
+            <div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
+              <div style="width:20px; height:20px; border-radius:50%; background:var(--copper); display:flex; align-items:center; justify-content:center;">
+                <div style="width:8px; height:8px; border-radius:50%; background:white;"></div>
+              </div>
+              <div style="font-family:'JetBrains Mono',monospace; font-size:7px; color:rgba(255,255,255,0.5); letter-spacing:0.06em;">EXPORT</div>
+            </div>
+          </div>
+        </div>
+        <!-- PULLSHEET wordmark bottom in copper -->
+        <div style="position:absolute; bottom:16px; font-family:'Inter',sans-serif; font-weight:200; font-size:9px; letter-spacing:0.15em; text-transform:uppercase;"><span style="color:rgba(255,255,255,0.4);">PULL</span><span style="color:var(--copper);">SHEET</span></div>
+      </div>
+    </div>
+
+    <!-- Caption -->
+    <div class="caption-block">
+      <div class="caption-label">Caption</div>
+      <button class="copy-btn" onclick="copyText('cap-d11', this)">Copy</button>
+      <div class="caption-text" id="cap-d11">60 seconds. Rack to lookboard.
+
+Browse your inventory. Drag garments onto the canvas. Remove backgrounds. Arrange the outfit. Export the PDF.
+
+Done before your coffee gets cold.</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text" id="ht-d11">#PullSheet #speedrun #wardrobedepartment #costumedesign #filmproduction #lookbook #filmtech #workflow</span>
+      <button class="copy-btn-sm" onclick="copyText('ht-d11', this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span>Dark (near-black) background. "60 SECONDS" in large Inter bold. "from rack to lookboard" in italic Cormorant below. Horizontal timeline with five connected step circles: Browse, Drag, Cutout, Arrange, Export. PULLSHEET wordmark in copper at bottom.</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================
+     DAY 12: Before/After - Director View
+     Theme: Before/After
+     ============================ -->
+<div class="post-card type-before-after">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 12 &middot; Friday</div>
+      <div class="post-title">What the Director Gets</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge theme-before-after">Before/After</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Visual mockup: Two panels - messy printouts vs clean lookbook -->
+    <div class="ig-mockup-wrapper">
+      <div class="ig-mockup" style="background:var(--cream); display:flex; flex-direction:column; overflow:hidden;">
+        <!-- TOP: "What the director gets today" -->
+        <div style="flex:1; background:var(--bone); position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px;">
+          <!-- Label -->
+          <div style="font-family:'JetBrains Mono',monospace; font-size:8px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:var(--clay); margin-bottom:16px;">What the director gets today</div>
+          <!-- Scattered printout rectangles at angles -->
+          <div style="position:relative; width:70%; height:60%;">
+            <div style="position:absolute; width:45px; height:55px; background:white; border:1px solid #ddd; transform:rotate(-12deg); top:5%; left:10%; box-shadow:1px 1px 3px rgba(0,0,0,0.06);"></div>
+            <div style="position:absolute; width:50px; height:60px; background:white; border:1px solid #ddd; transform:rotate(8deg); top:15%; left:50%; box-shadow:1px 1px 3px rgba(0,0,0,0.06);"></div>
+            <div style="position:absolute; width:42px; height:52px; background:white; border:1px solid #ddd; transform:rotate(-5deg); top:35%; left:30%; box-shadow:1px 1px 3px rgba(0,0,0,0.06);"></div>
+            <div style="position:absolute; width:48px; height:58px; background:white; border:1px solid #ddd; transform:rotate(15deg); top:10%; left:75%; box-shadow:1px 1px 3px rgba(0,0,0,0.06);"></div>
+          </div>
+        </div>
+        <!-- DIVIDER -->
+        <div style="height:2px; background:var(--warm-gray); flex-shrink:0;"></div>
+        <!-- BOTTOM: "What the director could get" -->
+        <div style="flex:1; background:white; position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px;">
+          <!-- Label -->
+          <div style="font-family:'JetBrains Mono',monospace; font-size:8px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:var(--forest); margin-bottom:16px;">What the director could get</div>
+          <!-- Clean PDF lookbook mockup -->
+          <div style="background:var(--cream); border:1px solid var(--warm-gray); border-radius:4px; width:45%; aspect-ratio:8.5/11; box-shadow:0 2px 8px rgba(0,0,0,0.05); padding:8px;">
+            <div style="font-family:'Inter',sans-serif; font-weight:200; font-size:5px; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:4px;"><span style="color:var(--near-black);">PULL</span><span style="color:var(--brown-gold);">SHEET</span></div>
+            <div style="height:1px; background:var(--warm-gray); margin-bottom:4px;"></div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:3px;">
+              <div style="background:var(--bone); border-radius:2px; aspect-ratio:1;"></div>
+              <div style="background:var(--bone); border-radius:2px; aspect-ratio:1;"></div>
+              <div style="background:var(--bone); border-radius:2px; aspect-ratio:1;"></div>
+              <div style="background:var(--bone); border-radius:2px; aspect-ratio:1;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Caption -->
+    <div class="caption-block">
+      <div class="caption-label">Caption</div>
+      <button class="copy-btn" onclick="copyText('cap-d12', this)">Copy</button>
+      <div class="caption-text" id="cap-d12">What the director gets today vs what the director could get.
+
+One is a stack of phone printouts. The other is a professional lookbook with cover pages, garment details, and pricing.
+
+Which one earns more trust?</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text" id="ht-d12">#PullSheet #lookbook #wardrobedepartment #filmproduction #costumedesign #director #presentation</span>
+      <button class="copy-btn-sm" onclick="copyText('ht-d12', this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span>Two stacked panels. Top: "WHAT THE DIRECTOR GETS TODAY" label with scattered printout rectangles at messy angles. Bottom: "WHAT THE DIRECTOR COULD GET" label with a clean, neat PDF lookbook mockup. Divider line between them.</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- end week 2 -->
+
+
+<!-- ===================================================================
+
+     WEEK 3 - COMMUNITY & CONTEXT
+     Days 15-19. Five posts covering canvas formats, team sharing,
+     pro tips, beta waitlist push, and behind-the-scenes.
+
+     =================================================================== -->
+<div class="week-section" id="week3">
+<div class="week-header">
+  <h2>Week 3</h2>
+  <span class="week-range">Days 15 - 19 &middot; Community &amp; Context</span>
+</div>
+
+
+<!-- ============================
+     DAY 15: Canvas Formats
+     Theme: Feature Spotlight
+     ============================ -->
+<div class="post-card type-feature">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 15 &middot; Monday</div>
+      <div class="post-title">Canvas Formats</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge theme-feature">Feature Spotlight</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Visual mockup: Three canvas formats side by side -->
+    <div class="ig-mockup-wrapper">
+      <div class="ig-mockup" style="background:var(--cream); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; position:relative;">
+        <!-- YOUR FORMAT label -->
+        <div style="position:absolute; top:24px; left:50%; transform:translateX(-50%); font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:500; color:var(--near-black); letter-spacing:0.15em; text-transform:uppercase;">Your Format</div>
+        <!-- Three format mockups side by side -->
+        <div style="display:flex; align-items:center; justify-content:center; gap:16px; padding:60px 28px 40px;">
+          <!-- Portrait -->
+          <div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
+            <div style="width:72px; height:96px; background:white; border:1px solid var(--warm-gray); border-radius:4px; position:relative; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.04);">
+              <div style="position:absolute; top:15%; left:20%; width:60%; height:30%; background:var(--dark-brown); border-radius:3px; opacity:0.6;"></div>
+              <div style="position:absolute; top:52%; left:15%; width:30%; height:28%; background:var(--brown-gold); border-radius:3px; opacity:0.5;"></div>
+              <div style="position:absolute; top:52%; left:55%; width:30%; height:28%; background:var(--copper); border-radius:3px; opacity:0.5;"></div>
+            </div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:8px; color:var(--taupe); letter-spacing:0.06em;">Portrait</div>
+          </div>
+          <!-- Landscape -->
+          <div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
+            <div style="width:96px; height:72px; background:white; border:1px solid var(--warm-gray); border-radius:4px; position:relative; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.04);">
+              <div style="position:absolute; top:15%; left:8%; width:25%; height:50%; background:var(--dark-brown); border-radius:3px; opacity:0.6;"></div>
+              <div style="position:absolute; top:15%; left:38%; width:25%; height:50%; background:var(--brown-gold); border-radius:3px; opacity:0.5;"></div>
+              <div style="position:absolute; top:15%; left:68%; width:25%; height:50%; background:var(--copper); border-radius:3px; opacity:0.5;"></div>
+            </div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:8px; color:var(--taupe); letter-spacing:0.06em;">Landscape</div>
+          </div>
+          <!-- Square -->
+          <div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
+            <div style="width:80px; height:80px; background:white; border:1px solid var(--warm-gray); border-radius:4px; position:relative; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.04);">
+              <div style="position:absolute; top:12%; left:25%; width:50%; height:35%; background:var(--dark-brown); border-radius:3px; opacity:0.6;"></div>
+              <div style="position:absolute; top:55%; left:12%; width:35%; height:30%; background:var(--brown-gold); border-radius:3px; opacity:0.5;"></div>
+              <div style="position:absolute; top:55%; left:53%; width:35%; height:30%; background:var(--copper); border-radius:3px; opacity:0.5;"></div>
+            </div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:8px; color:var(--taupe); letter-spacing:0.06em;">Square</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Caption -->
+    <div class="caption-block">
+      <div class="caption-label">Caption</div>
+      <button class="copy-btn" onclick="copyText('cap-d15', this)">Copy</button>
+      <div class="caption-text" id="cap-d15">Portrait. Landscape. Square. Your call.
+
+PullSheet gives you three canvas formats to match how you present.
+
+Portrait for talent cards. Landscape for scene layouts. Square for social sharing.
+
+Build the lookboard that fits the conversation.</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text" id="ht-d15">#PullSheet #lookbook #wardrobedepartment #costumedesign #filmproduction #filmtech</span>
+      <button class="copy-btn-sm" onclick="copyText('ht-d15', this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span>Cream background with three canvas format mockups side by side: Portrait (tall), Landscape (wide), Square. Each shows a simple garment arrangement. Labels below each. "YOUR FORMAT" in monospace at top.</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================
+     DAY 16: Team Sharing
+     Theme: Feature Spotlight
+     ============================ -->
+<div class="post-card type-feature">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 16 &middot; Tuesday</div>
+      <div class="post-title">Team Sharing</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge theme-feature">Feature Spotlight</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Visual mockup: Dark background with two device outlines sharing a lookboard -->
+    <div class="ig-mockup-wrapper">
+      <div class="ig-mockup" style="background:var(--near-black); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; position:relative;">
+        <!-- YOUR TEAM SEES label -->
+        <div style="position:absolute; top:24px; left:50%; transform:translateX(-50%); font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:500; color:rgba(255,255,255,0.35); letter-spacing:0.15em; text-transform:uppercase;">Your Team Sees</div>
+        <!-- Two device mockups -->
+        <div style="display:flex; align-items:center; justify-content:center; gap:20px; padding:60px 32px;">
+          <!-- iPad mockup outline -->
+          <div style="width:140px; height:100px; border:2px solid rgba(255,255,255,0.15); border-radius:10px; position:relative; display:flex; align-items:center; justify-content:center; padding:8px;">
+            <!-- Lookboard content inside -->
+            <div style="width:100%; height:100%; background:rgba(255,255,255,0.04); border-radius:4px; display:grid; grid-template-columns:1fr 1fr 1fr; gap:3px; padding:4px;">
+              <div style="background:var(--dark-brown); border-radius:2px; opacity:0.5;"></div>
+              <div style="background:var(--brown-gold); border-radius:2px; opacity:0.5;"></div>
+              <div style="background:var(--copper); border-radius:2px; opacity:0.5;"></div>
+            </div>
+          </div>
+          <!-- Shared icon between devices -->
+          <div style="width:32px; height:32px; border:1px solid rgba(255,255,255,0.15); border-radius:50%; display:flex; align-items:center; justify-content:center;">
+            <div style="font-size:14px; color:var(--copper);">&#8644;</div>
+          </div>
+          <!-- Phone mockup outline -->
+          <div style="width:60px; height:100px; border:2px solid rgba(255,255,255,0.15); border-radius:10px; position:relative; display:flex; align-items:center; justify-content:center; padding:6px;">
+            <!-- Same lookboard content -->
+            <div style="width:100%; height:100%; background:rgba(255,255,255,0.04); border-radius:4px; display:grid; grid-template-columns:1fr 1fr 1fr; gap:2px; padding:3px;">
+              <div style="background:var(--dark-brown); border-radius:1px; opacity:0.5;"></div>
+              <div style="background:var(--brown-gold); border-radius:1px; opacity:0.5;"></div>
+              <div style="background:var(--copper); border-radius:1px; opacity:0.5;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Caption -->
+    <div class="caption-block">
+      <div class="caption-label">Caption</div>
+      <button class="copy-btn" onclick="copyText('cap-d16', this)">Copy</button>
+      <div class="caption-text" id="cap-d16">Your supervisor approves. Your team sees.
+
+Share lookboards with your wardrobe team. Everyone stays on the same page -- literally.
+
+Approval workflow coming in v1.1.</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text" id="ht-d16">#PullSheet #teamwork #wardrobedepartment #costumedesign #filmproduction #collaboration</span>
+      <button class="copy-btn-sm" onclick="copyText('ht-d16', this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span>Dark background with two device mockup outlines (iPad and phone) showing the same lookboard content. A circular "shared" icon between them. "YOUR TEAM SEES" in monospace at top.</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================
+     DAY 17: Wardrobe Tip (Organize by Talent)
+     Theme: Wardrobe Tips
+     ============================ -->
+<div class="post-card type-tips">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 17 &middot; Wednesday</div>
+      <div class="post-title">Pro Tip: Organize by Talent First</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge theme-tips">Wardrobe Tips</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Visual mockup: Pro tip quote card (same treatment as Day 10) -->
+    <div class="ig-mockup-wrapper">
+      <div class="ig-mockup" style="background:var(--bone); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; position:relative; overflow:hidden;">
+        <!-- Large decorative quotation mark -->
+        <div style="position:absolute; top:60px; left:50%; transform:translateX(-50%); font-family:'Cormorant Garamond',serif; font-size:180px; font-weight:300; color:var(--brown-gold); opacity:0.12; line-height:0.8;">&ldquo;</div>
+        <!-- Content -->
+        <div style="position:relative; z-index:2; padding:60px 40px;">
+          <!-- PRO TIP label -->
+          <div style="font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:var(--forest); margin-bottom:32px;">Pro Tip</div>
+          <!-- Tip text -->
+          <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300; font-size:22px; color:var(--near-black); line-height:1.5; max-width:320px; margin:0 auto;">Organize by talent first, then by scene. It's how directors think about wardrobe.</div>
+        </div>
+        <!-- PULLSHEET wordmark bottom -->
+        <div style="position:absolute; bottom:16px; font-family:'Inter',sans-serif; font-weight:200; font-size:9px; letter-spacing:0.15em; text-transform:uppercase;"><span style="color:var(--near-black);">PULL</span><span style="color:var(--brown-gold);">SHEET</span></div>
+      </div>
+    </div>
+
+    <!-- Caption -->
+    <div class="caption-block">
+      <div class="caption-label">Caption</div>
+      <button class="copy-btn" onclick="copyText('cap-d17', this)">Copy</button>
+      <div class="caption-text" id="cap-d17">Pro tip: Organize by talent first, then by scene.
+
+It's how directors think about wardrobe, so it's how your lookbook should flow.
+
+Talent > Episode > Scene. Top-down, the way the conversation goes in the fitting room.</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text" id="ht-d17">#PullSheet #wardrobetips #costumedesign #wardrobedepartment #filmproduction #setlife #protip</span>
+      <button class="copy-btn-sm" onclick="copyText('ht-d17', this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span>Same pro tip treatment as Day 10. Bone background, large decorative quotation mark at low opacity, "PRO TIP" label, tip text in Cormorant italic. PULLSHEET wordmark at bottom.</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================
+     DAY 18: Beta Waitlist Push
+     Theme: Product Update
+     ============================ -->
+<div class="post-card type-update">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 18 &middot; Thursday</div>
+      <div class="post-title">Beta Waitlist Push</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge theme-update">Product Update</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Visual mockup: Brown-gold gradient with BETA ACCESS text -->
+    <div class="ig-mockup-wrapper">
+      <div class="ig-mockup" style="background:linear-gradient(135deg, var(--dark-brown) 0%, var(--brown-gold) 60%, var(--copper) 100%); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; position:relative;">
+        <!-- Subtle texture overlay -->
+        <div style="position:absolute; inset:0; background:repeating-conic-gradient(rgba(255,255,255,0.015) 0% 25%, transparent 0% 50%) 0 0 / 3px 3px; pointer-events:none;"></div>
+        <!-- Content -->
+        <div style="position:relative; z-index:2; padding:48px 36px;">
+          <!-- BETA ACCESS in large Inter weight 200 -->
+          <div style="font-family:'Inter',sans-serif; font-weight:200; font-size:36px; color:white; letter-spacing:0.18em; text-transform:uppercase; margin-bottom:16px;">BETA ACCESS</div>
+          <!-- "opening soon" in italic -->
+          <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300; font-size:20px; color:rgba(255,255,255,0.65); margin-bottom:40px;">opening soon</div>
+          <!-- Thin divider -->
+          <div style="width:40px; height:1px; background:rgba(255,255,255,0.25); margin:0 auto 24px;"></div>
+          <!-- Join waitlist CTA -->
+          <div style="font-family:'Inter',sans-serif; font-weight:400; font-size:13px; color:rgba(255,255,255,0.7); letter-spacing:0.06em;">Join the waitlist &#8594;</div>
+        </div>
+        <!-- PULLSHEET wordmark bottom -->
+        <div style="position:absolute; bottom:16px; font-family:'Inter',sans-serif; font-weight:200; font-size:9px; letter-spacing:0.15em; text-transform:uppercase;"><span style="color:rgba(255,255,255,0.6);">PULL</span><span style="color:white;">SHEET</span></div>
+      </div>
+    </div>
+
+    <!-- Caption -->
+    <div class="caption-block">
+      <div class="caption-label">Caption</div>
+      <button class="copy-btn" onclick="copyText('cap-d18', this)">Copy</button>
+      <div class="caption-text" id="cap-d18">Beta access is opening soon.
+
+Be first to build lookboards the way they were meant to be built.
+
+PullSheet launches Summer 2026. Free during beta for THREADLINE users.
+
+Link in bio for early access.</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text" id="ht-d18">#PullSheet #beta #earlyaccess #wardrobedepartment #costumedesign #filmproduction #filmtech</span>
+      <button class="copy-btn-sm" onclick="copyText('ht-d18', this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span>Brown-gold gradient background. "BETA ACCESS" in large Inter weight 200 with wide letter-spacing. "opening soon" in Cormorant italic below. "Join the waitlist" with arrow. PULLSHEET wordmark at bottom.</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================
+     DAY 19: BTS Building PullSheet
+     Theme: BTS / On-Set
+     ============================ -->
+<div class="post-card type-bts">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 19 &middot; Friday</div>
+      <div class="post-title">BTS: Building PullSheet</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge theme-bts">BTS / On-Set</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Visual mockup: Code/wireframe aesthetic on dark background -->
+    <div class="ig-mockup-wrapper">
+      <div class="ig-mockup" style="background:var(--near-black); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:left; position:relative; overflow:hidden;">
+        <!-- BUILT ON SET label in copper -->
+        <div style="position:absolute; top:24px; left:50%; transform:translateX(-50%); font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:500; color:var(--copper); letter-spacing:0.15em; text-transform:uppercase;">Built on Set</div>
+        <!-- Code-style wireframe content -->
+        <div style="position:relative; z-index:2; padding:60px 36px; width:100%;">
+          <!-- Monospace code-style UI component structure -->
+          <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:rgba(255,255,255,0.35); line-height:2.2;">
+            <div><span style="color:var(--copper);">&lt;Canvas</span> <span style="color:rgba(255,255,255,0.2);">format=</span><span style="color:var(--water);">"portrait"</span><span style="color:var(--copper);">&gt;</span></div>
+            <div style="padding-left:20px;"><span style="color:var(--copper);">&lt;Garment</span> <span style="color:rgba(255,255,255,0.2);">id=</span><span style="color:var(--water);">"jacket-01"</span> <span style="color:var(--copper);">/&gt;</span></div>
+            <div style="padding-left:20px;"><span style="color:var(--copper);">&lt;Garment</span> <span style="color:rgba(255,255,255,0.2);">id=</span><span style="color:var(--water);">"dress-04"</span> <span style="color:var(--copper);">/&gt;</span></div>
+            <div style="padding-left:20px;"><span style="color:var(--copper);">&lt;Garment</span> <span style="color:rgba(255,255,255,0.2);">id=</span><span style="color:var(--water);">"shoes-02"</span> <span style="color:var(--copper);">/&gt;</span></div>
+            <div><span style="color:var(--copper);">&lt;/Canvas&gt;</span></div>
+            <div style="margin-top:12px;"><span style="color:var(--copper);">&lt;Export</span> <span style="color:rgba(255,255,255,0.2);">type=</span><span style="color:var(--water);">"pdf"</span> <span style="color:var(--copper);">/&gt;</span></div>
+          </div>
+        </div>
+        <!-- PULLSHEET wordmark -->
+        <div style="position:absolute; bottom:16px; font-family:'Inter',sans-serif; font-weight:200; font-size:9px; letter-spacing:0.15em; text-transform:uppercase;"><span style="color:rgba(255,255,255,0.4);">PULL</span><span style="color:var(--copper);">SHEET</span></div>
+      </div>
+    </div>
+
+    <!-- Caption -->
+    <div class="caption-block">
+      <div class="caption-label">Caption</div>
+      <button class="copy-btn" onclick="copyText('cap-d19', this)">Copy</button>
+      <div class="caption-text" id="cap-d19">Building PullSheet on set.
+
+Every feature starts with a real workflow problem. We watch. We listen. We build.
+
+No feature ships without being tested in the truck.</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text" id="ht-d19">#PullSheet #BTS #behindthescenes #wardrobedepartment #filmproduction #setlife #appdev #startup</span>
+      <button class="copy-btn-sm" onclick="copyText('ht-d19', this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span>Near-black background with a code-style layout. Monospace text showing a simplified UI component structure (Canvas, Garment, Export elements). "BUILT ON SET" in copper at top. PULLSHEET wordmark at bottom.</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- end week 3 -->
+
+
+<!-- ===================================================================
+
+     WEEK 4 - MOMENTUM
+     Days 22-26. Five posts building momentum with time-saving
+     comparisons, feature highlights, and final waitlist push.
+
+     =================================================================== -->
+<div class="week-section" id="week4">
+<div class="week-header">
+  <h2>Week 4</h2>
+  <span class="week-range">Days 22 - 26 &middot; Momentum</span>
+</div>
+
+
+<!-- ============================
+     DAY 22: Monday Prep Before/After
+     Theme: Before/After
+     ============================ -->
+<div class="post-card type-before-after">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 22 &middot; Monday</div>
+      <div class="post-title">Monday Morning Lookboard Prep</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge theme-before-after">Before/After</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Visual mockup: Split horizontal - 3 hours vs 15 min -->
+    <div class="ig-mockup-wrapper">
+      <div class="ig-mockup" style="display:flex; flex-direction:column; overflow:hidden;">
+        <!-- TOP: Warm linen - 3 HOURS -->
+        <div style="flex:1; background:var(--bone); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:24px; position:relative;">
+          <!-- Clock icon (simple CSS circle) -->
+          <div style="width:32px; height:32px; border:2px solid var(--clay); border-radius:50%; margin-bottom:12px; position:relative;">
+            <div style="position:absolute; top:50%; left:50%; width:1px; height:10px; background:var(--clay); transform-origin:bottom; transform:translate(-50%, -100%) rotate(-30deg);"></div>
+            <div style="position:absolute; top:50%; left:50%; width:1px; height:7px; background:var(--clay); transform-origin:bottom; transform:translate(-50%, -100%) rotate(60deg);"></div>
+          </div>
+          <!-- 3 HOURS text -->
+          <div style="font-family:'Inter',sans-serif; font-weight:600; font-size:36px; color:var(--near-black); margin-bottom:6px;">3 HOURS</div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--taupe); letter-spacing:0.08em;">printing, cutting, taping</div>
+        </div>
+        <!-- DIVIDER -->
+        <div style="height:2px; background:var(--warm-gray); flex-shrink:0;"></div>
+        <!-- BOTTOM: Dark - 15 MIN -->
+        <div style="flex:1; background:var(--near-black); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:24px; position:relative;">
+          <!-- Clock icon -->
+          <div style="width:32px; height:32px; border:2px solid var(--copper); border-radius:50%; margin-bottom:12px; position:relative;">
+            <div style="position:absolute; top:50%; left:50%; width:1px; height:10px; background:var(--copper); transform-origin:bottom; transform:translate(-50%, -100%) rotate(0deg);"></div>
+            <div style="position:absolute; top:50%; left:50%; width:1px; height:7px; background:var(--copper); transform-origin:bottom; transform:translate(-50%, -100%) rotate(90deg);"></div>
+          </div>
+          <!-- 15 MIN text -->
+          <div style="font-family:'Inter',sans-serif; font-weight:600; font-size:36px; color:white; margin-bottom:6px;">15 MIN</div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--copper); letter-spacing:0.08em;">drag, cutout, export</div>
+          <!-- PULLSHEET at bottom -->
+          <div style="position:absolute; bottom:12px; font-family:'Inter',sans-serif; font-weight:200; font-size:8px; letter-spacing:0.15em; text-transform:uppercase;"><span style="color:rgba(255,255,255,0.4);">PULL</span><span style="color:var(--copper);">SHEET</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Caption -->
+    <div class="caption-block">
+      <div class="caption-label">Caption</div>
+      <button class="copy-btn" onclick="copyText('cap-d22', this)">Copy</button>
+      <div class="caption-text" id="cap-d22">Monday morning lookboard prep.
+
+Before: 3 hours of printing, cutting, and taping.
+After: 15 minutes on PullSheet.
+
+Get your Monday mornings back.</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text" id="ht-d22">#PullSheet #timesaver #wardrobedepartment #costumedesign #filmproduction #lookbook #mondaymotivation</span>
+      <button class="copy-btn-sm" onclick="copyText('ht-d22', this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span>Split horizontal. Top half (warm linen): clock icon, "3 HOURS" in large text, "printing, cutting, taping" in monospace. Bottom half (dark): clock icon, "15 MIN" in large text, "drag, cutout, export" in copper monospace. PULLSHEET at bottom.</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================
+     DAY 23: Undo/Redo
+     Theme: Feature Spotlight
+     ============================ -->
+<div class="post-card type-feature">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 23 &middot; Tuesday</div>
+      <div class="post-title">50 Levels of Undo</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge theme-feature">Feature Spotlight</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Visual mockup: Cream background with large undo arrow and "50 LEVELS" -->
+    <div class="ig-mockup-wrapper">
+      <div class="ig-mockup" style="background:var(--cream); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; position:relative;">
+        <div style="position:relative; z-index:2; padding:48px 36px;">
+          <!-- Large undo arrow icon in brown-gold -->
+          <div style="font-size:72px; color:var(--brown-gold); margin-bottom:24px; line-height:1;">&#8630;</div>
+          <!-- 50 LEVELS text -->
+          <div style="font-family:'Inter',sans-serif; font-weight:600; font-size:42px; color:var(--near-black); letter-spacing:-0.02em; margin-bottom:8px;">50 LEVELS</div>
+          <!-- "of undo" in italic -->
+          <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300; font-size:22px; color:var(--taupe); margin-bottom:24px;">of undo</div>
+          <!-- Subtext -->
+          <div style="font-family:'Inter',sans-serif; font-weight:300; font-size:13px; color:var(--sand); letter-spacing:0.02em;">Experiment freely.</div>
+        </div>
+        <!-- PULLSHEET wordmark -->
+        <div style="position:absolute; bottom:16px; font-family:'Inter',sans-serif; font-weight:200; font-size:9px; letter-spacing:0.15em; text-transform:uppercase;"><span style="color:var(--near-black);">PULL</span><span style="color:var(--brown-gold);">SHEET</span></div>
+      </div>
+    </div>
+
+    <!-- Caption -->
+    <div class="caption-block">
+      <div class="caption-label">Caption</div>
+      <button class="copy-btn" onclick="copyText('cap-d23', this)">Copy</button>
+      <div class="caption-text" id="cap-d23">Experiment freely.
+
+50 levels of undo means you can try anything without fear. Move that jacket. Swap those shoes. Try a completely different composition.
+
+Changed your mind? One tap back.</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text" id="ht-d23">#PullSheet #undoredo #wardrobedepartment #costumedesign #filmproduction #filmtech #design</span>
+      <button class="copy-btn-sm" onclick="copyText('ht-d23', this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span>Cream background, large undo arrow icon in brown-gold, "50 LEVELS" in Inter bold, "of undo" in Cormorant Garamond italic. "Experiment freely." in smaller text. PULLSHEET wordmark at bottom.</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================
+     DAY 24: Wardrobe Tip (Storytelling)
+     Theme: Wardrobe Tips
+     ============================ -->
+<div class="post-card type-tips">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 24 &middot; Wednesday</div>
+      <div class="post-title">Pro Tip: Tell a Story</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge theme-tips">Wardrobe Tips</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Visual mockup: Pro tip quote card (same treatment) -->
+    <div class="ig-mockup-wrapper">
+      <div class="ig-mockup" style="background:var(--bone); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; position:relative; overflow:hidden;">
+        <!-- Large decorative quotation mark -->
+        <div style="position:absolute; top:60px; left:50%; transform:translateX(-50%); font-family:'Cormorant Garamond',serif; font-size:180px; font-weight:300; color:var(--brown-gold); opacity:0.12; line-height:0.8;">&ldquo;</div>
+        <!-- Content -->
+        <div style="position:relative; z-index:2; padding:60px 40px;">
+          <!-- PRO TIP label -->
+          <div style="font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:var(--forest); margin-bottom:32px;">Pro Tip</div>
+          <!-- Tip text -->
+          <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300; font-size:22px; color:var(--near-black); line-height:1.5; max-width:320px; margin:0 auto;">The best lookbooks tell a story. Start with a title page. Walk through the talent's wardrobe arc scene by scene.</div>
+        </div>
+        <!-- PULLSHEET wordmark bottom -->
+        <div style="position:absolute; bottom:16px; font-family:'Inter',sans-serif; font-weight:200; font-size:9px; letter-spacing:0.15em; text-transform:uppercase;"><span style="color:var(--near-black);">PULL</span><span style="color:var(--brown-gold);">SHEET</span></div>
+      </div>
+    </div>
+
+    <!-- Caption -->
+    <div class="caption-block">
+      <div class="caption-label">Caption</div>
+      <button class="copy-btn" onclick="copyText('cap-d24', this)">Copy</button>
+      <div class="caption-text" id="cap-d24">Pro tip: The best lookbooks tell a story.
+
+Don't just throw garments on a page. Start with a title page. Walk through the talent's wardrobe arc scene by scene. End with a summary.
+
+The director reads it like a script for clothes. That's the goal.</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text" id="ht-d24">#PullSheet #wardrobetips #costumedesign #wardrobedepartment #filmproduction #storytelling #protip</span>
+      <button class="copy-btn-sm" onclick="copyText('ht-d24', this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span>Same pro tip treatment as Days 10 and 17. Bone background, large quotation mark at low opacity, "PRO TIP" label, tip text about storytelling in Cormorant italic. PULLSHEET wordmark at bottom.</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================
+     DAY 25: Two Apps, One Workflow
+     Theme: Product Update
+     ============================ -->
+<div class="post-card type-update">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 25 &middot; Thursday</div>
+      <div class="post-title">Two Apps, One Workflow</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge theme-update">Product Update</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Visual mockup: Dark background with two app icon mockups and pulse connection -->
+    <div class="ig-mockup-wrapper">
+      <div class="ig-mockup" style="background:var(--near-black); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; position:relative;">
+        <div style="position:relative; z-index:2; padding:48px 36px; width:100%;">
+          <!-- Two app icons side by side -->
+          <div style="display:flex; align-items:center; justify-content:center; gap:32px; margin-bottom:40px;">
+            <!-- THREADLINE app icon -->
+            <div style="width:80px; height:80px; border-radius:18px; background:linear-gradient(135deg, var(--dark-brown), var(--brown-gold)); display:flex; align-items:center; justify-content:center; box-shadow:0 8px 24px rgba(0,0,0,0.3);">
+              <div style="font-family:'Inter',sans-serif; font-weight:300; font-size:20px; color:white; letter-spacing:0.05em;">TL</div>
+            </div>
+            <!-- Connecting line with pulse dot -->
+            <div style="position:relative; width:48px; height:2px; background:rgba(255,255,255,0.12);">
+              <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:10px; height:10px; border-radius:50%; background:var(--copper); animation:pulse 2s ease-in-out infinite;"></div>
+            </div>
+            <!-- PULLSHEET app icon -->
+            <div style="width:80px; height:80px; border-radius:18px; background:linear-gradient(135deg, var(--brown-gold), var(--copper)); display:flex; align-items:center; justify-content:center; box-shadow:0 8px 24px rgba(0,0,0,0.3);">
+              <div style="font-family:'Inter',sans-serif; font-weight:300; font-size:20px; color:white; letter-spacing:0.05em;">PS</div>
+            </div>
+          </div>
+          <!-- "TWO APPS. ONE WORKFLOW." in monospace -->
+          <div style="font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:500; color:rgba(255,255,255,0.5); letter-spacing:0.15em; text-transform:uppercase;">Two Apps. One Workflow.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Caption -->
+    <div class="caption-block">
+      <div class="caption-label">Caption</div>
+      <button class="copy-btn" onclick="copyText('cap-d25', this)">Copy</button>
+      <div class="caption-text" id="cap-d25">Two apps. One workflow.
+
+THREADLINE scans and tracks your wardrobe inventory.
+PullSheet visualizes and presents it.
+
+Together, they replace the entire wardrobe management stack.
+
+From rack to lookbook. From scan to presentation.</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text" id="ht-d25">#PullSheet #THREADLINE #wardrobedepartment #filmproduction #costumedesign #filmtech #workflow</span>
+      <button class="copy-btn-sm" onclick="copyText('ht-d25', this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span>Dark background. Two app icon mockups side by side (rounded squares with gradients). Left: "TL" monogram (THREADLINE). Right: "PS" monogram (PULLSHEET). A connecting line between them with a pulsing dot animation (CSS only). "TWO APPS. ONE WORKFLOW." in monospace below.</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================
+     DAY 26: Final Waitlist Push
+     Theme: Product Update
+     ============================ -->
+<div class="post-card type-update">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 26 &middot; Friday</div>
+      <div class="post-title">Final Waitlist Push</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge theme-update">Product Update</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Visual mockup: Brown-gold gradient with "SUMMER 2026" in very large text -->
+    <div class="ig-mockup-wrapper">
+      <div class="ig-mockup" style="background:linear-gradient(135deg, var(--espresso) 0%, var(--brown-gold) 50%, var(--copper) 100%); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; position:relative;">
+        <!-- Subtle texture overlay -->
+        <div style="position:absolute; inset:0; background:repeating-conic-gradient(rgba(255,255,255,0.015) 0% 25%, transparent 0% 50%) 0 0 / 3px 3px; pointer-events:none;"></div>
+        <!-- Content -->
+        <div style="position:relative; z-index:2; padding:36px;">
+          <!-- SUMMER 2026 in very large Inter weight 200 -->
+          <div style="font-family:'Inter',sans-serif; font-weight:200; font-size:56px; color:white; letter-spacing:0.08em; text-transform:uppercase; line-height:1.1; margin-bottom:20px;">SUMMER<br>2026</div>
+          <!-- Tagline in italic -->
+          <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300; font-size:20px; color:rgba(255,255,255,0.7); margin-bottom:32px;">Your wardrobe, visualized.</div>
+          <!-- Thin divider -->
+          <div style="width:40px; height:1px; background:rgba(255,255,255,0.25); margin:0 auto 20px;"></div>
+          <!-- CTA text -->
+          <div style="font-family:'Inter',sans-serif; font-weight:400; font-size:13px; color:rgba(255,255,255,0.6); letter-spacing:0.04em;">Join the waitlist</div>
+        </div>
+        <!-- PULLSHEET wordmark bottom -->
+        <div style="position:absolute; bottom:16px; font-family:'Inter',sans-serif; font-weight:200; font-size:9px; letter-spacing:0.15em; text-transform:uppercase;"><span style="color:rgba(255,255,255,0.6);">PULL</span><span style="color:white;">SHEET</span></div>
+      </div>
+    </div>
+
+    <!-- Caption -->
+    <div class="caption-block">
+      <div class="caption-label">Caption</div>
+      <button class="copy-btn" onclick="copyText('cap-d26', this)">Copy</button>
+      <div class="caption-text" id="cap-d26">Summer 2026. Your wardrobe, visualized.
+
+PullSheet is almost here. The visual lookbook builder for wardrobe teams who care about presentation.
+
+Join the waitlist. Link in bio.</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text" id="ht-d26">#PullSheet #comingsoon #wardrobedepartment #costumedesign #filmproduction #lookbook #waitlist #filmtech</span>
+      <button class="copy-btn-sm" onclick="copyText('ht-d26', this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span>Brown-gold gradient. "SUMMER 2026" in very large Inter weight 200 (56px). "Your wardrobe, visualized." in Cormorant italic. "Join the waitlist" CTA text. PULLSHEET wordmark at bottom.</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- end week 4 -->
+
+
+</div><!-- end container -->
+
+
+<!-- ===================================================================
+     FOOTER
+     "Made with care" link to cooperinteractive.com
+     =================================================================== -->
+<div class="footer">
+  <a href="https://cooperinteractive.com">Made with care</a>
+</div>
+
+
+<!-- ===================================================================
+     JAVASCRIPT
+     - copyText(): Copies text from element by ID to clipboard,
+       shows "Copied" feedback on the button for 2 seconds.
+     - Week nav IntersectionObserver: Highlights the active week
+       pill as you scroll through sections.
+     =================================================================== -->
+<script>
+/* ============================================================
+   COPY TEXT FUNCTION
+   Reads the innerText of an element by ID, writes to clipboard,
+   and temporarily swaps button label to "Copied" with a green
+   background for 2 seconds.
+   ============================================================ */
+function copyText(id, btn) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  var text = el.innerText.trim();
+  navigator.clipboard.writeText(text).then(function() {
+    var orig = btn.textContent;
+    btn.textContent = 'Copied';
+    btn.classList.add('copied');
+    setTimeout(function() {
+      btn.textContent = orig;
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+/* ============================================================
+   WEEK NAV SCROLL OBSERVER
+   Uses IntersectionObserver to detect which week section is
+   currently in view, and highlights the corresponding nav pill.
+   ============================================================ */
+(function() {
+  var weekLinks = document.querySelectorAll('.nav .week-links a');
+  var weekSections = document.querySelectorAll('.week-section');
+
+  if (!weekLinks.length || !weekSections.length) return;
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var id = entry.target.id;
+        weekLinks.forEach(function(link) {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, {
+    rootMargin: '-20% 0px -60% 0px',
+    threshold: 0
+  });
+
+  weekSections.forEach(function(section) {
+    observer.observe(section);
+  });
+})();
+</script>
+
+</body>
+</html>

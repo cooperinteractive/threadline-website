@@ -1,0 +1,1673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PullSheet -- Brand Identity Guide</title>
+
+<!-- ============================================================
+     PULLSHEET BRAND IDENTITY GUIDE
+     Self-contained HTML with inline CSS and Google Fonts only.
+     Matches THREADLINE's brand guide structure and aesthetic exactly.
+
+     SECTIONS:
+     01 - Logo System (wordmark grid, PS monogram, spacing rules)
+     02 - Relationship to THREADLINE (companion positioning)
+     03 - Color Palette (primary, supporting, status colors)
+     04 - Typography (Cormorant Garamond, Inter, JetBrains Mono)
+     05 - Photography Direction (lookboards, flat-lays, on-set)
+     06 - Brand Voice (do/don't grid, terminology rules)
+     07 - Design Rules (light-mode-first, card patterns)
+     08 - Do's and Don'ts (visual examples)
+
+     TO MODIFY:
+     - CSS custom properties in :root control all colors
+     - Section numbering uses .section-num class
+     - Logo grids use .logo-grid (2x2 responsive grid)
+     - Color chips use .color-row with .color-chip children
+     - Typography specimens use .type-specimen with .type-meta sidebar
+     - Voice examples use .voice-examples grid
+     ============================================================ -->
+
+<!-- Google Fonts: Three families shared with THREADLINE
+     Cormorant Garamond = serif headings, editorial, taglines
+     Inter = sans-serif body, UI, wordmark
+     JetBrains Mono = monospace data, labels, metadata -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  /* ============================================================
+     CSS CUSTOM PROPERTIES (Design Tokens)
+     Shared with THREADLINE. These are the single source of truth
+     for all colors used throughout PullSheet's brand system.
+     To update a color globally, change it here only.
+     ============================================================ */
+  :root {
+    --cream:#FAF8F5;       /* Page background */
+    --bone:#F5F0EB;        /* Slightly darker cream, text on dark */
+    --warm-gray:#E8E3DE;   /* Dividers, subtle borders */
+    --sand:#D2C4B9;        /* Muted decorative elements */
+    --taupe:#B5A89C;       /* Secondary text, metadata */
+    --brown-gold:#8B6F52;  /* Primary brand accent (light mode) */
+    --copper:#C4946A;      /* Brand accent (dark mode / highlights) */
+    --dark-brown:#5A4228;  /* Deep accent, gradient start */
+    --espresso:#3A2A18;    /* Deep warm brown */
+    --near-black:#1A1714;  /* Primary text color */
+    --void:#0A0A0A;        /* Near-black backgrounds */
+    --water:#5A7E8A;       /* Secondary accent (blue-teal) */
+    --forest:#4A6741;      /* Success / "do" indicators */
+    --clay:#8A4A42;        /* Error / "don't" indicators */
+    --dusty-blue:#627786;  /* Tertiary accent */
+    --surface-low:#f5f3f0; /* Elevated surface background */
+    --surface-container:#efeeeb; /* Container surface */
+  }
+
+  /* ============================================================
+     RESET & BASE STYLES
+     Minimal reset. Body uses Inter as default sans-serif.
+     Cream background matches THREADLINE's light-mode-first approach.
+     ============================================================ */
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'Inter',sans-serif;
+    background:var(--cream);
+    color:var(--near-black);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+
+  /* ============================================================
+     STICKY NAVIGATION BAR
+     Frosted glass effect with blur backdrop.
+     PULL/SHEET wordmark on left, section links follow.
+     Back link styled in brown-gold accent.
+     To add sections: add <a href="#section-id">Label</a> elements.
+     ============================================================ */
+  .sticky-nav {
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(250,248,245,0.92);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    border-bottom:1px solid rgba(26,23,20,0.06);
+    padding:12px 48px;
+    display:flex;
+    align-items:center;
+    gap:32px;
+  }
+
+  /* Wordmark in nav: PULL in near-black, SHEET in brown-gold */
+  .sticky-nav .brand {
+    font-family:'Inter',sans-serif;
+    font-weight:200;
+    font-size:16px;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    text-decoration:none;
+    color:inherit;
+  }
+  .sticky-nav .brand .pull { color:var(--near-black); }
+  .sticky-nav .brand .sheet { color:var(--brown-gold); }
+
+  /* Nav links: small caps, subtle hover state with accent tint */
+  .sticky-nav a {
+    font-size:11px;
+    font-weight:500;
+    color:var(--taupe);
+    text-decoration:none;
+    letter-spacing:0.04em;
+    padding:4px 8px;
+    border-radius:4px;
+    transition:all 0.15s;
+  }
+  .sticky-nav a:hover,
+  .sticky-nav a.active {
+    color:var(--brown-gold);
+    background:rgba(139,111,82,0.06);
+  }
+
+  /* ============================================================
+     CONTAINER
+     Max-width wrapper centered on page. Horizontal padding
+     collapses on mobile via media query below.
+     ============================================================ */
+  .container { max-width:1200px; margin:0 auto; padding:0 48px; }
+
+  /* ============================================================
+     COVER SECTION
+     Full-width gradient background: dark-brown -> brown-gold -> copper.
+     Radial overlay adds subtle depth/light effect.
+     Wordmark: 80px Inter weight 200, SHEET at 0.55 opacity.
+     Tagline: italic Cormorant Garamond.
+     ============================================================ */
+  .cover {
+    background: linear-gradient(135deg, var(--dark-brown) 0%, var(--brown-gold) 40%, var(--copper) 100%);
+    min-height:60vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:80px 48px;
+    position:relative;
+    overflow:hidden;
+  }
+  /* Subtle radial light overlay for depth */
+  .cover::before {
+    content:'';
+    position:absolute;
+    inset:0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.08) 0%, transparent 60%);
+  }
+  /* Large centered wordmark: PULL at full white, SHEET at 0.55 opacity */
+  .cover .wordmark {
+    font-family:'Inter',sans-serif;
+    font-weight:200;
+    font-size:80px;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.92);
+    position:relative;
+    z-index:1;
+  }
+  .cover .wordmark .sheet { color:rgba(255,255,255,0.55); }
+
+  /* Tagline: italic Cormorant Garamond, muted white */
+  .cover .tagline {
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;
+    font-weight:300;
+    font-size:28px;
+    color:rgba(255,255,255,0.6);
+    margin-top:12px;
+    position:relative;
+    z-index:1;
+  }
+
+  /* Thin gradient divider line below tagline */
+  .cover .divider-line {
+    width:60px;
+    height:1px;
+    background:linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    margin:24px auto 0;
+    position:relative;
+    z-index:1;
+  }
+
+  /* Document title label at bottom of cover */
+  .cover .doc-title {
+    font-size:12px;
+    font-weight:500;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.35);
+    margin-top:48px;
+    position:relative;
+    z-index:1;
+  }
+
+  /* ============================================================
+     SECTION STYLES
+     Each content section has consistent padding and a bottom border.
+     Section numbers use JetBrains Mono at 10px.
+     Titles use Cormorant Garamond at 36px weight 300.
+     Subtitles are muted taupe body text.
+     ============================================================ */
+  .section {
+    padding:80px 0;
+    border-bottom:1px solid rgba(26,23,20,0.06);
+  }
+  .section:last-child { border-bottom:none; }
+
+  /* Section number: monospace label (e.g. "01 / LOGO SYSTEM") */
+  .section-num {
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    font-weight:500;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    margin-bottom:8px;
+  }
+
+  /* Section title: large serif heading */
+  .section-title {
+    font-family:'Cormorant Garamond',serif;
+    font-weight:300;
+    font-size:36px;
+    margin-bottom:8px;
+  }
+
+  /* Section subtitle: muted description text */
+  .section-sub {
+    font-size:14px;
+    color:var(--taupe);
+    margin-bottom:40px;
+    max-width:600px;
+    line-height:1.7;
+  }
+
+  /* ============================================================
+     LOGO GRID
+     2x2 grid for displaying wordmark/monogram in different
+     background contexts. Each box is a flex container centering
+     the logo treatment.
+     - .light = cream background with warm-gray border
+     - .dark = void (near-black) background
+     - .white = pure white background with border
+     - .accent = brown-gold background
+     ============================================================ */
+  .logo-grid {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+  }
+  .logo-box {
+    border-radius:12px;
+    padding:48px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    min-height:200px;
+    position:relative;
+  }
+  /* Corner label identifying the background variant */
+  .logo-box .label {
+    position:absolute;
+    top:16px;
+    left:16px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:9px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    opacity:0.4;
+  }
+  .logo-box.light { background:var(--cream); border:1px solid var(--warm-gray); }
+  .logo-box.dark { background:var(--void); }
+  .logo-box.white { background:#FFFFFF; border:1px solid var(--warm-gray); }
+  .logo-box.accent { background:var(--brown-gold); }
+
+  /* Wordmark text style in logo boxes */
+  .logo-box .wm {
+    font-family:'Inter',sans-serif;
+    font-weight:200;
+    font-size:36px;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+  }
+
+  /* PS monogram style: smaller, tighter spacing */
+  .logo-box .ps-mono {
+    font-family:'Inter',sans-serif;
+    font-weight:300;
+    font-size:48px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+  }
+
+  /* ============================================================
+     CLEAR SPACE DEMO
+     Shows the minimum padding around the wordmark with
+     dashed border and measurement labels.
+     ============================================================ */
+  .clearspace-demo {
+    background:white;
+    border:1px solid var(--warm-gray);
+    border-radius:12px;
+    padding:48px;
+    text-align:center;
+    margin-top:32px;
+  }
+  .clearspace-inner {
+    display:inline-block;
+    position:relative;
+    padding:40px 60px;
+    border:1px dashed var(--sand);
+  }
+  .clearspace-inner .wm {
+    font-family:'Inter',sans-serif;
+    font-weight:200;
+    font-size:28px;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+  }
+  /* Measurement labels positioned around the dashed box */
+  .clearspace-inner .measure {
+    position:absolute;
+    font-family:'JetBrains Mono',monospace;
+    font-size:9px;
+    color:var(--clay);
+    opacity:0.7;
+  }
+
+  /* ============================================================
+     RELATIONSHIP SECTION
+     Side-by-side display of THREADLINE and PULLSHEET wordmarks.
+     Uses a two-column grid with role descriptions below.
+     ============================================================ */
+  .relationship-grid {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:32px;
+    margin-bottom:32px;
+  }
+  .relationship-card {
+    background:white;
+    border:1px solid rgba(26,23,20,0.06);
+    border-radius:12px;
+    padding:40px;
+    text-align:center;
+  }
+  .relationship-card .r-wordmark {
+    font-family:'Inter',sans-serif;
+    font-weight:200;
+    font-size:28px;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    margin-bottom:16px;
+  }
+  .relationship-card .r-role {
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;
+    font-size:18px;
+    color:var(--brown-gold);
+    margin-bottom:8px;
+  }
+  .relationship-card .r-desc {
+    font-size:13px;
+    color:var(--taupe);
+    line-height:1.7;
+  }
+
+  /* Connection language cards below the two wordmarks */
+  .connection-strip {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+  }
+  .connection-item {
+    background:var(--surface-low);
+    border-radius:10px;
+    padding:20px 24px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .connection-item .c-icon {
+    width:32px;
+    height:32px;
+    border-radius:8px;
+    background:rgba(139,111,82,0.08);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    color:var(--brown-gold);
+    flex-shrink:0;
+  }
+  .connection-item .c-text {
+    font-size:13px;
+    line-height:1.5;
+  }
+  .connection-item .c-text .sub {
+    font-size:11px;
+    color:var(--taupe);
+    display:block;
+    margin-top:2px;
+  }
+
+  /* ============================================================
+     COLOR SYSTEM
+     Horizontal color chips that expand on hover.
+     Each chip shows a swatch, name, hex, and CSS variable.
+     Chips are laid out in flex rows with rounded corners on
+     the container and smooth hover transitions.
+     ============================================================ */
+  .color-row {
+    display:flex;
+    gap:0;
+    border-radius:12px;
+    overflow:hidden;
+    margin-bottom:16px;
+    box-shadow:0 2px 12px rgba(26,23,20,0.06);
+  }
+  .color-chip {
+    flex:1;
+    padding:24px 16px;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    min-height:140px;
+    transition:flex 0.3s ease;
+  }
+  .color-chip:hover { flex:1.3; }
+  .color-chip .c-name { font-size:12px; font-weight:500; margin-bottom:2px; }
+  .color-chip .c-hex { font-family:'JetBrains Mono',monospace; font-size:10px; opacity:0.7; }
+  .color-chip .c-token { font-family:'JetBrains Mono',monospace; font-size:9px; opacity:0.4; margin-top:4px; }
+
+  /* ============================================================
+     TYPOGRAPHY SPECIMENS
+     Two-column layout: metadata sidebar (200px) and specimen area.
+     Metadata includes font name, role description, and weight list.
+     Specimen area shows the font at various sizes with sample text.
+     ============================================================ */
+  .type-stack { display:flex; flex-direction:column; gap:32px; }
+  .type-specimen {
+    background:white;
+    border:1px solid rgba(26,23,20,0.06);
+    border-radius:12px;
+    padding:40px;
+    display:grid;
+    grid-template-columns:200px 1fr;
+    gap:32px;
+    align-items:start;
+  }
+  .type-meta .t-name {
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    font-weight:500;
+    color:var(--brown-gold);
+    letter-spacing:0.05em;
+    margin-bottom:4px;
+  }
+  .type-meta .t-role { font-size:12px; color:var(--taupe); line-height:1.6; }
+  .type-meta .t-weights { margin-top:12px; display:flex; flex-direction:column; gap:4px; }
+  .type-meta .t-weights span { font-size:11px; color:var(--taupe); }
+
+  /* ============================================================
+     PHOTOGRAPHY DIRECTION
+     Three-column grid of photo treatment cards.
+     Each card uses CSS gradients to simulate photo areas
+     (since we don't have actual photos).
+     Cards have hover scale and bottom-aligned labels.
+     ============================================================ */
+  .photo-grid {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+  }
+  .photo-card {
+    border-radius:12px;
+    overflow:hidden;
+    position:relative;
+    min-height:280px;
+    display:flex;
+    align-items:flex-end;
+    transition:transform 0.3s;
+  }
+  .photo-card:hover { transform:scale(1.01); }
+  .photo-card .photo-label {
+    padding:16px 20px;
+    width:100%;
+    background:linear-gradient(transparent,rgba(0,0,0,0.7));
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;
+    font-size:16px;
+    color:white;
+  }
+
+  /* Photo treatment spec card (white card with data) */
+  .photo-spec-card {
+    background:white;
+    border:1px solid rgba(26,23,20,0.06);
+    border-radius:12px;
+    overflow:hidden;
+    transition:transform 0.3s;
+  }
+  .photo-spec-card:hover { transform:translateY(-2px); }
+  .photo-spec-card .spec-visual {
+    min-height:200px;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .photo-spec-card .spec-info {
+    padding:20px 24px;
+    border-top:1px solid rgba(26,23,20,0.06);
+  }
+  .photo-spec-card .spec-info h4 {
+    font-family:'Cormorant Garamond',serif;
+    font-weight:400;
+    font-size:18px;
+    margin-bottom:4px;
+  }
+  .photo-spec-card .spec-info p {
+    font-size:12px;
+    color:var(--taupe);
+    line-height:1.6;
+  }
+  .photo-spec-card .spec-info .spec-css {
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    color:var(--brown-gold);
+    margin-top:8px;
+    line-height:1.8;
+  }
+
+  /* ============================================================
+     BRAND VOICE
+     Two-column grid of DO and DON'T examples.
+     Each example has a label, blockquote, and explanation.
+     Green labels for DO, clay/red labels for DON'T.
+     ============================================================ */
+  .voice-examples {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+  }
+  .voice-ex {
+    background:white;
+    border-radius:12px;
+    padding:32px;
+    border:1px solid rgba(26,23,20,0.06);
+  }
+  .voice-ex .v-label {
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    font-weight:500;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    margin-bottom:16px;
+  }
+  .voice-ex .v-label.yes { color:var(--forest); }
+  .voice-ex .v-label.no { color:var(--clay); }
+  .voice-ex blockquote {
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;
+    font-size:22px;
+    line-height:1.4;
+    border-left:2px solid var(--warm-gray);
+    padding-left:16px;
+    margin-bottom:12px;
+  }
+  .voice-ex p { font-size:13px; color:var(--taupe); line-height:1.7; }
+
+  /* ============================================================
+     TERMINOLOGY TABLE
+     Clean table showing correct vs incorrect term usage.
+     Monospace headers, clear two-column layout.
+     ============================================================ */
+  .term-table {
+    width:100%;
+    border-collapse:collapse;
+    margin-top:24px;
+  }
+  .term-table th {
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    font-weight:500;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    text-align:left;
+    padding:12px 16px;
+    border-bottom:1px solid var(--warm-gray);
+  }
+  .term-table td {
+    font-size:14px;
+    padding:12px 16px;
+    border-bottom:1px solid rgba(26,23,20,0.04);
+    vertical-align:top;
+  }
+  .term-table td:first-child { color:var(--forest); font-weight:500; }
+  .term-table td:last-child { color:var(--clay); }
+
+  /* ============================================================
+     DESIGN RULES
+     Rule cards displayed in a two-column grid.
+     Each card has a green check or red X indicator.
+     ============================================================ */
+  .rules-grid {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+  }
+  .rule-card {
+    background:white;
+    border-radius:10px;
+    padding:20px 24px;
+    border:1px solid rgba(26,23,20,0.06);
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+  }
+  .rule-card .rule-icon {
+    width:24px;
+    height:24px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:12px;
+    flex-shrink:0;
+    margin-top:2px;
+  }
+  .rule-card .rule-icon.do { background:rgba(74,103,65,0.1); color:var(--forest); }
+  .rule-card .rule-icon.dont { background:rgba(138,74,66,0.1); color:var(--clay); }
+  .rule-card .rule-text { font-size:13px; line-height:1.6; }
+  .rule-card .rule-text .rule-sub {
+    font-size:11px;
+    color:var(--taupe);
+    display:block;
+    margin-top:4px;
+  }
+
+  /* ============================================================
+     DO/DON'T VISUAL EXAMPLES (Section 08)
+     Side-by-side card examples showing correct and incorrect
+     design treatments. DO cards have green borders, DON'T have red.
+     ============================================================ */
+  .dodont-grid {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+    margin-bottom:32px;
+  }
+  .dodont-card {
+    border-radius:12px;
+    overflow:hidden;
+    border:1px solid rgba(26,23,20,0.06);
+  }
+  .dodont-card .dd-visual {
+    min-height:160px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:32px;
+  }
+  .dodont-card .dd-label {
+    padding:16px 20px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    font-weight:500;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+  }
+  .dodont-card .dd-label.do {
+    background:rgba(74,103,65,0.06);
+    color:var(--forest);
+    border-top:2px solid var(--forest);
+  }
+  .dodont-card .dd-label.dont {
+    background:rgba(138,74,66,0.06);
+    color:var(--clay);
+    border-top:2px solid var(--clay);
+  }
+
+  /* ============================================================
+     FOOTER
+     Simple flex layout: "Made with care" link on left,
+     CONFIDENTIAL label on right.
+     ============================================================ */
+  .footer{text-align:center;padding:32px;font-size:12px;color:var(--taupe);border-top:1px solid rgba(26,23,20,0.06);}
+  .footer a{color:var(--brown-gold);text-decoration:none;}
+
+  /* ============================================================
+     RESPONSIVE: MOBILE (< 768px)
+     - Single column grids
+     - Reduced padding
+     - Smaller wordmark in cover
+     - Collapsed nav wraps
+     ============================================================ */
+  @media (max-width:768px) {
+    .sticky-nav {
+      padding:12px 20px;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .container { padding:0 20px; }
+    .cover { padding:60px 20px; }
+    .cover .wordmark { font-size:32px; letter-spacing:0.15em; }
+    .cover .tagline { font-size:20px; }
+    .section { padding:48px 0; }
+    .section-title { font-size:28px; }
+    .logo-grid { grid-template-columns:1fr; }
+    .relationship-grid { grid-template-columns:1fr; }
+    .connection-strip { grid-template-columns:1fr; }
+    .color-row { flex-direction:column; }
+    .color-chip { min-height:80px; }
+    .type-specimen { grid-template-columns:1fr; }
+    .photo-grid { grid-template-columns:1fr; }
+    .voice-examples { grid-template-columns:1fr; }
+    .rules-grid { grid-template-columns:1fr; }
+    .dodont-grid { grid-template-columns:1fr; }
+    .footer { padding:24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAVIGATION BAR
+     Sticky frosted nav with PULL/SHEET wordmark and section links.
+     "All Pages" link goes back to the PullSheet command center.
+     Each section link smooth-scrolls to its target via JS below.
+     ============================================================ -->
+<nav class="sticky-nav">
+  <a href="index.html" class="brand"><span class="pull">PULL</span><span class="sheet">SHEET</span></a>
+  <a class="back" href="index.html">&larr; All Pages</a>
+  <a href="#logo">Logo</a>
+  <a href="#relationship">Companion</a>
+  <a href="#color">Color</a>
+  <a href="#type">Typography</a>
+  <a href="#photo">Photography</a>
+  <a href="#voice">Voice</a>
+  <a href="#rules">Design Rules</a>
+  <a href="#dodont">Do/Don't</a>
+</nav>
+
+<!-- ============================================================
+     COVER SECTION
+     Full-width gradient hero with PULLSHEET wordmark.
+     PULL at full white, SHEET at 0.55 opacity.
+     Tagline: "See the look before the fitting."
+     Gradient divider line separates tagline from doc title.
+     ============================================================ -->
+<div class="cover">
+  <div class="wordmark">PULL<span class="sheet">SHEET</span></div>
+  <div class="tagline">See the look before the fitting.</div>
+  <div class="divider-line"></div>
+  <div class="doc-title">Brand Identity Guide</div>
+</div>
+
+<div class="container">
+
+<!-- ============================================================
+     SECTION 01: LOGO SYSTEM
+     Shows the PULLSHEET wordmark in 4 background contexts:
+     light, dark, white, and accent (brown-gold).
+     Also shows the PS monogram in the same 4 variants.
+     Includes clear space rules and minimum size specifications.
+     ============================================================ -->
+<section class="section" id="logo">
+  <div class="section-num">01 / Logo System</div>
+  <div class="section-title">Logo System</div>
+  <div class="section-sub">The PullSheet wordmark uses Inter Thin (200) with generous letter-spacing. The two-tone treatment splits at the word boundary: PULL in the contextual text color, SHEET in the brand accent. This mirrors THREADLINE's own wordmark convention.</div>
+
+  <!-- Wordmark Grid: 2x2 showing all background variants
+       To update colors, change the inline style on each .wm span.
+       Background variants are controlled by the .light/.dark/.white/.accent classes. -->
+  <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--taupe);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:12px">Wordmark</div>
+  <div class="logo-grid">
+    <!-- Light background: PULL in near-black, SHEET in brown-gold -->
+    <div class="logo-box light">
+      <span class="label" style="color:var(--taupe)">Light Background</span>
+      <span class="wm"><span style="color:var(--near-black)">PULL</span><span style="color:var(--brown-gold)">SHEET</span></span>
+    </div>
+    <!-- Dark background: PULL in bone, SHEET in copper -->
+    <div class="logo-box dark">
+      <span class="label" style="color:rgba(255,255,255,0.3)">Dark Background</span>
+      <span class="wm"><span style="color:var(--bone)">PULL</span><span style="color:var(--copper)">SHEET</span></span>
+    </div>
+    <!-- White background: same as light -->
+    <div class="logo-box white">
+      <span class="label" style="color:var(--taupe)">White Background</span>
+      <span class="wm"><span style="color:var(--near-black)">PULL</span><span style="color:var(--brown-gold)">SHEET</span></span>
+    </div>
+    <!-- Accent background: all-white wordmark, SHEET at 0.55 opacity -->
+    <div class="logo-box accent">
+      <span class="label" style="color:rgba(255,255,255,0.4)">Accent Background</span>
+      <span class="wm"><span style="color:white">PULL</span><span style="color:rgba(255,255,255,0.55)">SHEET</span></span>
+    </div>
+  </div>
+
+  <!-- PS Monogram Grid: 2x2
+       Shows the "PS" shorthand mark in the same 4 background variants.
+       PS uses Inter weight 300 with 0.1em letter-spacing. -->
+  <div style="margin-top:32px">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--taupe);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:12px">PS Monogram</div>
+    <div class="logo-grid">
+      <!-- Light background: PS in near-black -->
+      <div class="logo-box light" style="min-height:160px">
+        <span class="label" style="color:var(--taupe)">Light</span>
+        <span class="ps-mono" style="color:var(--near-black)">PS</span>
+      </div>
+      <!-- Dark background: PS in bone -->
+      <div class="logo-box dark" style="min-height:160px">
+        <span class="label" style="color:rgba(255,255,255,0.3)">Dark</span>
+        <span class="ps-mono" style="color:var(--bone)">PS</span>
+      </div>
+      <!-- White background: PS in near-black -->
+      <div class="logo-box white" style="min-height:160px">
+        <span class="label" style="color:var(--taupe)">White</span>
+        <span class="ps-mono" style="color:var(--near-black)">PS</span>
+      </div>
+      <!-- Accent background: PS in white -->
+      <div class="logo-box accent" style="min-height:160px">
+        <span class="label" style="color:rgba(255,255,255,0.4)">Accent</span>
+        <span class="ps-mono" style="color:rgba(255,255,255,0.9)">PS</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Clear Space Rules
+       Minimum clear space = 1x the height of the "P" character.
+       Dashed border shows the exclusion zone around the wordmark.
+       Measurement labels are positioned absolutely at each edge. -->
+  <div class="clearspace-demo">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--taupe);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:20px">Minimum Clear Space</div>
+    <div class="clearspace-inner">
+      <span class="wm"><span style="color:var(--near-black)">PULL</span><span style="color:var(--brown-gold)">SHEET</span></span>
+      <span class="measure" style="top:-16px;left:50%;transform:translateX(-50%)">1x cap height</span>
+      <span class="measure" style="bottom:-16px;left:50%;transform:translateX(-50%)">1x cap height</span>
+      <span class="measure" style="left:-32px;top:50%;transform:translateY(-50%) rotate(-90deg)">1x</span>
+      <span class="measure" style="right:-32px;top:50%;transform:translateY(-50%) rotate(90deg)">1x</span>
+    </div>
+    <p style="font-size:12px;color:var(--taupe);margin-top:16px">Maintain clear space equal to 1x the cap height of the "P" character on all sides.</p>
+  </div>
+
+  <!-- Minimum Size Specifications -->
+  <div style="background:white;border:1px solid rgba(26,23,20,0.06);border-radius:12px;padding:32px;margin-top:24px">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--taupe);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:16px">Minimum Size</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px">
+      <div>
+        <div style="font-size:13px;font-weight:500;margin-bottom:8px">Wordmark</div>
+        <div style="font-family:'Inter',sans-serif;font-weight:200;font-size:16px;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:8px"><span style="color:var(--near-black)">PULL</span><span style="color:var(--brown-gold)">SHEET</span></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--taupe)">Minimum width: 120px</div>
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:500;margin-bottom:8px">PS Monogram</div>
+        <div style="font-family:'Inter',sans-serif;font-weight:300;font-size:20px;letter-spacing:0.1em;margin-bottom:8px">PS</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--taupe)">Minimum size: 24px</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 02: RELATIONSHIP TO THREADLINE
+     Positions PullSheet as the companion app to THREADLINE.
+     Shows both wordmarks side by side with their distinct roles.
+     Connection language explains data flow between the two apps.
+     ============================================================ -->
+<section class="section" id="relationship">
+  <div class="section-num">02 / Relationship to THREADLINE</div>
+  <div class="section-title">Relationship to THREADLINE</div>
+  <div class="section-sub">PullSheet is a companion to THREADLINE, sharing the same database and design system. While both serve wardrobe professionals, each has a distinct role in the workflow.</div>
+
+  <!-- Side-by-side wordmarks with role descriptions -->
+  <div class="relationship-grid">
+    <!-- THREADLINE card -->
+    <div class="relationship-card">
+      <div class="r-wordmark"><span style="color:var(--near-black)">THREAD</span><span style="color:var(--brown-gold)">LINE</span></div>
+      <div class="r-role">The smart organizer</div>
+      <div class="r-desc">Inventory management, budget tracking, returns logistics, AI-powered data entry. The operational backbone of a wardrobe department.</div>
+    </div>
+    <!-- PULLSHEET card -->
+    <div class="relationship-card">
+      <div class="r-wordmark"><span style="color:var(--near-black)">PULL</span><span style="color:var(--brown-gold)">SHEET</span></div>
+      <div class="r-role">The visual storyteller</div>
+      <div class="r-desc">Lookboard builder, background removal, outfit compositions, PDF lookbook export. The creative tool for fittings and director review.</div>
+    </div>
+  </div>
+
+  <!-- Connection language: how the two apps relate -->
+  <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--taupe);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:12px">Connection Language</div>
+  <div class="connection-strip">
+    <div class="connection-item">
+      <div class="c-icon">&rarr;</div>
+      <div class="c-text">"Powered by your THREADLINE inventory"<span class="sub">Use when describing data source for lookboards</span></div>
+    </div>
+    <div class="connection-item">
+      <div class="c-icon">&rarr;</div>
+      <div class="c-text">"Built on THREADLINE data"<span class="sub">Use when describing the integration in technical contexts</span></div>
+    </div>
+    <div class="connection-item">
+      <div class="c-icon">&rarr;</div>
+      <div class="c-text">"Companion to THREADLINE"<span class="sub">Use when positioning PullSheet alongside THREADLINE in marketing</span></div>
+    </div>
+    <div class="connection-item">
+      <div class="c-icon">&rarr;</div>
+      <div class="c-text">"From THREADLINE to lookboard in one tap"<span class="sub">Use when emphasizing the seamless workflow between apps</span></div>
+    </div>
+  </div>
+
+  <!-- Shared design system note -->
+  <div style="background:white;border:1px solid rgba(26,23,20,0.06);border-radius:12px;padding:32px;margin-top:24px">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--brown-gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:12px">Shared Design DNA</div>
+    <p style="font-size:13px;color:var(--taupe);line-height:1.7;max-width:640px">Both apps share the same color palette, typography system, and interaction patterns. A user moving between THREADLINE and PullSheet should feel continuity, not context-switching. The only difference is the wordmark and the content domain.</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 03: COLOR PALETTE
+     Three tiers of color:
+     1. Primary - the 5 most-used brand colors
+     2. Supporting - neutral spectrum from bone to void
+     3. Status - contextual colors for lookboard states
+
+     Each chip shows: swatch, name, hex, CSS variable.
+     Chips expand on hover via the flex:1.3 transition.
+     ============================================================ -->
+<section class="section" id="color">
+  <div class="section-num">03 / Color Palette</div>
+  <div class="section-title">Color Palette</div>
+  <div class="section-sub">A warm, restrained palette inherited from THREADLINE. Colors communicate through temperature, not saturation. The same tokens, the same warmth, applied to visual storytelling contexts.</div>
+
+  <!-- PRIMARY PALETTE: 5 core colors -->
+  <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--taupe);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:12px">Primary Palette</div>
+  <div class="color-row">
+    <div class="color-chip" style="background:var(--cream);color:var(--near-black)">
+      <span class="c-name">Warm Cream</span>
+      <span class="c-hex">#FAF8F5</span>
+      <span class="c-token">--cream</span>
+    </div>
+    <div class="color-chip" style="background:var(--near-black);color:var(--bone)">
+      <span class="c-name">Near Black</span>
+      <span class="c-hex">#1A1714</span>
+      <span class="c-token">--near-black</span>
+    </div>
+    <div class="color-chip" style="background:var(--brown-gold);color:white">
+      <span class="c-name">Brown Gold</span>
+      <span class="c-hex">#8B6F52</span>
+      <span class="c-token">--brown-gold</span>
+    </div>
+    <div class="color-chip" style="background:var(--copper);color:white">
+      <span class="c-name">Copper</span>
+      <span class="c-hex">#C4946A</span>
+      <span class="c-token">--copper</span>
+    </div>
+    <div class="color-chip" style="background:var(--water);color:white">
+      <span class="c-name">Still Water</span>
+      <span class="c-hex">#5A7E8A</span>
+      <span class="c-token">--water</span>
+    </div>
+  </div>
+
+  <!-- SUPPORTING PALETTE: neutral spectrum -->
+  <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--taupe);letter-spacing:0.1em;text-transform:uppercase;margin:24px 0 12px">Supporting Palette</div>
+  <div class="color-row">
+    <div class="color-chip" style="background:var(--bone);color:var(--near-black)">
+      <span class="c-name">Bone</span>
+      <span class="c-hex">#F5F0EB</span>
+      <span class="c-token">--bone</span>
+    </div>
+    <div class="color-chip" style="background:var(--warm-gray);color:var(--near-black)">
+      <span class="c-name">Warm Gray</span>
+      <span class="c-hex">#E8E3DE</span>
+      <span class="c-token">--warm-gray</span>
+    </div>
+    <div class="color-chip" style="background:var(--sand);color:var(--near-black)">
+      <span class="c-name">Sand</span>
+      <span class="c-hex">#D2C4B9</span>
+      <span class="c-token">--sand</span>
+    </div>
+    <div class="color-chip" style="background:var(--taupe);color:white">
+      <span class="c-name">Taupe</span>
+      <span class="c-hex">#B5A89C</span>
+      <span class="c-token">--taupe</span>
+    </div>
+    <div class="color-chip" style="background:var(--dark-brown);color:white">
+      <span class="c-name">Dark Brown</span>
+      <span class="c-hex">#5A4228</span>
+      <span class="c-token">--dark-brown</span>
+    </div>
+    <div class="color-chip" style="background:var(--espresso);color:var(--bone)">
+      <span class="c-name">Espresso</span>
+      <span class="c-hex">#3A2A18</span>
+      <span class="c-token">--espresso</span>
+    </div>
+    <div class="color-chip" style="background:var(--void);color:var(--bone)">
+      <span class="c-name">Void</span>
+      <span class="c-hex">#0A0A0A</span>
+      <span class="c-token">--void</span>
+    </div>
+  </div>
+
+  <!-- STATUS COLORS: contextual indicators for lookboard items -->
+  <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--taupe);letter-spacing:0.1em;text-transform:uppercase;margin:24px 0 12px">Status Colors</div>
+  <div class="color-row">
+    <div class="color-chip" style="background:#4A8C62;color:white">
+      <span class="c-name">In-Stock</span>
+      <span class="c-hex">#4A8C62</span>
+      <span class="c-token">status: available</span>
+    </div>
+    <div class="color-chip" style="background:var(--water);color:white">
+      <span class="c-name">On-Set</span>
+      <span class="c-hex">#5A7E8A</span>
+      <span class="c-token">status: on-set</span>
+    </div>
+    <div class="color-chip" style="background:var(--brown-gold);color:white">
+      <span class="c-name">Pending</span>
+      <span class="c-hex">#8B6F52</span>
+      <span class="c-token">status: pending</span>
+    </div>
+    <div class="color-chip" style="background:#C46A6A;color:white">
+      <span class="c-name">Overdue</span>
+      <span class="c-hex">#C46A6A</span>
+      <span class="c-token">status: overdue</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 04: TYPOGRAPHY
+     Three font families with specimens at multiple sizes.
+     Each specimen card has a metadata sidebar (font name, role,
+     weights) and a display area with sample text.
+
+     1. Cormorant Garamond - serif headlines/editorial
+     2. Inter - sans-serif body/UI
+     3. JetBrains Mono - monospace data/metadata
+     ============================================================ -->
+<section class="section" id="type">
+  <div class="section-num">04 / Typography</div>
+  <div class="section-title">Typography</div>
+  <div class="section-sub">Three font families create a clear hierarchy: serif for emotional impact, sans-serif for clarity, monospace for precision. Identical to THREADLINE's type system for seamless companion identity.</div>
+
+  <div class="type-stack">
+
+    <!-- CORMORANT GARAMOND: Serif display font
+         Used for headlines, taglines, editorial moments.
+         Weights: Light 300 (primary), Regular 400, Italic. -->
+    <div class="type-specimen">
+      <div class="type-meta">
+        <div class="t-name">Cormorant Garamond</div>
+        <div class="t-role">Headlines, display text, editorial moments. Emotional and elevated.</div>
+        <div class="t-weights">
+          <span>Light 300 - primary</span>
+          <span>Regular 400 - body serif</span>
+          <span>Italic - emphasis, taglines</span>
+        </div>
+      </div>
+      <div>
+        <!-- Specimen at 48px -->
+        <div style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:48px;line-height:1.1;margin-bottom:16px">
+          See the look
+        </div>
+        <!-- Specimen at 36px -->
+        <div style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:36px;line-height:1.15;margin-bottom:16px">
+          before the fitting.
+        </div>
+        <!-- Specimen at 24px -->
+        <div style="font-family:'Cormorant Garamond',serif;font-weight:400;font-size:24px;line-height:1.3;margin-bottom:12px">
+          Visual lookboard builder for wardrobe professionals.
+        </div>
+        <!-- Specimen at 18px italic -->
+        <div style="font-family:'Cormorant Garamond',serif;font-weight:400;font-size:18px;line-height:1.5;color:var(--brown-gold);font-style:italic">
+          See the look before the fitting.
+        </div>
+      </div>
+    </div>
+
+    <!-- INTER: Sans-serif body font
+         Used for body text, UI elements, navigation, buttons.
+         Weights: Extra Light 200 (wordmark), Light 300, Regular 400,
+         Medium 500 (labels/buttons), Semi Bold 600 (emphasis). -->
+    <div class="type-specimen">
+      <div class="type-meta">
+        <div class="t-name">Inter</div>
+        <div class="t-role">Body text, UI elements, navigation. Clarity and neutrality.</div>
+        <div class="t-weights">
+          <span>Extra Light 200 - wordmark</span>
+          <span>Light 300 - large display</span>
+          <span>Regular 400 - body</span>
+          <span>Medium 500 - labels, buttons</span>
+          <span>Semi Bold 600 - emphasis</span>
+        </div>
+      </div>
+      <div>
+        <!-- Body copy specimen -->
+        <div style="font-family:'Inter',sans-serif;font-weight:400;font-size:15px;line-height:1.7;margin-bottom:16px">
+          Build looks. Remove backgrounds. Export lookbooks. PullSheet turns your THREADLINE inventory into polished visual compositions for fittings, director presentations, and wardrobe bibles.
+        </div>
+        <!-- Button specimens -->
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <span style="background:var(--brown-gold);color:white;padding:8px 20px;font-size:12px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;border-radius:6px">Build Lookboard</span>
+          <span style="border:1px solid var(--brown-gold);color:var(--brown-gold);padding:8px 20px;font-size:12px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;border-radius:6px">Export PDF</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- JETBRAINS MONO: Monospace data font
+         Used for data, metadata, labels, technical text.
+         Weights: Light 300, Regular 400, Medium 500. -->
+    <div class="type-specimen">
+      <div class="type-meta">
+        <div class="t-name">JetBrains Mono</div>
+        <div class="t-role">Data, metadata, labels, technical text. Precision and trust.</div>
+        <div class="t-weights">
+          <span>Light 300 - secondary data</span>
+          <span>Regular 400 - data display</span>
+          <span>Medium 500 - emphasis</span>
+        </div>
+      </div>
+      <div>
+        <!-- Data specimen at normal size -->
+        <div style="font-family:'JetBrains Mono',monospace;font-size:14px;line-height:1.8;color:var(--brown-gold)">
+          LOOKBOARD-001 &middot; 6 ITEMS &middot; $2,450.00
+        </div>
+        <!-- Secondary data specimen -->
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--taupe);margin-top:8px;line-height:1.8">
+          S02E04 &middot; FITTING &middot; MARCH 22, 2026<br>
+          TALENT: JAKE MORRISON &middot; SC. 14, 22, 38<br>
+          EXPORT: PDF &middot; 3 PAGES &middot; 4.2 MB
+        </div>
+        <!-- Label specimens -->
+        <div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;background:rgba(139,111,82,0.08);color:var(--brown-gold);padding:4px 10px;border-radius:4px">PORTRAIT</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;background:rgba(90,126,138,0.08);color:var(--water);padding:4px 10px;border-radius:4px">LANDSCAPE</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;background:rgba(26,23,20,0.05);color:var(--taupe);padding:4px 10px;border-radius:4px">SQUARE</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 05: PHOTOGRAPHY DIRECTION
+     Focuses on lookboard-relevant imagery: flat-lays, wardrobe
+     racks, on-set environments. Not stock photos.
+     Includes the ghosted photo technique specs (opacity, grayscale,
+     mix-blend-mode) and three treatment cards.
+
+     Photo areas use CSS gradients since we don't have actual photos.
+     ============================================================ -->
+<section class="section" id="photo">
+  <div class="section-num">05 / Photography Direction</div>
+  <div class="section-title">Photography Direction</div>
+  <div class="section-sub">PullSheet photography centers on lookboards, flat-lays, and clean garment compositions. Not stock photos. Practical, on-set, authentic. The camera captures what the wardrobe team actually sees.</div>
+
+  <!-- Direction overview cards -->
+  <div class="photo-grid">
+    <div class="photo-card" style="background:linear-gradient(180deg,var(--warm-gray) 0%,var(--sand) 50%,var(--bone) 100%)">
+      <div class="photo-label">Flat-Lay Lookboard Compositions</div>
+    </div>
+    <div class="photo-card" style="background:linear-gradient(180deg,var(--espresso) 0%,var(--near-black) 100%)">
+      <div class="photo-label">Clean Garments on Racks</div>
+    </div>
+    <div class="photo-card" style="background:linear-gradient(180deg,var(--brown-gold) 0%,var(--dark-brown) 100%)">
+      <div class="photo-label">On-Set Wardrobe Truck</div>
+    </div>
+  </div>
+
+  <!-- Three Photo Treatment Cards
+       Each card simulates a before/after or technique with
+       CSS gradients and overlay specs. -->
+  <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--taupe);letter-spacing:0.1em;text-transform:uppercase;margin:32px 0 12px">Photo Treatment Cards</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+
+    <!-- Card 1: Before/After - messy rack vs clean AI cutout -->
+    <div class="photo-spec-card">
+      <div class="spec-visual" style="background:linear-gradient(90deg,var(--warm-gray) 0%,var(--warm-gray) 49.5%,rgba(26,23,20,0.06) 49.5%,rgba(26,23,20,0.06) 50.5%,var(--cream) 50.5%,var(--cream) 100%)">
+        <div style="display:flex;gap:0;width:100%;height:100%">
+          <!-- "Before" half: messy, textured -->
+          <div style="flex:1;display:flex;align-items:center;justify-content:center;opacity:0.5;filter:grayscale(100%)">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--taupe);letter-spacing:0.08em;text-transform:uppercase">Before</div>
+          </div>
+          <!-- "After" half: clean, crisp -->
+          <div style="flex:1;display:flex;align-items:center;justify-content:center">
+            <div style="width:60px;height:80px;background:white;border-radius:4px;box-shadow:0 2px 8px rgba(26,23,20,0.08);display:flex;align-items:center;justify-content:center">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--brown-gold);text-transform:uppercase">Clean</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="spec-info">
+        <h4>Before / After</h4>
+        <p>Raw rack photo vs. AI background removal. The cutout isolates the garment for clean lookboard placement.</p>
+        <div class="spec-css">opacity: 1.0 (cutout)<br>background: transparent</div>
+      </div>
+    </div>
+
+    <!-- Card 2: Flat-lay lookboard composition -->
+    <div class="photo-spec-card">
+      <div class="spec-visual" style="background:var(--cream)">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:16px">
+          <div style="background:white;border-radius:4px;padding:8px;box-shadow:0 1px 4px rgba(26,23,20,0.06)">
+            <div style="width:100%;height:40px;background:linear-gradient(135deg,var(--espresso),var(--dark-brown));border-radius:2px;margin-bottom:4px"></div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:6px;color:var(--taupe)">Leather Jacket</div>
+          </div>
+          <div style="background:white;border-radius:4px;padding:8px;box-shadow:0 1px 4px rgba(26,23,20,0.06)">
+            <div style="width:100%;height:40px;background:linear-gradient(135deg,var(--bone),var(--warm-gray));border-radius:2px;margin-bottom:4px"></div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:6px;color:var(--taupe)">Linen Shirt</div>
+          </div>
+          <div style="background:white;border-radius:4px;padding:8px;box-shadow:0 1px 4px rgba(26,23,20,0.06)">
+            <div style="width:100%;height:40px;background:linear-gradient(135deg,#2a3a4a,#1a2a3a);border-radius:2px;margin-bottom:4px"></div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:6px;color:var(--taupe)">Navy Trousers</div>
+          </div>
+          <div style="background:white;border-radius:4px;padding:8px;box-shadow:0 1px 4px rgba(26,23,20,0.06)">
+            <div style="width:100%;height:40px;background:linear-gradient(135deg,var(--sand),var(--taupe));border-radius:2px;margin-bottom:4px"></div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:6px;color:var(--taupe)">Suede Boots</div>
+          </div>
+        </div>
+      </div>
+      <div class="spec-info">
+        <h4>Lookboard Composition</h4>
+        <p>Flat-lay grid of cutout garments on a clean canvas. Each item is individually placed and labeled.</p>
+        <div class="spec-css">layout: grid auto-fit<br>bg: var(--cream)</div>
+      </div>
+    </div>
+
+    <!-- Card 3: On-set wardrobe truck/rack -->
+    <div class="photo-spec-card">
+      <div class="spec-visual" style="background:linear-gradient(135deg,var(--espresso) 0%,var(--dark-brown) 50%,var(--near-black) 100%);position:relative;overflow:hidden">
+        <!-- Ghosted photo overlay simulation -->
+        <div style="position:absolute;inset:0;background:linear-gradient(45deg,rgba(255,255,255,0.02) 0%,rgba(255,255,255,0.05) 30%,rgba(255,255,255,0.02) 60%,transparent 100%)"></div>
+        <div style="position:relative;z-index:1;text-align:center">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--copper);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:4px">Ghosted</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:rgba(245,240,235,0.4)">On-set atmosphere</div>
+        </div>
+      </div>
+      <div class="spec-info">
+        <h4>Ghosted Photo Technique</h4>
+        <p>Real photography at ultra-low opacity, desaturated, behind clean surfaces. Suggests texture without competing with content.</p>
+        <div class="spec-css">opacity: 0.06-0.12<br>filter: grayscale(100%)<br>mix-blend-mode: normal</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Photography Rules -->
+  <div style="background:white;border:1px solid rgba(26,23,20,0.06);border-radius:12px;padding:32px;margin-top:24px">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--taupe);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:16px">Photography Rules</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+      <div>
+        <div style="font-size:13px;font-weight:500;color:var(--forest);margin-bottom:8px">Do</div>
+        <ul style="font-size:13px;color:var(--near-black);line-height:2;list-style:none">
+          <li>. Clean, well-lit garment cutouts</li>
+          <li>. Flat-lay compositions with breathing room</li>
+          <li>. Real wardrobe racks and trucks (for atmosphere)</li>
+          <li>. Warm tones, natural light, editorial grading</li>
+          <li>. Grayscale for ghosted background imagery</li>
+          <li>. Focus on the clothes, not the people</li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:500;color:var(--clay);margin-bottom:8px">Do Not</div>
+        <ul style="font-size:13px;color:var(--near-black);line-height:2;list-style:none">
+          <li>. Generic stock photography</li>
+          <li>. Lifestyle influencer aesthetics</li>
+          <li>. Over-saturated or neon-lit imagery</li>
+          <li>. Stark white e-commerce backgrounds</li>
+          <li>. Faces or identifiable people (privacy)</li>
+          <li>. Cluttered, messy rack shots as hero imagery</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 06: BRAND VOICE
+     Defines how PullSheet communicates:
+     - Professional but not corporate
+     - Visual, confident, minimal
+     - "The creative lead in the wardrobe department"
+
+     Includes DO/DON'T examples and terminology rules table.
+     ============================================================ -->
+<section class="section" id="voice">
+  <div class="section-num">06 / Brand Voice</div>
+  <div class="section-title">Brand Voice</div>
+  <div class="section-sub">PullSheet speaks like the creative lead in the wardrobe department. Professional but not corporate. Visual, confident, minimal. We show, we don't explain.</div>
+
+  <!-- Voice attribute strip -->
+  <div style="background:white;border:1px solid rgba(26,23,20,0.06);border-radius:12px;padding:32px;margin-bottom:32px">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--taupe);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:16px">Voice Attributes</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center">
+      <div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--brown-gold);margin-bottom:4px">Visual</div>
+        <div style="font-size:12px;color:var(--taupe)">Not verbose</div>
+      </div>
+      <div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--brown-gold);margin-bottom:4px">Confident</div>
+        <div style="font-size:12px;color:var(--taupe)">Not arrogant</div>
+      </div>
+      <div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--brown-gold);margin-bottom:4px">Minimal</div>
+        <div style="font-size:12px;color:var(--taupe)">Not cold</div>
+      </div>
+      <div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--brown-gold);margin-bottom:4px">Craft-aware</div>
+        <div style="font-size:12px;color:var(--taupe)">Not jargon-heavy</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DO / DON'T voice examples grid -->
+  <div class="voice-examples">
+    <div class="voice-ex">
+      <div class="v-label yes">Do</div>
+      <blockquote>"Build your lookboard in seconds"</blockquote>
+      <p>Direct, active, time-aware. Tells the user exactly what they'll get and how fast.</p>
+    </div>
+    <div class="voice-ex">
+      <div class="v-label no">Do Not</div>
+      <blockquote>"Our AI-powered solution leverages..."</blockquote>
+      <p>Corporate jargon. Nobody on set talks like this. If the tech works, let the results speak.</p>
+    </div>
+    <div class="voice-ex">
+      <div class="v-label yes">Do</div>
+      <blockquote>"One tap. Clean cutout."</blockquote>
+      <p>Minimal, punchy, action-oriented. Respects the user's time. The tool works. That is the point.</p>
+    </div>
+    <div class="voice-ex">
+      <div class="v-label no">Do Not</div>
+      <blockquote>"PullSheet is a revolutionary tool..."</blockquote>
+      <p>Hyperbolic. If you have to say it's revolutionary, it probably isn't. Let the work prove it.</p>
+    </div>
+    <div class="voice-ex">
+      <div class="v-label yes">Do</div>
+      <blockquote>"Powered by your THREADLINE inventory"</blockquote>
+      <p>Connected, clear, factual. Shows the relationship without over-explaining the architecture.</p>
+    </div>
+    <div class="voice-ex">
+      <div class="v-label no">Do Not</div>
+      <blockquote>"Wardrobe PA-focused content management..."</blockquote>
+      <p>Wrong terminology ("wardrobe PA" is not how this audience self-identifies), wrong framing ("content management" is IT-speak).</p>
+    </div>
+  </div>
+
+  <!-- Terminology Rules Table
+       Critical: "Talent" not "Characters", "wardrobe professional" not "wardrobe PA",
+       "lookboard" for canvases, no em dashes. -->
+  <div style="background:white;border:1px solid rgba(26,23,20,0.06);border-radius:12px;padding:32px;margin-top:24px">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--brown-gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:16px">Terminology Rules</div>
+    <table class="term-table">
+      <thead>
+        <tr>
+          <th>Use This</th>
+          <th>Not This</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Talent</td>
+          <td>Characters</td>
+        </tr>
+        <tr>
+          <td>Wardrobe professional / wardrobe team</td>
+          <td>Wardrobe PA</td>
+        </tr>
+        <tr>
+          <td>Lookboard</td>
+          <td>Mood board, canvas, board</td>
+        </tr>
+        <tr>
+          <td>PULLSHEET (marketing) / PullSheet (UI)</td>
+          <td>Pull Sheet, pullSheet, Pullsheet</td>
+        </tr>
+        <tr>
+          <td>Fitting</td>
+          <td>Try-on, wardrobe check</td>
+        </tr>
+        <tr>
+          <td>Cutout / clean cutout</td>
+          <td>Background removal result</td>
+        </tr>
+        <tr>
+          <td>Hyphens or commas for punctuation</td>
+          <td>Em dashes in any copy</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 07: DESIGN RULES
+     Core visual principles for PullSheet's UI and marketing.
+     Light-mode-first ("Nordstrom meets Linear").
+     These rules govern component styling, accent usage,
+     spacing, and what to avoid.
+     ============================================================ -->
+<section class="section" id="rules">
+  <div class="section-num">07 / Design Rules</div>
+  <div class="section-title">Design Rules</div>
+  <div class="section-sub">PullSheet follows a light-mode-first approach: "Nordstrom meets Linear." Generous whitespace, subtle shadows, restrained accent usage. Every design decision should feel intentional and quiet.</div>
+
+  <div class="rules-grid">
+    <!-- Light-mode-first -->
+    <div class="rule-card">
+      <div class="rule-icon do">+</div>
+      <div class="rule-text">
+        Light-mode-first design
+        <span class="rule-sub">Cream backgrounds, warm neutrals, natural light aesthetic. Dark mode is secondary.</span>
+      </div>
+    </div>
+    <!-- Generous whitespace -->
+    <div class="rule-card">
+      <div class="rule-icon do">+</div>
+      <div class="rule-text">
+        Generous whitespace
+        <span class="rule-sub">Let content breathe. Padding is a feature, not wasted space.</span>
+      </div>
+    </div>
+    <!-- Subtle shadows -->
+    <div class="rule-card">
+      <div class="rule-icon do">+</div>
+      <div class="rule-text">
+        Subtle shadows, no heavy borders
+        <span class="rule-sub">box-shadow: 0 2px 12px rgba(26,23,20,0.06). Borders at rgba(26,23,20,0.06).</span>
+      </div>
+    </div>
+    <!-- Brown-gold is surgical -->
+    <div class="rule-card">
+      <div class="rule-icon do">+</div>
+      <div class="rule-text">
+        Brown-gold accent is surgical
+        <span class="rule-sub">Only primary CTAs and key highlights. Never applied broadly or as background fills.</span>
+      </div>
+    </div>
+    <!-- Card styling -->
+    <div class="rule-card">
+      <div class="rule-icon do">+</div>
+      <div class="rule-text">
+        Cards: 12px border-radius, 1px borders
+        <span class="rule-sub">border: 1px solid rgba(26,23,20,0.06). Consistent across all card components.</span>
+      </div>
+    </div>
+    <!-- Consistent typography -->
+    <div class="rule-card">
+      <div class="rule-icon do">+</div>
+      <div class="rule-text">
+        Consistent type hierarchy
+        <span class="rule-sub">Serif for headlines, sans-serif for body, mono for data. Never mix roles.</span>
+      </div>
+    </div>
+    <!-- No gradients -->
+    <div class="rule-card">
+      <div class="rule-icon dont">x</div>
+      <div class="rule-text">
+        No gradients on UI elements
+        <span class="rule-sub">Gradients are reserved for marketing hero sections and cover treatments only.</span>
+      </div>
+    </div>
+    <!-- No neon -->
+    <div class="rule-card">
+      <div class="rule-icon dont">x</div>
+      <div class="rule-text">
+        No neon, no glassmorphism
+        <span class="rule-sub">No saturated accent colors. No frosted glass cards. No trendy effects.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card component spec -->
+  <div style="background:white;border:1px solid rgba(26,23,20,0.06);border-radius:12px;padding:32px;margin-top:24px">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--brown-gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:16px">Card Component Spec</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+      <div>
+        <div style="font-size:12px;font-weight:500;margin-bottom:4px">Border Radius</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--taupe)">12px (standard)<br>16px (hero cards)<br>6px (compact / inline)</div>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:500;margin-bottom:4px">Border</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--taupe)">1px solid rgba(26,23,20,0.06)<br>Hover: rgba(26,23,20,0.1)</div>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:500;margin-bottom:4px">Shadow</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--taupe)">0 2px 12px rgba(26,23,20,0.06)<br>Hover: 0 4px 20px rgba(26,23,20,0.08)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 08: DO'S AND DON'TS
+     Visual side-by-side comparisons of correct and incorrect
+     design and naming treatments. Each pair shows a DO card
+     with green border and a DON'T card with red border.
+
+     Includes:
+     - Card design (subtle shadow vs heavy borders)
+     - Naming conventions (PULLSHEET vs Pull Sheet)
+     - CTA styling (brown-gold vs neon/gradient)
+     ============================================================ -->
+<section class="section" id="dodont">
+  <div class="section-num">08 / Do's and Don'ts</div>
+  <div class="section-title">Do's and Don'ts</div>
+  <div class="section-sub">Visual examples of correct and incorrect brand application. When in doubt, choose restraint.</div>
+
+  <!-- Example 1: Card Design -->
+  <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--taupe);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:12px">Card Design</div>
+  <div class="dodont-grid">
+    <!-- DO: Clean card with subtle shadow -->
+    <div class="dodont-card">
+      <div class="dd-visual" style="background:var(--cream);padding:24px">
+        <div style="background:white;border-radius:12px;padding:24px;width:100%;box-shadow:0 2px 12px rgba(26,23,20,0.06);border:1px solid rgba(26,23,20,0.06)">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:18px;margin-bottom:8px">Scene 14 Lookboard</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--taupe)">6 items . $2,450.00</div>
+          <div style="margin-top:12px">
+            <span style="background:var(--brown-gold);color:white;padding:6px 16px;font-size:11px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;border-radius:6px;display:inline-block">Open</span>
+          </div>
+        </div>
+      </div>
+      <div class="dd-label do">Do: Subtle shadow, brown-gold CTA, 12px radius</div>
+    </div>
+    <!-- DON'T: Heavy borders, neon -->
+    <div class="dodont-card">
+      <div class="dd-visual" style="background:#f0f0f0;padding:24px">
+        <div style="background:white;border-radius:4px;padding:24px;width:100%;border:3px solid #333;box-shadow:0 8px 32px rgba(0,0,0,0.2)">
+          <div style="font-family:Arial,sans-serif;font-size:18px;font-weight:bold;margin-bottom:8px">Scene 14 Lookboard</div>
+          <div style="font-family:Arial,sans-serif;font-size:12px;color:#666">6 items - $2,450.00</div>
+          <div style="margin-top:12px">
+            <span style="background:linear-gradient(135deg,#00ff88,#00aaff);color:white;padding:6px 16px;font-size:11px;font-weight:700;border-radius:20px;display:inline-block">OPEN NOW</span>
+          </div>
+        </div>
+      </div>
+      <div class="dd-label dont">Do not: Heavy borders, neon gradients, rounded pills</div>
+    </div>
+  </div>
+
+  <!-- Example 2: Naming Conventions -->
+  <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--taupe);letter-spacing:0.1em;text-transform:uppercase;margin:32px 0 12px">Naming Conventions</div>
+  <div class="dodont-grid">
+    <!-- DO: Correct naming -->
+    <div class="dodont-card">
+      <div class="dd-visual" style="background:var(--cream);flex-direction:column;gap:16px">
+        <div style="display:flex;flex-direction:column;gap:12px;align-items:center">
+          <div style="font-family:'Inter',sans-serif;font-weight:200;font-size:28px;letter-spacing:0.2em;text-transform:uppercase"><span style="color:var(--near-black)">PULL</span><span style="color:var(--brown-gold)">SHEET</span></div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--taupe);letter-spacing:0.05em">Marketing: PULLSHEET</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--taupe);letter-spacing:0.05em">UI / Product: PullSheet</div>
+        </div>
+      </div>
+      <div class="dd-label do">Do: PULLSHEET (marketing), PullSheet (UI)</div>
+    </div>
+    <!-- DON'T: Incorrect naming -->
+    <div class="dodont-card">
+      <div class="dd-visual" style="background:var(--cream);flex-direction:column;gap:8px">
+        <div style="display:flex;flex-direction:column;gap:12px;align-items:center">
+          <div style="font-family:'Inter',sans-serif;font-weight:200;font-size:22px;letter-spacing:0.1em;color:var(--clay);text-decoration:line-through">Pull Sheet</div>
+          <div style="font-family:'Inter',sans-serif;font-weight:200;font-size:22px;letter-spacing:0.1em;color:var(--clay);text-decoration:line-through">pullSheet</div>
+          <div style="font-family:'Inter',sans-serif;font-weight:200;font-size:22px;letter-spacing:0.1em;color:var(--clay);text-decoration:line-through">Pullsheet</div>
+        </div>
+      </div>
+      <div class="dd-label dont">Do not: Pull Sheet, pullSheet, Pullsheet</div>
+    </div>
+  </div>
+
+  <!-- Example 3: Background Treatment -->
+  <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--taupe);letter-spacing:0.1em;text-transform:uppercase;margin:32px 0 12px">Background Treatment</div>
+  <div class="dodont-grid">
+    <!-- DO: Clean cream with ghost photo -->
+    <div class="dodont-card">
+      <div class="dd-visual" style="background:var(--cream);position:relative;overflow:hidden;min-height:180px">
+        <!-- Simulated ghosted photo layer -->
+        <div style="position:absolute;inset:0;background:linear-gradient(135deg,var(--warm-gray) 0%,var(--bone) 50%,var(--cream) 100%);opacity:0.15;filter:grayscale(100%)"></div>
+        <div style="position:relative;z-index:1;text-align:center">
+          <div style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:24px;margin-bottom:4px">Clean and warm</div>
+          <div style="font-size:12px;color:var(--taupe)">Ghosted imagery adds depth without distraction</div>
+        </div>
+      </div>
+      <div class="dd-label do">Do: Cream background, subtle ghosted texture</div>
+    </div>
+    <!-- DON'T: Gradient background on content -->
+    <div class="dodont-card">
+      <div class="dd-visual" style="background:linear-gradient(135deg,#667eea,#764ba2);min-height:180px">
+        <div style="text-align:center">
+          <div style="font-family:Arial,sans-serif;font-weight:700;font-size:24px;color:white;margin-bottom:4px">Loud and distracting</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.7)">Gradient backgrounds compete with content</div>
+        </div>
+      </div>
+      <div class="dd-label dont">Do not: Colorful gradients on content areas</div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<!-- ============================================================
+     FOOTER
+     "Made with care" links to cooperinteractive.com.
+     CONFIDENTIAL label on the right.
+     ============================================================ -->
+<div class="footer">
+  <a href="https://cooperinteractive.com">Made with care</a>
+</div>
+
+<!-- ============================================================
+     JAVASCRIPT
+     1. Smooth-scroll for nav section links
+     2. IntersectionObserver to highlight the active section
+        in the sticky nav as the user scrolls.
+
+     To add a new section to nav tracking:
+     - Add an <a href="#id"> to the .sticky-nav
+     - Give the <section> a matching id attribute
+     - The observer will pick it up automatically
+     ============================================================ -->
+<script>
+  // Smooth scroll: intercept nav anchor clicks and scroll smoothly
+  document.querySelectorAll('.sticky-nav a[href^="#"]').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      var id = link.getAttribute('href').replace('#','');
+      var target = document.getElementById(id);
+      if (target) {
+        target.scrollIntoView({ behavior:'smooth' });
+      }
+    });
+  });
+
+  // Active section tracking: highlights the nav link for the
+  // section currently in view. Uses a 20% threshold so the
+  // active state updates when 20% of the section is visible.
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        document.querySelectorAll('.sticky-nav a').forEach(function(l) {
+          l.classList.remove('active');
+        });
+        var activeLink = document.querySelector('.sticky-nav a[href="#' + entry.target.id + '"]');
+        if (activeLink) {
+          activeLink.classList.add('active');
+        }
+      }
+    });
+  }, { threshold:0.2 });
+
+  // Observe all sections with an id attribute
+  document.querySelectorAll('section[id]').forEach(function(section) {
+    observer.observe(section);
+  });
+</script>
+
+</body>
+</html>

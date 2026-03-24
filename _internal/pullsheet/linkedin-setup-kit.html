@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PullSheet — LinkedIn Company Page Setup Kit</title>
+
+<!-- ============================================================
+     PULLSHEET LINKEDIN SETUP KIT
+     Everything needed to create and launch the PullSheet LinkedIn
+     Company Page: copy-paste text, canvas-generated graphics,
+     recommended settings, and downloadable assets.
+
+     STRUCTURE:
+     - Sticky nav: PULL/SHEET wordmark, section jump links
+     - Company Page Info: table of field/value pairs
+     - About Section: copy-pasteable description with button
+     - Company Banner: 1128x191 canvas with download
+     - Company Logo: 300x300 canvas with PS monogram
+     - Personal Banner: 1584x396 canvas with download
+     - Article Cover: 1200x627 canvas with download
+     - First Post: launch announcement with copy button
+     - Settings: visibility, notification, posting recommendations
+     - Footer: "Made with care" link to Cooper Interactive
+
+     CANVAS GRAPHICS:
+     All images are rendered via <canvas> at 2x resolution for
+     retina displays. Each canvas has a matching download button
+     that exports to JPEG via toDataURL.
+
+     FONTS:
+     - Cormorant Garamond: serif headings, taglines
+     - Inter: body text, UI elements, wordmark
+     - JetBrains Mono: monospace labels, metadata
+
+     TO MODIFY:
+     - Update copy fields by editing the innerHTML of the
+       corresponding element (identified by id attribute)
+     - Canvas drawing functions are at the bottom of the file;
+       each named draw*() renders one asset
+     - Download buttons call downloadCanvas() or
+       downloadCanvasCustom() with target dimensions
+     ============================================================ -->
+
+<!-- Google Fonts: same three families as all THREADLINE/PULLSHEET pages -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  /* ============================================================
+     CSS CUSTOM PROPERTIES (Design Tokens)
+     Shared across all THREADLINE and PULLSHEET internal pages.
+     Single source of truth for the color palette.
+     ============================================================ */
+  :root {
+    --cream:#FAF8F5;       /* Page background */
+    --bone:#F5F0EB;        /* Slightly darker cream for contrast */
+    --warm-gray:#E8E3DE;   /* Divider lines, subtle borders */
+    --sand:#D2C4B9;        /* Muted decorative elements */
+    --taupe:#B5A89C;       /* Secondary text, metadata */
+    --brown-gold:#8B6F52;  /* Primary brand accent */
+    --copper:#C4946A;      /* Warm highlight accent */
+    --dark-brown:#5A4228;  /* Deep accent for gradients */
+    --espresso:#3A2A18;    /* Darkest brown */
+    --near-black:#1A1714;  /* Primary text color */
+    --void:#0A0A0A;        /* Near-black backgrounds */
+    --water:#5A7E8A;       /* Blue-teal secondary accent */
+    --forest:#4A6741;      /* Success / confirmation states */
+    --clay:#8A4A42;        /* Error / warning accent */
+    --dusty-blue:#627786;  /* Tertiary accent */
+  }
+
+  /* ============================================================
+     RESET & BASE STYLES
+     Minimal reset. Body uses Inter as default sans-serif.
+     ============================================================ */
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--near-black);}
+
+  /* ============================================================
+     STICKY NAVIGATION
+     Frosted glass nav bar pinned to top of viewport.
+     Contains the PULL/SHEET wordmark (PULL in text color,
+     SHEET in brown-gold) and section jump links.
+     ============================================================ */
+  .nav{
+    position:sticky;top:0;z-index:100;
+    background:rgba(250,248,245,0.92);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    border-bottom:1px solid rgba(26,23,20,0.06);
+    padding:12px 48px;
+    display:flex;align-items:center;gap:24px;
+    flex-wrap:wrap;
+  }
+  /* PULL/SHEET wordmark in nav: PULL inherits near-black, SHEET uses brown-gold */
+  .nav .brand{
+    font-family:'Inter',sans-serif;font-weight:200;
+    font-size:14px;letter-spacing:0.15em;
+    text-transform:uppercase;text-decoration:none;color:inherit;
+  }
+  .nav .brand .sheet{color:var(--brown-gold);}
+  /* Nav links: monospace-sized, subtle hover effect */
+  .nav a{
+    font-size:11px;font-weight:500;color:var(--taupe);
+    text-decoration:none;padding:4px 8px;border-radius:4px;
+    transition:all 0.15s;
+  }
+  .nav a:hover{color:var(--brown-gold);background:rgba(139,111,82,0.06);}
+  .nav a.back{color:var(--brown-gold);}
+
+  /* ============================================================
+     CONTAINER
+     Max-width wrapper for all content sections.
+     ============================================================ */
+  .container{max-width:1000px;margin:0 auto;padding:48px;}
+
+  /* ============================================================
+     PAGE TITLE
+     Cormorant Garamond heading + description paragraph.
+     ============================================================ */
+  .page-title{margin-bottom:48px;}
+  .page-title h1{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:36px;margin-bottom:4px;}
+  .page-title p{font-size:14px;color:var(--taupe);line-height:1.7;}
+
+  /* ============================================================
+     SECTION
+     Each content block is wrapped in .section with a bottom
+     border separator. The last section omits the border.
+     ============================================================ */
+  .section{margin-bottom:48px;padding-bottom:48px;border-bottom:1px solid rgba(26,23,20,0.06);}
+  .section:last-child{border-bottom:none;}
+  /* Section label: monospace uppercase with brown-gold color */
+  .section-label{
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;font-weight:500;
+    letter-spacing:0.12em;text-transform:uppercase;
+    color:var(--brown-gold);margin-bottom:16px;
+  }
+
+  /* ============================================================
+     COPY-PASTE FIELDS
+     White card with a text value and a copy button.
+     Used for tagline, about description, first post, etc.
+     ============================================================ */
+  .copy-field{
+    background:white;border:1px solid var(--warm-gray);
+    border-radius:8px;padding:16px 20px;margin-bottom:12px;
+    display:flex;justify-content:space-between;
+    align-items:flex-start;gap:16px;position:relative;
+  }
+  /* Small uppercase label above the copyable text */
+  .copy-field .field-label{
+    font-size:10px;font-weight:600;
+    letter-spacing:0.08em;text-transform:uppercase;
+    color:var(--taupe);margin-bottom:6px;
+  }
+  /* The actual text content to be copied */
+  .copy-field .field-value{
+    font-size:14px;line-height:1.6;
+    color:var(--near-black);flex:1;white-space:pre-wrap;
+  }
+  /* Character count or metadata beneath the text */
+  .copy-field .field-meta{
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;color:var(--taupe);margin-top:4px;
+  }
+  /* Copy button: brown-gold pill, turns green on success */
+  .copy-btn{
+    background:var(--brown-gold);color:white;border:none;
+    padding:6px 14px;font-size:10px;font-weight:600;
+    letter-spacing:0.06em;text-transform:uppercase;
+    border-radius:4px;cursor:pointer;flex-shrink:0;
+    transition:all 0.15s;font-family:'Inter',sans-serif;
+  }
+  .copy-btn:hover{background:var(--dark-brown);}
+  .copy-btn.copied{background:var(--forest);}
+
+  /* ============================================================
+     INFO TABLE
+     Two-column table for structured field/value data.
+     Used for company info, settings, and dimensions.
+     ============================================================ */
+  .info-table{width:100%;}
+  .info-table tr td{
+    padding:10px 0;border-bottom:1px solid rgba(26,23,20,0.06);
+    font-size:13px;vertical-align:top;
+  }
+  .info-table tr:last-child td{border-bottom:none;}
+  /* Left column: field name, bold */
+  .info-table .label-cell{font-weight:500;color:var(--near-black);width:180px;}
+  /* Right column: value, muted by default */
+  .info-table .value-cell{color:var(--taupe);}
+  /* .rec class makes the value brown-gold for recommended/important values */
+  .info-table .rec{color:var(--brown-gold);font-weight:500;}
+
+  /* ============================================================
+     NOTE BOX
+     Brown-gold left-bordered callout for tips and recommendations.
+     ============================================================ */
+  .note-box{
+    background:rgba(139,111,82,0.06);
+    border-left:3px solid var(--brown-gold);
+    border-radius:0 8px 8px 0;
+    padding:16px 20px;font-size:13px;
+    color:var(--near-black);line-height:1.7;margin-top:16px;
+  }
+
+  /* ============================================================
+     BANNER / ASSET WRAPPERS
+     Container for canvas-rendered graphics with shadow.
+     ============================================================ */
+  .banner-wrap{position:relative;width:100%;margin-bottom:12px;}
+  .banner-wrap canvas{
+    width:100%;height:auto;border-radius:8px;
+    display:block;box-shadow:0 4px 16px rgba(26,23,20,0.1);
+  }
+
+  /* ============================================================
+     PROFILE GRID
+     Side-by-side layout for logo preview + info table.
+     Left column: square logo canvas. Right column: specs.
+     ============================================================ */
+  .profile-grid{display:grid;grid-template-columns:200px 1fr;gap:32px;align-items:start;}
+  .profile-pic-wrap{text-align:center;}
+  .profile-pic{
+    width:180px;height:180px;border-radius:8px;
+    overflow:hidden;margin:0 auto 12px;
+    box-shadow:0 4px 16px rgba(26,23,20,0.1);position:relative;
+  }
+  .profile-pic canvas{width:100%;height:100%;}
+
+  /* ============================================================
+     DOWNLOAD BUTTON
+     Primary: solid brown-gold. Secondary: outlined variant.
+     ============================================================ */
+  .download-btn{
+    display:inline-block;background:var(--brown-gold);color:white;
+    border:none;padding:8px 20px;font-size:11px;font-weight:600;
+    letter-spacing:0.06em;text-transform:uppercase;
+    border-radius:6px;cursor:pointer;transition:all 0.15s;
+    font-family:'Inter',sans-serif;text-decoration:none;margin:4px;
+  }
+  .download-btn:hover{background:var(--dark-brown);}
+  .download-btn.secondary{
+    background:transparent;color:var(--brown-gold);
+    border:1px solid var(--brown-gold);
+  }
+  .download-btn.secondary:hover{background:rgba(139,111,82,0.06);}
+
+  /* ============================================================
+     FOOTER
+     Centered "Made with care" link to Cooper Interactive.
+     ============================================================ */
+  .footer{
+    text-align:center;padding:32px;font-size:12px;
+    color:var(--taupe);border-top:1px solid rgba(26,23,20,0.06);
+  }
+  .footer a{color:var(--brown-gold);text-decoration:none;}
+
+  /* ============================================================
+     RESPONSIVE: Mobile layout
+     Stacks profile grid, tightens padding, wraps nav links.
+     ============================================================ */
+  @media(max-width:768px){
+    .nav{padding:12px 20px;gap:12px;}
+    .container{padding:32px 20px;}
+    .page-title h1{font-size:28px;}
+    .profile-grid{grid-template-columns:1fr;text-align:center;}
+    .profile-pic{margin:0 auto 12px;}
+    .copy-field{flex-direction:column;gap:12px;}
+    .copy-btn{align-self:flex-end;}
+    .info-table .label-cell{width:140px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     STICKY NAVIGATION
+     PULL/SHEET wordmark (PULL in text color, SHEET in brown-gold),
+     back link to PullSheet Command Center, and section jump links.
+     ============================================================ -->
+<nav class="nav">
+  <a href="index.html" class="brand" style="text-decoration:none;color:inherit;">PULL<span class="sheet">SHEET</span></a>
+  <a class="back" href="index.html">&larr; All Pages</a>
+  <a href="#page-info">Page Info</a>
+  <a href="#about">About Copy</a>
+  <a href="#banner">Company Banner</a>
+  <a href="#logo">Logo</a>
+  <a href="#personal-banner">Personal Banner</a>
+  <a href="#article-cover">Article Cover</a>
+  <a href="#first-post">First Post</a>
+  <a href="#settings">Settings</a>
+</nav>
+
+<div class="container">
+
+<!-- ============================================================
+     PAGE TITLE
+     Cormorant Garamond heading with italic "Setup Kit" accent.
+     Introductory paragraph explains what this page provides.
+     ============================================================ -->
+<div class="page-title">
+  <h1>LinkedIn Company Page <em style="font-family:'Cormorant Garamond',serif;font-style:italic">Setup Kit</em></h1>
+  <p>Everything you need to create and launch the PullSheet LinkedIn Company Page. Copy-paste text, downloadable assets, and recommended settings. All ready to go.</p>
+</div>
+
+<!-- ============================================================
+     COMPANY PAGE INFORMATION
+     Structured table of all fields needed when creating the
+     LinkedIn Company Page. Values with .rec class are highlighted
+     in brown-gold to indicate they should be used exactly as shown.
+     ============================================================ -->
+<div class="section" id="page-info">
+  <div class="section-label">Company Page Information</div>
+
+  <table class="info-table">
+    <tr><td class="label-cell">Company Name</td><td class="value-cell rec">PullSheet</td></tr>
+    <tr><td class="label-cell">Tagline</td><td class="value-cell rec">Visual wardrobe lookbook builder for film and TV production</td></tr>
+    <tr><td class="label-cell">Industry</td><td class="value-cell rec">Technology, Information and Internet</td></tr>
+    <tr><td class="label-cell">Company Size</td><td class="value-cell rec">2-10 employees</td></tr>
+    <tr><td class="label-cell">Company Type</td><td class="value-cell rec">Privately Held</td></tr>
+    <tr><td class="label-cell">Website</td><td class="value-cell rec">pullsheetapp.io</td></tr>
+    <tr><td class="label-cell">Founded</td><td class="value-cell">2026</td></tr>
+    <tr>
+      <td class="label-cell">Specialties</td>
+      <td class="value-cell">Wardrobe management, Lookbook creation, Film production tools, AI background removal</td>
+    </tr>
+  </table>
+
+  <div class="note-box">
+    <strong>Claiming the URL.</strong> LinkedIn assigns your page URL based on the company name. If "pullsheet" is not available, try "pullsheet-app" or "pullsheetapp". The custom URL can be edited once from your page's admin settings after creation.
+  </div>
+</div>
+
+<!-- ============================================================
+     ABOUT SECTION COPY
+     Two copy-paste fields:
+     1. Tagline (120 char limit for LinkedIn)
+     2. Full About description (2000 char limit for LinkedIn)
+     Each has a copy button that writes to clipboard and briefly
+     changes to green "Copied!" state.
+     ============================================================ -->
+<div class="section" id="about">
+  <div class="section-label">About Section Copy - Ready to Paste</div>
+
+  <!-- Tagline: short descriptor shown beneath company name on LinkedIn -->
+  <div class="copy-field">
+    <div style="flex:1">
+      <div class="field-label">Tagline (120 characters max)</div>
+      <div class="field-value" id="tagline">Visual wardrobe lookbook builder for film and TV production</div>
+      <div class="field-meta">59 / 120 characters</div>
+    </div>
+    <button class="copy-btn" onclick="copyText('tagline', this)">Copy</button>
+  </div>
+
+  <!-- About description: full company overview for the LinkedIn About section -->
+  <div class="copy-field">
+    <div style="flex:1">
+      <div class="field-label">About Description (2000 characters max)</div>
+      <div class="field-value" id="about-desc">PullSheet is the visual lookbook builder for wardrobe departments in film and television production.
+
+Wardrobe supervisors, set costumers, and costume designers use PullSheet to create presentation-ready lookbooks by dragging garment photos onto a digital canvas, removing backgrounds with AI, and exporting professional PDF pull sheets.
+
+PullSheet connects directly to THREADLINE, the companion wardrobe inventory management platform. Every garment already catalogued in THREADLINE is immediately available in PullSheet. No duplicate data entry, no manual imports.
+
+PullSheet is built by Cooper Interactive and launches Summer 2026.</div>
+      <div class="field-meta">545 / 2000 characters</div>
+    </div>
+    <button class="copy-btn" onclick="copyText('about-desc', this)">Copy</button>
+  </div>
+
+  <!-- Specialties: comma-separated list to add individually on LinkedIn -->
+  <div class="copy-field">
+    <div style="flex:1">
+      <div class="field-label">Specialties (add individually on LinkedIn)</div>
+      <div class="field-value" id="specialties">Wardrobe Management, Lookbook Creation, Film Production Tools, AI Background Removal, Costume Design Software, Pull Sheet Generation, Visual Planning, Television Production, PDF Export, Digital Wardrobe</div>
+      <div class="field-meta">10 specialties - LinkedIn allows up to 20</div>
+    </div>
+    <button class="copy-btn" onclick="copyText('specialties', this)">Copy</button>
+  </div>
+
+  <div class="note-box">
+    <strong>Specialties tip.</strong> LinkedIn lets you add specialties one at a time when editing the About section. Copy the list above and add each one separately. These show up in search results and help people discover your page.
+  </div>
+</div>
+
+<!-- ============================================================
+     COMPANY BANNER
+     Canvas-rendered at 2x resolution (2256x382 pixels, displayed
+     as 1128x191). Brown-gold gradient background with PULLSHEET
+     wordmark (PULL in white, SHEET in lighter warm tone) and
+     "Visual Lookbook Builder" in small monospace on the right.
+     Download buttons export at 2x and 1x sizes.
+     ============================================================ -->
+<div class="section" id="banner">
+  <div class="section-label">Company Page Banner - 1128 x 191px</div>
+
+  <p style="font-size:13px;color:var(--taupe);margin-bottom:16px;line-height:1.7">Brand gradient background with the two-tone PULL SHEET wordmark. Sized for the LinkedIn Company Page header. The banner is wide and short, so the wordmark is positioned center-left for balance.</p>
+
+  <div class="banner-wrap">
+    <canvas id="company-banner-canvas" width="2256" height="382"></canvas>
+  </div>
+
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <button class="download-btn" onclick="downloadCanvasCustom('company-banner-canvas', 2256, 382, 'pullsheet-company-banner-2x.png')">Download 2x (2256x382)</button>
+    <button class="download-btn secondary" onclick="downloadCanvasCustom('company-banner-canvas', 1128, 191, 'pullsheet-company-banner.png')">Download 1x (1128x191)</button>
+  </div>
+
+  <div class="note-box">
+    <strong>Upload tip.</strong> LinkedIn crops the banner differently on mobile vs desktop. The center area is always safe. Keep important content away from the edges, especially the bottom-left where the company logo overlaps.
+  </div>
+</div>
+
+<!-- ============================================================
+     COMPANY LOGO / PROFILE PICTURE
+     Canvas-rendered at 2x (600x600 pixels, displayed as 300x300).
+     Brown-gold gradient with PS monogram centered.
+     Side-by-side layout: logo preview on left, specs table on right.
+     ============================================================ -->
+<div class="section" id="logo">
+  <div class="section-label">Logo / Profile Picture - 300 x 300px</div>
+
+  <div class="profile-grid">
+    <!-- Left column: logo canvas preview -->
+    <div class="profile-pic-wrap">
+      <div class="profile-pic">
+        <canvas id="logo-canvas" width="600" height="600"></canvas>
+      </div>
+      <div style="margin-top:12px;display:flex;flex-direction:column;gap:6px;align-items:center">
+        <button class="download-btn" onclick="downloadCanvasCustom('logo-canvas', 600, 600, 'pullsheet-logo-600.png')">Download 600px</button>
+        <button class="download-btn secondary" onclick="downloadCanvasCustom('logo-canvas', 300, 300, 'pullsheet-logo-300.png')">Download 300px</button>
+      </div>
+    </div>
+    <!-- Right column: specs and usage notes -->
+    <div>
+      <table class="info-table">
+        <tr><td class="label-cell">Dimensions</td><td class="value-cell">300x300px minimum (we export at 600px for retina)</td></tr>
+        <tr><td class="label-cell">Shape</td><td class="value-cell">Displayed as rounded square on LinkedIn</td></tr>
+        <tr><td class="label-cell">Design</td><td class="value-cell">Brown-gold gradient with PS monogram in white</td></tr>
+        <tr><td class="label-cell">Format</td><td class="value-cell">PNG with solid background</td></tr>
+      </table>
+      <div class="note-box">LinkedIn displays company logos as a rounded square, not a circle like Instagram. The PS monogram works well at all sizes. This same asset is used for the company page profile picture and will appear next to posts, comments, and in search results.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     PERSONAL LINKEDIN BANNER
+     Canvas-rendered at 2x (3168x792 pixels, displayed as 1584x396).
+     Near-black background with a subtle brown-gold gradient accent
+     in the lower-right. PULLSHEET wordmark and tagline.
+     For Louis's personal LinkedIn profile.
+     ============================================================ -->
+<div class="section" id="personal-banner">
+  <div class="section-label">Personal Profile Banner - 1584 x 396px</div>
+
+  <p style="font-size:13px;color:var(--taupe);margin-bottom:16px;line-height:1.7">For Louis's personal LinkedIn profile. Near-black background with a subtle brown-gold gradient accent. Includes the PULLSHEET wordmark and tagline.</p>
+
+  <div class="banner-wrap">
+    <canvas id="personal-banner-canvas" width="3168" height="792"></canvas>
+  </div>
+
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <button class="download-btn" onclick="downloadCanvasCustom('personal-banner-canvas', 3168, 792, 'pullsheet-personal-banner-2x.png')">Download 2x (3168x792)</button>
+    <button class="download-btn secondary" onclick="downloadCanvasCustom('personal-banner-canvas', 1584, 396, 'pullsheet-personal-banner.png')">Download 1x (1584x396)</button>
+  </div>
+
+  <div class="note-box">
+    <strong>Personal profile note.</strong> On mobile, about 40px from the bottom of the banner is covered by your profile photo. The wordmark and tagline are positioned in the upper-right area to stay clear.
+  </div>
+</div>
+
+<!-- ============================================================
+     ARTICLE COVER IMAGE
+     Canvas-rendered at native resolution (1200x627 pixels).
+     Warm cream background with PULLSHEET wordmark centered large
+     and tagline below. Used as the featured image when publishing
+     LinkedIn articles or newsletter issues.
+     ============================================================ -->
+<div class="section" id="article-cover">
+  <div class="section-label">Article Cover Image - 1200 x 627px</div>
+
+  <p style="font-size:13px;color:var(--taupe);margin-bottom:16px;line-height:1.7">For LinkedIn articles and newsletter cover images. Warm cream background with the PULLSHEET wordmark and tagline. Use this as the featured image when publishing long-form content.</p>
+
+  <div class="banner-wrap">
+    <canvas id="article-cover-canvas" width="2400" height="1254"></canvas>
+  </div>
+
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <button class="download-btn" onclick="downloadCanvasCustom('article-cover-canvas', 2400, 1254, 'pullsheet-article-cover-2x.png')">Download 2x (2400x1254)</button>
+    <button class="download-btn secondary" onclick="downloadCanvasCustom('article-cover-canvas', 1200, 627, 'pullsheet-article-cover.png')">Download 1x (1200x627)</button>
+  </div>
+</div>
+
+<!-- ============================================================
+     FIRST POST
+     Launch announcement text for the PullSheet LinkedIn page.
+     Written in a professional, story-driven tone (no emoji).
+     Includes a hashtag set saved separately for easy rotation.
+     ============================================================ -->
+<div class="section" id="first-post">
+  <div class="section-label">First Post - Launch Announcement</div>
+
+  <div class="copy-field">
+    <div style="flex:1">
+      <div class="field-label">LinkedIn Launch Post</div>
+      <div class="field-value" id="launch-post">Excited to announce PullSheet, the visual lookbook builder for film and TV wardrobe teams.
+
+Wardrobe professionals have been building lookbooks the same way for decades: print photos, cut them out, tape them to a board. We built something better.
+
+With PullSheet, you can:
+- Drag garments from your digital inventory onto a freeform canvas
+- Remove messy rack backgrounds with one-tap AI
+- Arrange outfits visually, the way you think about them
+- Export professional PDF lookbooks in seconds
+
+PullSheet connects to THREADLINE, our wardrobe inventory management app, so your entire catalog is already there. No re-entry.
+
+Coming Summer 2026. Join the waitlist at pullsheetapp.io
+
+#FilmProduction #WardrobeDepartment #CostumeDesign #ProductionTools #FilmTech #Lookbook</div>
+    </div>
+    <button class="copy-btn" onclick="copyText('launch-post', this)">Copy</button>
+  </div>
+
+  <!-- Hashtag set: full list for rotation across posts -->
+  <div class="copy-field">
+    <div style="flex:1">
+      <div class="field-label">Hashtag Set - Save for LinkedIn Posts</div>
+      <div class="field-value" id="linkedin-hashtags">#FilmProduction #WardrobeDepartment #CostumeDesign #ProductionTools #FilmTech #Lookbook #SetLife #TVProduction #CostumeSupervisor #FilmCrew #BelowTheLine #ProdTech #EntertainmentIndustry #WardrobeManagement</div>
+      <div class="field-meta">14 hashtags - LinkedIn recommends 3-5 per post but you can save this full set and rotate</div>
+    </div>
+    <button class="copy-btn" onclick="copyText('linkedin-hashtags', this)">Copy</button>
+  </div>
+
+  <div class="note-box">
+    <strong>LinkedIn tone.</strong> This post is written for a professional audience. No emoji. No "link in bio" language. LinkedIn rewards longer, story-driven posts that read like a genuine perspective, not marketing copy. The first line is what shows above the "see more" fold, so it needs to hook immediately.
+  </div>
+</div>
+
+<!-- ============================================================
+     SETTINGS RECOMMENDATIONS
+     Table of recommended LinkedIn Company Page settings covering
+     visibility, notifications, custom buttons, and posting strategy.
+     ============================================================ -->
+<div class="section" id="settings">
+  <div class="section-label">Recommended Page Settings</div>
+
+  <table class="info-table">
+    <tr><td class="label-cell">Follow Button</td><td class="value-cell rec">Enabled (default for company pages)</td></tr>
+    <tr><td class="label-cell">Page Visibility</td><td class="value-cell rec">Public - visible to all LinkedIn members</td></tr>
+    <tr><td class="label-cell">Content Suggestions</td><td class="value-cell">Turn on - LinkedIn will suggest trending topics for your industry</td></tr>
+    <tr><td class="label-cell">Hashtag</td><td class="value-cell rec">Associate #wardrobedepartment, #filmtech, #costumedesign as community hashtags</td></tr>
+    <tr><td class="label-cell">Custom Button</td><td class="value-cell rec">Visit Website -> pullsheetapp.io</td></tr>
+    <tr><td class="label-cell">Lead Gen Form</td><td class="value-cell">Skip for now - useful later for waitlist campaigns</td></tr>
+    <tr><td class="label-cell">Invite Connections</td><td class="value-cell rec">Use the "Invite connections to follow" feature after setup</td></tr>
+    <tr><td class="label-cell">Post Notifications</td><td class="value-cell rec">On - so you see comments and engagement immediately</td></tr>
+    <tr><td class="label-cell">Page Admins</td><td class="value-cell">Add yourself as Super Admin. Add any co-founders as Content Admins.</td></tr>
+    <tr><td class="label-cell">Posting Frequency</td><td class="value-cell rec">1-2 posts per week minimum. Consistency matters more than volume.</td></tr>
+  </table>
+
+  <div class="note-box">
+    <strong>First week strategy.</strong> Post the launch announcement. Invite your connections to follow the page (LinkedIn gives you a limited number of monthly invites, so start with people in film, TV, and production). Engage on posts from wardrobe professionals, production companies, and costume design accounts. Comment thoughtfully on industry conversations. Follow relevant companies and hashtags. LinkedIn rewards consistent, authentic engagement over volume.
+  </div>
+</div>
+
+<!-- ============================================================
+     IMAGE DIMENSIONS REFERENCE
+     Quick-reference table of all LinkedIn image sizes as of 2026.
+     Useful when creating custom graphics outside this page.
+     ============================================================ -->
+<div class="section" id="dimensions">
+  <div class="section-label">LinkedIn Image Dimensions - 2026 Reference</div>
+
+  <table class="info-table">
+    <tr><td class="label-cell">Company Page Banner</td><td class="value-cell rec">1128 x 191 px</td></tr>
+    <tr><td class="label-cell">Personal Profile Banner</td><td class="value-cell rec">1584 x 396 px</td></tr>
+    <tr><td class="label-cell">Company Logo</td><td class="value-cell rec">300 x 300 px</td></tr>
+    <tr><td class="label-cell">Feed Post (Landscape)</td><td class="value-cell">1200 x 627 px</td></tr>
+    <tr><td class="label-cell">Feed Post (Square)</td><td class="value-cell">1080 x 1080 px</td></tr>
+    <tr><td class="label-cell">Article Cover Image</td><td class="value-cell">1200 x 627 px</td></tr>
+    <tr><td class="label-cell">Profile Photo</td><td class="value-cell">400 x 400 px</td></tr>
+  </table>
+
+  <div class="note-box">
+    <strong>Retina tip.</strong> Export all images at 2x the listed dimensions when possible. LinkedIn compresses uploads, so starting with a larger file gives you a sharper result. The downloadable assets on this page are already at 2x where it makes sense.
+  </div>
+</div>
+
+</div>
+
+<!-- ============================================================
+     FOOTER
+     "Made with care" link to cooperinteractive.com.
+     Matches footer pattern across all internal pages.
+     ============================================================ -->
+<div class="footer">
+  <a href="https://cooperinteractive.com">Made with care</a>
+</div>
+
+<script>
+// ============================================================
+// COPY TO CLIPBOARD
+// Reads the innerText of the target element and writes it to
+// the system clipboard. The button text briefly changes to
+// "Copied!" with a green background (.copied class) for 2s.
+//
+// Parameters:
+//   id  - the DOM id of the element containing text to copy
+//   btn - reference to the button element (for visual feedback)
+// ============================================================
+function copyText(id, btn) {
+  var el = document.getElementById(id);
+  var text = el.innerText || el.textContent;
+  navigator.clipboard.writeText(text).then(function() {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(function() {
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+// ============================================================
+// CANVAS RENDERING - SHARED UTILITIES
+// ============================================================
+
+// drawPSGradient: fills a rectangle with the PullSheet brand
+// gradient (dark-brown -> brown-gold -> copper, diagonal).
+// Used as the base layer for the company banner and logo.
+//
+// Parameters:
+//   ctx - CanvasRenderingContext2D
+//   w   - canvas width in pixels
+//   h   - canvas height in pixels
+function drawPSGradient(ctx, w, h) {
+  var grad = ctx.createLinearGradient(0, 0, w, h);
+  grad.addColorStop(0, '#5A4228');
+  grad.addColorStop(0.5, '#8B6F52');
+  grad.addColorStop(1, '#C4946A');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, w, h);
+}
+
+// drawPSWordmark: renders PULL SHEET as a single-line wordmark.
+// PULL is drawn in white, SHEET in a lighter warm gold (#E8B88A).
+// The wordmark is center-aligned at the given (x, y) position.
+//
+// Parameters:
+//   ctx      - CanvasRenderingContext2D
+//   x        - horizontal center point
+//   y        - vertical center point (textBaseline = 'middle')
+//   fontSize - font size in pixels for the Inter font
+//   spacing  - CSS letterSpacing value (e.g. '8px')
+function drawPSWordmark(ctx, x, y, fontSize, spacing) {
+  ctx.textBaseline = 'middle';
+  ctx.letterSpacing = spacing || '8px';
+  ctx.font = '200 ' + fontSize + 'px Inter, sans-serif';
+  ctx.textAlign = 'left';
+
+  // Measure both halves to center the combined wordmark
+  var pullW = ctx.measureText('PULL').width;
+  var sheetW = ctx.measureText('SHEET').width;
+  var totalW = pullW + sheetW;
+  var startX = x - totalW / 2;
+
+  // PULL in bright white
+  ctx.fillStyle = 'rgba(255,255,255,0.95)';
+  ctx.fillText('PULL', startX, y);
+
+  // SHEET in warm gold (lighter than the gradient background)
+  ctx.fillStyle = '#E8B88A';
+  ctx.fillText('SHEET', startX + pullW, y);
+
+  // Reset alignment for subsequent draws
+  ctx.textAlign = 'center';
+}
+
+// drawSubtleNoise: scatters faint white dots across the canvas
+// to add a very subtle texture. Used on article cover and
+// personal banner to prevent the background from looking flat.
+//
+// Parameters:
+//   ctx   - CanvasRenderingContext2D
+//   w     - canvas width
+//   h     - canvas height
+//   count - number of dots to scatter (default 800)
+function drawSubtleNoise(ctx, w, h, count) {
+  count = count || 800;
+  ctx.fillStyle = 'rgba(255,255,255,0.015)';
+  for (var i = 0; i < count; i++) {
+    var rx = Math.random() * w;
+    var ry = Math.random() * h;
+    ctx.fillRect(rx, ry, 2, 2);
+  }
+}
+
+
+// ============================================================
+// COMPANY BANNER: 2256 x 382 (2x of 1128 x 191)
+// Brown-gold diagonal gradient with PULLSHEET wordmark centered.
+// Right side: "Visual Lookbook Builder" in small monospace text.
+// ============================================================
+function drawCompanyBanner() {
+  var c = document.getElementById('company-banner-canvas');
+  var ctx = c.getContext('2d');
+  var w = c.width, h = c.height;
+
+  // Base gradient background
+  drawPSGradient(ctx, w, h);
+
+  // Subtle noise texture for depth
+  drawSubtleNoise(ctx, w, h, 600);
+
+  // Faint horizontal rule accent line at 75% height
+  ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(w * 0.1, h * 0.75);
+  ctx.lineTo(w * 0.9, h * 0.75);
+  ctx.stroke();
+
+  // PULLSHEET wordmark (PULL white, SHEET warm gold)
+  // Positioned slightly left of center to balance the right-side text
+  drawPSWordmark(ctx, w * 0.42, h * 0.42, 52, '10px');
+
+  // Tagline beneath the wordmark in italic serif
+  ctx.fillStyle = 'rgba(255,255,255,0.75)';
+  ctx.font = 'italic 400 26px Cormorant Garamond, serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('See the look before the fitting.', w * 0.42, h * 0.62);
+
+  // "Visual Lookbook Builder" in small monospace on the right side
+  ctx.fillStyle = 'rgba(255,255,255,0.5)';
+  ctx.font = '400 16px JetBrains Mono, monospace';
+  ctx.letterSpacing = '2px';
+  ctx.textAlign = 'right';
+  ctx.fillText('VISUAL LOOKBOOK BUILDER', w * 0.92, h * 0.42);
+
+  // Reset alignment
+  ctx.textAlign = 'center';
+}
+
+
+// ============================================================
+// COMPANY LOGO: 600 x 600 (2x of 300 x 300)
+// Brown-gold gradient background with the PS monogram centered.
+// The monogram uses Inter weight 200 for the P and S letters
+// separated by a subtle divider dot.
+// ============================================================
+function drawLogo() {
+  var c = document.getElementById('logo-canvas');
+  var ctx = c.getContext('2d');
+  var w = c.width, h = c.height;
+
+  // Base gradient background
+  drawPSGradient(ctx, w, h);
+
+  // Subtle noise for texture
+  drawSubtleNoise(ctx, w, h, 400);
+
+  // PS monogram: large, centered, Inter weight 200
+  ctx.textBaseline = 'middle';
+  ctx.textAlign = 'center';
+  ctx.fillStyle = 'rgba(255,255,255,0.95)';
+  ctx.font = '200 200px Inter, sans-serif';
+  ctx.letterSpacing = '16px';
+  ctx.fillText('PS', w / 2, h * 0.46);
+
+  // Small wordmark beneath the monogram for context
+  ctx.fillStyle = 'rgba(255,255,255,0.5)';
+  ctx.font = '200 28px Inter, sans-serif';
+  ctx.letterSpacing = '6px';
+  ctx.fillText('PULLSHEET', w / 2, h * 0.72);
+}
+
+
+// ============================================================
+// PERSONAL LINKEDIN BANNER: 3168 x 792 (2x of 1584 x 396)
+// Near-black background (#1A1714) with a subtle brown-gold
+// gradient accent radiating from the lower-right corner.
+// PULLSHEET wordmark in the right half, tagline beneath.
+// ============================================================
+function drawPersonalBanner() {
+  var c = document.getElementById('personal-banner-canvas');
+  var ctx = c.getContext('2d');
+  var w = c.width, h = c.height;
+
+  // Near-black base fill
+  ctx.fillStyle = '#1A1714';
+  ctx.fillRect(0, 0, w, h);
+
+  // Subtle brown-gold radial gradient accent in lower-right
+  // Creates a warm glow without overpowering the dark background
+  var radial = ctx.createRadialGradient(w * 0.85, h * 0.8, 0, w * 0.85, h * 0.8, w * 0.5);
+  radial.addColorStop(0, 'rgba(139,111,82,0.25)');
+  radial.addColorStop(0.5, 'rgba(139,111,82,0.08)');
+  radial.addColorStop(1, 'rgba(139,111,82,0)');
+  ctx.fillStyle = radial;
+  ctx.fillRect(0, 0, w, h);
+
+  // Second, fainter gradient accent in upper-left for depth
+  var radial2 = ctx.createRadialGradient(w * 0.1, h * 0.2, 0, w * 0.1, h * 0.2, w * 0.35);
+  radial2.addColorStop(0, 'rgba(196,148,106,0.06)');
+  radial2.addColorStop(1, 'rgba(196,148,106,0)');
+  ctx.fillStyle = radial2;
+  ctx.fillRect(0, 0, w, h);
+
+  // Subtle noise texture
+  drawSubtleNoise(ctx, w, h, 1200);
+
+  // Faint horizontal accent line
+  ctx.strokeStyle = 'rgba(139,111,82,0.15)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(w * 0.08, h * 0.7);
+  ctx.lineTo(w * 0.92, h * 0.7);
+  ctx.stroke();
+
+  // PULLSHEET wordmark positioned in the right half of the banner
+  // (left side is covered by the profile photo on most layouts)
+  var cx = w * 0.6;
+
+  // Draw wordmark with PULL in white, SHEET in warm gold
+  ctx.textBaseline = 'middle';
+  ctx.letterSpacing = '14px';
+  ctx.font = '200 96px Inter, sans-serif';
+  ctx.textAlign = 'left';
+
+  var pullW = ctx.measureText('PULL').width;
+  var sheetW = ctx.measureText('SHEET').width;
+  var totalW = pullW + sheetW;
+  var startX = cx - totalW / 2;
+
+  // PULL in white
+  ctx.fillStyle = 'rgba(255,255,255,0.92)';
+  ctx.fillText('PULL', startX, h * 0.36);
+
+  // SHEET in brown-gold (brighter against the dark background)
+  ctx.fillStyle = '#C4946A';
+  ctx.fillText('SHEET', startX + pullW, h * 0.36);
+
+  // Tagline beneath the wordmark
+  ctx.textAlign = 'center';
+  ctx.fillStyle = 'rgba(255,255,255,0.6)';
+  ctx.font = 'italic 400 44px Cormorant Garamond, serif';
+  ctx.fillText('See the look before the fitting.', cx, h * 0.52);
+
+  // Descriptor line
+  ctx.fillStyle = 'rgba(255,255,255,0.35)';
+  ctx.font = '400 22px JetBrains Mono, monospace';
+  ctx.letterSpacing = '4px';
+  ctx.fillText('VISUAL LOOKBOOK BUILDER FOR FILM & TV', cx, h * 0.82);
+}
+
+
+// ============================================================
+// ARTICLE COVER IMAGE: 2400 x 1254 (2x of 1200 x 627)
+// Warm cream background with the PULLSHEET wordmark centered
+// large and the tagline beneath. This is a lighter, editorial
+// style that contrasts with the dark personal banner.
+// ============================================================
+function drawArticleCover() {
+  var c = document.getElementById('article-cover-canvas');
+  var ctx = c.getContext('2d');
+  var w = c.width, h = c.height;
+
+  // Warm cream base fill
+  ctx.fillStyle = '#FAF8F5';
+  ctx.fillRect(0, 0, w, h);
+
+  // Very subtle warm gradient overlay for depth
+  var grad = ctx.createLinearGradient(0, 0, w, h);
+  grad.addColorStop(0, 'rgba(245,240,235,0.8)');
+  grad.addColorStop(0.5, 'rgba(250,248,245,0)');
+  grad.addColorStop(1, 'rgba(232,227,222,0.4)');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, w, h);
+
+  // Decorative accent line above the wordmark
+  ctx.strokeStyle = 'rgba(139,111,82,0.15)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(w * 0.3, h * 0.28);
+  ctx.lineTo(w * 0.7, h * 0.28);
+  ctx.stroke();
+
+  // Decorative accent line below the tagline
+  ctx.beginPath();
+  ctx.moveTo(w * 0.3, h * 0.72);
+  ctx.lineTo(w * 0.7, h * 0.72);
+  ctx.stroke();
+
+  // PULLSHEET wordmark: PULL in near-black, SHEET in brown-gold
+  // (inverted from the dark-background versions for readability)
+  ctx.textBaseline = 'middle';
+  ctx.textAlign = 'left';
+  ctx.letterSpacing = '14px';
+  ctx.font = '200 110px Inter, sans-serif';
+
+  var pullW = ctx.measureText('PULL').width;
+  var sheetW = ctx.measureText('SHEET').width;
+  var totalW = pullW + sheetW;
+  var startX = w / 2 - totalW / 2;
+
+  // PULL in near-black
+  ctx.fillStyle = '#1A1714';
+  ctx.fillText('PULL', startX, h * 0.42);
+
+  // SHEET in brown-gold
+  ctx.fillStyle = '#8B6F52';
+  ctx.fillText('SHEET', startX + pullW, h * 0.42);
+
+  // Tagline beneath in italic Cormorant Garamond
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#B5A89C';
+  ctx.font = 'italic 400 44px Cormorant Garamond, serif';
+  ctx.fillText('See the look before the fitting.', w / 2, h * 0.57);
+
+  // Small monospace descriptor at the bottom
+  ctx.fillStyle = 'rgba(139,111,82,0.4)';
+  ctx.font = '400 20px JetBrains Mono, monospace';
+  ctx.letterSpacing = '3px';
+  ctx.fillText('VISUAL LOOKBOOK BUILDER FOR FILM & TV', w / 2, h * 0.82);
+}
+
+
+// ============================================================
+// DOWNLOAD HELPERS
+// Two functions for exporting canvas content as downloadable
+// JPEG files. JPEG is used over PNG because LinkedIn compresses
+// uploads anyway, and JPEG keeps file sizes reasonable.
+// ============================================================
+
+// downloadCanvas: exports the canvas at its native resolution.
+// Converts .png extension in filename to .jpg automatically.
+//
+// Parameters:
+//   canvasId - DOM id of the source canvas
+//   filename - desired download filename (will swap .png to .jpg)
+function downloadCanvas(canvasId, filename) {
+  var c = document.getElementById(canvasId);
+  var link = document.createElement('a');
+  var jpgName = filename.replace('.png', '.jpg');
+  link.download = jpgName;
+  link.href = c.toDataURL('image/jpeg', 0.95);
+  link.click();
+}
+
+// downloadCanvasCustom: exports the canvas resampled to a
+// specific target size. Creates a temporary offscreen canvas at
+// the target dimensions, draws the source canvas scaled to fit,
+// then triggers the download.
+//
+// Parameters:
+//   canvasId - DOM id of the source canvas
+//   targetW  - desired output width in pixels
+//   targetH  - desired output height in pixels
+//   filename - desired download filename (will swap .png to .jpg)
+function downloadCanvasCustom(canvasId, targetW, targetH, filename) {
+  var src = document.getElementById(canvasId);
+  var tmp = document.createElement('canvas');
+  tmp.width = targetW;
+  tmp.height = targetH;
+  var ctx = tmp.getContext('2d');
+  ctx.drawImage(src, 0, 0, targetW, targetH);
+  var link = document.createElement('a');
+  var jpgName = filename.replace('.png', '.jpg');
+  link.download = jpgName;
+  link.href = tmp.toDataURL('image/jpeg', 0.95);
+  link.click();
+}
+
+
+// ============================================================
+// INITIALIZATION
+// Waits for both the DOM and all Google Fonts to be fully loaded
+// before rendering the canvas graphics. This prevents the canvas
+// text from falling back to system fonts during the initial draw.
+// ============================================================
+window.addEventListener('load', function() {
+  document.fonts.ready.then(function() {
+    drawCompanyBanner();
+    drawLogo();
+    drawPersonalBanner();
+    drawArticleCover();
+  });
+});
+</script>
+
+</body>
+</html>

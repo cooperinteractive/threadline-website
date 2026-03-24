@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Service -- PullSheet</title>
+
+<!-- ============================================================
+     PULLSHEET TERMS OF SERVICE
+     Legal terms governing use of the PullSheet companion app.
+     Self-contained HTML with inline CSS and Google Fonts only.
+
+     STRUCTURE:
+     - Sticky nav with PULL/SHEET wordmark and back link
+     - Narrow reading-width container (720px max)
+     - 16 numbered sections covering companion app relationship,
+       AI processing, lookboard export, subscriptions, and more
+     - Print-friendly styles strip backgrounds and fix colors
+     - Footer with "Made with care" Cooper Interactive link
+
+     CSS PATTERN:
+     Matches THREADLINE _internal legal pages (terms-of-service,
+     privacy-policy). Same :root variables, sticky nav, container
+     width, typography scale, section numbering, and footer.
+
+     TO MODIFY:
+     - Update effective/last-updated dates in .effective div
+     - Add/remove sections as legal counsel advises
+     - Contact email: hello@pullsheetapp.io
+     ============================================================ -->
+
+<!-- Google Fonts: Same three families as all THREADLINE _internal pages
+     Cormorant Garamond = serif headings (h1, h2)
+     Inter = sans-serif body text and UI elements
+     JetBrains Mono = monospace for section numbers, dates, nav labels -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  /* ============================================================
+     CSS CUSTOM PROPERTIES (Design Tokens)
+     Inherited from THREADLINE's design system. These are the
+     single source of truth for all colors used on this page.
+     ============================================================ */
+  :root {
+    --cream: #FAF8F5;         /* Page background */
+    --bone: #F5F0EB;          /* Slightly darker cream for contrast */
+    --warm-gray: #E8E3DE;     /* Divider lines, subtle borders */
+    --sand: #D2C4B9;          /* Muted decorative elements */
+    --taupe: #B5A89C;         /* Secondary text, metadata, dates */
+    --brown-gold: #8B6F52;    /* Primary brand accent */
+    --copper: #C4946A;        /* Brand accent for dark backgrounds */
+    --dark-brown: #5A4228;    /* Deep accent for gradients */
+    --near-black: #1A1714;    /* Primary text color */
+    --void: #0A0A0A;          /* Near-black backgrounds */
+    --water: #5A7E8A;         /* Secondary accent (blue-teal) */
+  }
+
+  /* ============================================================
+     RESET & BASE STYLES
+     Minimal reset. Body uses Inter as default sans-serif.
+     Line-height set to 1.8 for comfortable legal document reading.
+     ============================================================ */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cream);
+    color: var(--near-black);
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Default link styling uses brown-gold accent */
+  a { color: var(--brown-gold); text-decoration: none; transition: color 0.2s ease; }
+  a:hover { color: var(--dark-brown); }
+
+  /* ============================================================
+     STICKY NAVIGATION
+     Frosted glass nav bar pinned to top of viewport.
+     Contains: PULL/SHEET wordmark, back link, document type label.
+     backdrop-filter provides the frosted glass blur effect.
+     ============================================================ */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(250, 248, 245, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(26, 23, 20, 0.06);
+    padding: 16px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* Wordmark in nav: PULL in near-black, SHEET in brown-gold */
+  .nav .brand {
+    font-family: 'Inter', sans-serif;
+    font-weight: 200;
+    font-size: 14px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .nav .brand .pull { color: var(--near-black); }
+  .nav .brand .sheet { color: var(--brown-gold); }
+
+  /* Back link to PullSheet Command Center */
+  .nav .back {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--brown-gold);
+    text-decoration: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: opacity 0.2s ease;
+  }
+
+  .nav .back:hover { opacity: 0.7; }
+
+  /* Document type label on the right side of the nav */
+  .nav .doc-type {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--taupe);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ============================================================
+     CONTAINER
+     Narrow max-width wrapper for the legal document body.
+     720px keeps line lengths comfortable for reading.
+     Generous vertical padding separates content from nav/footer.
+     ============================================================ */
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 64px 24px 96px;
+  }
+
+  /* ============================================================
+     TYPOGRAPHY: Headings
+     h1 = page title in Cormorant Garamond serif, light weight
+     h2 = section headings with monospace numbering prefix
+     h3 = subsection headings in Inter sans-serif, bold
+     ============================================================ */
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 36px;
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+
+  /* Effective date line below the title: monospace, muted */
+  .effective {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--taupe);
+    margin-bottom: 48px;
+    letter-spacing: 0.02em;
+  }
+
+  /* Section headings: serif font with generous top margin for separation.
+     The section number prefix is wrapped in a .section-num span
+     to render in monospace for visual distinction. */
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: 22px;
+    margin-top: 40px;
+    margin-bottom: 12px;
+    color: var(--near-black);
+    line-height: 1.3;
+  }
+
+  /* Monospace section number prefix (e.g., "1.", "2.", etc.)
+     Displayed inline before the section title text.
+     Uses brown-gold accent to tie numbering to brand. */
+  .section-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--brown-gold);
+    margin-right: 6px;
+    letter-spacing: 0.02em;
+  }
+
+  /* Subsection headings for nested content */
+  h3 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 24px;
+    margin-bottom: 8px;
+  }
+
+  /* ============================================================
+     TYPOGRAPHY: Body text
+     Paragraphs and lists use 14px Inter for readability.
+     Slightly softened color (#3a3530) avoids harsh contrast.
+     ============================================================ */
+  p {
+    font-size: 14px;
+    margin-bottom: 16px;
+    color: #3a3530;
+  }
+
+  /* Intro paragraph directly below the effective date.
+     Slightly larger and uses full near-black for emphasis. */
+  .intro {
+    font-size: 15px;
+    color: var(--near-black);
+    margin-bottom: 32px;
+    line-height: 1.9;
+  }
+
+  /* Unordered and ordered lists within legal sections */
+  ul, ol {
+    margin: 8px 0 16px 20px;
+    font-size: 14px;
+    color: #3a3530;
+  }
+
+  li {
+    margin-bottom: 6px;
+    line-height: 1.7;
+  }
+
+  /* Strong text within list items and paragraphs */
+  strong {
+    font-weight: 600;
+    color: var(--near-black);
+  }
+
+  /* ============================================================
+     COMPANION BADGE
+     Small inline badge showing the THREADLINE connection.
+     Appears below the intro paragraph to establish the
+     companion app relationship immediately.
+     ============================================================ */
+  .companion-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 32px;
+    padding: 6px 12px;
+    background: rgba(139, 111, 82, 0.04);
+    border: 1px solid rgba(139, 111, 82, 0.1);
+    border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--taupe);
+  }
+
+  .companion-badge .tl { color: var(--near-black); font-weight: 500; }
+  .companion-badge .tl-accent { color: var(--brown-gold); }
+
+  /* ============================================================
+     SECTION DIVIDER
+     Thin horizontal rule between major sections.
+     Uses warm-gray at low opacity for subtlety.
+     ============================================================ */
+  .divider {
+    border: none;
+    height: 1px;
+    background: var(--warm-gray);
+    margin: 40px 0;
+    opacity: 0.6;
+  }
+
+  /* ============================================================
+     CONTACT BLOCK
+     Structured contact information at the end of the document.
+     Uses a subtle left border accent and light background.
+     ============================================================ */
+  .contact-block {
+    background: rgba(139, 111, 82, 0.03);
+    border-left: 3px solid var(--brown-gold);
+    padding: 20px 24px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 16px;
+  }
+
+  .contact-block p {
+    margin-bottom: 6px;
+    font-size: 14px;
+  }
+
+  .contact-block p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ============================================================
+     FOOTER
+     Centered footer with "Made with care" link.
+     Top border separates footer from document body.
+     ============================================================ */
+  .footer {
+    text-align: center;
+    padding: 32px;
+    font-size: 12px;
+    color: var(--taupe);
+    border-top: 1px solid var(--warm-gray);
+    margin-top: 64px;
+  }
+
+  .footer a {
+    color: var(--brown-gold);
+    text-decoration: none;
+  }
+
+  /* ============================================================
+     RESPONSIVE: Mobile layout
+     Tighter padding on nav and container below 768px.
+     Nav switches to column layout to prevent overflow.
+     ============================================================ */
+  @media (max-width: 768px) {
+    .nav {
+      padding: 12px 20px;
+      gap: 8px;
+    }
+
+    .nav .brand {
+      font-size: 12px;
+    }
+
+    .nav .doc-type {
+      font-size: 9px;
+    }
+
+    .container {
+      padding: 40px 20px 64px;
+    }
+
+    h1 {
+      font-size: 28px;
+    }
+
+    h2 {
+      font-size: 19px;
+      margin-top: 32px;
+    }
+  }
+
+  /* ============================================================
+     PRINT STYLES
+     Removes sticky nav positioning, backgrounds, and shadows.
+     Forces black text on white for clean printed output.
+     Page breaks avoided inside sections.
+     ============================================================ */
+  @media print {
+    body {
+      background: white;
+      color: black;
+    }
+
+    .nav {
+      position: static;
+      background: white;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .nav .brand .pull,
+    .nav .brand .sheet {
+      color: black;
+    }
+
+    .nav .back {
+      display: none;
+    }
+
+    .container {
+      max-width: 100%;
+      padding: 24px;
+    }
+
+    h2 {
+      page-break-after: avoid;
+    }
+
+    p, ul, ol {
+      page-break-inside: avoid;
+    }
+
+    .footer {
+      border-top: 1px solid #ccc;
+    }
+
+    .footer a {
+      color: black;
+    }
+
+    .companion-badge {
+      background: none;
+      border-color: #ccc;
+    }
+
+    .contact-block {
+      background: none;
+      border-left-color: #999;
+    }
+
+    a {
+      color: black;
+      text-decoration: underline;
+    }
+
+    .section-num {
+      color: black;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     STICKY NAVIGATION
+     Left: PULL/SHEET wordmark (links back to command center)
+     Center: Back link to PullSheet Command Center
+     Right: Document type label
+     ============================================================ -->
+<nav class="nav">
+  <a href="index.html" class="brand"><span class="pull">PULL</span><span class="sheet">SHEET</span></a>
+  <a class="back" href="index.html">&larr; All Pages</a>
+  <span class="doc-type">Terms of Service</span>
+</nav>
+
+<!-- ============================================================
+     DOCUMENT BODY
+     All 16 sections of the Terms of Service.
+     Container is capped at 720px for comfortable reading width.
+     ============================================================ -->
+<div class="container">
+
+  <!-- Page title and effective date -->
+  <h1>Terms of Service</h1>
+  <div class="effective">Effective Date: June 1, 2026 &middot; Last Updated: March 2026</div>
+
+  <!-- Introductory paragraph establishing agreement -->
+  <p class="intro">These Terms of Service ("Terms") govern your access to and use of the PullSheet companion application and related services (collectively, the "Service") operated by Cooper Interactive ("we," "our," or "us"). By accessing or using the Service, you agree to be bound by these Terms.</p>
+
+  <!-- Companion badge linking PullSheet to THREADLINE -->
+  <div class="companion-badge">
+    Companion to <span class="tl">THREAD</span><span class="tl-accent">LINE</span>
+  </div>
+
+  <!-- ============================================================
+       SECTION 1: Acceptance of Terms
+       Establishes that usage constitutes agreement. Identifies
+       PullSheet as a Cooper Interactive product and companion
+       to THREADLINE.
+       ============================================================ -->
+  <h2><span class="section-num">1.</span> Acceptance of Terms</h2>
+  <p>By downloading, installing, or using PullSheet, you agree to be bound by these Terms of Service. If you do not agree to these Terms, you may not access or use the Service.</p>
+  <p>PullSheet is a companion application to THREADLINE, built and maintained by Cooper Interactive. Your use of PullSheet is subject to these Terms in addition to any terms that apply to your THREADLINE account.</p>
+
+  <!-- ============================================================
+       SECTION 2: Description of Service
+       Defines what PullSheet does: visual lookbook builder for
+       film/TV wardrobe departments. Lists core features.
+       ============================================================ -->
+  <h2><span class="section-num">2.</span> Description of Service</h2>
+  <p>PullSheet is a visual lookbook builder designed for film and television wardrobe departments. The Service enables wardrobe professionals to create, organize, and export visual character lookbooks for productions.</p>
+  <p>Core features include:</p>
+  <ul>
+    <li>Drag-and-drop canvas for arranging garment photographs into lookboard compositions</li>
+    <li>AI-powered background removal for clean garment isolation</li>
+    <li>PDF lookbook export with cover pages, tables of contents, and garment details</li>
+    <li>Integration with THREADLINE inventory data for seamless garment access</li>
+  </ul>
+
+  <!-- ============================================================
+       SECTION 3: Companion App Relationship
+       Defines the data and authentication relationship between
+       PullSheet and THREADLINE. Important for users to understand
+       that PullSheet reads but does not write to THREADLINE.
+       ============================================================ -->
+  <h2><span class="section-num">3.</span> Companion App Relationship</h2>
+  <p>PullSheet operates as a companion application to THREADLINE. The following terms govern this relationship:</p>
+  <ul>
+    <li>PullSheet requires an active THREADLINE account to function</li>
+    <li>PullSheet accesses your THREADLINE inventory data on a read-only basis</li>
+    <li>Both applications share the same authentication credentials and production membership</li>
+    <li>PullSheet does not modify, delete, or write data back to your THREADLINE account</li>
+    <li>Separate terms may apply to your use of THREADLINE; review the <a href="../terms-of-service.html">THREADLINE Terms of Service</a> for details</li>
+  </ul>
+
+  <!-- ============================================================
+       SECTION 4: Account Terms
+       Age requirement, one-account-per-person policy, security
+       responsibilities, and accuracy of information.
+       ============================================================ -->
+  <h2><span class="section-num">4.</span> Account Terms</h2>
+  <p>To use PullSheet, you must meet the following requirements:</p>
+  <ul>
+    <li>You must be at least 18 years of age</li>
+    <li>You may maintain only one account, which is shared with your THREADLINE account</li>
+    <li>You are responsible for maintaining the security of your account credentials and for all activity that occurs under your account</li>
+    <li>You must provide accurate and complete information when creating your account and keep it up to date</li>
+    <li>You must notify us immediately of any unauthorized access to your account</li>
+  </ul>
+
+  <!-- ============================================================
+       SECTION 5: Subscriptions and Pricing
+       Covers the add-on pricing model, beta period, usage limits,
+       billing cycle, and cancellation policy.
+       ============================================================ -->
+  <h2><span class="section-num">5.</span> Subscriptions and Pricing</h2>
+  <p>PullSheet is available as a companion add-on to THREADLINE subscriptions. The following terms apply to subscriptions and pricing:</p>
+  <ul>
+    <li>PullSheet is free during the beta period (Summer 2026)</li>
+    <li>After the beta period, pricing tiers (when applicable) may include limits on:
+      <ul>
+        <li>Number of AI background removals per month</li>
+        <li>Number of lookboard exports per month</li>
+        <li>Team member access and collaboration features</li>
+      </ul>
+    </li>
+    <li>Subscription changes take effect at the beginning of your next billing cycle</li>
+    <li>You may cancel your subscription at any time; access continues through the end of your current billing period</li>
+  </ul>
+  <p>Prices are in US dollars and are subject to change with 30 days' notice.</p>
+
+  <!-- ============================================================
+       SECTION 6: AI Background Removal
+       Discloses the use of Stability AI's Clipdrop API, sets
+       expectations around quality, and clarifies usage allocation
+       and image ownership.
+       ============================================================ -->
+  <h2><span class="section-num">6.</span> AI Background Removal</h2>
+  <p>PullSheet includes an AI-powered background removal feature. The following terms govern its use:</p>
+  <ul>
+    <li>Background removal is processed by Stability AI's Clipdrop API, a third-party service</li>
+    <li>Processing quality may vary depending on image quality, resolution, and subject complexity</li>
+    <li>Each background removal counts toward your monthly allocation when pricing tiers are active</li>
+    <li>Cooper Interactive does not guarantee specific output quality or accuracy of the background removal process</li>
+    <li>You retain all rights to your processed images, both the original and the background-removed versions</li>
+  </ul>
+  <p>By using the background removal feature, you consent to your garment photographs being transmitted to and processed by the Clipdrop API. See our Privacy Policy for details on how image data is handled.</p>
+
+  <!-- ============================================================
+       SECTION 7: Lookboard Export
+       Covers PDF generation, storage, download mechanism,
+       branding watermark, and export limits.
+       ============================================================ -->
+  <h2><span class="section-num">7.</span> Lookboard Export</h2>
+  <p>PullSheet allows you to export lookboard compositions as PDF documents. The following terms apply:</p>
+  <ul>
+    <li>PDFs are generated client-side and stored temporarily in secure cloud storage for download</li>
+    <li>Export files are available for download via your device's native share sheet</li>
+    <li>Multi-page lookbooks may include cover pages, tables of contents, and individual garment detail pages</li>
+    <li>Exported PDFs may include PullSheet branding (e.g., "Generated by PullSheet") on cover or footer pages</li>
+    <li>Export limits may apply based on your subscription tier when pricing tiers are active</li>
+  </ul>
+
+  <!-- ============================================================
+       SECTION 8: Content and Data Ownership
+       Clarifies that users own their content. Cooper Interactive
+       holds a limited license only for service delivery purposes.
+       License terminates on account or content deletion.
+       ============================================================ -->
+  <h2><span class="section-num">8.</span> Content and Data Ownership</h2>
+  <p>Your content belongs to you. The following terms clarify ownership and licensing:</p>
+  <ul>
+    <li>You retain full ownership of all content you create in PullSheet, including lookboard compositions, garment arrangements, and exported PDF documents</li>
+    <li>You retain full ownership of all garment photographs you upload or import into the Service</li>
+    <li>By using PullSheet, you grant Cooper Interactive a limited, non-exclusive license to store, process, and display your content solely for the purpose of delivering the Service to you and your authorized team members</li>
+    <li>This license terminates when you delete your account or remove the relevant content from the Service</li>
+  </ul>
+  <p>We do not claim ownership of your content. We will not use your content for marketing, training, or any purpose beyond delivering the Service to you.</p>
+
+  <!-- ============================================================
+       SECTION 9: Acceptable Use
+       Defines permitted and prohibited uses. Focuses on
+       professional wardrobe management as the intended use case.
+       ============================================================ -->
+  <h2><span class="section-num">9.</span> Acceptable Use</h2>
+  <p>You agree to use PullSheet for professional wardrobe management purposes and in compliance with these Terms. You agree not to:</p>
+  <ul>
+    <li>Use the Service to process, store, or distribute content that is illegal, harmful, or infringing on the rights of others</li>
+    <li>Attempt to reverse-engineer, decompile, or disassemble the AI background removal processing or any other component of the Service</li>
+    <li>Share your account credentials with unauthorized individuals</li>
+    <li>Exceed posted rate limits or attempt to circumvent usage limits through automated means or multiple accounts</li>
+    <li>Use the Service to store or transmit malicious code, viruses, or harmful data</li>
+    <li>Resell access to the Service without written authorization from Cooper Interactive</li>
+  </ul>
+
+  <!-- ============================================================
+       SECTION 10: Intellectual Property
+       Trademark protections for PullSheet, THREADLINE, Cooper
+       Interactive, and the PULLSHEET split-color wordmark.
+       ============================================================ -->
+  <h2><span class="section-num">10.</span> Intellectual Property</h2>
+  <p>The Service, including its design, features, code, brand elements, and documentation, is owned by Cooper Interactive and protected by copyright, trademark, and other intellectual property laws.</p>
+  <p>The following are trademarks of Cooper Interactive:</p>
+  <ul>
+    <li>PullSheet</li>
+    <li>THREADLINE</li>
+    <li>Cooper Interactive</li>
+    <li>Associated logos, icons, and brand elements</li>
+    <li>The PULLSHEET wordmark, including the split-color treatment (<span style="color:var(--near-black);font-weight:500;">PULL</span><span style="color:var(--brown-gold);font-weight:500;">SHEET</span>)</li>
+  </ul>
+  <p>You may not use our trademarks, brand features, or other proprietary elements without prior written consent from Cooper Interactive.</p>
+
+  <!-- ============================================================
+       SECTION 11: Team Access
+       Production membership model inherited from THREADLINE.
+       Covers team visibility, supervisor workflows, and
+       responsibility for managing access.
+       ============================================================ -->
+  <h2><span class="section-num">11.</span> Team Access</h2>
+  <p>PullSheet inherits its team and production membership model from THREADLINE. The following terms apply:</p>
+  <ul>
+    <li>Production membership determines who can access lookboards within a given production</li>
+    <li>Team members can view and collaborate on lookboards within their assigned production</li>
+    <li>Supervisor approval workflows (when available) follow the production role hierarchy established in THREADLINE</li>
+    <li>You are responsible for managing team access within your production and ensuring team members comply with these Terms</li>
+  </ul>
+
+  <!-- ============================================================
+       SECTION 12: Limitation of Liability
+       Standard "as is" disclaimer and liability cap.
+       Maximum liability limited to fees paid in prior 12 months.
+       ============================================================ -->
+  <h2><span class="section-num">12.</span> Limitation of Liability</h2>
+  <p>THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.</p>
+  <p>Cooper Interactive makes no warranty regarding the quality or accuracy of AI background removal processing or any other automated feature of the Service.</p>
+  <p>IN NO EVENT SHALL COOPER INTERACTIVE BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS, REVENUE, DATA, OR USE, ARISING OUT OF OR RELATED TO YOUR USE OF THE SERVICE.</p>
+  <p>OUR TOTAL LIABILITY TO YOU FOR ALL CLAIMS ARISING FROM OR RELATED TO THE SERVICE SHALL NOT EXCEED THE TOTAL AMOUNT YOU PAID TO US IN THE TWELVE (12) MONTHS PRECEDING THE CLAIM.</p>
+
+  <!-- ============================================================
+       SECTION 13: Indemnification
+       User agrees to hold Cooper Interactive harmless against
+       claims arising from their use of the Service.
+       ============================================================ -->
+  <h2><span class="section-num">13.</span> Indemnification</h2>
+  <p>You agree to indemnify, defend, and hold harmless Cooper Interactive and its officers, directors, employees, and agents from and against any claims, liabilities, damages, losses, and expenses (including reasonable attorney's fees) arising out of or related to your use of the Service, your violation of these Terms, or your infringement of any third-party rights.</p>
+
+  <!-- ============================================================
+       SECTION 14: Dispute Resolution
+       California governing law, binding arbitration, class action
+       waiver, and small claims court exception.
+       ============================================================ -->
+  <h2><span class="section-num">14.</span> Dispute Resolution</h2>
+  <p>These Terms shall be governed by and construed in accordance with the laws of the State of California, without regard to conflict of law principles.</p>
+  <p>Any disputes arising from or relating to these Terms or the Service shall be resolved through binding arbitration in accordance with the rules of the American Arbitration Association, conducted in the State of California.</p>
+  <p>You agree to waive your right to participate in class action lawsuits or class-wide arbitration proceedings against Cooper Interactive.</p>
+  <p>Notwithstanding the foregoing, either party may bring individual claims in small claims court if the claims qualify, and either party may seek injunctive relief in any court of competent jurisdiction for claims involving intellectual property or unauthorized access.</p>
+
+  <!-- ============================================================
+       SECTION 15: Modifications
+       30 days' notice for changes. Continued use = acceptance.
+       Material changes communicated via email.
+       ============================================================ -->
+  <h2><span class="section-num">15.</span> Modifications</h2>
+  <p>We may modify these Terms at any time. We will provide at least 30 days' notice before changes take effect by posting the updated Terms within the app and on our website.</p>
+  <p>For material changes, we will also notify you via the email address associated with your account.</p>
+  <p>Your continued use of the Service after the updated Terms take effect constitutes your acceptance of the changes. If you do not agree to the updated Terms, you must stop using the Service and cancel your subscription.</p>
+
+  <!-- ============================================================
+       SECTION 16: Contact
+       Contact information for legal inquiries and general support.
+       Displayed in a styled contact block with left border accent.
+       ============================================================ -->
+  <h2><span class="section-num">16.</span> Contact</h2>
+  <p>If you have questions about these Terms, contact us at:</p>
+  <div class="contact-block">
+    <p><strong>Cooper Interactive</strong></p>
+    <p>Email: <a href="mailto:hello@pullsheetapp.io">hello@pullsheetapp.io</a></p>
+    <p>Website: <a href="https://cooperinteractive.com">cooperinteractive.com</a></p>
+  </div>
+
+</div>
+
+<!-- ============================================================
+     FOOTER
+     Centered "Made with care" link to Cooper Interactive.
+     Top border provides visual separation from document body.
+     ============================================================ -->
+<div class="footer">
+  <a href="https://cooperinteractive.com">Made with care</a>
+</div>
+
+</body>
+</html>

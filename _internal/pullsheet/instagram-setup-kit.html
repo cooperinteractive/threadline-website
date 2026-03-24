@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PullSheet -- Instagram Profile Setup Kit</title>
+
+<!-- ============================================================
+     PULLSHEET INSTAGRAM SETUP KIT
+     Self-contained internal page with everything needed to create
+     the @pullsheet_app Instagram business profile.
+
+     STRUCTURE:
+     - Sticky nav: PULL/SHEET wordmark, back link, section anchors
+     - Account Information: username, display name, category, etc.
+     - Bio & Copy: three bio options, display name, first caption, hashtags
+     - Profile Picture: 640x640 canvas with PS monogram, download buttons
+     - Story Highlight Covers: 6 circular covers rendered on 400x400 canvas
+     - Recommended Settings: privacy, comments, content archiving, etc.
+     - Footer: Cooper Interactive credit
+
+     DEPENDENCIES:
+     - Google Fonts (Cormorant Garamond, Inter, JetBrains Mono)
+     - No other external dependencies; all CSS/JS is inline.
+
+     TO MODIFY:
+     - Bio text lives in #bio-a / #bio-b / #bio-c .field-value divs
+     - Hashtags live in #hashtags .field-value div
+     - Profile pic canvas is drawn by drawProfilePic()
+     - Highlight covers are drawn by drawHighlight(canvasId, label)
+     - Colors use CSS custom properties defined in :root
+     ============================================================ -->
+
+<!-- Google Fonts: Same three families as THREADLINE
+     Cormorant Garamond = serif headings (italic + regular, weights 300/400/600)
+     Inter = sans-serif body/UI (weights 200-600)
+     JetBrains Mono = monospace section labels (weights 300-500) -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Inter:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  /* ============================================================
+     CSS CUSTOM PROPERTIES
+     Brand color palette shared across all THREADLINE/PULLSHEET
+     internal pages. Warm neutral tones with accent colors.
+     ============================================================ */
+  :root {
+    --cream:#FAF8F5;--bone:#F5F0EB;--warm-gray:#E8E3DE;--sand:#D2C4B9;
+    --taupe:#B5A89C;--brown-gold:#8B6F52;--copper:#C4946A;--dark-brown:#5A4228;
+    --espresso:#3A2A18;--near-black:#1A1714;--void:#0A0A0A;
+    --water:#5A7E8A;--forest:#4A6741;--clay:#8A4A42;--dusty-blue:#627786;
+  }
+
+  /* ============================================================
+     RESET & BASE
+     Minimal reset. Body uses Inter as the default sans-serif.
+     Background is the warm cream tone from the brand palette.
+     ============================================================ */
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--near-black);}
+
+  /* ============================================================
+     STICKY NAVIGATION
+     Frosted-glass nav bar pinned to the top of the viewport.
+     Contains the PULL/SHEET wordmark, back link, and section anchors.
+     Uses backdrop-filter blur for the translucent effect.
+     ============================================================ */
+  .nav{position:sticky;top:0;z-index:100;background:rgba(250,248,245,0.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(26,23,20,0.06);padding:12px 48px;display:flex;align-items:center;gap:24px;}
+  .nav .brand{font-family:'Inter',sans-serif;font-weight:200;font-size:14px;letter-spacing:0.15em;text-transform:uppercase;}
+  /* The "SHEET" portion of the wordmark is brown-gold */
+  .nav .brand .sheet{color:var(--brown-gold);}
+  .nav a{font-size:11px;font-weight:500;color:var(--taupe);text-decoration:none;padding:4px 8px;border-radius:4px;transition:all 0.15s;}
+  .nav a:hover{color:var(--brown-gold);background:rgba(139,111,82,0.06);}
+  /* Back link is always highlighted in brown-gold */
+  .nav a.back{color:var(--brown-gold);}
+
+  /* ============================================================
+     CONTAINER
+     Centered content column, max 1000px wide with generous padding.
+     ============================================================ */
+  .container{max-width:1000px;margin:0 auto;padding:48px;}
+
+  /* ============================================================
+     PAGE TITLE
+     Large serif heading using Cormorant Garamond at weight 300.
+     Subtitle in taupe for secondary context.
+     ============================================================ */
+  .page-title{margin-bottom:48px;}
+  .page-title h1{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:36px;margin-bottom:4px;}
+  .page-title p{font-size:14px;color:var(--taupe);line-height:1.7;}
+
+  /* ============================================================
+     SECTIONS
+     Each content block separated by a subtle bottom border.
+     Last section drops the border. Section labels use JetBrains
+     Mono in uppercase with brown-gold color.
+     ============================================================ */
+  .section{margin-bottom:48px;padding-bottom:48px;border-bottom:1px solid rgba(26,23,20,0.06);}
+  .section:last-child{border-bottom:none;}
+  .section-label{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--brown-gold);margin-bottom:16px;}
+
+  /* ============================================================
+     COPY-PASTE FIELDS
+     White card with border, containing a label, the copyable text,
+     character count metadata, and a copy button on the right side.
+     ============================================================ */
+  .copy-field{background:white;border:1px solid var(--warm-gray);border-radius:8px;padding:16px 20px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;position:relative;}
+  .copy-field .field-label{font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--taupe);margin-bottom:6px;}
+  .copy-field .field-value{font-size:14px;line-height:1.6;color:var(--near-black);flex:1;white-space:pre-wrap;}
+  .copy-field .field-meta{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--taupe);margin-top:4px;}
+
+  /* Copy button: brown-gold background, turns green on success */
+  .copy-btn{background:var(--brown-gold);color:white;border:none;padding:6px 14px;font-size:10px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;border-radius:4px;cursor:pointer;flex-shrink:0;transition:all 0.15s;font-family:'Inter',sans-serif;}
+  .copy-btn:hover{background:var(--dark-brown);}
+  .copy-btn.copied{background:var(--forest);}
+
+  /* ============================================================
+     PROFILE PICTURE PREVIEW
+     Two-column grid: circular canvas preview on the left,
+     specs table on the right. Canvas is 640x640 for retina.
+     ============================================================ */
+  .profile-grid{display:grid;grid-template-columns:200px 1fr;gap:32px;align-items:start;}
+  .profile-pic-wrap{text-align:center;}
+  .profile-pic{width:180px;height:180px;border-radius:50%;overflow:hidden;margin:0 auto 12px;box-shadow:0 4px 16px rgba(26,23,20,0.1);position:relative;}
+  .profile-pic canvas{width:100%;height:100%;}
+
+  /* Download buttons: primary (filled) and secondary (outlined) */
+  .download-btn{display:inline-block;background:var(--brown-gold);color:white;border:none;padding:8px 20px;font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;border-radius:6px;cursor:pointer;transition:all 0.15s;font-family:'Inter',sans-serif;text-decoration:none;margin:4px;}
+  .download-btn:hover{background:var(--dark-brown);}
+  .download-btn.secondary{background:transparent;color:var(--brown-gold);border:1px solid var(--brown-gold);}
+  .download-btn.secondary:hover{background:rgba(139,111,82,0.06);}
+
+  /* ============================================================
+     STORY HIGHLIGHT COVERS
+     6-column grid of circular canvases. Each is 400x400 with
+     a gradient background and centered label text.
+     Hover scales the cover slightly for interactivity.
+     ============================================================ */
+  .highlights-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;margin-top:16px;}
+  .highlight-item{text-align:center;}
+  .highlight-cover{width:100%;aspect-ratio:1/1;border-radius:50%;overflow:hidden;margin-bottom:8px;position:relative;cursor:pointer;transition:transform 0.2s;box-shadow:0 2px 8px rgba(26,23,20,0.08);}
+  .highlight-cover:hover{transform:scale(1.05);}
+  .highlight-cover canvas{width:100%;height:100%;}
+  .highlight-label{font-size:10px;color:var(--taupe);}
+
+  /* ============================================================
+     INFO TABLE
+     Simple two-column table for structured data. Label column
+     is fixed-width, value column fills remaining space.
+     .rec class highlights recommended/important values in brown-gold.
+     ============================================================ */
+  .info-table{width:100%;}
+  .info-table tr td{padding:10px 0;border-bottom:1px solid rgba(26,23,20,0.06);font-size:13px;vertical-align:top;}
+  .info-table tr:last-child td{border-bottom:none;}
+  .info-table .label-cell{font-weight:500;color:var(--near-black);width:180px;}
+  .info-table .value-cell{color:var(--taupe);}
+  .info-table .rec{color:var(--brown-gold);font-weight:500;}
+
+  /* ============================================================
+     NOTE BOX
+     Callout box with brown-gold left border accent. Used for
+     tips, strategy notes, and important context.
+     ============================================================ */
+  .note-box{background:rgba(139,111,82,0.06);border-left:3px solid var(--brown-gold);border-radius:0 8px 8px 0;padding:16px 20px;font-size:13px;color:var(--near-black);line-height:1.7;margin-top:16px;}
+
+  /* ============================================================
+     FOOTER
+     Centered credit line with link to Cooper Interactive.
+     ============================================================ */
+  .footer{text-align:center;padding:32px;font-size:12px;color:var(--taupe);border-top:1px solid rgba(26,23,20,0.06);}
+  .footer a{color:var(--brown-gold);text-decoration:none;}
+
+  /* ============================================================
+     RESPONSIVE / MOBILE
+     Below 768px: single-column layout for profile grid and
+     highlight covers. Nav wraps to accommodate smaller screens.
+     ============================================================ */
+  @media (max-width: 768px) {
+    .nav{padding:12px 16px;flex-wrap:wrap;gap:8px 16px;}
+    .container{padding:24px 16px;}
+    .page-title h1{font-size:28px;}
+    .profile-grid{grid-template-columns:1fr;text-align:center;}
+    .highlights-grid{grid-template-columns:repeat(3,1fr);gap:12px;}
+    .info-table .label-cell{width:140px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     STICKY NAVIGATION BAR
+     PULL in near-black, SHEET in brown-gold (matching brand pattern).
+     Back link returns to the PullSheet command center index.
+     Section anchors provide quick jumps to each content block.
+     ============================================================ -->
+<nav class="nav">
+  <a href="index.html" class="brand" style="text-decoration:none;color:inherit;">PULL<span class="sheet">SHEET</span></a>
+  <a class="back" href="index.html">&larr; All Pages</a>
+  <a href="#profile">Profile</a>
+  <a href="#bio">Bio & Copy</a>
+  <a href="#picture">Profile Picture</a>
+  <a href="#highlights">Highlights</a>
+  <a href="#settings">Settings</a>
+</nav>
+
+<div class="container">
+
+<!-- ============================================================
+     PAGE TITLE
+     Serif heading with italic emphasis on "Setup Kit".
+     Subtitle describes the purpose of this page.
+     ============================================================ -->
+<div class="page-title">
+  <h1>Instagram Profile <em style="font-family:'Cormorant Garamond',serif;font-style:italic">Setup Kit</em></h1>
+  <p>Everything you need to create the @pullsheet_app Instagram profile -- copy-paste text, downloadable assets, and recommended settings.</p>
+</div>
+
+<!-- ============================================================
+     SECTION: ACCOUNT INFORMATION
+     Structured table with all the key profile fields needed to
+     set up the Instagram business account. Values marked with
+     .rec class are the recommended/exact values to use.
+     ============================================================ -->
+<div class="section" id="profile">
+  <div class="section-label">Account Information</div>
+
+  <table class="info-table">
+    <tr><td class="label-cell">Username</td><td class="value-cell rec">@pullsheet_app</td></tr>
+    <tr><td class="label-cell">Display Name</td><td class="value-cell rec">PullSheet</td></tr>
+    <tr><td class="label-cell">Account Type</td><td class="value-cell">Business Account</td></tr>
+    <tr><td class="label-cell">Category</td><td class="value-cell rec">Software > Productivity Software</td></tr>
+    <tr><td class="label-cell">Contact Email</td><td class="value-cell">hello@pullsheetapp.io <span style="font-size:11px;color:var(--taupe)">(or your preferred email)</span></td></tr>
+    <tr><td class="label-cell">Website</td><td class="value-cell rec">pullsheetapp.io <span style="font-size:11px;color:var(--taupe)">(once live)</span></td></tr>
+    <tr><td class="label-cell">Action Button</td><td class="value-cell">Learn More > pullsheetapp.io</td></tr>
+  </table>
+
+  <!-- Note box explaining why a business account is the right choice -->
+  <div class="note-box">
+    <strong>Why Business Account?</strong> Gives you access to post insights, reach analytics, contact buttons, and the ability to run ads later.
+  </div>
+</div>
+
+<!-- ============================================================
+     SECTION: BIO & COPY
+     Three bio options with copy buttons and character counts.
+     Also includes display name guidance, first post caption,
+     and a reusable hashtag set.
+     ============================================================ -->
+<div class="section" id="bio">
+  <div class="section-label">Bio & Copy -- Ready to Paste</div>
+
+  <!-- Bio Option A: Recommended, feature-rich with CTA -->
+  <div class="copy-field">
+    <div style="flex:1">
+      <div class="field-label">Bio -- Option A (Recommended)</div>
+      <div class="field-value" id="bio-a">See the look before the fitting.
+Visual lookbook builder for film & TV wardrobe.
+Drag. Cutout. Export.
+&#8595; Join the waitlist</div>
+      <div class="field-meta">~135 / 150 characters</div>
+    </div>
+    <button class="copy-btn" onclick="copyText('bio-a', this)">Copy</button>
+  </div>
+
+  <!-- Bio Option B: Short and clean, references Threadline -->
+  <div class="copy-field">
+    <div style="flex:1">
+      <div class="field-label">Bio -- Option B (Minimal)</div>
+      <div class="field-value" id="bio-b">Your wardrobe, visualized.
+Lookbook builder for film & TV.
+Companion to @threadline_app &#8595;</div>
+      <div class="field-meta">~90 / 150 characters</div>
+    </div>
+    <button class="copy-btn" onclick="copyText('bio-b', this)">Copy</button>
+  </div>
+
+  <!-- Bio Option C: Leads with features, mentions Threadline -->
+  <div class="copy-field">
+    <div style="flex:1">
+      <div class="field-label">Bio -- Option C (Feature-Forward)</div>
+      <div class="field-value" id="bio-c">Build looks. Remove backgrounds. Export lookbooks.
+The digital pull sheet for wardrobe professionals.
+Built on @threadline_app &#8595;</div>
+      <div class="field-meta">~125 / 150 characters</div>
+    </div>
+    <button class="copy-btn" onclick="copyText('bio-c', this)">Copy</button>
+  </div>
+
+  <!-- Display Name with capitalization guidance -->
+  <div class="copy-field">
+    <div style="flex:1">
+      <div class="field-label">Display Name</div>
+      <div class="field-value" id="display-name">PullSheet</div>
+      <div class="field-meta">Use PullSheet with capital P and S. Not "Pull Sheet" (two words) or "Pullsheet" (lowercase s).</div>
+    </div>
+    <button class="copy-btn" onclick="copyText('display-name', this)">Copy</button>
+  </div>
+
+  <!-- First Post Caption: launch announcement with hashtags -->
+  <div class="copy-field">
+    <div style="flex:1">
+      <div class="field-label">First Post Caption -- Launch Announcement</div>
+      <div class="field-value" id="caption-1">See the look before the fitting.
+
+We built PullSheet because wardrobe teams deserve better than phone photos taped to corkboards.
+
+Drag garments onto a canvas > arrange the look
+One tap > background removed
+Export > professional PDF lookbook
+
+Your wardrobe, visualized. Coming Summer 2026.
+
+Powered by your @threadline_app inventory.
+
+Link in bio for early access.
+
+#wardrobedepartment #filmproduction #costumedesign #lookbook #filmcrew #setlife #productionlife #pullsheet #costumesupervisor #filmtech</div>
+    </div>
+    <button class="copy-btn" onclick="copyText('caption-1', this)">Copy</button>
+  </div>
+
+  <!-- Reusable Hashtag Set: 20 hashtags to save for all posts -->
+  <div class="copy-field">
+    <div style="flex:1">
+      <div class="field-label">Hashtag Set -- Save for All Posts</div>
+      <div class="field-value" id="hashtags">#wardrobedepartment #filmproduction #costumedesign #lookbook #filmcrew #setlife #productionlife #pullsheet #costumesupervisor #filmtech #wardrobesupervisor #costumedepartment #filmprod #belowtheline #filmmaking #tvproduction #fashionfilm #digitalwardrobe #costumier #filmwardrobe</div>
+      <div class="field-meta">20 hashtags -- Instagram allows up to 30</div>
+    </div>
+    <button class="copy-btn" onclick="copyText('hashtags', this)">Copy</button>
+  </div>
+</div>
+
+<!-- ============================================================
+     SECTION: PROFILE PICTURE
+     640x640 canvas rendered with a diagonal gradient (dark-brown
+     to brown-gold to copper at 135 degrees) and a centered "PS"
+     monogram in white Inter font at weight 200.
+     Two download options: full 640px for retina and 320px for standard.
+     ============================================================ -->
+<div class="section" id="picture">
+  <div class="section-label">Profile Picture -- 640x640px (retina-ready)</div>
+
+  <div class="profile-grid">
+    <!-- Left column: circular canvas preview and download buttons -->
+    <div class="profile-pic-wrap">
+      <div class="profile-pic">
+        <canvas id="profile-canvas" width="640" height="640"></canvas>
+      </div>
+      <div style="margin-top:12px;display:flex;flex-direction:column;gap:6px;align-items:center">
+        <button class="download-btn" onclick="downloadCanvas('profile-canvas','pullsheet-profile-640.png')">Download 640px</button>
+        <button class="download-btn secondary" onclick="downloadCanvasResized('profile-canvas',320,'pullsheet-profile-320.png')">Download 320px</button>
+      </div>
+    </div>
+
+    <!-- Right column: specs table and design note -->
+    <div>
+      <table class="info-table">
+        <tr><td class="label-cell">Dimensions</td><td class="value-cell">320x320px minimum (we export at 640px for retina)</td></tr>
+        <tr><td class="label-cell">Shape</td><td class="value-cell">Displayed as circle -- key content centered</td></tr>
+        <tr><td class="label-cell">Design</td><td class="value-cell">Brown-gold gradient background (dark-brown to brown-gold to copper, 135 degrees) with "PS" monogram in white Inter weight 200</td></tr>
+        <tr><td class="label-cell">Format</td><td class="value-cell">PNG with solid background</td></tr>
+      </table>
+      <div class="note-box">The profile picture uses the "PS" monogram on the brand gradient. The ultra-light Inter weight 200 matches the refined, editorial feel of the PullSheet brand. Same gradient and typographic approach used across all PullSheet brand materials.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SECTION: STORY HIGHLIGHT COVERS
+     Six circular covers, each rendered on a 400x400 canvas with
+     a brown-gold gradient background (dark-brown to brown-gold)
+     and a centered white label in Inter weight 500.
+     Each cover has a save button for individual download.
+     ============================================================ -->
+<div class="section" id="highlights">
+  <div class="section-label">Story Highlight Covers -- 400x400px (displayed as circles)</div>
+
+  <p style="font-size:13px;color:var(--taupe);margin-bottom:16px;line-height:1.7">Six branded highlight covers. Each uses the brown-gold gradient background with a simple white label. Click any save button to download.</p>
+
+  <div class="highlights-grid">
+    <!-- Highlight 1: Lookboards - showcasing styled lookbook compositions -->
+    <div class="highlight-item">
+      <div class="highlight-cover"><canvas id="hl-looks" width="400" height="400"></canvas></div>
+      <div class="highlight-label">Lookboards</div>
+      <button class="download-btn secondary" style="font-size:9px;padding:4px 10px;margin-top:4px" onclick="downloadCanvas('hl-looks','highlight-looks.png')">Save</button>
+    </div>
+
+    <!-- Highlight 2: Talent - talent-focused wardrobe boards -->
+    <div class="highlight-item">
+      <div class="highlight-cover"><canvas id="hl-talent" width="400" height="400"></canvas></div>
+      <div class="highlight-label">Talent</div>
+      <button class="download-btn secondary" style="font-size:9px;padding:4px 10px;margin-top:4px" onclick="downloadCanvas('hl-talent','highlight-talent.png')">Save</button>
+    </div>
+
+    <!-- Highlight 3: Before/After - background removal transformations -->
+    <div class="highlight-item">
+      <div class="highlight-cover"><canvas id="hl-ba" width="400" height="400"></canvas></div>
+      <div class="highlight-label">Before/After</div>
+      <button class="download-btn secondary" style="font-size:9px;padding:4px 10px;margin-top:4px" onclick="downloadCanvas('hl-ba','highlight-before-after.png')">Save</button>
+    </div>
+
+    <!-- Highlight 4: Export - PDF export and sharing features -->
+    <div class="highlight-item">
+      <div class="highlight-cover"><canvas id="hl-export" width="400" height="400"></canvas></div>
+      <div class="highlight-label">Export</div>
+      <button class="download-btn secondary" style="font-size:9px;padding:4px 10px;margin-top:4px" onclick="downloadCanvas('hl-export','highlight-export.png')">Save</button>
+    </div>
+
+    <!-- Highlight 5: Tips - workflow tips for wardrobe professionals -->
+    <div class="highlight-item">
+      <div class="highlight-cover"><canvas id="hl-tips" width="400" height="400"></canvas></div>
+      <div class="highlight-label">Tips</div>
+      <button class="download-btn secondary" style="font-size:9px;padding:4px 10px;margin-top:4px" onclick="downloadCanvas('hl-tips','highlight-tips.png')">Save</button>
+    </div>
+
+    <!-- Highlight 6: BTS - behind the scenes of app development -->
+    <div class="highlight-item">
+      <div class="highlight-cover"><canvas id="hl-bts" width="400" height="400"></canvas></div>
+      <div class="highlight-label">BTS</div>
+      <button class="download-btn secondary" style="font-size:9px;padding:4px 10px;margin-top:4px" onclick="downloadCanvas('hl-bts','highlight-bts.png')">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SECTION: RECOMMENDED SETTINGS
+     Table of Instagram settings to configure on the business
+     account. Includes a strategy note box for launch week.
+     ============================================================ -->
+<div class="section" id="settings">
+  <div class="section-label">Recommended Settings</div>
+
+  <table class="info-table">
+    <tr><td class="label-cell">Account Privacy</td><td class="value-cell rec">Public</td></tr>
+    <tr><td class="label-cell">Contact Options</td><td class="value-cell">Show email button (hello@pullsheetapp.io)</td></tr>
+    <tr><td class="label-cell">Comments</td><td class="value-cell">Allow from everyone (early engagement matters)</td></tr>
+    <tr><td class="label-cell">Message Controls</td><td class="value-cell">Allow message requests from everyone</td></tr>
+    <tr><td class="label-cell">Tagging</td><td class="value-cell">Allow tags from everyone</td></tr>
+    <tr><td class="label-cell">Activity Status</td><td class="value-cell">Off (business accounts don't need this)</td></tr>
+    <tr><td class="label-cell">Cross-posting</td><td class="value-cell">Connect Facebook page when ready (shared content)</td></tr>
+    <tr><td class="label-cell">Reels Remix</td><td class="value-cell">Allow (increases reach)</td></tr>
+    <tr><td class="label-cell">Content Archiving</td><td class="value-cell">Auto-archive stories (reuse as highlights)</td></tr>
+    <tr><td class="label-cell">Content Visibility</td><td class="value-cell">Show content on Facebook and Threads (maximize distribution)</td></tr>
+  </table>
+
+  <!-- Strategy note for the first week after account creation -->
+  <div class="note-box">
+    <strong>First Week Strategy:</strong> Post the launch announcement, add your 6 highlight covers (even if empty -- they establish the grid), follow 50-100 wardrobe professionals, film crew accounts, and costume design hashtags. Cross-promote with @threadline_app. Engage authentically on posts from wardrobe departments and costume designers. Don't follow/unfollow spam.
+  </div>
+</div>
+
+</div><!-- end .container -->
+
+<!-- ============================================================
+     FOOTER
+     Simple credit line linking to Cooper Interactive.
+     ============================================================ -->
+<div class="footer">
+  <a href="https://cooperinteractive.com">Made with care</a>
+</div>
+
+<!-- ============================================================
+     JAVASCRIPT
+     Three categories of functionality:
+     1. Copy to clipboard (copyText)
+     2. Canvas rendering (drawProfilePic, drawHighlight)
+     3. Download helpers (downloadCanvas, downloadCanvasResized)
+     All canvas drawing waits for fonts to load via document.fonts.ready.
+     ============================================================ -->
+<script>
+// ============================================================
+// COPY TO CLIPBOARD
+// Reads the innerText of the target element and writes it to
+// the clipboard. The button text changes to "Copied!" with a
+// green background for 2 seconds as visual feedback.
+// ============================================================
+function copyText(id, btn) {
+  var el = document.getElementById(id);
+  var text = el.innerText || el.textContent;
+  navigator.clipboard.writeText(text).then(function() {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+// ============================================================
+// PROFILE PICTURE CANVAS (640x640)
+// Draws a 135-degree linear gradient from dark-brown through
+// brown-gold to copper, filling the full canvas. Then renders
+// the "PS" monogram centered in white using Inter weight 200
+// with generous letter spacing for an editorial feel.
+// ============================================================
+function drawProfilePic() {
+  var c = document.getElementById('profile-canvas');
+  var ctx = c.getContext('2d');
+  var w = c.width, h = c.height;
+
+  // 135-degree gradient: dark-brown -> brown-gold -> copper
+  // 135deg means top-left to bottom-right diagonal
+  var grad = ctx.createLinearGradient(0, 0, w, h);
+  grad.addColorStop(0, '#5A4228');   // dark-brown
+  grad.addColorStop(0.5, '#8B6F52'); // brown-gold
+  grad.addColorStop(1, '#C4946A');   // copper
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, w, h);
+
+  // "PS" monogram -- centered, white, ultra-light weight
+  // letterSpacing adds breathing room between the two letters
+  ctx.font = '200 220px Inter, sans-serif';
+  ctx.fillStyle = 'rgba(255,255,255,0.92)';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.letterSpacing = '20px';
+  // Offset x by half the letter spacing to visually center
+  ctx.fillText('PS', w / 2 + 10, h / 2);
+}
+
+// ============================================================
+// STORY HIGHLIGHT COVER CANVAS (400x400)
+// Draws a gradient circle background (dark-brown to brown-gold)
+// with a centered white label in Inter weight 500 uppercase.
+// The letter spacing gives each label a refined, spaced-out feel.
+// ============================================================
+function drawHighlight(canvasId, label) {
+  var c = document.getElementById(canvasId);
+  var ctx = c.getContext('2d');
+  var w = c.width, h = c.height;
+
+  // Diagonal gradient for the circular highlight cover
+  var grad = ctx.createLinearGradient(0, 0, w, h);
+  grad.addColorStop(0, '#5A4228');   // dark-brown
+  grad.addColorStop(1, '#8B6F52');   // brown-gold
+
+  // Draw as a filled circle (displayed circular via CSS border-radius)
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.arc(w / 2, h / 2, w / 2, 0, Math.PI * 2);
+  ctx.fill();
+
+  // White label text centered on the circle
+  ctx.font = '500 36px Inter, sans-serif';
+  ctx.fillStyle = 'rgba(255,255,255,0.85)';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.letterSpacing = '6px';
+  ctx.fillText(label, w / 2, h / 2);
+}
+
+// ============================================================
+// DOWNLOAD: FULL SIZE
+// Converts the canvas to a PNG data URL and triggers a download
+// with the specified filename.
+// ============================================================
+function downloadCanvas(canvasId, filename) {
+  var c = document.getElementById(canvasId);
+  var link = document.createElement('a');
+  link.download = filename;
+  link.href = c.toDataURL('image/png');
+  link.click();
+}
+
+// ============================================================
+// DOWNLOAD: RESIZED
+// Creates a temporary offscreen canvas at the target size,
+// draws the source canvas scaled down onto it, then triggers
+// a download. Used for the 320px profile picture variant.
+// ============================================================
+function downloadCanvasResized(canvasId, size, filename) {
+  var src = document.getElementById(canvasId);
+  var tmp = document.createElement('canvas');
+  tmp.width = size;
+  tmp.height = size;
+  var ctx = tmp.getContext('2d');
+  ctx.drawImage(src, 0, 0, size, size);
+  var link = document.createElement('a');
+  link.download = filename;
+  link.href = tmp.toDataURL('image/png');
+  link.click();
+}
+
+// ============================================================
+// INITIALIZATION
+// Wait for the page to load, then wait for Google Fonts to
+// finish loading (so Inter is available for canvas text),
+// then draw all canvases.
+// ============================================================
+window.addEventListener('load', function() {
+  document.fonts.ready.then(function() {
+    // Draw the main profile picture (PS monogram on gradient)
+    drawProfilePic();
+
+    // Draw all six story highlight covers with their labels
+    drawHighlight('hl-looks', 'LOOKS');
+    drawHighlight('hl-talent', 'TALENT');
+    drawHighlight('hl-ba', 'B/A');
+    drawHighlight('hl-export', 'EXPORT');
+    drawHighlight('hl-tips', 'TIPS');
+    drawHighlight('hl-bts', 'BTS');
+  });
+});
+</script>
+
+</body>
+</html>

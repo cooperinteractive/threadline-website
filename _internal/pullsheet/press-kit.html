@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PullSheet Press Kit / Media One-Pager</title>
+<meta name="description" content="PullSheet press kit and media one-pager. Visual lookbook builder for film and TV wardrobe departments.">
+
+<!-- ============================================================
+     PULLSHEET PRESS KIT / MEDIA ONE-PAGER
+     Self-contained HTML with inline CSS and Google Fonts.
+     Designed for journalists, bloggers, industry press, and
+     potential partners. Print-friendly layout.
+
+     STRUCTURE:
+     - Sticky nav with back link to PullSheet Command Center
+     - Masthead: PULL/SHEET wordmark, tagline, doc label
+     - At a Glance: two-column key facts grid
+     - Logo: wordmark display and PS monogram display
+     - About PullSheet: 100-word description
+     - Key Features: 2-column bullet grid (8 features)
+     - Target Audience: single paragraph
+     - Competitive Landscape: market context
+     - About Cooper Interactive: company boilerplate
+     - Contact: press info, social links
+     - Footer: "Made with care" credit
+
+     FONTS:
+     Cormorant Garamond = serif headings and taglines
+     Inter = sans-serif body text and UI labels
+     JetBrains Mono = monospace metadata, labels, and data
+
+     BRAND RULES:
+     - "PULL" renders in text color (--near-black)
+     - "SHEET" renders in brand accent (--brown-gold / #8B6F52)
+     - No em dashes anywhere in content
+     - "Talent" not "Characters" in all UI/copy references
+     - "wardrobe professional" not "wardrobe PA"
+     ============================================================ -->
+
+<!-- Google Fonts: three families matching THREADLINE design system -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════════════════════════════════
+   CSS CUSTOM PROPERTIES (Design Tokens)
+   Full palette shared with THREADLINE design system.
+   Single source of truth for all color values.
+   ═══════════════════════════════════════════════════════ */
+:root {
+  --cream:#FAF8F5;       /* Page background */
+  --bone:#F5F0EB;        /* Slightly darker cream, used for callout blocks */
+  --warm-gray:#E8E3DE;   /* Divider lines, subtle borders */
+  --sand:#D2C4B9;        /* Muted decorative elements */
+  --taupe:#B5A89C;       /* Secondary text, metadata labels */
+  --brown-gold:#8B6F52;  /* Primary brand accent */
+  --copper:#C4946A;      /* Warm highlight accent */
+  --dark-brown:#5A4228;  /* Deep accent for gradients */
+  --espresso:#3A2A18;    /* Rich dark brown */
+  --near-black:#1A1714;  /* Primary text color */
+  --void:#0A0A0A;        /* Deepest background */
+  --water:#5A7E8A;       /* Secondary accent (blue-teal) */
+  --forest:#4A6741;      /* Success / positive context */
+  --clay:#8A4A42;        /* Warning / attention context */
+  --dusty-blue:#627786;  /* Tertiary accent */
+
+  /* Font stacks */
+  --serif: 'Cormorant Garamond', 'Georgia', serif;
+  --body: 'Inter', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', 'Menlo', monospace;
+}
+
+/* ═══════════════════════════════════════════════════════
+   RESET & BASE STYLES
+   Minimal reset with antialiased rendering.
+   Body defaults to Inter sans-serif.
+   ═══════════════════════════════════════════════════════ */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--body);
+  background: var(--cream);
+  color: var(--near-black);
+  line-height: 1.7;
+}
+
+/* Text selection uses copper accent for brand consistency */
+::selection {
+  background: var(--copper);
+  color: white;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ═══════════════════════════════════════════════════════
+   STICKY NAVIGATION BAR
+   Frosted glass effect with backdrop-filter blur.
+   Contains PULLSHEET wordmark and back link.
+   Hidden when printing.
+   ═══════════════════════════════════════════════════════ */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(250, 248, 245, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(26, 23, 20, 0.06);
+  padding: 12px clamp(24px, 5vw, 48px);
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+/* PULL/SHEET wordmark in nav: PULL = text color, SHEET = brown-gold */
+.nav .brand {
+  font-family: var(--body);
+  font-weight: 200;
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.nav .brand .sheet {
+  color: var(--brown-gold);
+}
+
+/* Back link to PullSheet Command Center */
+.nav a.back {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--brown-gold);
+  text-decoration: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+.nav a.back:hover {
+  background: rgba(139, 111, 82, 0.06);
+}
+
+/* ═══════════════════════════════════════════════════════
+   PAGE WRAPPER
+   Centered content column with responsive padding.
+   Max width 820px for comfortable reading.
+   ═══════════════════════════════════════════════════════ */
+.page {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 5vw, 64px) 64px;
+}
+
+/* ═══════════════════════════════════════════════════════
+   MASTHEAD / HEADER
+   Centered layout with:
+   - Doc label (monospace, uppercase)
+   - PULLSHEET wordmark (large, two-tone)
+   - Product descriptor line
+   - Doc type subtitle
+   ═══════════════════════════════════════════════════════ */
+.masthead {
+  text-align: center;
+  padding: 48px 0 40px;
+  border-bottom: 1px solid rgba(26, 23, 20, 0.08);
+  margin-bottom: 48px;
+}
+
+/* Small monospace label above the wordmark */
+.doc-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  margin-bottom: 32px;
+}
+
+/* Two-tone wordmark: PULL in near-black, SHEET in brown-gold */
+.wordmark {
+  font-family: var(--body);
+  font-weight: 200;
+  font-size: clamp(40px, 6vw, 56px);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.wordmark .pull {
+  color: var(--near-black);
+}
+
+.wordmark .sheet {
+  color: var(--brown-gold);
+}
+
+/* Product descriptor beneath wordmark */
+.tagline {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 22px;
+  color: var(--brown-gold);
+  margin-top: 12px;
+}
+
+/* Doc type line (smaller, muted) */
+.one-liner {
+  font-family: var(--body);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--taupe);
+  margin-top: 16px;
+  letter-spacing: 0.01em;
+}
+
+/* ═══════════════════════════════════════════════════════
+   SECTION LABEL
+   Monospace uppercase label with extending horizontal rule.
+   Used to introduce each content section.
+   ═══════════════════════════════════════════════════════ */
+.section-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Extending horizontal rule after the label text */
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--warm-gray);
+}
+
+/* ═══════════════════════════════════════════════════════
+   CONTENT SECTIONS
+   Generic section wrapper with bottom spacing.
+   ═══════════════════════════════════════════════════════ */
+.section {
+  margin-bottom: 40px;
+}
+
+/* ═══════════════════════════════════════════════════════
+   KEY FACTS GRID (At a Glance)
+   Two-column grid with 1px gap borders between cells.
+   Each cell has a monospace label and a body-font value.
+   Rounded outer corners with overflow hidden.
+   ═══════════════════════════════════════════════════════ */
+.facts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: rgba(26, 23, 20, 0.06);
+  border: 1px solid rgba(26, 23, 20, 0.06);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Individual fact cell */
+.fact {
+  background: white;
+  padding: 20px 24px;
+}
+
+/* Monospace label for each fact (e.g., "PRODUCT", "CATEGORY") */
+.fact-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  margin-bottom: 4px;
+}
+
+/* Value text for each fact */
+.fact-value {
+  font-family: var(--body);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--near-black);
+  line-height: 1.5;
+}
+
+/* Secondary note text within a fact value */
+.fact-value .note {
+  font-weight: 400;
+  font-size: 12px;
+  color: var(--taupe);
+  display: block;
+  margin-top: 2px;
+}
+
+/* Links inside fact values get brand accent color */
+.fact-value a {
+  color: var(--brown-gold);
+  border-bottom: 1px solid rgba(139, 111, 82, 0.25);
+  transition: border-color 0.2s ease;
+}
+
+.fact-value a:hover {
+  border-bottom-color: var(--brown-gold);
+}
+
+/* ═══════════════════════════════════════════════════════
+   LOGO DISPLAY SECTION
+   Shows the PULLSHEET wordmark at display size and
+   the PS monogram at compact size.
+   White card with subtle border and rounded corners.
+   ═══════════════════════════════════════════════════════ */
+.logo-display {
+  background: white;
+  border: 1px solid rgba(26, 23, 20, 0.06);
+  border-radius: 12px;
+  padding: 48px 36px;
+  text-align: center;
+}
+
+/* Large wordmark display (bigger than masthead for logo showcase) */
+.logo-wordmark {
+  font-family: var(--body);
+  font-weight: 200;
+  font-size: clamp(36px, 5vw, 52px);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 40px;
+}
+
+.logo-wordmark .pull {
+  color: var(--near-black);
+}
+
+.logo-wordmark .sheet {
+  color: var(--brown-gold);
+}
+
+/* PS monogram display: rounded square with gradient background */
+.monogram-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+/* Individual monogram badge at different sizes for demonstration */
+.monogram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--dark-brown), var(--brown-gold));
+  color: white;
+  font-family: var(--body);
+  font-weight: 300;
+  letter-spacing: 0.05em;
+}
+
+.monogram.lg {
+  width: 64px;
+  height: 64px;
+  font-size: 24px;
+  border-radius: 14px;
+}
+
+.monogram.md {
+  width: 48px;
+  height: 48px;
+  font-size: 18px;
+  border-radius: 10px;
+}
+
+.monogram.sm {
+  width: 32px;
+  height: 32px;
+  font-size: 12px;
+  border-radius: 7px;
+}
+
+/* Usage note beneath logo displays */
+.logo-note {
+  font-family: var(--body);
+  font-size: 12px;
+  color: var(--taupe);
+  line-height: 1.7;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* ═══════════════════════════════════════════════════════
+   ABOUT BLOCK
+   Styled callout card for the 100-word product description.
+   Uses bone background for visual separation.
+   ═══════════════════════════════════════════════════════ */
+.about-block {
+  background: var(--bone);
+  border-radius: 12px;
+  padding: 32px 36px;
+}
+
+.about-block p {
+  font-family: var(--body);
+  font-size: 14px;
+  line-height: 1.85;
+  color: var(--near-black);
+}
+
+/* ═══════════════════════════════════════════════════════
+   FEATURES LIST
+   Two-column grid of feature cards.
+   Each card has a bold feature name and a muted description.
+   ═══════════════════════════════════════════════════════ */
+.features-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.features-list li {
+  background: white;
+  border: 1px solid rgba(26, 23, 20, 0.06);
+  border-radius: 10px;
+  padding: 20px 24px;
+}
+
+/* Feature title (bold, slightly larger than description) */
+.feature-name {
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.01em;
+  color: var(--near-black);
+  margin-bottom: 4px;
+}
+
+/* Feature description (muted, smaller) */
+.feature-desc {
+  font-family: var(--body);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--taupe);
+  line-height: 1.6;
+}
+
+/* ═══════════════════════════════════════════════════════
+   BODY TEXT BLOCKS
+   Used for Target Audience and Competitive Landscape
+   sections. Clean paragraph styling.
+   ═══════════════════════════════════════════════════════ */
+.body-text {
+  font-family: var(--body);
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--near-black);
+}
+
+.body-text strong {
+  font-weight: 600;
+}
+
+/* ═══════════════════════════════════════════════════════
+   COMPETITIVE LANDSCAPE CARD
+   White card for the competitive context block.
+   Slightly more structured than raw body text.
+   ═══════════════════════════════════════════════════════ */
+.landscape-block {
+  background: white;
+  border: 1px solid rgba(26, 23, 20, 0.06);
+  border-radius: 12px;
+  padding: 28px 32px;
+}
+
+.landscape-block p {
+  font-family: var(--body);
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--near-black);
+}
+
+/* ═══════════════════════════════════════════════════════
+   BOILERPLATE / COMPANY INFO BLOCK
+   Bone-colored callout for the Cooper Interactive blurb.
+   ═══════════════════════════════════════════════════════ */
+.boilerplate {
+  background: var(--bone);
+  border-radius: 12px;
+  padding: 28px 32px;
+}
+
+.boilerplate-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  margin-bottom: 10px;
+}
+
+.boilerplate p {
+  font-family: var(--body);
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--near-black);
+}
+
+/* ═══════════════════════════════════════════════════════
+   CONTACT GRID
+   Two-column grid of contact info cards.
+   Each card has a monospace label and a value.
+   ═══════════════════════════════════════════════════════ */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.contact-card {
+  background: white;
+  border: 1px solid rgba(26, 23, 20, 0.06);
+  border-radius: 10px;
+  padding: 20px 24px;
+}
+
+/* Monospace label for each contact item */
+.contact-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  margin-bottom: 6px;
+}
+
+/* Contact value with optional link styling */
+.contact-value {
+  font-family: var(--body);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--near-black);
+  line-height: 1.5;
+}
+
+.contact-value a {
+  color: var(--brown-gold);
+  border-bottom: 1px solid rgba(139, 111, 82, 0.25);
+  transition: border-color 0.2s ease;
+}
+
+.contact-value a:hover {
+  border-bottom-color: var(--brown-gold);
+}
+
+/* ═══════════════════════════════════════════════════════
+   VISUAL DIVIDER
+   Thin horizontal rule between major sections.
+   ═══════════════════════════════════════════════════════ */
+.divider {
+  height: 1px;
+  background: rgba(26, 23, 20, 0.06);
+  margin: 40px 0;
+}
+
+/* ═══════════════════════════════════════════════════════
+   FOOTER
+   Centered footer with "Made with care" link to
+   cooperinteractive.com.
+   ═══════════════════════════════════════════════════════ */
+.footer {
+  text-align: center;
+  padding: 32px;
+  font-size: 12px;
+  color: var(--taupe);
+  border-top: 1px solid rgba(26, 23, 20, 0.06);
+}
+
+.footer a {
+  color: var(--brown-gold);
+  text-decoration: none;
+}
+
+/* ═══════════════════════════════════════════════════════
+   PRINT STYLES
+   Clean printing: hide nav, force white background,
+   remove shadows, prevent section breaks mid-content.
+   ═══════════════════════════════════════════════════════ */
+@media print {
+  /* Hide sticky navigation bar */
+  .nav {
+    display: none;
+  }
+
+  /* White background for ink-friendly printing */
+  body {
+    background: white;
+  }
+
+  /* Remove max-width constraint for full page use */
+  .page {
+    max-width: 100%;
+    padding: 0 32px;
+  }
+
+  /* Reduce masthead top padding since nav is gone */
+  .masthead {
+    padding-top: 24px;
+  }
+
+  /* Prevent page breaks inside content sections */
+  .section {
+    break-inside: avoid;
+  }
+
+  /* Prevent breaks inside individual cards and blocks */
+  .fact,
+  .features-list li,
+  .contact-card,
+  .about-block,
+  .landscape-block,
+  .boilerplate,
+  .logo-display {
+    break-inside: avoid;
+  }
+
+  /* Remove all box shadows for clean print output */
+  * {
+    box-shadow: none !important;
+  }
+
+  /* Simplify footer for print */
+  .footer {
+    border-top: none;
+    padding-top: 24px;
+  }
+
+  /* Force black text for readability on white paper */
+  .about-block,
+  .boilerplate {
+    background: #f5f5f5;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE STYLES (Mobile)
+   Single column layouts below 640px viewport.
+   Tighter padding and smaller wordmark.
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+  /* Stack all grids to single column */
+  .features-list {
+    grid-template-columns: 1fr;
+  }
+
+  .facts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Reduce nav padding on mobile */
+  .nav {
+    padding: 12px 16px;
+    gap: 16px;
+  }
+
+  /* Smaller wordmark on mobile */
+  .wordmark {
+    font-size: 32px;
+    letter-spacing: 0.18em;
+  }
+
+  /* Smaller logo display on mobile */
+  .logo-wordmark {
+    font-size: 28px;
+    letter-spacing: 0.18em;
+  }
+
+  /* Tighter padding on mobile for about block */
+  .about-block,
+  .landscape-block,
+  .boilerplate {
+    padding: 24px 20px;
+  }
+
+  /* Tighter logo display padding */
+  .logo-display {
+    padding: 32px 20px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     STICKY NAVIGATION BAR
+     Frosted glass bar with PULLSHEET wordmark and
+     back link to the PullSheet Command Center index.
+     Hidden on print via @media print rules above.
+     ═══════════════════════════════════════════════════════ -->
+<nav class="nav">
+  <a href="index.html" class="brand" style="text-decoration:none;color:inherit;">PULL<span class="sheet">SHEET</span></a>
+  <a class="back" href="index.html">&larr; All Pages</a>
+</nav>
+
+<div class="page">
+
+  <!-- ═══════════════════════════════════════════════════
+       MASTHEAD
+       PULLSHEET wordmark with tagline and doc type.
+       Two-tone rendering: PULL in text color,
+       SHEET in brown-gold accent.
+       ═══════════════════════════════════════════════════ -->
+  <header class="masthead">
+    <div class="doc-label">Press Kit / Media One-Pager</div>
+    <div class="wordmark"><span class="pull">PULL</span><span class="sheet">SHEET</span></div>
+    <div class="tagline">Visual Lookbook Builder for Film &amp; TV</div>
+    <div class="one-liner">Press Kit / Media One-Pager</div>
+  </header>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       AT A GLANCE
+       Two-column grid of key product facts.
+       Quick-scan format for journalists and press.
+       11 facts covering product, category, pricing,
+       platform, and contact information.
+       ═══════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">At a Glance</div>
+    <div class="facts-grid">
+
+      <!-- Product name -->
+      <div class="fact">
+        <div class="fact-label">Product</div>
+        <div class="fact-value">PullSheet</div>
+      </div>
+
+      <!-- Product category for press classification -->
+      <div class="fact">
+        <div class="fact-label">Category</div>
+        <div class="fact-value">Wardrobe Technology / Production Tools</div>
+      </div>
+
+      <!-- Short product description -->
+      <div class="fact">
+        <div class="fact-label">Description</div>
+        <div class="fact-value">Visual lookbook builder for film and TV wardrobe departments</div>
+      </div>
+
+      <!-- Brand tagline -->
+      <div class="fact">
+        <div class="fact-label">Tagline</div>
+        <div class="fact-value" style="font-family:var(--serif);font-style:italic;font-weight:400;color:var(--brown-gold);">See the look before the fitting.</div>
+      </div>
+
+      <!-- Target launch window -->
+      <div class="fact">
+        <div class="fact-label">Launch</div>
+        <div class="fact-value">Summer 2026</div>
+      </div>
+
+      <!-- Pricing model during beta period -->
+      <div class="fact">
+        <div class="fact-label">Pricing</div>
+        <div class="fact-value">Free during beta
+          <span class="note">For THREADLINE subscribers</span>
+        </div>
+      </div>
+
+      <!-- Platform availability -->
+      <div class="fact">
+        <div class="fact-label">Platform</div>
+        <div class="fact-value">iOS (iPhone + iPad)
+          <span class="note">Desktop support planned</span>
+        </div>
+      </div>
+
+      <!-- Parent product relationship -->
+      <div class="fact">
+        <div class="fact-label">Parent Product</div>
+        <div class="fact-value">THREADLINE
+          <span class="note">Wardrobe inventory management</span>
+        </div>
+      </div>
+
+      <!-- Company name -->
+      <div class="fact">
+        <div class="fact-label">Company</div>
+        <div class="fact-value">Cooper Interactive</div>
+      </div>
+
+      <!-- Website URL -->
+      <div class="fact">
+        <div class="fact-label">Website</div>
+        <div class="fact-value"><a href="https://pullsheetapp.io">pullsheetapp.io</a></div>
+      </div>
+
+      <!-- Press contact email (spans full width as last item) -->
+      <div class="fact" style="grid-column: 1 / -1;">
+        <div class="fact-label">Contact</div>
+        <div class="fact-value"><a href="mailto:hello@pullsheetapp.io">hello@pullsheetapp.io</a></div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       LOGO
+       Display of the PULLSHEET wordmark at large size
+       and PS monogram at three sizes (lg, md, sm).
+       Includes usage note explaining color rules.
+       ═══════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">Logo</div>
+    <div class="logo-display">
+
+      <!-- Large wordmark display -->
+      <div class="logo-wordmark">
+        <span class="pull">PULL</span><span class="sheet">SHEET</span>
+      </div>
+
+      <!-- PS monogram at three sizes showing scalability -->
+      <div class="monogram-row">
+        <div class="monogram lg">PS</div>
+        <div class="monogram md">PS</div>
+        <div class="monogram sm">PS</div>
+      </div>
+
+      <!-- Usage guidance for press and partners -->
+      <div class="logo-note">
+        PULL in text color, SHEET in brand accent (#8B6F52). PS monogram for compact contexts.
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       ABOUT PULLSHEET
+       100-word product description for press use.
+       Covers core value proposition, key features,
+       THREADLINE integration, and intended audience.
+       ═══════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">About PullSheet</div>
+    <div class="about-block">
+      <p>
+        PullSheet is the visual lookbook builder for wardrobe teams in film and TV production. Drag garments from your inventory onto a freeform canvas, remove messy rack backgrounds with one-tap AI, and arrange outfits the way you think about them. Export single looks or multi-page lookbooks as print-ready PDFs, complete with cover pages, tables of contents, and garment details. Built on THREADLINE inventory data, PullSheet connects seamlessly to your existing wardrobe catalog. No re-scanning, no re-entering data. Filter by talent, scene, or episode. Hand the director a professional lookbook instead of a stack of Polaroids.
+      </p>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       KEY FEATURES
+       Two-column grid of the 8 core product features.
+       Each card has a bold name and a brief description.
+       ═══════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">Key Features</div>
+    <ul class="features-list">
+
+      <!-- Feature 1: Drag-and-drop canvas -->
+      <li>
+        <div class="feature-name">Drag-and-Drop Canvas</div>
+        <div class="feature-desc">Freeform canvas with resize, rotate, and layer controls. Arrange garments exactly how you envision the outfit.</div>
+      </li>
+
+      <!-- Feature 2: AI background removal -->
+      <li>
+        <div class="feature-name">AI Background Removal</div>
+        <div class="feature-desc">One tap removes messy rack backgrounds from garment photos. Powered by Clipdrop for clean, professional compositions.</div>
+      </li>
+
+      <!-- Feature 3: THREADLINE integration -->
+      <li>
+        <div class="feature-name">Connected to THREADLINE</div>
+        <div class="feature-desc">Pull garments directly from your THREADLINE inventory. Zero re-entry, zero duplicate scanning.</div>
+      </li>
+
+      <!-- Feature 4: PDF export -->
+      <li>
+        <div class="feature-name">PDF Export</div>
+        <div class="feature-desc">Export single looks or multi-page lookbooks as print-ready PDFs with cover pages, tables of contents, and garment details.</div>
+      </li>
+
+      <!-- Feature 5: Organization by talent, scene, episode -->
+      <li>
+        <div class="feature-name">Organized by Talent &amp; Scene</div>
+        <div class="feature-desc">Filter and sort by talent, scene, and episode. Find the right look instantly across an entire production.</div>
+      </li>
+
+      <!-- Feature 6: Team collaboration -->
+      <li>
+        <div class="feature-name">Team Collaboration</div>
+        <div class="feature-desc">Shared production access so the entire wardrobe team works from the same lookbooks. No version confusion.</div>
+      </li>
+
+      <!-- Feature 7: Auto-save with undo/redo -->
+      <li>
+        <div class="feature-name">Auto-Save with Undo/Redo</div>
+        <div class="feature-desc">Every change saved automatically. Full undo/redo history so you can experiment freely without losing work.</div>
+      </li>
+
+      <!-- Feature 8: iPad-first design -->
+      <li>
+        <div class="feature-name">iPad-First Design</div>
+        <div class="feature-desc">Built for iPad with a side-panel garment picker. Also works on iPhone (bottom sheet) and desktop (planned).</div>
+      </li>
+
+    </ul>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       TARGET AUDIENCE
+       Single paragraph identifying the core users.
+       ═══════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">Target Audience</div>
+    <div class="body-text">
+      Costume supervisors, set costumers, wardrobe shoppers, and assistant costume designers working in film and TV production.
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       COMPETITIVE LANDSCAPE
+       Market context: no direct competitor exists.
+       Mentions Dress Assistant as the closest alternative.
+       Describes current manual workflows PullSheet replaces.
+       ═══════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">Competitive Landscape</div>
+    <div class="landscape-block">
+      <p>
+        No production-grade visual lookbook builder exists in the market. Dress Assistant (<a href="https://dressassistant.com" style="color:var(--brown-gold);border-bottom:1px solid rgba(139,111,82,0.25);">dressassistant.com</a>) is the closest competitor but lacks production awareness, AI background removal, and PDF export. Current workflows rely on printed photos, physical corkboards, and manual assembly.
+      </p>
+    </div>
+  </div>
+
+
+  <div class="divider"></div>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       ABOUT COOPER INTERACTIVE
+       Company boilerplate describing Cooper Interactive
+       and its two flagship products.
+       ═══════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">Company</div>
+    <div class="boilerplate">
+      <div class="boilerplate-label">About Cooper Interactive</div>
+      <p>
+        Cooper Interactive builds production tools for the entertainment industry. The company's flagship products, THREADLINE and PullSheet, serve wardrobe departments in film and television. THREADLINE handles wardrobe inventory management (scanning, tracking, returns), while PullSheet handles visual presentation (lookbooks, pull sheets, outfit planning).
+      </p>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       CONTACT
+       Grid of contact cards with press email, website,
+       Instagram handle, and LinkedIn presence.
+       ═══════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">Contact</div>
+    <div class="contact-grid">
+
+      <!-- Press email -->
+      <div class="contact-card">
+        <div class="contact-label">Press</div>
+        <div class="contact-value"><a href="mailto:hello@pullsheetapp.io">hello@pullsheetapp.io</a></div>
+      </div>
+
+      <!-- Website URL -->
+      <div class="contact-card">
+        <div class="contact-label">Website</div>
+        <div class="contact-value"><a href="https://pullsheetapp.io">pullsheetapp.io</a></div>
+      </div>
+
+      <!-- Instagram handle -->
+      <div class="contact-card">
+        <div class="contact-label">Instagram</div>
+        <div class="contact-value"><a href="https://instagram.com/pullsheet_app">@pullsheet_app</a></div>
+      </div>
+
+      <!-- LinkedIn company page -->
+      <div class="contact-card">
+        <div class="contact-label">LinkedIn</div>
+        <div class="contact-value"><a href="https://linkedin.com/company/pullsheet">PullSheet</a></div>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- .page -->
+
+
+<!-- ═══════════════════════════════════════════════════════
+     FOOTER
+     "Made with care" credit linking to cooperinteractive.com.
+     Consistent with all THREADLINE and PullSheet pages.
+     ═══════════════════════════════════════════════════════ -->
+<div class="footer">
+  <a href="https://cooperinteractive.com">Made with care</a>
+</div>
+
+</body>
+</html>

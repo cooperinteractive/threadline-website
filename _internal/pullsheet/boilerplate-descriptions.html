@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boilerplate Descriptions -- PullSheet</title>
+
+  <!-- Google Fonts: Cormorant Garamond (display), Inter (body), JetBrains Mono (counts/code) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================================
+       CSS RESET & ROOT VARIABLES
+       Minimal reset followed by the PullSheet design token set.
+       ========================================================= */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #FAF8F5;
+      --accent: #8B6F52;
+      --accent-light: #A8936F;
+      --accent-hover: #7A6047;
+      --card-bg: #FFFFFF;
+      --text-primary: #1A1A1A;
+      --text-secondary: #5C5C5C;
+      --text-muted: #999999;
+      --border: #E8E4DF;
+      --border-light: #F0EDE9;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.03);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.05), 0 1px 4px rgba(0,0,0,0.03);
+      --shadow-lg: 0 8px 24px rgba(0,0,0,0.06), 0 2px 8px rgba(0,0,0,0.03);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --nav-height: 64px;
+    }
+
+    /* =========================================================
+       BASE STYLES
+       Page background, default typography, selection color.
+       ========================================================= */
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: calc(var(--nav-height) + 24px);
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.7;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    ::selection {
+      background: rgba(139, 111, 82, 0.15);
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    a:hover {
+      color: var(--accent-hover);
+    }
+
+    /* =========================================================
+       STICKY NAVIGATION
+       Frosted glass nav bar with wordmark, back link, and
+       anchor navigation for each description section.
+       ========================================================= */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--nav-height);
+      background: rgba(250, 248, 245, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      padding: 0 32px;
+      gap: 24px;
+    }
+
+    /* Wordmark: PULL in dark, SHEET in accent */
+    .nav-wordmark {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 18px;
+      letter-spacing: 0.5px;
+      flex-shrink: 0;
+      user-select: none;
+    }
+
+    .nav-wordmark .pull {
+      color: var(--text-primary);
+    }
+
+    .nav-wordmark .sheet {
+      color: var(--accent);
+    }
+
+    /* Back link to index */
+    .nav-back {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      transition: color 0.2s ease;
+    }
+
+    .nav-back:hover {
+      color: var(--accent);
+    }
+
+    /* Divider between back link and section links */
+    .nav-divider {
+      width: 1px;
+      height: 24px;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+
+    /* Scrollable section anchor links */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .nav-links::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-link {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--text-muted);
+      padding: 6px 12px;
+      border-radius: 20px;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .nav-link:hover {
+      color: var(--text-secondary);
+      background: rgba(139, 111, 82, 0.06);
+    }
+
+    /* Active nav link -- set via IntersectionObserver */
+    .nav-link.active {
+      color: var(--accent);
+      background: rgba(139, 111, 82, 0.08);
+      font-weight: 500;
+    }
+
+    /* =========================================================
+       PAGE HEADER
+       Title and subtitle introducing the page purpose.
+       ========================================================= */
+    .page-header {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 56px 32px 8px;
+    }
+
+    .page-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .page-subtitle {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* =========================================================
+       MAIN CONTENT AREA
+       Centered column that holds all description cards.
+       ========================================================= */
+    .content {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 32px 32px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    /* =========================================================
+       DESCRIPTION CARD
+       Each boilerplate description lives inside a white card
+       with rounded corners, subtle shadow, and a copy button.
+       ========================================================= */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      padding: 32px;
+      transition: box-shadow 0.25s ease;
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Card header: section number, title, subtitle, copy button */
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      gap: 16px;
+    }
+
+    .card-header-left {
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* Section number label (e.g. "01 /") */
+    .card-number {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--accent-light);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+
+    .card-subtitle {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-muted);
+    }
+
+    /* =========================================================
+       COPY BUTTON
+       Positioned in the card header. Changes text on click.
+       ========================================================= */
+    .copy-btn {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent);
+      background: rgba(139, 111, 82, 0.06);
+      border: 1px solid rgba(139, 111, 82, 0.12);
+      border-radius: 20px;
+      padding: 7px 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+
+    .copy-btn:hover {
+      background: rgba(139, 111, 82, 0.12);
+      border-color: rgba(139, 111, 82, 0.2);
+    }
+
+    .copy-btn.copied {
+      color: #4a8c6f;
+      background: rgba(74, 140, 111, 0.08);
+      border-color: rgba(74, 140, 111, 0.15);
+    }
+
+    /* =========================================================
+       DESCRIPTION TEXT
+       The actual boilerplate copy that gets copied on click.
+       ========================================================= */
+    .description-text {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--text-primary);
+      line-height: 1.8;
+      white-space: pre-wrap;
+    }
+
+    /* Paragraph spacing inside longer descriptions */
+    .description-text p {
+      margin-bottom: 16px;
+    }
+
+    .description-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* =========================================================
+       WORD / CHARACTER COUNTER
+       Displayed below each description in monospace.
+       ========================================================= */
+    .counter {
+      display: flex;
+      gap: 16px;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-light);
+    }
+
+    .counter-item {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--text-muted);
+      letter-spacing: 0.3px;
+    }
+
+    .counter-value {
+      color: var(--accent-light);
+      font-weight: 500;
+    }
+
+    /* =========================================================
+       SUB-CARDS (used for social media bios)
+       Nested cards with cream background inside the main card.
+       ========================================================= */
+    .sub-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sub-card {
+      background: var(--bg);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      padding: 20px 24px;
+    }
+
+    .sub-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      gap: 12px;
+    }
+
+    .sub-card-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: 0.3px;
+    }
+
+    .sub-card-limit {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 400;
+      color: var(--text-muted);
+      letter-spacing: 0.3px;
+      flex-shrink: 0;
+    }
+
+    .sub-card .description-text {
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .sub-card .copy-btn {
+      font-size: 11px;
+      padding: 5px 12px;
+      margin-top: 0;
+    }
+
+    .sub-card .counter {
+      margin-top: 12px;
+      padding-top: 12px;
+    }
+
+    /* =========================================================
+       APP STORE LISTING STYLES
+       Special formatting for the structured App Store block.
+       ========================================================= */
+    .appstore-section-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 24px;
+      margin-bottom: 8px;
+    }
+
+    .appstore-section-title:first-child {
+      margin-top: 0;
+    }
+
+    .description-text ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .description-text ul li {
+      position: relative;
+      padding-left: 20px;
+      margin-bottom: 6px;
+    }
+
+    .description-text ul li::before {
+      content: "\2022";
+      position: absolute;
+      left: 4px;
+      color: var(--accent-light);
+    }
+
+    /* =========================================================
+       TOAST NOTIFICATION
+       Fixed toast that slides up from the bottom on copy.
+       ========================================================= */
+    .toast {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--text-primary);
+      color: #FFFFFF;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      padding: 10px 24px;
+      border-radius: 24px;
+      box-shadow: var(--shadow-lg);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 200;
+    }
+
+    .toast.visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* =========================================================
+       FOOTER
+       Minimal centered footer with "Made with care" link.
+       ========================================================= */
+    footer {
+      text-align: center;
+      padding: 40px 32px 48px;
+      border-top: 1px solid var(--border-light);
+    }
+
+    footer a {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-muted);
+      transition: color 0.2s ease;
+    }
+
+    footer a:hover {
+      color: var(--accent);
+    }
+
+    /* =========================================================
+       RESPONSIVE BREAKPOINTS
+       Mobile-first adjustments for smaller screens.
+       ========================================================= */
+
+    /* Tablet and below */
+    @media (max-width: 768px) {
+      .nav {
+        padding: 0 16px;
+        gap: 12px;
+      }
+
+      .nav-divider {
+        display: none;
+      }
+
+      .nav-links {
+        gap: 4px;
+      }
+
+      .nav-link {
+        font-size: 11px;
+        padding: 5px 10px;
+      }
+
+      .page-header {
+        padding: 40px 20px 8px;
+      }
+
+      .page-title {
+        font-size: 28px;
+      }
+
+      .content {
+        padding: 24px 20px 64px;
+        gap: 24px;
+      }
+
+      .card {
+        padding: 24px 20px;
+      }
+
+      .card-title {
+        font-size: 20px;
+      }
+
+      .sub-card {
+        padding: 16px;
+      }
+    }
+
+    /* Small mobile */
+    @media (max-width: 480px) {
+      .nav {
+        padding: 0 12px;
+        gap: 8px;
+      }
+
+      .nav-wordmark {
+        font-size: 15px;
+      }
+
+      .nav-back {
+        font-size: 12px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .page-header {
+        padding: 32px 16px 4px;
+      }
+
+      .page-title {
+        font-size: 24px;
+      }
+
+      .page-subtitle {
+        font-size: 14px;
+      }
+
+      .content {
+        padding: 20px 16px 56px;
+        gap: 20px;
+      }
+
+      .card {
+        padding: 20px 16px;
+      }
+
+      .card-header {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .copy-btn {
+        align-self: flex-start;
+        margin-top: 0;
+      }
+
+      .counter {
+        flex-wrap: wrap;
+        gap: 8px 16px;
+      }
+
+      .sub-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================
+       STICKY NAVIGATION
+       Frosted glass nav with wordmark, back link, and section
+       anchors. IntersectionObserver highlights the active section.
+       ========================================================== -->
+  <nav class="nav">
+    <!-- Wordmark: PULL in dark, SHEET in accent -->
+    <div class="nav-wordmark">
+      <span class="pull">PULL</span><span class="sheet">SHEET</span>
+    </div>
+
+    <!-- Back link to PullSheet index -->
+    <a href="index.html" class="nav-back">&larr; All Pages</a>
+
+    <!-- Divider -->
+    <div class="nav-divider"></div>
+
+    <!-- Anchor links for each section -->
+    <div class="nav-links">
+      <a href="#one-liner" class="nav-link" data-section="one-liner">One-Liner</a>
+      <a href="#thirty-word" class="nav-link" data-section="thirty-word">30-Word</a>
+      <a href="#hundred-word" class="nav-link" data-section="hundred-word">100-Word</a>
+      <a href="#twofifty-word" class="nav-link" data-section="twofifty-word">250-Word</a>
+      <a href="#app-store" class="nav-link" data-section="app-store">App Store</a>
+      <a href="#elevator-pitch" class="nav-link" data-section="elevator-pitch">Elevator Pitch</a>
+      <a href="#press" class="nav-link" data-section="press">Press</a>
+      <a href="#social-bios" class="nav-link" data-section="social-bios">Social Bios</a>
+    </div>
+  </nav>
+
+  <!-- ==========================================================
+       PAGE HEADER
+       Introduces the purpose of this page.
+       ========================================================== -->
+  <header class="page-header">
+    <h1 class="page-title">Boilerplate Descriptions</h1>
+    <p class="page-subtitle">Copy-ready marketing descriptions for PullSheet, the visual lookbook builder.</p>
+  </header>
+
+  <!-- ==========================================================
+       MAIN CONTENT
+       All description cards, ordered from shortest to longest.
+       ========================================================== -->
+  <main class="content">
+
+    <!-- ========================================================
+         01 / ONE-LINER
+         The shortest description for social bios and quick mentions.
+         ======================================================== -->
+    <section class="card" id="one-liner">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-number">01 /</div>
+          <h2 class="card-title">One-Liner</h2>
+          <p class="card-subtitle">Social media bios, app store subtitle, quick mentions</p>
+        </div>
+        <button class="copy-btn" onclick="copyText('one-liner-text', this)">Copy</button>
+      </div>
+      <div class="description-text" id="one-liner-text">Visual wardrobe lookbook builder for film and TV production. See the look before the fitting.</div>
+      <div class="counter">
+        <span class="counter-item"><span class="counter-value" data-count="words" data-target="one-liner-text">--</span> words</span>
+        <span class="counter-item"><span class="counter-value" data-count="chars" data-target="one-liner-text">--</span> characters</span>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         02 / 30-WORD DESCRIPTION
+         Brief summary for directory listings and partner descriptions.
+         ======================================================== -->
+    <section class="card" id="thirty-word">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-number">02 /</div>
+          <h2 class="card-title">30-Word Description</h2>
+          <p class="card-subtitle">Directory listings, brief mentions, partner descriptions</p>
+        </div>
+        <button class="copy-btn" onclick="copyText('thirty-word-text', this)">Copy</button>
+      </div>
+      <div class="description-text" id="thirty-word-text">PullSheet turns your wardrobe inventory into presentation-ready lookbooks. Drag garments onto a canvas, remove backgrounds with one tap, and export professional PDF pull sheets.</div>
+      <div class="counter">
+        <span class="counter-item"><span class="counter-value" data-count="words" data-target="thirty-word-text">--</span> words</span>
+        <span class="counter-item"><span class="counter-value" data-count="chars" data-target="thirty-word-text">--</span> characters</span>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         03 / 100-WORD DESCRIPTION
+         Medium-length description for website about sections,
+         email signatures, and deck slides.
+         ======================================================== -->
+    <section class="card" id="hundred-word">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-number">03 /</div>
+          <h2 class="card-title">100-Word Description</h2>
+          <p class="card-subtitle">Website about sections, email signatures, deck slides</p>
+        </div>
+        <button class="copy-btn" onclick="copyText('hundred-word-text', this)">Copy</button>
+      </div>
+      <div class="description-text" id="hundred-word-text"><p>PullSheet is the visual lookbook builder for wardrobe teams in film and TV production. Drag garments from your inventory onto a freeform canvas, remove messy rack backgrounds with one-tap AI, and arrange outfits the way you think about them. Export single looks or multi-page lookbooks as print-ready PDFs, complete with cover pages, tables of contents, and garment details.</p>
+<p>Built on THREADLINE inventory data, PullSheet connects seamlessly to your existing wardrobe catalog. No re-scanning, no re-entering data. Filter by talent, scene, or episode. Hand the director a professional lookbook instead of a stack of Polaroids.</p></div>
+      <div class="counter">
+        <span class="counter-item"><span class="counter-value" data-count="words" data-target="hundred-word-text">--</span> words</span>
+        <span class="counter-item"><span class="counter-value" data-count="chars" data-target="hundred-word-text">--</span> characters</span>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         04 / 250-WORD DESCRIPTION
+         Full-length description for press releases, investor
+         materials, and partnership decks.
+         ======================================================== -->
+    <section class="card" id="twofifty-word">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-number">04 /</div>
+          <h2 class="card-title">250-Word Description</h2>
+          <p class="card-subtitle">Press releases, investor materials, partnership decks</p>
+        </div>
+        <button class="copy-btn" onclick="copyText('twofifty-word-text', this)">Copy</button>
+      </div>
+      <div class="description-text" id="twofifty-word-text"><p>PullSheet is the visual lookbook builder designed for wardrobe professionals in film and television production. It transforms the way costume supervisors, set costumers, and wardrobe shoppers present their work to directors, department heads, and talent.</p>
+<p>The app provides a freeform drag-and-drop canvas where garments can be arranged, resized, rotated, and layered into complete outfit compositions. Every garment photo can be cleaned up with one-tap AI background removal, turning phone photos taken on a crowded rack into catalog-quality cutouts.</p>
+<p>PullSheet connects directly to THREADLINE, the companion wardrobe inventory management app. Every garment you have catalogued in THREADLINE is immediately available in PullSheet. No duplicate data entry, no manual imports. The apps share the same database, the same login, and the same production context.</p>
+<p>Export options include single-look PDFs and multi-page lookbooks with cover pages, tables of contents, talent organization, and detailed garment lists with pricing. The result is a professional document you can hand to a director, email to a department head, or print for a fitting room wall.</p>
+<p>Lookboards are organized by talent, scene, and episode, making it easy to build continuity bibles and track wardrobe progression across a production. Auto-save ensures no work is lost, and an undo/redo system lets you experiment freely.</p>
+<p>PullSheet is built by Cooper Interactive and launches Summer 2026. It is available as a companion add-on to THREADLINE subscriptions.</p></div>
+      <div class="counter">
+        <span class="counter-item"><span class="counter-value" data-count="words" data-target="twofifty-word-text">--</span> words</span>
+        <span class="counter-item"><span class="counter-value" data-count="chars" data-target="twofifty-word-text">--</span> characters</span>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         05 / APP STORE LISTING
+         Full Apple App Store description including opening hook,
+         feature bullets, What's New, and keywords line.
+         4000 character maximum.
+         ======================================================== -->
+    <section class="card" id="app-store">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-number">05 /</div>
+          <h2 class="card-title">App Store Listing</h2>
+          <p class="card-subtitle">Apple App Store description (4000 char max)</p>
+        </div>
+        <button class="copy-btn" onclick="copyText('app-store-text', this)">Copy</button>
+      </div>
+      <div class="description-text" id="app-store-text"><p>Stop taping Polaroids to corkboards. PullSheet is the visual lookbook builder that helps wardrobe teams in film and TV create professional pull sheets in minutes, not hours.</p>
+
+<div class="appstore-section-title">What You Can Do</div>
+<ul>
+<li>Drag garments from your THREADLINE inventory onto a freeform canvas</li>
+<li>Remove messy rack backgrounds with one-tap AI cutout</li>
+<li>Arrange, resize, rotate, and layer garments into complete outfit compositions</li>
+<li>Build single-look boards or multi-page lookbooks for an entire production</li>
+<li>Export print-ready PDFs with cover pages, tables of contents, and garment details</li>
+<li>Organize lookboards by talent, scene, or episode</li>
+<li>Filter your wardrobe catalog by any field -- category, color, designer, size</li>
+<li>Auto-save keeps your work protected at all times</li>
+<li>Undo and redo freely while you experiment with looks</li>
+</ul>
+
+<div class="appstore-section-title">Built for Wardrobe Professionals</div>
+<p>PullSheet is purpose-built for costume supervisors, set costumers, wardrobe shoppers, and anyone who needs to present garment selections visually. Hand the director a polished lookbook instead of a spreadsheet. Email department heads a PDF they can actually review. Print boards for the fitting room wall.</p>
+
+<div class="appstore-section-title">Connected to THREADLINE</div>
+<p>PullSheet integrates directly with THREADLINE, the wardrobe inventory management app. Every garment you have scanned and catalogued is instantly available for lookbook building. Same database, same login, zero re-entry. Your inventory is always up to date.</p>
+
+<div class="appstore-section-title">Professional PDF Export</div>
+<p>Every lookbook exports as a formatted PDF document ready for printing or digital sharing. Include cover pages with production branding, automatic tables of contents, talent-organized sections, and detailed garment information including pricing and sourcing.</p>
+
+<div class="appstore-section-title">What's New</div>
+<p>Initial release -- Summer 2026. PullSheet is a companion add-on to THREADLINE subscriptions.</p>
+
+<div class="appstore-section-title">Keywords</div>
+<p>wardrobe, lookbook, pull sheet, costume design, film production, TV production, wardrobe management, outfit builder, garment catalog, background removal, PDF export, fashion, styling, costume supervisor, set costumer</p></div>
+      <div class="counter">
+        <span class="counter-item"><span class="counter-value" data-count="words" data-target="app-store-text">--</span> words</span>
+        <span class="counter-item"><span class="counter-value" data-count="chars" data-target="app-store-text">--</span> characters</span>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         06 / ELEVATOR PITCH
+         30-second verbal pitch for investor conversations
+         and quick in-person introductions.
+         ======================================================== -->
+    <section class="card" id="elevator-pitch">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-number">06 /</div>
+          <h2 class="card-title">Elevator Pitch</h2>
+          <p class="card-subtitle">30-second verbal pitch, investor conversations</p>
+        </div>
+        <button class="copy-btn" onclick="copyText('elevator-pitch-text', this)">Copy</button>
+      </div>
+      <div class="description-text" id="elevator-pitch-text">You know how wardrobe teams on film sets still tape Polaroids to corkboards and email spreadsheets to directors? PullSheet replaces that entire workflow. You drag garments from your digital inventory onto a canvas, the AI removes the backgrounds, and you export a professional lookbook PDF. The director sees exactly what you're thinking before the fitting. It connects to THREADLINE, our wardrobe inventory app, so there's zero re-entry. We're launching Summer 2026.</div>
+      <div class="counter">
+        <span class="counter-item"><span class="counter-value" data-count="words" data-target="elevator-pitch-text">--</span> words</span>
+        <span class="counter-item"><span class="counter-value" data-count="chars" data-target="elevator-pitch-text">--</span> characters</span>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         07 / PRESS BOILERPLATE
+         Standard press release boilerplate with company info.
+         ======================================================== -->
+    <section class="card" id="press">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-number">07 /</div>
+          <h2 class="card-title">Press Boilerplate</h2>
+          <p class="card-subtitle">Press releases, media inquiries</p>
+        </div>
+        <button class="copy-btn" onclick="copyText('press-text', this)">Copy</button>
+      </div>
+      <div class="description-text" id="press-text"><p><strong>About PullSheet</strong></p>
+<p>PullSheet is a visual wardrobe lookbook builder for film and television production, developed by Cooper Interactive. The app enables wardrobe professionals to create presentation-ready lookbooks by dragging garment photos onto a digital canvas, removing backgrounds with AI, and exporting formatted PDF pull sheets. PullSheet integrates with THREADLINE, Cooper Interactive's wardrobe inventory management platform, providing seamless access to catalogued garment data. PullSheet launches Summer 2026.</p>
+<p><strong>About Cooper Interactive</strong></p>
+<p>Cooper Interactive builds production tools for the entertainment industry. The company's flagship products, THREADLINE and PullSheet, serve wardrobe departments in film and television. For more information, visit cooperinteractive.com.</p></div>
+      <div class="counter">
+        <span class="counter-item"><span class="counter-value" data-count="words" data-target="press-text">--</span> words</span>
+        <span class="counter-item"><span class="counter-value" data-count="chars" data-target="press-text">--</span> characters</span>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         08 / SOCIAL MEDIA BIOS
+         Platform-specific bios with individual character limits.
+         Each platform gets its own sub-card with copy button.
+         ======================================================== -->
+    <section class="card" id="social-bios">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-number">08 /</div>
+          <h2 class="card-title">Social Media Bios</h2>
+          <p class="card-subtitle">Platform-specific bios with character limits</p>
+        </div>
+      </div>
+
+      <div class="sub-cards">
+
+        <!-- Instagram bio (150 char max) -->
+        <div class="sub-card">
+          <div class="sub-card-header">
+            <span class="sub-card-title">Instagram</span>
+            <span class="sub-card-limit">150 char max</span>
+            <button class="copy-btn" onclick="copyText('social-instagram', this)">Copy</button>
+          </div>
+          <div class="description-text" id="social-instagram">Visual lookbook builder for film &amp; TV wardrobe teams. Build looks. Remove backgrounds. Export PDFs. Companion to @threadline_app</div>
+          <div class="counter">
+            <span class="counter-item"><span class="counter-value" data-count="words" data-target="social-instagram">--</span> words</span>
+            <span class="counter-item"><span class="counter-value" data-count="chars" data-target="social-instagram">--</span> characters</span>
+          </div>
+        </div>
+
+        <!-- Twitter/X bio (160 char max) -->
+        <div class="sub-card">
+          <div class="sub-card-header">
+            <span class="sub-card-title">Twitter / X</span>
+            <span class="sub-card-limit">160 char max</span>
+            <button class="copy-btn" onclick="copyText('social-twitter', this)">Copy</button>
+          </div>
+          <div class="description-text" id="social-twitter">Visual lookbook builder for film &amp; TV wardrobe. Drag, cutout, export. Companion to @threadline_app. Coming Summer 2026.</div>
+          <div class="counter">
+            <span class="counter-item"><span class="counter-value" data-count="words" data-target="social-twitter">--</span> words</span>
+            <span class="counter-item"><span class="counter-value" data-count="chars" data-target="social-twitter">--</span> characters</span>
+          </div>
+        </div>
+
+        <!-- LinkedIn bio (2000 char max) -->
+        <div class="sub-card">
+          <div class="sub-card-header">
+            <span class="sub-card-title">LinkedIn</span>
+            <span class="sub-card-limit">2000 char max</span>
+            <button class="copy-btn" onclick="copyText('social-linkedin', this)">Copy</button>
+          </div>
+          <div class="description-text" id="social-linkedin">PullSheet is the visual lookbook builder for film and television wardrobe departments. Built by Cooper Interactive as a companion to THREADLINE, PullSheet transforms wardrobe inventory into presentation-ready lookbooks with drag-and-drop canvas editing, AI background removal, and professional PDF export.</div>
+          <div class="counter">
+            <span class="counter-item"><span class="counter-value" data-count="words" data-target="social-linkedin">--</span> words</span>
+            <span class="counter-item"><span class="counter-value" data-count="chars" data-target="social-linkedin">--</span> characters</span>
+          </div>
+        </div>
+
+        <!-- Facebook bio -->
+        <div class="sub-card">
+          <div class="sub-card-header">
+            <span class="sub-card-title">Facebook</span>
+            <span class="sub-card-limit">No strict limit</span>
+            <button class="copy-btn" onclick="copyText('social-facebook', this)">Copy</button>
+          </div>
+          <div class="description-text" id="social-facebook">Visual wardrobe lookbook builder for film and TV production. Turn your THREADLINE inventory into professional lookbooks. Coming Summer 2026.</div>
+          <div class="counter">
+            <span class="counter-item"><span class="counter-value" data-count="words" data-target="social-facebook">--</span> words</span>
+            <span class="counter-item"><span class="counter-value" data-count="chars" data-target="social-facebook">--</span> characters</span>
+          </div>
+        </div>
+
+      </div><!-- /.sub-cards -->
+    </section>
+
+  </main>
+
+  <!-- ==========================================================
+       FOOTER
+       Minimal footer with "Made with care" link.
+       ========================================================== -->
+  <footer>
+    <a href="https://cooperinteractive.com">Made with care</a>
+  </footer>
+
+  <!-- ==========================================================
+       TOAST NOTIFICATION
+       Fixed-position toast that appears briefly after copying.
+       ========================================================== -->
+  <div class="toast" id="toast">Copied to clipboard</div>
+
+  <!-- ==========================================================
+       JAVASCRIPT
+       - copyText(): copies description text to clipboard
+       - showToast(): displays the toast notification
+       - IntersectionObserver: highlights the active nav link
+       - DOMContentLoaded: initializes word/char counters
+       ========================================================== -->
+  <script>
+    /**
+     * copyText()
+     * Copies the innerText of the element with the given ID to the clipboard.
+     * Falls back to selecting the text if clipboard API is unavailable.
+     *
+     * @param {string} elementId - The ID of the element whose text to copy.
+     * @param {HTMLElement} buttonEl - The button element to update with feedback.
+     */
+    function copyText(elementId, buttonEl) {
+      var el = document.getElementById(elementId);
+      if (!el) return;
+
+      /* Grab the visible text content, trimmed of whitespace */
+      var text = el.innerText.trim();
+
+      navigator.clipboard.writeText(text).then(function() {
+        /* Success: update button text and show toast */
+        var originalText = buttonEl.textContent;
+        buttonEl.textContent = 'Copied';
+        buttonEl.classList.add('copied');
+        showToast('Copied to clipboard');
+        setTimeout(function() {
+          buttonEl.textContent = originalText;
+          buttonEl.classList.remove('copied');
+        }, 2000);
+      }).catch(function() {
+        /* Fallback: select the text so the user can Ctrl+C manually */
+        var range = document.createRange();
+        range.selectNodeContents(el);
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        showToast('Text selected -- press Ctrl+C to copy');
+      });
+    }
+
+    /**
+     * showToast()
+     * Displays a brief toast message at the bottom of the viewport.
+     *
+     * @param {string} message - The text to display in the toast.
+     */
+    function showToast(message) {
+      var toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('visible');
+      setTimeout(function() {
+        toast.classList.remove('visible');
+      }, 2000);
+    }
+
+    /**
+     * DOMContentLoaded initialization
+     * - Calculates and displays word/character counts for each description
+     * - Sets up IntersectionObserver for active nav link highlighting
+     */
+    document.addEventListener('DOMContentLoaded', function() {
+
+      /* --------------------------------------------------------
+         WORD & CHARACTER COUNTERS
+         Find every counter-value element, read its target
+         description element, and populate the count.
+         -------------------------------------------------------- */
+      var counters = document.querySelectorAll('.counter-value[data-count]');
+      counters.forEach(function(counter) {
+        var targetId = counter.getAttribute('data-target');
+        var countType = counter.getAttribute('data-count');
+        var targetEl = document.getElementById(targetId);
+        if (!targetEl) return;
+
+        var text = targetEl.innerText.trim();
+
+        if (countType === 'words') {
+          /* Split on whitespace, filter out empty strings */
+          var wordCount = text.split(/\s+/).filter(function(w) { return w.length > 0; }).length;
+          counter.textContent = wordCount;
+        } else if (countType === 'chars') {
+          counter.textContent = text.length;
+        }
+      });
+
+      /* --------------------------------------------------------
+         INTERSECTION OBSERVER FOR ACTIVE NAV HIGHLIGHTING
+         Observes each section card. When a section enters the
+         viewport, its corresponding nav link gets the "active"
+         class. The rootMargin accounts for the sticky nav height.
+         -------------------------------------------------------- */
+      var navLinks = document.querySelectorAll('.nav-link[data-section]');
+      var sections = document.querySelectorAll('.card[id]');
+
+      if (sections.length > 0 && navLinks.length > 0) {
+        var observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              /* Remove active class from all nav links */
+              navLinks.forEach(function(link) {
+                link.classList.remove('active');
+              });
+
+              /* Add active class to the matching nav link */
+              var activeLink = document.querySelector('.nav-link[data-section="' + entry.target.id + '"]');
+              if (activeLink) {
+                activeLink.classList.add('active');
+
+                /* Scroll the active nav link into view within the nav bar */
+                activeLink.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'nearest',
+                  inline: 'center'
+                });
+              }
+            }
+          });
+        }, {
+          /* Trigger when section crosses 20% into the viewport below the nav */
+          rootMargin: '-' + (parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-height')) + 24) + 'px 0px -60% 0px',
+          threshold: 0
+        });
+
+        sections.forEach(function(section) {
+          observer.observe(section);
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

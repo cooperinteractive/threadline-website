@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PullSheet -- Favicon Generator</title>
+
+<!-- ============================================================
+     PULLSHEET FAVICON GENERATOR
+     Self-contained HTML with inline CSS, JS, and Google Fonts.
+     Generates PS monogram favicons at all required sizes using
+     canvas rendering. Supports light and dark variants.
+
+     SIZES GENERATED:
+     16px  - Browser tab (classic)
+     32px  - Browser tab (retina)
+     48px  - Windows taskbar
+     180px - Apple touch icon
+     192px - Android home screen
+     512px - PWA splash / maskable icon
+
+     VARIANTS:
+     Light - Brown-gold gradient background, white PS text
+     Dark  - Near-black background, brown-gold PS text
+
+     TO MODIFY:
+     - Change monogram text in the renderFavicon() function
+     - Adjust gradient colors in the gradient stop definitions
+     - Font sizing ratios are in the fontSize calculation
+     ============================================================ -->
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  /* ============================================================
+     CSS CUSTOM PROPERTIES (Design Tokens)
+     ============================================================ */
+  :root {
+    --cream:#FAF8F5;
+    --bone:#F5F0EB;
+    --warm-gray:#E8E3DE;
+    --sand:#D2C4B9;
+    --taupe:#B5A89C;
+    --brown-gold:#8B6F52;
+    --copper:#C4946A;
+    --dark-brown:#5A4228;
+    --espresso:#3A2A18;
+    --near-black:#1A1714;
+    --void:#0A0A0A;
+    --water:#5A7E8A;
+    --forest:#4A6741;
+    --clay:#8A4A42;
+    --dusty-blue:#627786;
+  }
+
+  /* ============================================================
+     RESET & BASE
+     ============================================================ */
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'Inter',sans-serif;
+    background:var(--cream);
+    color:var(--near-black);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+
+  /* ============================================================
+     STICKY NAVIGATION
+     ============================================================ */
+  .sticky-nav {
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(250,248,245,0.92);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    border-bottom:1px solid rgba(26,23,20,0.06);
+    padding:12px 48px;
+    display:flex;
+    align-items:center;
+    gap:32px;
+  }
+  .sticky-nav .brand {
+    font-family:'Inter',sans-serif;
+    font-weight:200;
+    font-size:16px;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    text-decoration:none;
+    color:inherit;
+  }
+  .sticky-nav .brand .pull { color:var(--near-black); }
+  .sticky-nav .brand .sheet { color:var(--brown-gold); }
+  .sticky-nav a {
+    font-size:11px;
+    font-weight:500;
+    color:var(--taupe);
+    text-decoration:none;
+    letter-spacing:0.04em;
+    padding:4px 8px;
+    border-radius:4px;
+    transition:all 0.15s;
+  }
+  .sticky-nav a:hover,
+  .sticky-nav a.active {
+    color:var(--brown-gold);
+    background:rgba(139,111,82,0.06);
+  }
+
+  /* ============================================================
+     CONTAINER & SECTIONS
+     ============================================================ */
+  .container { max-width:1200px; margin:0 auto; padding:0 48px; }
+  .section {
+    padding:80px 0;
+    border-bottom:1px solid var(--warm-gray);
+  }
+  .section:last-of-type { border-bottom:none; }
+  .section-num {
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    margin-bottom:12px;
+  }
+  .section-title {
+    font-family:'Cormorant Garamond',serif;
+    font-weight:300;
+    font-size:36px;
+    line-height:1.2;
+    margin-bottom:8px;
+  }
+  .section-subtitle {
+    font-size:15px;
+    color:var(--taupe);
+    line-height:1.7;
+    max-width:640px;
+    margin-bottom:40px;
+  }
+
+  /* ============================================================
+     COVER
+     ============================================================ */
+  .cover {
+    background: linear-gradient(135deg, var(--dark-brown) 0%, var(--brown-gold) 40%, var(--copper) 100%);
+    min-height:50vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:80px 48px;
+    position:relative;
+    overflow:hidden;
+  }
+  .cover::before {
+    content:'';
+    position:absolute;
+    inset:0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.08) 0%, transparent 60%);
+  }
+  .cover .wordmark {
+    font-family:'Inter',sans-serif;
+    font-weight:200;
+    font-size:80px;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.92);
+    position:relative;
+    z-index:1;
+  }
+  .cover .wordmark .sheet { color:rgba(255,255,255,0.55); }
+  .cover .tagline {
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;
+    font-weight:300;
+    font-size:28px;
+    color:rgba(255,255,255,0.6);
+    margin-top:12px;
+    position:relative;
+    z-index:1;
+  }
+  .cover .divider-line {
+    width:60px;
+    height:1px;
+    background:linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    margin:24px auto 0;
+    position:relative;
+    z-index:1;
+  }
+  .cover .doc-title {
+    font-size:12px;
+    font-weight:500;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.35);
+    margin-top:48px;
+    position:relative;
+    z-index:1;
+  }
+
+  /* ============================================================
+     FAVICON GRID
+     Grid of favicon preview cards, one per size.
+     ============================================================ */
+  .fav-grid {
+    display:grid;
+    grid-template-columns:repeat(6, 1fr);
+    gap:24px;
+    margin-bottom:48px;
+  }
+  .fav-card {
+    border:1px solid var(--warm-gray);
+    border-radius:12px;
+    background:white;
+    overflow:hidden;
+    text-align:center;
+  }
+  .fav-preview {
+    padding:32px 16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:140px;
+    background:var(--bone);
+    position:relative;
+  }
+  /* Checkerboard pattern behind canvas to show transparency */
+  .fav-preview.checkerboard {
+    background:
+      repeating-conic-gradient(#e0ddd8 0% 25%, transparent 0% 50%) 0 0 / 16px 16px;
+  }
+  .fav-preview canvas {
+    border-radius:4px;
+    image-rendering:pixelated;
+  }
+  .fav-meta {
+    padding:16px;
+    border-top:1px solid var(--warm-gray);
+  }
+  .fav-size {
+    font-family:'JetBrains Mono',monospace;
+    font-size:14px;
+    font-weight:500;
+    color:var(--near-black);
+    margin-bottom:2px;
+  }
+  .fav-use {
+    font-size:11px;
+    color:var(--taupe);
+    margin-bottom:12px;
+    line-height:1.5;
+  }
+  .fav-download {
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:white;
+    background:var(--brown-gold);
+    border:none;
+    padding:6px 14px;
+    border-radius:6px;
+    cursor:pointer;
+    transition:all 0.15s;
+  }
+  .fav-download:hover {
+    background:var(--dark-brown);
+  }
+
+  /* ============================================================
+     VARIANT TABS
+     Toggle between light and dark favicon variants.
+     ============================================================ */
+  .variant-tabs {
+    display:flex;
+    gap:4px;
+    margin-bottom:32px;
+    background:var(--bone);
+    padding:4px;
+    border-radius:8px;
+    display:inline-flex;
+  }
+  .variant-tab {
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    padding:8px 20px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    transition:all 0.15s;
+    background:transparent;
+    color:var(--taupe);
+  }
+  .variant-tab.active {
+    background:white;
+    color:var(--near-black);
+    box-shadow:0 1px 3px rgba(0,0,0,0.08);
+  }
+
+  /* ============================================================
+     SVG SOURCE DISPLAY
+     Code block showing the SVG source for the monogram.
+     ============================================================ */
+  .svg-section {
+    margin-top:48px;
+  }
+  .svg-preview {
+    display:flex;
+    gap:32px;
+    align-items:flex-start;
+  }
+  .svg-display {
+    width:128px;
+    height:128px;
+    border-radius:16px;
+    overflow:hidden;
+    flex-shrink:0;
+    border:1px solid var(--warm-gray);
+  }
+  .svg-code-wrapper {
+    flex:1;
+  }
+  .svg-code-label {
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    margin-bottom:8px;
+  }
+  .code-block {
+    background:var(--void);
+    border-radius:8px;
+    padding:16px 20px;
+    overflow-x:auto;
+  }
+  .code-block pre {
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    line-height:1.7;
+    color:var(--bone);
+    white-space:pre;
+  }
+  .code-block .tag { color:var(--copper); }
+  .code-block .attr { color:var(--water); }
+  .code-block .val { color:var(--sand); }
+  .code-block .comment { color:var(--taupe); }
+
+  /* ============================================================
+     DOWNLOAD ALL BUTTON
+     ============================================================ */
+  .download-all {
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:'Inter',sans-serif;
+    font-weight:500;
+    font-size:14px;
+    color:white;
+    background:var(--brown-gold);
+    border:none;
+    padding:12px 28px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:all 0.15s;
+    margin-top:32px;
+  }
+  .download-all:hover {
+    background:var(--dark-brown);
+  }
+
+  /* ============================================================
+     IMPLEMENTATION GUIDE
+     Reference table for HTML link tags.
+     ============================================================ */
+  .impl-table {
+    width:100%;
+    border-collapse:collapse;
+    margin-top:24px;
+  }
+  .impl-table th {
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    text-align:left;
+    padding:8px 12px;
+    border-bottom:2px solid var(--warm-gray);
+  }
+  .impl-table td {
+    font-size:13px;
+    padding:10px 12px;
+    border-bottom:1px solid var(--warm-gray);
+    vertical-align:top;
+  }
+  .impl-table td code {
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    background:var(--bone);
+    padding:2px 6px;
+    border-radius:3px;
+    color:var(--dark-brown);
+  }
+
+  /* ============================================================
+     FOOTER
+     ============================================================ */
+  .footer{text-align:center;padding:32px;font-size:12px;color:var(--taupe);border-top:1px solid rgba(26,23,20,0.06);}
+  .footer a{color:var(--brown-gold);text-decoration:none;}
+
+  /* ============================================================
+     RESPONSIVE
+     ============================================================ */
+  @media (max-width:768px) {
+    .sticky-nav { padding:12px 20px; gap:16px; flex-wrap:wrap; }
+    .cover { padding:48px 20px; min-height:40vh; }
+    .cover .wordmark { font-size:36px; letter-spacing:0.2em; }
+    .cover .tagline { font-size:20px; }
+    .container { padding:0 20px; }
+    .section { padding:48px 0; }
+    .section-title { font-size:28px; }
+    .fav-grid { grid-template-columns:repeat(3, 1fr); }
+    .svg-preview { flex-direction:column; }
+    .footer { padding:24px 20px; }
+  }
+  @media (max-width:480px) {
+    .fav-grid { grid-template-columns:repeat(2, 1fr); }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- ============================================================
+     NAVIGATION
+     ============================================================ -->
+<nav class="sticky-nav">
+  <a href="index.html" class="brand" style="text-decoration:none;color:inherit;">PULL<span class="sheet">SHEET</span></a>
+  <a class="back" href="index.html">&larr; All Pages</a>
+  <a href="#favicons">Favicons</a>
+  <a href="#svg">SVG Source</a>
+  <a href="#implementation">Implementation</a>
+</nav>
+
+<!-- ============================================================
+     COVER
+     ============================================================ -->
+<div class="cover">
+  <div class="wordmark"><span class="pull">Pull</span><span class="sheet">Sheet</span></div>
+  <div class="tagline">PS monogram favicons at all required sizes</div>
+  <div class="divider-line"></div>
+  <div class="doc-title">Favicon Generator</div>
+</div>
+
+<div class="container">
+
+  <!-- ============================================================
+       SECTION 01: FAVICON PREVIEWS
+       Canvas-rendered favicons at all 6 sizes.
+       ============================================================ -->
+  <div class="section" id="favicons">
+    <div class="section-num">01 / Favicons</div>
+    <div class="section-title">Generated Favicons</div>
+    <div class="section-subtitle">
+      PS monogram rendered at each required size. Toggle between light (gradient)
+      and dark variants. Each favicon is generated via canvas and downloadable as PNG.
+    </div>
+
+    <!-- Variant toggle -->
+    <div class="variant-tabs">
+      <button class="variant-tab active" onclick="switchVariant('light', this)">Light</button>
+      <button class="variant-tab" onclick="switchVariant('dark', this)">Dark</button>
+    </div>
+
+    <!-- Favicon grid: 6 sizes -->
+    <div class="fav-grid" id="favicon-grid">
+
+      <div class="fav-card">
+        <div class="fav-preview checkerboard">
+          <canvas id="fav-16" width="16" height="16" style="width:48px;height:48px;"></canvas>
+        </div>
+        <div class="fav-meta">
+          <div class="fav-size">16 x 16</div>
+          <div class="fav-use">Browser tab (classic)</div>
+          <button class="fav-download" onclick="downloadFavicon(16)">Download</button>
+        </div>
+      </div>
+
+      <div class="fav-card">
+        <div class="fav-preview checkerboard">
+          <canvas id="fav-32" width="32" height="32" style="width:64px;height:64px;"></canvas>
+        </div>
+        <div class="fav-meta">
+          <div class="fav-size">32 x 32</div>
+          <div class="fav-use">Browser tab (retina)</div>
+          <button class="fav-download" onclick="downloadFavicon(32)">Download</button>
+        </div>
+      </div>
+
+      <div class="fav-card">
+        <div class="fav-preview checkerboard">
+          <canvas id="fav-48" width="48" height="48" style="width:72px;height:72px;"></canvas>
+        </div>
+        <div class="fav-meta">
+          <div class="fav-size">48 x 48</div>
+          <div class="fav-use">Windows taskbar</div>
+          <button class="fav-download" onclick="downloadFavicon(48)">Download</button>
+        </div>
+      </div>
+
+      <div class="fav-card">
+        <div class="fav-preview checkerboard">
+          <canvas id="fav-180" width="180" height="180" style="width:90px;height:90px;"></canvas>
+        </div>
+        <div class="fav-meta">
+          <div class="fav-size">180 x 180</div>
+          <div class="fav-use">Apple touch icon</div>
+          <button class="fav-download" onclick="downloadFavicon(180)">Download</button>
+        </div>
+      </div>
+
+      <div class="fav-card">
+        <div class="fav-preview checkerboard">
+          <canvas id="fav-192" width="192" height="192" style="width:96px;height:96px;"></canvas>
+        </div>
+        <div class="fav-meta">
+          <div class="fav-size">192 x 192</div>
+          <div class="fav-use">Android home screen</div>
+          <button class="fav-download" onclick="downloadFavicon(192)">Download</button>
+        </div>
+      </div>
+
+      <div class="fav-card">
+        <div class="fav-preview checkerboard">
+          <canvas id="fav-512" width="512" height="512" style="width:100px;height:100px;"></canvas>
+        </div>
+        <div class="fav-meta">
+          <div class="fav-size">512 x 512</div>
+          <div class="fav-use">PWA splash / maskable</div>
+          <button class="fav-download" onclick="downloadFavicon(512)">Download</button>
+        </div>
+      </div>
+
+    </div>
+
+    <button class="download-all" onclick="downloadAllFavicons()">Download All Sizes</button>
+  </div>
+
+  <!-- ============================================================
+       SECTION 02: SVG SOURCE
+       Displays the SVG monogram source code.
+       ============================================================ -->
+  <div class="section" id="svg">
+    <div class="section-num">02 / SVG Source</div>
+    <div class="section-title">SVG Monogram</div>
+    <div class="section-subtitle">
+      The PS monogram as scalable vector graphics. Use this SVG directly for
+      high-resolution contexts or as a favicon.svg in modern browsers.
+    </div>
+
+    <div class="svg-preview">
+      <!-- Live SVG render -->
+      <div class="svg-display" id="svg-live-preview">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="128" height="128">
+          <defs>
+            <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#5A4228"/>
+              <stop offset="50%" stop-color="#8B6F52"/>
+              <stop offset="100%" stop-color="#C4946A"/>
+            </linearGradient>
+          </defs>
+          <rect width="512" height="512" rx="64" fill="url(#bg-grad)"/>
+          <text x="256" y="300" text-anchor="middle" font-family="Inter, sans-serif" font-weight="300" font-size="220" fill="rgba(255,255,255,0.92)" letter-spacing="10">PS</text>
+        </svg>
+      </div>
+
+      <div class="svg-code-wrapper">
+        <div class="svg-code-label">SVG Source Code</div>
+        <div class="code-block">
+<pre><span class="tag">&lt;svg</span> <span class="attr">xmlns</span>=<span class="val">"http://www.w3.org/2000/svg"</span>
+     <span class="attr">viewBox</span>=<span class="val">"0 0 512 512"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;defs&gt;</span>
+    <span class="tag">&lt;linearGradient</span> <span class="attr">id</span>=<span class="val">"bg"</span>
+      <span class="attr">x1</span>=<span class="val">"0%"</span> <span class="attr">y1</span>=<span class="val">"0%"</span>
+      <span class="attr">x2</span>=<span class="val">"100%"</span> <span class="attr">y2</span>=<span class="val">"100%"</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;stop</span> <span class="attr">offset</span>=<span class="val">"0%"</span>
+        <span class="attr">stop-color</span>=<span class="val">"#5A4228"</span><span class="tag">/&gt;</span>
+      <span class="tag">&lt;stop</span> <span class="attr">offset</span>=<span class="val">"50%"</span>
+        <span class="attr">stop-color</span>=<span class="val">"#8B6F52"</span><span class="tag">/&gt;</span>
+      <span class="tag">&lt;stop</span> <span class="attr">offset</span>=<span class="val">"100%"</span>
+        <span class="attr">stop-color</span>=<span class="val">"#C4946A"</span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;/linearGradient&gt;</span>
+  <span class="tag">&lt;/defs&gt;</span>
+  <span class="comment">&lt;!-- Rounded rect background --&gt;</span>
+  <span class="tag">&lt;rect</span> <span class="attr">width</span>=<span class="val">"512"</span> <span class="attr">height</span>=<span class="val">"512"</span>
+    <span class="attr">rx</span>=<span class="val">"64"</span> <span class="attr">fill</span>=<span class="val">"url(#bg)"</span><span class="tag">/&gt;</span>
+  <span class="comment">&lt;!-- PS monogram --&gt;</span>
+  <span class="tag">&lt;text</span> <span class="attr">x</span>=<span class="val">"256"</span> <span class="attr">y</span>=<span class="val">"300"</span>
+    <span class="attr">text-anchor</span>=<span class="val">"middle"</span>
+    <span class="attr">font-family</span>=<span class="val">"Inter, sans-serif"</span>
+    <span class="attr">font-weight</span>=<span class="val">"300"</span>
+    <span class="attr">font-size</span>=<span class="val">"220"</span>
+    <span class="attr">fill</span>=<span class="val">"rgba(255,255,255,0.92)"</span>
+    <span class="attr">letter-spacing</span>=<span class="val">"10"</span><span class="tag">&gt;</span>PS<span class="tag">&lt;/text&gt;</span>
+<span class="tag">&lt;/svg&gt;</span></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SECTION 03: IMPLEMENTATION GUIDE
+       HTML link tags for adding favicons to a website.
+       ============================================================ -->
+  <div class="section" id="implementation">
+    <div class="section-num">03 / Implementation</div>
+    <div class="section-title">Implementation Guide</div>
+    <div class="section-subtitle">
+      Add these link tags to the &lt;head&gt; of pullsheetapp.io to register
+      all favicon sizes. Place the downloaded PNG files in the root directory.
+    </div>
+
+    <table class="impl-table">
+      <thead>
+        <tr>
+          <th>Size</th>
+          <th>Purpose</th>
+          <th>HTML Tag</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>favicon.svg</code></td>
+          <td>Modern browsers (scalable)</td>
+          <td><code>&lt;link rel="icon" type="image/svg+xml" href="/favicon.svg"&gt;</code></td>
+        </tr>
+        <tr>
+          <td><code>16x16</code></td>
+          <td>Classic browser tab</td>
+          <td><code>&lt;link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"&gt;</code></td>
+        </tr>
+        <tr>
+          <td><code>32x32</code></td>
+          <td>Retina browser tab</td>
+          <td><code>&lt;link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"&gt;</code></td>
+        </tr>
+        <tr>
+          <td><code>48x48</code></td>
+          <td>Windows taskbar shortcut</td>
+          <td><code>&lt;link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"&gt;</code></td>
+        </tr>
+        <tr>
+          <td><code>180x180</code></td>
+          <td>Apple touch icon (iOS)</td>
+          <td><code>&lt;link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"&gt;</code></td>
+        </tr>
+        <tr>
+          <td><code>192x192</code></td>
+          <td>Android home screen</td>
+          <td><code>&lt;link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192.png"&gt;</code></td>
+        </tr>
+        <tr>
+          <td><code>512x512</code></td>
+          <td>PWA manifest icon</td>
+          <td>Referenced in <code>manifest.json</code> under <code>"icons"</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top:32px;">
+      <div class="svg-code-label">manifest.json snippet</div>
+      <div class="code-block">
+<pre>{
+  <span class="attr">"icons"</span>: [
+    {
+      <span class="attr">"src"</span>: <span class="val">"/android-chrome-192.png"</span>,
+      <span class="attr">"sizes"</span>: <span class="val">"192x192"</span>,
+      <span class="attr">"type"</span>: <span class="val">"image/png"</span>
+    },
+    {
+      <span class="attr">"src"</span>: <span class="val">"/icon-512.png"</span>,
+      <span class="attr">"sizes"</span>: <span class="val">"512x512"</span>,
+      <span class="attr">"type"</span>: <span class="val">"image/png"</span>,
+      <span class="attr">"purpose"</span>: <span class="val">"any maskable"</span>
+    }
+  ]
+}</pre>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /.container -->
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<div class="footer">
+  <a href="https://cooperinteractive.com">Made with care</a>
+</div>
+
+<!-- ============================================================
+     FAVICON RENDERING SCRIPT
+     Renders the PS monogram on canvas at each size.
+
+     renderFavicon(size, variant):
+       - Creates a rounded-rect background with gradient (light) or solid (dark)
+       - Draws "PS" monogram centered with Inter font
+       - Handles sub-pixel rendering for small sizes (16, 32)
+
+     switchVariant(variant, tabEl):
+       - Toggles between light/dark and re-renders all canvases
+
+     downloadFavicon(size):
+       - Converts canvas to PNG data URL and triggers download
+
+     downloadAllFavicons():
+       - Downloads all 6 sizes sequentially
+     ============================================================ -->
+<script>
+  /* Current variant: 'light' or 'dark' */
+  var currentVariant = 'light';
+
+  /* All sizes to render */
+  var sizes = [16, 32, 48, 180, 192, 512];
+
+  /**
+   * renderFavicon(size, variant)
+   * Draws the PS monogram favicon on the canvas element for the given size.
+   *
+   * @param {number} size   - Canvas width/height in pixels
+   * @param {string} variant - 'light' (gradient bg) or 'dark' (solid bg)
+   */
+  function renderFavicon(size, variant) {
+    var canvas = document.getElementById('fav-' + size);
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+
+    // Clear canvas
+    ctx.clearRect(0, 0, size, size);
+
+    // Corner radius scales with size (12.5% of size, like iOS icons)
+    var radius = Math.round(size * 0.125);
+    if (size <= 32) radius = Math.round(size * 0.15);
+
+    // Draw rounded rectangle background
+    ctx.beginPath();
+    ctx.moveTo(radius, 0);
+    ctx.lineTo(size - radius, 0);
+    ctx.quadraticCurveTo(size, 0, size, radius);
+    ctx.lineTo(size, size - radius);
+    ctx.quadraticCurveTo(size, size, size - radius, size);
+    ctx.lineTo(radius, size);
+    ctx.quadraticCurveTo(0, size, 0, size - radius);
+    ctx.lineTo(0, radius);
+    ctx.quadraticCurveTo(0, 0, radius, 0);
+    ctx.closePath();
+
+    if (variant === 'light') {
+      // Gradient background: dark-brown -> brown-gold -> copper at 135deg
+      var grad = ctx.createLinearGradient(0, 0, size, size);
+      grad.addColorStop(0, '#5A4228');
+      grad.addColorStop(0.5, '#8B6F52');
+      grad.addColorStop(1, '#C4946A');
+      ctx.fillStyle = grad;
+    } else {
+      // Dark variant: solid near-black background
+      ctx.fillStyle = '#1A1714';
+    }
+    ctx.fill();
+
+    // Draw PS monogram text
+    // Font size is ~43% of canvas size for good proportions
+    var fontSize = Math.round(size * 0.43);
+    if (size <= 16) fontSize = Math.round(size * 0.5);
+    if (size <= 32) fontSize = Math.round(size * 0.47);
+
+    ctx.font = '300 ' + fontSize + 'px Inter, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    if (variant === 'light') {
+      ctx.fillStyle = 'rgba(255,255,255,0.92)';
+    } else {
+      // Dark variant: brown-gold text
+      ctx.fillStyle = '#8B6F52';
+    }
+
+    // Slight vertical offset to optically center (text sits slightly high)
+    var yOffset = size * 0.52;
+    ctx.fillText('PS', size / 2, yOffset);
+  }
+
+  /**
+   * switchVariant(variant, tabEl)
+   * Changes the active variant and re-renders all favicon canvases.
+   */
+  function switchVariant(variant, tabEl) {
+    currentVariant = variant;
+
+    // Update active tab styling
+    var tabs = document.querySelectorAll('.variant-tab');
+    tabs.forEach(function(tab) { tab.classList.remove('active'); });
+    tabEl.classList.add('active');
+
+    // Re-render all sizes
+    sizes.forEach(function(size) {
+      renderFavicon(size, variant);
+    });
+  }
+
+  /**
+   * downloadFavicon(size)
+   * Exports the canvas at the given size as a PNG and triggers download.
+   */
+  function downloadFavicon(size) {
+    var canvas = document.getElementById('fav-' + size);
+    if (!canvas) return;
+
+    var variantLabel = currentVariant === 'dark' ? '-dark' : '';
+    var link = document.createElement('a');
+    link.download = 'pullsheet-favicon-' + size + 'x' + size + variantLabel + '.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  }
+
+  /**
+   * downloadAllFavicons()
+   * Downloads all 6 favicon sizes with a slight delay between each
+   * to prevent browser download throttling.
+   */
+  function downloadAllFavicons() {
+    sizes.forEach(function(size, i) {
+      setTimeout(function() {
+        downloadFavicon(size);
+      }, i * 200);
+    });
+  }
+
+  /* ============================================================
+     INITIALIZATION
+     Wait for fonts to load before rendering, so the Inter font
+     is available for canvas text drawing.
+     ============================================================ */
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(function() {
+      sizes.forEach(function(size) {
+        renderFavicon(size, currentVariant);
+      });
+    });
+  } else {
+    // Fallback: render after a brief delay for font loading
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        sizes.forEach(function(size) {
+          renderFavicon(size, currentVariant);
+        });
+      }, 500);
+    });
+  }
+</script>
+
+</body>
+</html>

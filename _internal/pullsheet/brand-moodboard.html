@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PullSheet -- Brand Mood Board</title>
+
+<!-- ============================================================
+     PULLSHEET BRAND MOOD BOARD
+     Self-contained HTML with inline CSS and Google Fonts only.
+     Follows the established THREADLINE _internal pattern exactly.
+
+     SECTIONS:
+     00 - Cover (full-width gradient, oversized wordmark, tagline)
+     01 - Wordmark at Scale (PULLSHEET and PS monogram at 5 sizes)
+     02 - Color System (primary, secondary, supporting, status swatches)
+     03 - Keyword Cloud (brand vocabulary at varying sizes/weights)
+     04 - Canvas Editor UI Preview (CSS-only mockup of the editor)
+     05 - Typography Specimens (Cormorant Garamond, Inter, JetBrains Mono)
+     06 - Texture & Photography Samples (CSS textures, photo direction cards)
+     07 - Brand Voice Cards (Visual, Confident, Minimal)
+     08 - Footer (Cooper Interactive credit)
+
+     TO MODIFY:
+     - CSS custom properties in :root control all brand colors
+     - Section numbering uses .section-label class with monospace
+     - Color swatches use .color-grid with .color-swatch children
+     - Keyword cloud items use .keyword with size classes
+     - Canvas mockup uses .canvas-editor with panel sub-layouts
+     - Voice cards use .voice-grid with .voice-card children
+     ============================================================ -->
+
+<!-- Google Fonts: Three families shared with THREADLINE
+     Cormorant Garamond = serif headings, editorial, taglines
+     Inter = sans-serif body, UI, wordmark
+     JetBrains Mono = monospace data, labels, metadata -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  /* ============================================================
+     CSS CUSTOM PROPERTIES (Design Tokens)
+     Shared with THREADLINE. Single source of truth for all
+     colors in the PullSheet brand system.
+     To update a color globally, change it here only.
+     ============================================================ */
+  :root {
+    --cream:#FAF8F5;       /* Page background, canvas default */
+    --bone:#F5F0EB;        /* Slightly darker cream, text on dark */
+    --warm-gray:#E8E3DE;   /* Dividers, subtle borders */
+    --sand:#D2C4B9;        /* Muted decorative elements */
+    --taupe:#B5A89C;       /* Secondary text, metadata */
+    --brown-gold:#8B6F52;  /* Primary brand accent (SHEET color) */
+    --copper:#C4946A;      /* Brand accent (dark mode / highlights) */
+    --dark-brown:#5A4228;  /* Deep accent, gradient start */
+    --espresso:#3A2A18;    /* Deep warm brown */
+    --near-black:#1A1714;  /* Primary text color (PULL color) */
+    --void:#0A0A0A;        /* Near-black backgrounds */
+    --water:#5A7E8A;       /* Secondary accent (blue-teal) */
+    --forest:#4A6741;      /* Success / "Available" status */
+    --teal:#3A7D7B;        /* Info / "Pending" status */
+    --status-brown:#8B6F52;/* Neutral / "In Use" status */
+    --coral:#C4726A;       /* Alert / "Overdue" status */
+    --clay:#8A4A42;        /* Error / "don't" indicators */
+    --dusty-blue:#627786;  /* Tertiary accent */
+  }
+
+  /* ============================================================
+     RESET & BASE STYLES
+     Minimal reset. Body uses Inter as default sans-serif.
+     Cream background matches THREADLINE's light-mode-first approach.
+     overflow-x hidden prevents horizontal scroll from decorative elements.
+     ============================================================ */
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'Inter',-apple-system,sans-serif;
+    background:var(--cream);
+    color:var(--near-black);
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+
+  /* ============================================================
+     STICKY NAVIGATION BAR
+     Frosted glass effect with blur backdrop.
+     PULL/SHEET wordmark on left, section links follow.
+     Back link styled in brown-gold accent.
+     To add sections: add <a href="#section-id">Label</a> elements.
+     ============================================================ */
+  .sticky-nav {
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(250,248,245,0.92);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    border-bottom:1px solid rgba(26,23,20,0.06);
+    padding:12px 48px;
+    display:flex;
+    align-items:center;
+    gap:24px;
+    flex-wrap:wrap;
+  }
+
+  /* Wordmark in nav: PULL in near-black, SHEET in brown-gold */
+  .sticky-nav .brand {
+    font-family:'Inter',sans-serif;
+    font-weight:200;
+    font-size:14px;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    text-decoration:none;
+    color:inherit;
+  }
+  .sticky-nav .brand .pull { color:var(--near-black); }
+  .sticky-nav .brand .sheet { color:var(--brown-gold); }
+
+  /* Nav links: small caps, subtle hover state with accent tint */
+  .sticky-nav a {
+    font-size:11px;
+    font-weight:500;
+    color:var(--taupe);
+    text-decoration:none;
+    letter-spacing:0.04em;
+    padding:4px 8px;
+    border-radius:4px;
+    transition:all 0.15s;
+  }
+  .sticky-nav a:hover {
+    color:var(--brown-gold);
+    background:rgba(139,111,82,0.06);
+  }
+
+  /* Back arrow link uses brown-gold for emphasis */
+  .sticky-nav .back {
+    color:var(--brown-gold);
+    font-weight:500;
+  }
+
+  /* ============================================================
+     COVER SECTION
+     Full-width gradient background: dark-brown -> brown-gold -> copper.
+     Radial overlay adds subtle depth/light effect.
+     Wordmark: 120px+ Inter weight 200, SHEET at 0.55 opacity.
+     Tagline: italic Cormorant Garamond.
+     ============================================================ */
+  .cover {
+    background:linear-gradient(135deg, var(--dark-brown) 0%, var(--brown-gold) 40%, var(--copper) 100%);
+    min-height:65vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:100px 48px;
+    position:relative;
+    overflow:hidden;
+  }
+
+  /* Subtle radial light overlay for depth and atmosphere */
+  .cover::before {
+    content:'';
+    position:absolute;
+    inset:0;
+    background:radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.08) 0%, transparent 60%);
+  }
+
+  /* Large centered wordmark: PULL at full white, SHEET at 0.55 opacity */
+  .cover .wordmark {
+    font-family:'Inter',sans-serif;
+    font-weight:200;
+    font-size:128px;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.92);
+    position:relative;
+    z-index:1;
+    line-height:1;
+  }
+  .cover .wordmark .sheet { color:rgba(255,255,255,0.55); }
+
+  /* Tagline: italic Cormorant Garamond beneath the wordmark */
+  .cover .tagline {
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;
+    font-weight:300;
+    font-size:28px;
+    color:rgba(255,255,255,0.6);
+    margin-top:16px;
+    position:relative;
+    z-index:1;
+    letter-spacing:0.02em;
+  }
+
+  /* Thin gradient divider line below tagline */
+  .cover .divider-line {
+    width:60px;
+    height:1px;
+    background:linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    margin:24px auto 0;
+    position:relative;
+    z-index:1;
+  }
+
+  /* Document title label at bottom of cover */
+  .cover .doc-title {
+    font-size:12px;
+    font-weight:500;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.35);
+    margin-top:48px;
+    position:relative;
+    z-index:1;
+  }
+
+  /* ============================================================
+     CONTAINER
+     Max-width wrapper centered on page. Horizontal padding
+     collapses on mobile via media query below.
+     ============================================================ */
+  .container { max-width:1200px; margin:0 auto; padding:0 48px; }
+
+  /* ============================================================
+     SECTION LABEL
+     Monospace label with a rule line extending to fill the row.
+     Used above each content section (e.g. "01 / WORDMARK AT SCALE").
+     The ::after pseudo-element draws the horizontal rule.
+     ============================================================ */
+  .section-label {
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    font-weight:500;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    padding:0 48px;
+    margin-bottom:24px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .section-label::after {
+    content:'';
+    flex:1;
+    height:1px;
+    background:var(--warm-gray);
+  }
+
+  /* ============================================================
+     SECTION SPACING
+     Each major content section has top/bottom padding and a
+     bottom border for visual separation.
+     ============================================================ */
+  .section {
+    padding:80px 48px;
+    border-bottom:1px solid rgba(26,23,20,0.06);
+  }
+  .section:last-of-type { border-bottom:none; }
+
+  /* Section title: large serif heading */
+  .section-title {
+    font-family:'Cormorant Garamond',serif;
+    font-weight:300;
+    font-size:36px;
+    margin-bottom:8px;
+  }
+
+  /* Section subtitle: muted description text */
+  .section-sub {
+    font-size:14px;
+    color:var(--taupe);
+    margin-bottom:48px;
+    max-width:600px;
+    line-height:1.7;
+  }
+
+  /* ============================================================
+     WORDMARK SCALE SECTION
+     Displays the PULLSHEET wordmark at 5 decreasing sizes to
+     demonstrate legibility and presence at every scale.
+     Each row shows the full wordmark and the PS monogram.
+     ============================================================ */
+  .wordmark-scale {
+    display:flex;
+    flex-direction:column;
+    gap:40px;
+  }
+
+  /* Each scale row: wordmark on left, monogram on right */
+  .scale-row {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:24px;
+    padding-bottom:32px;
+    border-bottom:1px solid rgba(26,23,20,0.06);
+  }
+  .scale-row:last-child { border-bottom:none; padding-bottom:0; }
+
+  /* Wordmark text in scale rows: Inter extralight, uppercase */
+  .scale-row .wm {
+    font-family:'Inter',sans-serif;
+    font-weight:200;
+    text-transform:uppercase;
+    letter-spacing:0.2em;
+    line-height:1;
+  }
+  .scale-row .wm .pull { color:var(--near-black); }
+  .scale-row .wm .sheet { color:var(--brown-gold); }
+
+  /* PS monogram: same styling as wordmark but just the initials */
+  .scale-row .monogram {
+    font-family:'Inter',sans-serif;
+    font-weight:200;
+    text-transform:uppercase;
+    letter-spacing:0.15em;
+    line-height:1;
+    text-align:right;
+    white-space:nowrap;
+  }
+  .scale-row .monogram .p { color:var(--near-black); }
+  .scale-row .monogram .s { color:var(--brown-gold); }
+
+  /* Size label: small monospace annotation showing the px value */
+  .scale-row .size-label {
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    color:var(--taupe);
+    letter-spacing:0.05em;
+    white-space:nowrap;
+    min-width:60px;
+  }
+
+  /* ============================================================
+     COLOR SYSTEM SECTION
+     Grid of color swatches organized in rows by category:
+     Primary, Secondary, Supporting, Status.
+     Each swatch is a tall rectangle with color name, hex, and role.
+     ============================================================ */
+  .color-category-label {
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    font-weight:500;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    margin-bottom:12px;
+    margin-top:32px;
+  }
+  .color-category-label:first-of-type { margin-top:0; }
+
+  .color-grid {
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:0;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 2px 20px rgba(26,23,20,0.06);
+    margin-bottom:24px;
+  }
+
+  /* Single-column grid for the one "Secondary" color */
+  .color-grid.single {
+    grid-template-columns:1fr;
+    max-width:300px;
+  }
+
+  .color-swatch {
+    height:160px;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    padding:16px;
+    position:relative;
+    transition:transform 0.3s ease;
+  }
+  .color-swatch:hover {
+    transform:scale(1.02);
+    z-index:2;
+    box-shadow:0 8px 32px rgba(0,0,0,0.15);
+  }
+
+  /* Color swatch text: name, hex, and role label */
+  .color-swatch .name {
+    font-family:'Inter',sans-serif;
+    font-size:11px;
+    font-weight:500;
+    margin-bottom:2px;
+  }
+  .color-swatch .hex {
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    opacity:0.7;
+  }
+  .color-swatch .role {
+    font-size:9px;
+    opacity:0.5;
+    margin-top:4px;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+  }
+
+  /* ============================================================
+     KEYWORD CLOUD SECTION
+     Large-format brand vocabulary words at varying sizes,
+     weights, and opacities. Creates a visual hierarchy of
+     the brand's core concepts.
+     ============================================================ */
+  .keyword-cloud {
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:center;
+    gap:12px 24px;
+    max-width:900px;
+    margin:0 auto;
+    padding:40px 0;
+  }
+
+  /* Base keyword style: italic Cormorant Garamond, near-black */
+  .keyword {
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;
+    color:var(--near-black);
+    transition:opacity 0.2s;
+    cursor:default;
+  }
+  .keyword:hover { opacity:1 !important; }
+
+  /* Size variants for visual hierarchy in the cloud */
+  .keyword.xl { font-size:48px; font-weight:300; opacity:0.7; }
+  .keyword.lg { font-size:36px; font-weight:300; opacity:0.55; }
+  .keyword.md { font-size:24px; font-weight:400; opacity:0.45; }
+  .keyword.sm { font-size:16px; font-weight:400; opacity:0.35; }
+
+  /* Accent variant for THREADLINE keyword to show parent brand link */
+  .keyword.accent {
+    color:var(--brown-gold);
+    font-style:normal;
+    font-family:'Inter',sans-serif;
+    font-weight:200;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+  }
+
+  /* ============================================================
+     CANVAS EDITOR UI PREVIEW
+     CSS-only mockup of the PullSheet canvas editor interface.
+     Three-panel layout: left inventory, center canvas, right layers.
+     Top toolbar with export button.
+     All rendered with colored rectangles and simple shapes.
+     ============================================================ */
+  .canvas-editor {
+    background:white;
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 2px 20px rgba(26,23,20,0.06);
+    border:1px solid rgba(26,23,20,0.04);
+  }
+
+  /* Top toolbar: wordmark left, tools center, export button right */
+  .editor-toolbar {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:12px 20px;
+    border-bottom:1px solid rgba(26,23,20,0.08);
+    background:var(--cream);
+  }
+  .editor-toolbar .app-name {
+    font-family:'Inter',sans-serif;
+    font-weight:200;
+    font-size:14px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+  }
+  .editor-toolbar .app-name .pull { color:var(--near-black); }
+  .editor-toolbar .app-name .sheet { color:var(--brown-gold); }
+
+  /* Toolbar tool icons: small rounded rectangles simulating buttons */
+  .editor-toolbar .tools {
+    display:flex;
+    gap:8px;
+    align-items:center;
+  }
+  .tool-btn {
+    width:28px;
+    height:28px;
+    border-radius:6px;
+    background:var(--warm-gray);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'JetBrains Mono',monospace;
+    font-size:9px;
+    color:var(--taupe);
+    cursor:default;
+  }
+  .tool-btn.active {
+    background:rgba(139,111,82,0.12);
+    color:var(--brown-gold);
+  }
+
+  /* Export button: brown-gold background, white text */
+  .export-btn {
+    background:var(--brown-gold);
+    color:white;
+    border:none;
+    padding:8px 20px;
+    border-radius:8px;
+    font-family:'Inter',sans-serif;
+    font-size:12px;
+    font-weight:500;
+    letter-spacing:0.04em;
+    cursor:default;
+  }
+
+  /* Three-panel editor body layout */
+  .editor-body {
+    display:grid;
+    grid-template-columns:200px 1fr 180px;
+    min-height:420px;
+  }
+
+  /* Left sidebar: inventory panel with small garment thumbnails */
+  .inventory-panel {
+    background:var(--bone);
+    border-right:1px solid rgba(26,23,20,0.06);
+    padding:16px;
+    overflow-y:auto;
+  }
+  .inventory-panel .panel-title {
+    font-family:'JetBrains Mono',monospace;
+    font-size:9px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    margin-bottom:12px;
+  }
+
+  /* Search bar mockup at top of inventory */
+  .inventory-search {
+    background:white;
+    border:1px solid var(--warm-gray);
+    border-radius:6px;
+    padding:6px 10px;
+    font-size:11px;
+    color:var(--sand);
+    margin-bottom:12px;
+    width:100%;
+  }
+
+  /* Garment thumbnail grid: 2-up layout for small preview cards */
+  .garment-grid {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:6px;
+  }
+  .garment-thumb {
+    aspect-ratio:3/4;
+    border-radius:6px;
+    position:relative;
+    cursor:default;
+    transition:box-shadow 0.15s;
+  }
+  .garment-thumb:hover {
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+  }
+  .garment-thumb .item-label {
+    position:absolute;
+    bottom:4px;
+    left:4px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:7px;
+    color:white;
+    background:rgba(0,0,0,0.4);
+    padding:2px 4px;
+    border-radius:3px;
+    letter-spacing:0.04em;
+  }
+
+  /* Center canvas: freeform area where garments are arranged */
+  .canvas-area {
+    background:white;
+    position:relative;
+    /* Subtle grid pattern to simulate a design canvas */
+    background-image:
+      linear-gradient(rgba(26,23,20,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(26,23,20,0.03) 1px, transparent 1px);
+    background-size:20px 20px;
+  }
+
+  /* Garment shapes on the canvas: positioned absolutely to simulate freeform layout */
+  .canvas-item {
+    position:absolute;
+    border-radius:8px;
+    box-shadow:0 2px 12px rgba(0,0,0,0.08);
+    cursor:default;
+    transition:box-shadow 0.2s;
+  }
+  .canvas-item:hover {
+    box-shadow:0 4px 20px rgba(0,0,0,0.15);
+  }
+
+  /* Selected item indicator: brown-gold border */
+  .canvas-item.selected {
+    outline:2px solid var(--brown-gold);
+    outline-offset:3px;
+  }
+
+  /* Canvas title text in top-left corner */
+  .canvas-title {
+    position:absolute;
+    top:16px;
+    left:20px;
+    font-family:'Cormorant Garamond',serif;
+    font-weight:400;
+    font-size:18px;
+    color:var(--near-black);
+  }
+  .canvas-subtitle {
+    position:absolute;
+    top:38px;
+    left:20px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:9px;
+    color:var(--taupe);
+    letter-spacing:0.05em;
+  }
+
+  /* Right panel: layers list */
+  .layers-panel {
+    background:var(--bone);
+    border-left:1px solid rgba(26,23,20,0.06);
+    padding:16px;
+  }
+  .layers-panel .panel-title {
+    font-family:'JetBrains Mono',monospace;
+    font-size:9px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    margin-bottom:12px;
+  }
+
+  /* Individual layer items in the layers list */
+  .layer-item {
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:6px 8px;
+    border-radius:6px;
+    margin-bottom:4px;
+    font-size:11px;
+    color:var(--near-black);
+    cursor:default;
+    transition:background 0.15s;
+  }
+  .layer-item:hover { background:rgba(139,111,82,0.06); }
+  .layer-item.active {
+    background:rgba(139,111,82,0.08);
+    color:var(--brown-gold);
+    font-weight:500;
+  }
+
+  /* Layer color dot: small circle matching the garment color */
+  .layer-dot {
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    flex-shrink:0;
+  }
+
+  /* Layer visibility toggle: eye icon placeholder */
+  .layer-vis {
+    margin-left:auto;
+    font-size:9px;
+    color:var(--taupe);
+    opacity:0.5;
+  }
+
+  /* ============================================================
+     TYPOGRAPHY SPECIMENS SECTION
+     Shows each font family with sample text at multiple sizes.
+     Three cards in a vertical stack, each demonstrating one
+     typeface with appropriate sample content.
+     ============================================================ */
+  .type-grid {
+    display:grid;
+    grid-template-columns:1fr;
+    gap:32px;
+  }
+
+  .type-card {
+    background:white;
+    border-radius:12px;
+    padding:40px 48px;
+    box-shadow:0 1px 8px rgba(26,23,20,0.04);
+    border:1px solid rgba(26,23,20,0.04);
+  }
+
+  /* Font family label in top-left corner of type card */
+  .type-card .font-label {
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    margin-bottom:24px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+
+  /* Individual size samples within a type card */
+  .type-sample {
+    margin-bottom:16px;
+    line-height:1.2;
+  }
+  .type-sample:last-child { margin-bottom:0; }
+
+  /* Size annotation: small monospace label showing px value */
+  .type-size {
+    font-family:'JetBrains Mono',monospace;
+    font-size:9px;
+    color:var(--sand);
+    margin-bottom:4px;
+    display:block;
+  }
+
+  /* ============================================================
+     TEXTURE & PHOTOGRAPHY SECTION
+     CSS-generated texture strips demonstrating surface treatments.
+     Photo direction cards describing photography style goals.
+     ============================================================ */
+  .texture-grid {
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:0;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 2px 20px rgba(26,23,20,0.06);
+    margin-bottom:48px;
+  }
+
+  .texture-strip {
+    height:140px;
+    display:flex;
+    align-items:flex-end;
+    padding:16px;
+    position:relative;
+  }
+  .texture-strip .label {
+    font-family:'Inter',sans-serif;
+    font-size:11px;
+    font-weight:500;
+    position:relative;
+    z-index:1;
+  }
+  .texture-strip .desc {
+    font-family:'JetBrains Mono',monospace;
+    font-size:9px;
+    opacity:0.6;
+    margin-top:2px;
+    position:relative;
+    z-index:1;
+  }
+
+  /* Photo direction cards: describe photography mood/style */
+  .photo-grid {
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:24px;
+  }
+  .photo-card {
+    border-radius:12px;
+    overflow:hidden;
+    border:1px solid rgba(26,23,20,0.06);
+    box-shadow:0 1px 8px rgba(26,23,20,0.04);
+  }
+
+  /* Top visual area of photo card: colored rectangle with mood label */
+  .photo-card .visual {
+    height:160px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:24px;
+    position:relative;
+  }
+  .photo-card .visual .mood-icon {
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;
+    font-size:28px;
+    margin-bottom:8px;
+    position:relative;
+    z-index:1;
+  }
+  .photo-card .visual .mood-word {
+    font-family:'JetBrains Mono',monospace;
+    font-size:9px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    opacity:0.6;
+    position:relative;
+    z-index:1;
+  }
+
+  /* Bottom text area of photo card: title and description */
+  .photo-card .info {
+    padding:20px;
+    background:white;
+  }
+  .photo-card .info .title {
+    font-family:'Inter',sans-serif;
+    font-size:13px;
+    font-weight:500;
+    margin-bottom:4px;
+  }
+  .photo-card .info .detail {
+    font-size:12px;
+    color:var(--taupe);
+    line-height:1.5;
+  }
+
+  /* ============================================================
+     BRAND VOICE CARDS
+     Three cards showing voice characteristics.
+     Each card has a keyword header, a pull quote, and
+     a short descriptive explanation.
+     ============================================================ */
+  .voice-grid {
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:24px;
+  }
+
+  .voice-card {
+    background:white;
+    border-radius:12px;
+    padding:32px;
+    border:1px solid rgba(26,23,20,0.04);
+    box-shadow:0 1px 8px rgba(26,23,20,0.04);
+    display:flex;
+    flex-direction:column;
+  }
+
+  /* Voice card keyword label: bold monospace heading */
+  .voice-card .voice-label {
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    font-weight:500;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--brown-gold);
+    margin-bottom:20px;
+  }
+
+  /* Pull quote: italic serif text with left border accent */
+  .voice-card blockquote {
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;
+    font-size:20px;
+    line-height:1.4;
+    color:var(--near-black);
+    border-left:2px solid var(--brown-gold);
+    padding-left:16px;
+    margin-bottom:16px;
+    flex:1;
+  }
+
+  /* Voice card description text */
+  .voice-card p {
+    font-size:13px;
+    color:var(--taupe);
+    line-height:1.6;
+  }
+
+  /* ============================================================
+     FOOTER
+     Simple footer with credit link and confidential badge.
+     Matches the THREADLINE _internal footer pattern.
+     ============================================================ */
+  .footer {
+    text-align:center;
+    padding:40px 20px;
+    border-top:1px solid var(--warm-gray);
+    font-size:12px;
+    color:var(--taupe);
+  }
+  .footer a {
+    color:var(--brown-gold);
+    text-decoration:none;
+  }
+  .footer a:hover { text-decoration:underline;
+  }
+
+  /* ============================================================
+     RESPONSIVE BREAKPOINTS
+     At 900px: collapse multi-column grids to single or two columns.
+     At 600px: further simplify and reduce padding.
+     Wordmark and typography sizes scale down for readability.
+     ============================================================ */
+  @media (max-width:900px) {
+    /* Reduce cover wordmark to fit smaller screens */
+    .cover .wordmark { font-size:64px; letter-spacing:0.15em; }
+    .cover .tagline { font-size:22px; }
+    .cover { min-height:50vh; padding:60px 24px; }
+
+    /* Sticky nav: reduce padding, allow wrap */
+    .sticky-nav { padding:10px 24px; gap:12px; }
+
+    /* Sections: reduce padding */
+    .section { padding:48px 24px; }
+    .section-label { padding:0 24px; }
+
+    /* Wordmark scale: stack vertically, hide monogram on small screens */
+    .scale-row { flex-direction:column; align-items:flex-start; gap:8px; }
+    .scale-row .monogram { text-align:left; }
+
+    /* Color grid: 2 columns instead of 4 */
+    .color-grid { grid-template-columns:repeat(2, 1fr); }
+
+    /* Canvas editor: stack panels vertically */
+    .editor-body { grid-template-columns:1fr; }
+    .inventory-panel { display:none; }
+    .layers-panel { display:none; }
+    .canvas-area { min-height:300px; }
+
+    /* Typography cards: reduce padding */
+    .type-card { padding:24px; }
+
+    /* Texture grid: single column */
+    .texture-grid { grid-template-columns:1fr; }
+
+    /* Photo cards: single column */
+    .photo-grid { grid-template-columns:1fr; }
+
+    /* Voice cards: single column */
+    .voice-grid { grid-template-columns:1fr; }
+
+    /* Footer: stack */
+    .footer { padding:24px 20px; }
+  }
+
+  @media (max-width:600px) {
+    /* Further reduce cover wordmark for phones */
+    .cover .wordmark { font-size:40px; letter-spacing:0.1em; }
+    .cover .tagline { font-size:18px; }
+
+    /* Keyword cloud: tighter on mobile */
+    .keyword.xl { font-size:32px; }
+    .keyword.lg { font-size:24px; }
+    .keyword.md { font-size:18px; }
+    .keyword.sm { font-size:14px; }
+
+    /* Color grid: single column on phones */
+    .color-grid { grid-template-columns:1fr; }
+    .color-grid.single { max-width:100%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     STICKY NAVIGATION
+     Frosted-glass nav bar pinned to top of viewport.
+     PULL in near-black, SHEET in brown-gold.
+     Links to each section for quick scrolling.
+     ============================================================ -->
+<nav class="sticky-nav">
+  <a href="index.html" class="brand" style="text-decoration:none;color:inherit;">PULL<span class="sheet">SHEET</span></a>
+  <a class="back" href="index.html">&larr; All Pages</a>
+  <a href="#wordmark">Wordmark</a>
+  <a href="#colors">Colors</a>
+  <a href="#keywords">Keywords</a>
+  <a href="#canvas">Canvas</a>
+  <a href="#typography">Type</a>
+  <a href="#texture">Texture</a>
+  <a href="#voice">Voice</a>
+</nav>
+
+<!-- ============================================================
+     COVER SECTION
+     Full-width brown-gold gradient background.
+     Oversized PULLSHEET wordmark at 128px.
+     "Visual Lookbook Builder" tagline in italic Cormorant Garamond.
+     ============================================================ -->
+<div class="cover">
+  <div class="wordmark"><span class="pull">PULL</span><span class="sheet">SHEET</span></div>
+  <div class="tagline">Visual Lookbook Builder</div>
+  <div class="divider-line"></div>
+  <div class="doc-title">Brand Mood Board</div>
+</div>
+
+<!-- ============================================================
+     SECTION 01: WORDMARK AT SCALE
+     Demonstrates the PULLSHEET wordmark at five sizes:
+     120px, 80px, 48px, 24px, 16px.
+     Each row also shows the PS monogram at matching size.
+     PULL is near-black, SHEET is brown-gold at every scale.
+     ============================================================ -->
+<div class="section-label" id="wordmark">01 / Wordmark at Scale</div>
+<div class="section" style="border-top:none;">
+  <div class="container">
+    <div class="wordmark-scale">
+
+      <!-- 120px: largest display size, for hero sections and covers -->
+      <div class="scale-row">
+        <span class="size-label">120px</span>
+        <span class="wm" style="font-size:120px;"><span class="pull">PULL</span><span class="sheet">SHEET</span></span>
+        <span class="monogram" style="font-size:120px;"><span class="p">P</span><span class="s">S</span></span>
+      </div>
+
+      <!-- 80px: section headers and large display contexts -->
+      <div class="scale-row">
+        <span class="size-label">80px</span>
+        <span class="wm" style="font-size:80px;"><span class="pull">PULL</span><span class="sheet">SHEET</span></span>
+        <span class="monogram" style="font-size:80px;"><span class="p">P</span><span class="s">S</span></span>
+      </div>
+
+      <!-- 48px: mid-scale, page headings and export headers -->
+      <div class="scale-row">
+        <span class="size-label">48px</span>
+        <span class="wm" style="font-size:48px;"><span class="pull">PULL</span><span class="sheet">SHEET</span></span>
+        <span class="monogram" style="font-size:48px;"><span class="p">P</span><span class="s">S</span></span>
+      </div>
+
+      <!-- 24px: navigation bars, compact headers -->
+      <div class="scale-row">
+        <span class="size-label">24px</span>
+        <span class="wm" style="font-size:24px;"><span class="pull">PULL</span><span class="sheet">SHEET</span></span>
+        <span class="monogram" style="font-size:24px;"><span class="p">P</span><span class="s">S</span></span>
+      </div>
+
+      <!-- 16px: smallest scale, metadata, footer, favicons -->
+      <div class="scale-row">
+        <span class="size-label">16px</span>
+        <span class="wm" style="font-size:16px;"><span class="pull">PULL</span><span class="sheet">SHEET</span></span>
+        <span class="monogram" style="font-size:16px;"><span class="p">P</span><span class="s">S</span></span>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SECTION 02: COLOR SYSTEM
+     Visual swatches in a grid, grouped by category:
+     - Primary: Cream, Near Black, Brown Gold, Copper
+     - Secondary: Water (blue-teal) -- single swatch
+     - Supporting: Bone, Warm Gray, Sand, Taupe
+     - Status: Green (Available), Teal (Pending),
+               Brown (In Use), Coral (Overdue)
+     Each swatch shows hex code and role label.
+     ============================================================ -->
+<div class="section-label" id="colors">02 / Color System</div>
+<div class="section" style="border-top:none;">
+  <div class="container">
+
+    <!-- PRIMARY: The four core brand colors -->
+    <div class="color-category-label">Primary</div>
+    <div class="color-grid">
+      <div class="color-swatch" style="background:var(--cream);color:var(--near-black);">
+        <span class="name">Cream</span>
+        <span class="hex">#FAF8F5</span>
+        <span class="role">Page Background</span>
+      </div>
+      <div class="color-swatch" style="background:var(--near-black);color:var(--bone);">
+        <span class="name">Near Black</span>
+        <span class="hex">#1A1714</span>
+        <span class="role">Primary Text / PULL</span>
+      </div>
+      <div class="color-swatch" style="background:var(--brown-gold);color:white;">
+        <span class="name">Brown Gold</span>
+        <span class="hex">#8B6F52</span>
+        <span class="role">Brand Accent / SHEET</span>
+      </div>
+      <div class="color-swatch" style="background:var(--copper);color:white;">
+        <span class="name">Copper</span>
+        <span class="hex">#C4946A</span>
+        <span class="role">Highlights / Dark Mode</span>
+      </div>
+    </div>
+
+    <!-- SECONDARY: Single accent color for contrast moments -->
+    <div class="color-category-label">Secondary</div>
+    <div class="color-grid single">
+      <div class="color-swatch" style="background:var(--water);color:white;">
+        <span class="name">Water</span>
+        <span class="hex">#5A7E8A</span>
+        <span class="role">Blue-Teal Accent</span>
+      </div>
+    </div>
+
+    <!-- SUPPORTING: Neutral tones for surfaces, borders, metadata -->
+    <div class="color-category-label">Supporting</div>
+    <div class="color-grid">
+      <div class="color-swatch" style="background:var(--bone);color:var(--near-black);">
+        <span class="name">Bone</span>
+        <span class="hex">#F5F0EB</span>
+        <span class="role">Elevated Surface</span>
+      </div>
+      <div class="color-swatch" style="background:var(--warm-gray);color:var(--near-black);">
+        <span class="name">Warm Gray</span>
+        <span class="hex">#E8E3DE</span>
+        <span class="role">Dividers / Borders</span>
+      </div>
+      <div class="color-swatch" style="background:var(--sand);color:var(--near-black);">
+        <span class="name">Sand</span>
+        <span class="hex">#D2C4B9</span>
+        <span class="role">Decorative Elements</span>
+      </div>
+      <div class="color-swatch" style="background:var(--taupe);color:white;">
+        <span class="name">Taupe</span>
+        <span class="hex">#B5A89C</span>
+        <span class="role">Secondary Text</span>
+      </div>
+    </div>
+
+    <!-- STATUS: Semantic colors for system state indicators -->
+    <div class="color-category-label">Status</div>
+    <div class="color-grid">
+      <div class="color-swatch" style="background:var(--forest);color:white;">
+        <span class="name">Green</span>
+        <span class="hex">#4A6741</span>
+        <span class="role">Available</span>
+      </div>
+      <div class="color-swatch" style="background:var(--teal);color:white;">
+        <span class="name">Teal</span>
+        <span class="hex">#3A7D7B</span>
+        <span class="role">Pending</span>
+      </div>
+      <div class="color-swatch" style="background:var(--status-brown);color:white;">
+        <span class="name">Brown</span>
+        <span class="hex">#8B6F52</span>
+        <span class="role">In Use</span>
+      </div>
+      <div class="color-swatch" style="background:var(--coral);color:white;">
+        <span class="name">Coral</span>
+        <span class="hex">#C4726A</span>
+        <span class="role">Overdue / Alert</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================
+     SECTION 03: KEYWORD CLOUD
+     Large-format brand vocabulary words at varying sizes, weights,
+     and opacities. Arranged to create visual texture and hierarchy.
+     Words describe PullSheet's identity, purpose, and aesthetic.
+     ============================================================ -->
+<div class="section-label" id="keywords">03 / Keyword Cloud</div>
+<div class="section" style="border-top:none;text-align:center;">
+  <div class="keyword-cloud">
+    <span class="keyword xl">Visual</span>
+    <span class="keyword md">Lookboard</span>
+    <span class="keyword lg">Canvas</span>
+    <span class="keyword sm">Cutout</span>
+    <span class="keyword md">Professional</span>
+    <span class="keyword lg">Film</span>
+    <span class="keyword sm">Television</span>
+    <span class="keyword xl">Wardrobe</span>
+    <span class="keyword md">Talent</span>
+    <span class="keyword sm">Presentation</span>
+    <span class="keyword lg">Export</span>
+    <span class="keyword sm">PDF</span>
+    <span class="keyword xl">Clean</span>
+    <span class="keyword md">Minimal</span>
+    <span class="keyword lg">Confident</span>
+    <span class="keyword sm">Production</span>
+    <span class="keyword md">Editorial</span>
+    <span class="keyword sm">Companion</span>
+    <span class="keyword xl accent">THREADLINE</span>
+  </div>
+</div>
+
+<!-- ============================================================
+     SECTION 04: CANVAS EDITOR UI PREVIEW
+     CSS-only mockup of the PullSheet canvas editor interface.
+     Three-panel layout simulating the actual app:
+     - Left: Inventory panel with garment thumbnails
+     - Center: Freeform canvas with arranged garment shapes
+     - Right: Layers panel with z-order list
+     - Top: Toolbar with tool buttons and export action
+     All built with colored rectangles and CSS shapes.
+     ============================================================ -->
+<div class="section-label" id="canvas">04 / Canvas Editor UI Preview</div>
+<div class="section" style="border-top:none;">
+  <div class="container">
+    <div class="canvas-editor">
+
+      <!-- TOP TOOLBAR: App name, tool buttons, export action -->
+      <div class="editor-toolbar">
+        <span class="app-name"><span class="pull">PULL</span><span class="sheet">SHEET</span></span>
+        <div class="tools">
+          <div class="tool-btn active">V</div>
+          <div class="tool-btn">H</div>
+          <div class="tool-btn">T</div>
+          <div class="tool-btn">+</div>
+        </div>
+        <button class="export-btn">Export PDF</button>
+      </div>
+
+      <!-- THREE-PANEL EDITOR BODY -->
+      <div class="editor-body">
+
+        <!-- LEFT: Inventory panel with garment thumbnails -->
+        <div class="inventory-panel">
+          <div class="panel-title">Inventory</div>
+          <div class="inventory-search">Search items...</div>
+          <div class="garment-grid">
+            <!-- Garment thumbnail cards: colored rectangles simulating photos -->
+            <div class="garment-thumb" style="background:var(--warm-gray);">
+              <span class="item-label">Blazer</span>
+            </div>
+            <div class="garment-thumb" style="background:var(--sand);">
+              <span class="item-label">Trousers</span>
+            </div>
+            <div class="garment-thumb" style="background:#DDD5CC;">
+              <span class="item-label">Blouse</span>
+            </div>
+            <div class="garment-thumb" style="background:var(--taupe);">
+              <span class="item-label">Coat</span>
+            </div>
+            <div class="garment-thumb" style="background:#C4B5A5;">
+              <span class="item-label">Dress</span>
+            </div>
+            <div class="garment-thumb" style="background:var(--warm-gray);">
+              <span class="item-label">Shoes</span>
+            </div>
+            <div class="garment-thumb" style="background:var(--sand);">
+              <span class="item-label">Belt</span>
+            </div>
+            <div class="garment-thumb" style="background:#DDD5CC;">
+              <span class="item-label">Scarf</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CENTER: Freeform canvas with arranged garment shapes -->
+        <div class="canvas-area">
+          <!-- Lookboard title overlay -->
+          <span class="canvas-title">Look 1 / Day Scene</span>
+          <span class="canvas-subtitle">TALENT: ALEX MORGAN &middot; EP.4</span>
+
+          <!-- Garment shapes positioned on canvas to simulate a lookboard layout -->
+          <!-- Large blazer shape: dark rectangle, top-left area -->
+          <div class="canvas-item selected" style="top:70px;left:40px;width:140px;height:180px;background:var(--near-black);border-radius:4px;"></div>
+          <!-- Trousers: medium rectangle below blazer -->
+          <div class="canvas-item" style="top:200px;left:80px;width:80px;height:180px;background:#3A3632;border-radius:4px;"></div>
+          <!-- Blouse: light shape, right of blazer -->
+          <div class="canvas-item" style="top:80px;left:220px;width:120px;height:140px;background:var(--bone);border:1px solid var(--warm-gray);border-radius:4px;"></div>
+          <!-- Shoes: small dark shape, bottom right -->
+          <div class="canvas-item" style="top:310px;left:240px;width:90px;height:60px;background:var(--dark-brown);border-radius:4px;"></div>
+          <!-- Accessory: small accent shape -->
+          <div class="canvas-item" style="top:120px;left:380px;width:60px;height:60px;background:var(--brown-gold);border-radius:50%;"></div>
+        </div>
+
+        <!-- RIGHT: Layers panel with z-order list -->
+        <div class="layers-panel">
+          <div class="panel-title">Layers</div>
+          <!-- Layer items: one per canvas item, showing name and visibility -->
+          <div class="layer-item active">
+            <span class="layer-dot" style="background:var(--near-black);"></span>
+            Blazer
+            <span class="layer-vis">*</span>
+          </div>
+          <div class="layer-item">
+            <span class="layer-dot" style="background:#3A3632;"></span>
+            Trousers
+            <span class="layer-vis">*</span>
+          </div>
+          <div class="layer-item">
+            <span class="layer-dot" style="background:var(--bone);border:1px solid var(--warm-gray);"></span>
+            Blouse
+            <span class="layer-vis">*</span>
+          </div>
+          <div class="layer-item">
+            <span class="layer-dot" style="background:var(--dark-brown);"></span>
+            Shoes
+            <span class="layer-vis">*</span>
+          </div>
+          <div class="layer-item">
+            <span class="layer-dot" style="background:var(--brown-gold);"></span>
+            Accessory
+            <span class="layer-vis">*</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SECTION 05: TYPOGRAPHY SPECIMENS
+     Shows each of the three typeface families with sample text
+     at multiple sizes and weights.
+     - Cormorant Garamond: editorial headlines, taglines
+     - Inter: body text, UI labels, wordmark
+     - JetBrains Mono: data, metadata, item codes
+     ============================================================ -->
+<div class="section-label" id="typography">05 / Typography Specimens</div>
+<div class="section" style="border-top:none;">
+  <div class="container">
+    <div class="type-grid">
+
+      <!-- CORMORANT GARAMOND: Serif for editorial and headlines -->
+      <div class="type-card">
+        <div class="font-label">
+          <span>Cormorant Garamond</span>
+          <span>Serif / Editorial</span>
+        </div>
+        <div class="type-sample">
+          <span class="type-size">48px / Light 300</span>
+          <div style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:48px;line-height:1.15;color:var(--near-black);">
+            See the look before the fitting
+          </div>
+        </div>
+        <div class="type-sample">
+          <span class="type-size">36px / Light 300</span>
+          <div style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:36px;line-height:1.2;color:var(--near-black);">
+            See the look before the fitting
+          </div>
+        </div>
+        <div class="type-sample">
+          <span class="type-size">24px / Regular 400</span>
+          <div style="font-family:'Cormorant Garamond',serif;font-weight:400;font-size:24px;line-height:1.3;color:var(--near-black);">
+            See the look before the fitting
+          </div>
+        </div>
+      </div>
+
+      <!-- INTER: Sans-serif for UI, body, and wordmark -->
+      <div class="type-card">
+        <div class="font-label">
+          <span>Inter</span>
+          <span>Sans-Serif / UI & Body</span>
+        </div>
+        <div class="type-sample">
+          <span class="type-size">24px / ExtraLight 200</span>
+          <div style="font-family:'Inter',sans-serif;font-weight:200;font-size:24px;line-height:1.4;color:var(--near-black);letter-spacing:0.02em;">
+            Build looks. Remove backgrounds. Export lookbooks.
+          </div>
+        </div>
+        <div class="type-sample">
+          <span class="type-size">18px / Light 300</span>
+          <div style="font-family:'Inter',sans-serif;font-weight:300;font-size:18px;line-height:1.5;color:var(--near-black);">
+            Build looks. Remove backgrounds. Export lookbooks.
+          </div>
+        </div>
+        <div class="type-sample">
+          <span class="type-size">15px / Regular 400</span>
+          <div style="font-family:'Inter',sans-serif;font-weight:400;font-size:15px;line-height:1.6;color:var(--near-black);">
+            Build looks. Remove backgrounds. Export lookbooks.
+          </div>
+        </div>
+        <div class="type-sample">
+          <span class="type-size">13px / Medium 500</span>
+          <div style="font-family:'Inter',sans-serif;font-weight:500;font-size:13px;line-height:1.6;color:var(--near-black);">
+            Build looks. Remove backgrounds. Export lookbooks.
+          </div>
+        </div>
+        <div class="type-sample">
+          <span class="type-size">11px / SemiBold 600</span>
+          <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:11px;line-height:1.6;color:var(--near-black);letter-spacing:0.02em;">
+            Build looks. Remove backgrounds. Export lookbooks.
+          </div>
+        </div>
+      </div>
+
+      <!-- JETBRAINS MONO: Monospace for data, codes, metadata -->
+      <div class="type-card">
+        <div class="font-label">
+          <span>JetBrains Mono</span>
+          <span>Monospace / Data & Labels</span>
+        </div>
+        <div class="type-sample">
+          <span class="type-size">14px / Regular 400</span>
+          <div style="font-family:'JetBrains Mono',monospace;font-weight:400;font-size:14px;line-height:1.6;color:var(--brown-gold);">
+            LOOKBOARD-001 &middot; 6 ITEMS &middot; $2,450.00
+          </div>
+        </div>
+        <div class="type-sample">
+          <span class="type-size">12px / Light 300</span>
+          <div style="font-family:'JetBrains Mono',monospace;font-weight:300;font-size:12px;line-height:1.6;color:var(--brown-gold);">
+            LOOKBOARD-001 &middot; 6 ITEMS &middot; $2,450.00
+          </div>
+        </div>
+        <div class="type-sample">
+          <span class="type-size">10px / Medium 500</span>
+          <div style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:10px;line-height:1.6;color:var(--taupe);letter-spacing:0.05em;">
+            LOOKBOARD-001 &middot; 6 ITEMS &middot; $2,450.00
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SECTION 06: TEXTURE & PHOTOGRAPHY SAMPLES
+     Top: Three CSS-generated texture strips showing surface treatments.
+     - Warm linen: cream with subtle repeating pattern
+     - Dark mode: near-black with copper accents
+     - Gradient: dark-brown to brown-gold to copper sweep
+     Bottom: Photo direction cards describing photography style goals.
+     Each card has a CSS-only "photo" area and descriptive text.
+     ============================================================ -->
+<div class="section-label" id="texture">06 / Texture & Photography</div>
+<div class="section" style="border-top:none;">
+  <div class="container">
+
+    <!-- TEXTURE STRIPS: Three CSS-only surface treatments -->
+    <div class="texture-grid">
+
+      <!-- Warm linen texture: cream background with subtle crosshatch pattern -->
+      <div class="texture-strip" style="background:var(--cream);color:var(--near-black);
+        background-image:
+          repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(26,23,20,0.02) 3px, rgba(26,23,20,0.02) 4px),
+          repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(26,23,20,0.02) 3px, rgba(26,23,20,0.02) 4px);">
+        <div>
+          <div class="label">Warm Linen</div>
+          <div class="desc">Cream + subtle pattern</div>
+        </div>
+      </div>
+
+      <!-- Dark mode variant: void background with copper accent line -->
+      <div class="texture-strip" style="background:var(--void);color:var(--bone);
+        background-image:linear-gradient(180deg, var(--void) 0%, var(--void) 85%, var(--copper) 100%);">
+        <div>
+          <div class="label">Dark Mode</div>
+          <div class="desc">Near-black + copper</div>
+        </div>
+      </div>
+
+      <!-- Gradient strip: full brand gradient sweep -->
+      <div class="texture-strip" style="background:linear-gradient(135deg, var(--dark-brown) 0%, var(--brown-gold) 50%, var(--copper) 100%);color:white;">
+        <div>
+          <div class="label">Brand Gradient</div>
+          <div class="desc">Dark brown to copper</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PHOTO DIRECTION CARDS: CSS-only "photo" areas with style descriptions -->
+    <div class="color-category-label" style="margin-top:48px;">Photography Direction</div>
+    <div class="photo-grid">
+
+      <!-- Card 1: Flat-lay outfit composition -->
+      <div class="photo-card">
+        <div class="visual" style="background:var(--bone);
+          background-image:
+            linear-gradient(var(--warm-gray) 1px, transparent 1px),
+            linear-gradient(90deg, var(--warm-gray) 1px, transparent 1px);
+          background-size:40px 40px;">
+          <!-- CSS shapes simulating a flat-lay arrangement -->
+          <div style="position:absolute;top:20px;left:30px;width:60px;height:80px;background:var(--near-black);border-radius:3px;transform:rotate(-3deg);opacity:0.7;"></div>
+          <div style="position:absolute;top:40px;right:40px;width:50px;height:70px;background:var(--sand);border-radius:3px;transform:rotate(2deg);opacity:0.8;"></div>
+          <div style="position:absolute;bottom:30px;left:50%;transform:translateX(-50%);width:40px;height:40px;background:var(--brown-gold);border-radius:50%;opacity:0.6;"></div>
+          <div class="mood-word" style="position:absolute;bottom:12px;right:12px;">WARM / STRUCTURED</div>
+        </div>
+        <div class="info">
+          <div class="title">Flat-lay Outfit Composition</div>
+          <div class="detail">Overhead garment arrangements on neutral surfaces. Warm lighting, intentional spacing, editorial precision.</div>
+        </div>
+      </div>
+
+      <!-- Card 2: On-set wardrobe truck -->
+      <div class="photo-card">
+        <div class="visual" style="background:linear-gradient(135deg, var(--espresso) 0%, var(--dark-brown) 100%);">
+          <!-- CSS shapes simulating wardrobe rack -->
+          <div style="position:absolute;top:20px;left:50%;transform:translateX(-50%);width:80%;height:3px;background:var(--taupe);border-radius:2px;"></div>
+          <div style="position:absolute;top:23px;left:25%;width:2px;height:60px;background:var(--sand);opacity:0.4;"></div>
+          <div style="position:absolute;top:23px;left:40%;width:2px;height:55px;background:var(--warm-gray);opacity:0.3;"></div>
+          <div style="position:absolute;top:23px;left:55%;width:2px;height:65px;background:var(--sand);opacity:0.5;"></div>
+          <div style="position:absolute;top:23px;left:70%;width:2px;height:50px;background:var(--warm-gray);opacity:0.35;"></div>
+          <div style="position:absolute;top:30px;left:22%;width:8px;height:45px;background:var(--near-black);border-radius:2px;opacity:0.6;"></div>
+          <div style="position:absolute;top:28px;left:37%;width:8px;height:40px;background:var(--bone);border-radius:2px;opacity:0.5;"></div>
+          <div style="position:absolute;top:32px;left:52%;width:8px;height:48px;background:var(--copper);border-radius:2px;opacity:0.5;"></div>
+          <div style="position:absolute;top:26px;left:67%;width:8px;height:38px;background:var(--sand);border-radius:2px;opacity:0.4;"></div>
+          <div class="mood-word" style="position:absolute;bottom:12px;right:12px;color:var(--bone);">PRACTICAL / AUTHENTIC</div>
+        </div>
+        <div class="info">
+          <div class="title">On-set Wardrobe Truck</div>
+          <div class="detail">Real working environments with racks, cases, and organized chaos. Documentary feel, natural light where possible.</div>
+        </div>
+      </div>
+
+      <!-- Card 3: Clean garment cutout -->
+      <div class="photo-card">
+        <div class="visual" style="background:white;border-bottom:1px solid rgba(26,23,20,0.06);">
+          <!-- CSS shape simulating a clean garment cutout on white -->
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:70px;height:100px;background:var(--near-black);border-radius:4px 4px 2px 2px;"></div>
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) translateY(-2px);width:50px;height:90px;background:var(--near-black);border-radius:2px;opacity:0.9;"></div>
+          <!-- Subtle shadow beneath -->
+          <div style="position:absolute;bottom:25px;left:50%;transform:translateX(-50%);width:80px;height:6px;background:rgba(26,23,20,0.06);border-radius:50%;"></div>
+          <div class="mood-word" style="position:absolute;bottom:12px;right:12px;color:var(--near-black);">CATALOG / WHITE BG</div>
+        </div>
+        <div class="info">
+          <div class="title">Clean Garment Cutout</div>
+          <div class="detail">Catalog-quality photography on pure white backgrounds. No distractions, no props. The garment speaks for itself.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SECTION 07: BRAND VOICE CARDS
+     Three cards representing PullSheet's core voice characteristics:
+     - Visual: Images first, lookboards over paragraphs
+     - Confident: Short sentences, direct language, no hedging
+     - Minimal: Every word earns its place, clarity above all
+     Each card has a keyword label, an italic pull quote, and
+     a short description in body text.
+     ============================================================ -->
+<div class="section-label" id="voice">07 / Brand Voice</div>
+<div class="section" style="border-top:none;">
+  <div class="container">
+    <div class="voice-grid">
+
+      <!-- VISUAL: Images-first communication philosophy -->
+      <div class="voice-card">
+        <div class="voice-label">Visual</div>
+        <blockquote>We communicate through images first. The lookboard speaks louder than a paragraph.</blockquote>
+        <p>PullSheet is a visual tool for visual people. Every interface decision favors showing over telling. If a picture can replace a sentence, it should.</p>
+      </div>
+
+      <!-- CONFIDENT: Direct, assured tone without hedging -->
+      <div class="voice-card">
+        <div class="voice-label">Confident</div>
+        <blockquote>We know what we do. Short sentences. Direct language. No hedging.</blockquote>
+        <p>Film and television wardrobe professionals have no patience for vague marketing. PullSheet speaks plainly about what it does and why it matters.</p>
+      </div>
+
+      <!-- MINIMAL: Every word must earn its place -->
+      <div class="voice-card">
+        <div class="voice-label">Minimal</div>
+        <blockquote>Every word earns its place. If it doesn't add clarity, it doesn't belong.</blockquote>
+        <p>Like a well-edited lookboard, PullSheet's voice removes everything that doesn't serve the message. Clean. Clear. Done.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     FOOTER
+     Simple footer matching THREADLINE's _internal pattern.
+     "Made with care" credit linking to cooperinteractive.com.
+     Confidential label on the right.
+     ============================================================ -->
+<div class="footer">
+  <a href="https://cooperinteractive.com">Made with care</a>
+</div>
+
+</body>
+</html>

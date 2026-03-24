@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PullSheet -- Social Media Templates</title>
+
+<!-- ============================================================
+     PULLSHEET SOCIAL MEDIA TEMPLATES
+     Self-contained HTML with inline CSS, JS, and Google Fonts.
+     15 branded templates across Instagram, Facebook, and LinkedIn.
+
+     SECTIONS:
+     01 - Instagram Templates (6 templates)
+     02 - Facebook Templates (5 templates)
+     03 - LinkedIn Templates (4 templates)
+
+     DOWNLOAD FUNCTIONALITY:
+     Each template has a "Download" button that renders the CSS
+     preview to a canvas element at the correct pixel dimensions,
+     then triggers a PNG download.
+
+     TO MODIFY:
+     - Template content is in the HTML markup of each .tpl-preview
+     - Dimensions are set via data-width/data-height attributes
+     - Download logic is in the renderAndDownload() function
+     ============================================================ -->
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  /* ============================================================
+     CSS CUSTOM PROPERTIES (Design Tokens)
+     ============================================================ */
+  :root {
+    --cream:#FAF8F5;
+    --bone:#F5F0EB;
+    --warm-gray:#E8E3DE;
+    --sand:#D2C4B9;
+    --taupe:#B5A89C;
+    --brown-gold:#8B6F52;
+    --copper:#C4946A;
+    --dark-brown:#5A4228;
+    --espresso:#3A2A18;
+    --near-black:#1A1714;
+    --void:#0A0A0A;
+    --water:#5A7E8A;
+    --forest:#4A6741;
+    --clay:#8A4A42;
+    --dusty-blue:#627786;
+  }
+
+  /* ============================================================
+     RESET & BASE
+     ============================================================ */
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'Inter',sans-serif;
+    background:var(--cream);
+    color:var(--near-black);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+
+  /* ============================================================
+     STICKY NAVIGATION
+     ============================================================ */
+  .sticky-nav {
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(250,248,245,0.92);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    border-bottom:1px solid rgba(26,23,20,0.06);
+    padding:12px 48px;
+    display:flex;
+    align-items:center;
+    gap:32px;
+  }
+  .sticky-nav .brand {
+    font-family:'Inter',sans-serif;
+    font-weight:200;
+    font-size:16px;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    text-decoration:none;
+    color:inherit;
+  }
+  .sticky-nav .brand .pull { color:var(--near-black); }
+  .sticky-nav .brand .sheet { color:var(--brown-gold); }
+  .sticky-nav a {
+    font-size:11px;
+    font-weight:500;
+    color:var(--taupe);
+    text-decoration:none;
+    letter-spacing:0.04em;
+    padding:4px 8px;
+    border-radius:4px;
+    transition:all 0.15s;
+  }
+  .sticky-nav a:hover,
+  .sticky-nav a.active {
+    color:var(--brown-gold);
+    background:rgba(139,111,82,0.06);
+  }
+
+  /* ============================================================
+     CONTAINER & SECTIONS
+     ============================================================ */
+  .container { max-width:1200px; margin:0 auto; padding:0 48px; }
+  .section {
+    padding:80px 0;
+    border-bottom:1px solid var(--warm-gray);
+  }
+  .section:last-of-type { border-bottom:none; }
+  .section-num {
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    margin-bottom:12px;
+  }
+  .section-title {
+    font-family:'Cormorant Garamond',serif;
+    font-weight:300;
+    font-size:36px;
+    line-height:1.2;
+    margin-bottom:8px;
+  }
+  .section-subtitle {
+    font-size:15px;
+    color:var(--taupe);
+    line-height:1.7;
+    max-width:640px;
+    margin-bottom:40px;
+  }
+
+  /* ============================================================
+     COVER
+     ============================================================ */
+  .cover {
+    background: linear-gradient(135deg, var(--dark-brown) 0%, var(--brown-gold) 40%, var(--copper) 100%);
+    min-height:50vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:80px 48px;
+    position:relative;
+    overflow:hidden;
+  }
+  .cover::before {
+    content:'';
+    position:absolute;
+    inset:0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.08) 0%, transparent 60%);
+  }
+  .cover .wordmark {
+    font-family:'Inter',sans-serif;
+    font-weight:200;
+    font-size:80px;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.92);
+    position:relative;
+    z-index:1;
+  }
+  .cover .wordmark .sheet { color:rgba(255,255,255,0.55); }
+  .cover .tagline {
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;
+    font-weight:300;
+    font-size:28px;
+    color:rgba(255,255,255,0.6);
+    margin-top:12px;
+    position:relative;
+    z-index:1;
+  }
+  .cover .divider-line {
+    width:60px;
+    height:1px;
+    background:linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    margin:24px auto 0;
+    position:relative;
+    z-index:1;
+  }
+  .cover .doc-title {
+    font-size:12px;
+    font-weight:500;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.35);
+    margin-top:48px;
+    position:relative;
+    z-index:1;
+  }
+
+  /* ============================================================
+     PLATFORM HEADER
+     Label pill for platform grouping.
+     ============================================================ */
+  .platform-header {
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:6px 16px;
+    border-radius:20px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    margin-bottom:28px;
+  }
+  .platform-header.instagram {
+    background:linear-gradient(135deg, #833AB4, #FD1D1D, #F77737);
+    color:white;
+  }
+  .platform-header.facebook {
+    background:#1877F2;
+    color:white;
+  }
+  .platform-header.linkedin {
+    background:#0A66C2;
+    color:white;
+  }
+
+  /* ============================================================
+     TEMPLATE GRID
+     Responsive grid of template cards.
+     ============================================================ */
+  .tpl-grid {
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:32px;
+    margin-bottom:48px;
+  }
+  .tpl-grid.wide {
+    grid-template-columns:repeat(2, 1fr);
+  }
+
+  /* ============================================================
+     TEMPLATE CARD
+     Each card has: aspect-ratio preview, dimensions badge,
+     name, description, and download button.
+     ============================================================ */
+  .tpl-card {
+    border-radius:12px;
+    overflow:hidden;
+    border:1px solid var(--warm-gray);
+    background:white;
+  }
+
+  /* Preview area: maintains aspect ratio of the target template */
+  .tpl-preview {
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:24px;
+  }
+  .tpl-preview.square { aspect-ratio:1/1; }
+  .tpl-preview.story { aspect-ratio:9/16; max-height:400px; }
+  .tpl-preview.landscape { aspect-ratio:1200/630; }
+  .tpl-preview.fb-cover { aspect-ratio:851/315; }
+  .tpl-preview.fb-event { aspect-ratio:1920/1080; }
+  .tpl-preview.li-company-banner { aspect-ratio:1128/191; }
+  .tpl-preview.li-personal-banner { aspect-ratio:1584/396; }
+
+  /* Ghost shape layer shared by all templates */
+  .tpl-ghost {
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+  }
+
+  /* Background variants for preview areas */
+  .tpl-preview.bg-brown-gold {
+    background:var(--brown-gold);
+  }
+  .tpl-preview.bg-cream {
+    background:var(--cream);
+  }
+  .tpl-preview.bg-dark {
+    background:var(--near-black);
+  }
+  .tpl-preview.bg-bone {
+    background:var(--bone);
+  }
+  .tpl-preview.bg-gradient {
+    background:linear-gradient(135deg, var(--dark-brown) 0%, var(--brown-gold) 50%, var(--copper) 100%);
+  }
+  .tpl-preview.bg-espresso {
+    background:var(--espresso);
+  }
+
+  /* Template inner text elements */
+  .tpl-preview .tpl-wordmark {
+    font-family:'Inter',sans-serif;
+    font-weight:200;
+    letter-spacing:0.25em;
+    text-transform:uppercase;
+    position:relative;
+    z-index:2;
+  }
+  .tpl-preview .tpl-wordmark .pull { color:inherit; }
+  .tpl-preview .tpl-wordmark .sheet { opacity:0.55; }
+
+  .tpl-preview .tpl-headline {
+    font-family:'Cormorant Garamond',serif;
+    font-weight:300;
+    position:relative;
+    z-index:2;
+  }
+  .tpl-preview .tpl-body {
+    font-family:'Inter',sans-serif;
+    position:relative;
+    z-index:2;
+  }
+  .tpl-preview .tpl-cta {
+    display:inline-block;
+    font-family:'Inter',sans-serif;
+    font-weight:500;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:10px 24px;
+    border-radius:6px;
+    position:relative;
+    z-index:2;
+    margin-top:12px;
+  }
+  .tpl-preview .tpl-label {
+    font-family:'JetBrains Mono',monospace;
+    font-size:9px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    position:relative;
+    z-index:2;
+  }
+
+  /* ============================================================
+     TEMPLATE CARD META
+     Name, dimensions, description, download button.
+     ============================================================ */
+  .tpl-meta {
+    padding:20px 24px;
+    border-top:1px solid var(--warm-gray);
+  }
+  .tpl-meta .tpl-name {
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+    font-size:14px;
+    margin-bottom:4px;
+  }
+  .tpl-meta .tpl-dims {
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.06em;
+    color:var(--taupe);
+    margin-bottom:8px;
+  }
+  .tpl-meta .tpl-desc {
+    font-size:13px;
+    line-height:1.6;
+    color:var(--taupe);
+    margin-bottom:12px;
+  }
+  .tpl-download {
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:white;
+    background:var(--brown-gold);
+    border:none;
+    padding:8px 16px;
+    border-radius:6px;
+    cursor:pointer;
+    transition:all 0.15s;
+  }
+  .tpl-download:hover {
+    background:var(--dark-brown);
+  }
+
+  /* ============================================================
+     SPLIT PREVIEW
+     For before/after template layout.
+     ============================================================ */
+  .tpl-split {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    height:100%;
+    width:100%;
+    position:absolute;
+    inset:0;
+  }
+  .tpl-split-left {
+    background:var(--warm-gray);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    position:relative;
+  }
+  .tpl-split-right {
+    background:var(--cream);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    position:relative;
+  }
+
+  /* ============================================================
+     BANNER TEMPLATES
+     Horizontal banners for cover photos and company banners.
+     ============================================================ */
+  .tpl-preview.banner-layout {
+    flex-direction:row;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 32px;
+  }
+  .banner-left {
+    text-align:left;
+    position:relative;
+    z-index:2;
+  }
+  .banner-right {
+    text-align:right;
+    position:relative;
+    z-index:2;
+  }
+
+  /* ============================================================
+     FOOTER
+     ============================================================ */
+  .footer {
+    text-align:center;
+    padding:40px 20px;
+    border-top:1px solid var(--warm-gray);
+    font-size:12px;
+    color:var(--taupe);
+  }
+  .footer a { color:var(--brown-gold); text-decoration:none; }
+  .footer a:hover { text-decoration:underline;
+  }
+
+  /* ============================================================
+     RESPONSIVE
+     ============================================================ */
+  @media (max-width:768px) {
+    .sticky-nav { padding:12px 20px; gap:16px; flex-wrap:wrap; }
+    .cover { padding:48px 20px; min-height:40vh; }
+    .cover .wordmark { font-size:36px; letter-spacing:0.2em; }
+    .cover .tagline { font-size:20px; }
+    .container { padding:0 20px; }
+    .section { padding:48px 0; }
+    .section-title { font-size:28px; }
+    .tpl-grid { grid-template-columns:1fr; }
+    .tpl-grid.wide { grid-template-columns:1fr; }
+    .footer { padding:24px 20px; }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- ============================================================
+     NAVIGATION
+     ============================================================ -->
+<nav class="sticky-nav">
+  <a href="index.html" class="brand" style="text-decoration:none;color:inherit;">PULL<span class="sheet">SHEET</span></a>
+  <a class="back" href="index.html">&larr; All Pages</a>
+  <a href="#instagram">Instagram</a>
+  <a href="#facebook">Facebook</a>
+  <a href="#linkedin">LinkedIn</a>
+</nav>
+
+<!-- ============================================================
+     COVER
+     ============================================================ -->
+<div class="cover">
+  <div class="wordmark"><span class="pull">Pull</span><span class="sheet">Sheet</span></div>
+  <div class="tagline">15+ branded templates across Instagram, Facebook, and LinkedIn</div>
+  <div class="divider-line"></div>
+  <div class="doc-title">Social Media Templates</div>
+</div>
+
+<div class="container">
+
+  <!-- ============================================================
+       SECTION 01: INSTAGRAM TEMPLATES (6)
+       ============================================================ -->
+  <div class="section" id="instagram">
+    <div class="section-num">01 / Instagram</div>
+    <div class="section-title">Instagram Templates</div>
+    <div class="section-subtitle">
+      Six templates covering feed posts, stories, carousel covers, and reel covers.
+      All sized to Instagram's native dimensions.
+    </div>
+
+    <div class="platform-header instagram">Instagram</div>
+
+    <div class="tpl-grid">
+
+      <!-- IG 1: Feed Post - Announcement (1080x1080) -->
+      <div class="tpl-card">
+        <div class="tpl-preview square bg-brown-gold" data-width="1080" data-height="1080" data-name="ig-announcement">
+          <div class="tpl-ghost" style="background:radial-gradient(ellipse 50% 65% at 50% 45%, rgba(255,255,255,0.06) 0%, transparent 100%);filter:grayscale(1);mix-blend-mode:overlay;"></div>
+          <div class="tpl-wordmark" style="font-size:28px;color:rgba(255,255,255,0.92);margin-bottom:12px;">
+            <span class="pull">Pull</span><span class="sheet">Sheet</span>
+          </div>
+          <div class="tpl-headline" style="font-size:22px;color:rgba(255,255,255,0.85);margin-bottom:8px;">
+            Introducing PullSheet
+          </div>
+          <div class="tpl-body" style="font-size:12px;color:rgba(255,255,255,0.5);max-width:200px;line-height:1.6;">
+            The visual lookboard builder for wardrobe professionals
+          </div>
+          <div class="tpl-label" style="color:rgba(255,255,255,0.3);margin-top:16px;">Coming Soon</div>
+        </div>
+        <div class="tpl-meta">
+          <div class="tpl-name">Feed Post: Announcement</div>
+          <div class="tpl-dims">1080 x 1080px</div>
+          <div class="tpl-desc">Brown-gold background with PULLSHEET wordmark and tagline. Use for launch announcements, milestones, and brand moments.</div>
+          <button class="tpl-download" onclick="renderAndDownload(this)">Download PNG</button>
+        </div>
+      </div>
+
+      <!-- IG 2: Feed Post - Feature Spotlight (1080x1080) -->
+      <div class="tpl-card">
+        <div class="tpl-preview square bg-cream" data-width="1080" data-height="1080" data-name="ig-feature-spotlight">
+          <div class="tpl-ghost" style="background:radial-gradient(ellipse 45% 60% at 50% 40%, rgba(90,66,40,0.08) 0%, transparent 100%);filter:grayscale(1);"></div>
+          <div class="tpl-label" style="color:var(--brown-gold);margin-bottom:12px;">Feature Spotlight</div>
+          <div class="tpl-headline" style="font-size:24px;color:var(--near-black);margin-bottom:8px;">
+            Canvas Builder
+          </div>
+          <div class="tpl-body" style="font-size:12px;color:var(--taupe);max-width:220px;line-height:1.6;">
+            Drag garment cutouts onto a freeform canvas. Arrange, layer, and resize.
+          </div>
+          <div class="tpl-wordmark" style="font-size:12px;color:var(--sand);margin-top:20px;">
+            <span class="pull">Pull</span><span class="sheet">Sheet</span>
+          </div>
+        </div>
+        <div class="tpl-meta">
+          <div class="tpl-name">Feed Post: Feature Spotlight</div>
+          <div class="tpl-dims">1080 x 1080px</div>
+          <div class="tpl-desc">Cream background with ghosted garment imagery. Highlights a single feature with title and description.</div>
+          <button class="tpl-download" onclick="renderAndDownload(this)">Download PNG</button>
+        </div>
+      </div>
+
+      <!-- IG 3: Feed Post - Before/After (1080x1080) -->
+      <div class="tpl-card">
+        <div class="tpl-preview square" data-width="1080" data-height="1080" data-name="ig-before-after" style="padding:0;">
+          <div class="tpl-split">
+            <div class="tpl-split-left">
+              <div class="tpl-label" style="color:var(--clay);margin-bottom:8px;">Before</div>
+              <div class="tpl-body" style="font-size:11px;color:var(--taupe);line-height:1.5;text-align:center;">Pinned photos<br>Scattered swatches<br>Lost notes</div>
+            </div>
+            <div class="tpl-split-right">
+              <div class="tpl-ghost" style="background:radial-gradient(ellipse 50% 60% at 50% 50%, rgba(90,66,40,0.06) 0%, transparent 100%);filter:grayscale(1);"></div>
+              <div class="tpl-label" style="color:var(--forest);margin-bottom:8px;">After</div>
+              <div class="tpl-body" style="font-size:11px;color:var(--near-black);line-height:1.5;text-align:center;">Digital lookboards<br>Organized cutouts<br>Shareable exports</div>
+            </div>
+          </div>
+        </div>
+        <div class="tpl-meta">
+          <div class="tpl-name">Feed Post: Before/After</div>
+          <div class="tpl-dims">1080 x 1080px</div>
+          <div class="tpl-desc">Split-screen layout contrasting manual corkboard workflow with PullSheet's digital approach.</div>
+          <button class="tpl-download" onclick="renderAndDownload(this)">Download PNG</button>
+        </div>
+      </div>
+
+      <!-- IG 4: Story - CTA (1080x1920) -->
+      <div class="tpl-card">
+        <div class="tpl-preview story bg-dark" data-width="1080" data-height="1920" data-name="ig-story-cta">
+          <div class="tpl-ghost" style="background:radial-gradient(ellipse 50% 40% at 50% 35%, rgba(245,240,235,0.08) 0%, transparent 100%);filter:grayscale(1);mix-blend-mode:overlay;"></div>
+          <div class="tpl-wordmark" style="font-size:20px;color:var(--bone);margin-bottom:24px;">
+            <span class="pull">Pull</span><span class="sheet">Sheet</span>
+          </div>
+          <div class="tpl-headline" style="font-size:20px;color:var(--bone);margin-bottom:8px;">
+            See the look before the fitting
+          </div>
+          <div class="tpl-body" style="font-size:11px;color:var(--taupe);max-width:200px;line-height:1.6;margin-bottom:16px;">
+            Build visual lookboards from your wardrobe inventory
+          </div>
+          <div class="tpl-cta" style="background:var(--brown-gold);color:white;">Join the Waitlist</div>
+        </div>
+        <div class="tpl-meta">
+          <div class="tpl-name">Story: CTA</div>
+          <div class="tpl-dims">1080 x 1920px</div>
+          <div class="tpl-desc">Dark background story template with CTA button. Use for waitlist sign-ups and action-driving moments.</div>
+          <button class="tpl-download" onclick="renderAndDownload(this)">Download PNG</button>
+        </div>
+      </div>
+
+      <!-- IG 5: Carousel Cover (1080x1080) -->
+      <div class="tpl-card">
+        <div class="tpl-preview square bg-gradient" data-width="1080" data-height="1080" data-name="ig-carousel-cover">
+          <div class="tpl-ghost" style="background:radial-gradient(ellipse 55% 65% at 50% 45%, rgba(255,255,255,0.05) 0%, transparent 100%);filter:grayscale(1);mix-blend-mode:overlay;"></div>
+          <div class="tpl-label" style="color:rgba(255,255,255,0.4);margin-bottom:12px;">Swipe to explore</div>
+          <div class="tpl-headline" style="font-size:24px;color:rgba(255,255,255,0.92);margin-bottom:8px;">
+            How PullSheet Works
+          </div>
+          <div class="tpl-body" style="font-size:11px;color:rgba(255,255,255,0.45);line-height:1.6;">
+            Three steps to your perfect lookboard
+          </div>
+          <div style="display:flex;gap:6px;margin-top:16px;position:relative;z-index:2;">
+            <span style="width:20px;height:3px;background:rgba(255,255,255,0.8);border-radius:2px;"></span>
+            <span style="width:20px;height:3px;background:rgba(255,255,255,0.2);border-radius:2px;"></span>
+            <span style="width:20px;height:3px;background:rgba(255,255,255,0.2);border-radius:2px;"></span>
+            <span style="width:20px;height:3px;background:rgba(255,255,255,0.2);border-radius:2px;"></span>
+          </div>
+        </div>
+        <div class="tpl-meta">
+          <div class="tpl-name">Carousel Cover</div>
+          <div class="tpl-dims">1080 x 1080px</div>
+          <div class="tpl-desc">Gradient title slide for carousel posts. Pagination dots indicate multi-slide content.</div>
+          <button class="tpl-download" onclick="renderAndDownload(this)">Download PNG</button>
+        </div>
+      </div>
+
+      <!-- IG 6: Reel Cover (1080x1920) -->
+      <div class="tpl-card">
+        <div class="tpl-preview story bg-espresso" data-width="1080" data-height="1920" data-name="ig-reel-cover">
+          <div class="tpl-ghost" style="background:radial-gradient(ellipse 60% 50% at 50% 40%, rgba(196,148,106,0.12) 0%, transparent 100%);filter:grayscale(1);mix-blend-mode:overlay;"></div>
+          <div class="tpl-label" style="color:var(--copper);margin-bottom:16px;">Watch Now</div>
+          <div class="tpl-headline" style="font-size:22px;color:var(--bone);margin-bottom:8px;">
+            60-Second Demo
+          </div>
+          <div class="tpl-body" style="font-size:11px;color:var(--taupe);max-width:180px;line-height:1.6;">
+            From wardrobe rack to polished lookboard
+          </div>
+          <div style="width:48px;height:48px;border:2px solid var(--copper);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-top:20px;position:relative;z-index:2;">
+            <span style="width:0;height:0;border-left:14px solid var(--copper);border-top:8px solid transparent;border-bottom:8px solid transparent;margin-left:4px;"></span>
+          </div>
+        </div>
+        <div class="tpl-meta">
+          <div class="tpl-name">Reel Cover</div>
+          <div class="tpl-dims">1080 x 1920px</div>
+          <div class="tpl-desc">Dynamic vertical layout with play button. Use as a cover thumbnail for Reels content.</div>
+          <button class="tpl-download" onclick="renderAndDownload(this)">Download PNG</button>
+        </div>
+      </div>
+
+    </div><!-- /.tpl-grid -->
+  </div>
+
+  <!-- ============================================================
+       SECTION 02: FACEBOOK TEMPLATES (5)
+       ============================================================ -->
+  <div class="section" id="facebook">
+    <div class="section-num">02 / Facebook</div>
+    <div class="section-title">Facebook Templates</div>
+    <div class="section-subtitle">
+      Five templates covering feed posts, cover photos, event images, and link previews.
+      Wider aspect ratios optimized for Facebook's feed layout.
+    </div>
+
+    <div class="platform-header facebook">Facebook</div>
+
+    <div class="tpl-grid wide">
+
+      <!-- FB 1: Feed Post - Announcement (1200x630) -->
+      <div class="tpl-card">
+        <div class="tpl-preview landscape bg-brown-gold" data-width="1200" data-height="630" data-name="fb-announcement">
+          <div class="tpl-ghost" style="background:radial-gradient(ellipse 50% 65% at 55% 45%, rgba(255,255,255,0.06) 0%, transparent 100%);filter:grayscale(1);mix-blend-mode:overlay;"></div>
+          <div class="tpl-wordmark" style="font-size:32px;color:rgba(255,255,255,0.92);margin-bottom:12px;">
+            <span class="pull">Pull</span><span class="sheet">Sheet</span>
+          </div>
+          <div class="tpl-headline" style="font-size:20px;color:rgba(255,255,255,0.8);">
+            See the look before the fitting
+          </div>
+          <div class="tpl-label" style="color:rgba(255,255,255,0.35);margin-top:12px;">pullsheetapp.io</div>
+        </div>
+        <div class="tpl-meta">
+          <div class="tpl-name">Feed Post: Announcement</div>
+          <div class="tpl-dims">1200 x 630px</div>
+          <div class="tpl-desc">Wider landscape format for Facebook's feed. Brown-gold background with wordmark and tagline.</div>
+          <button class="tpl-download" onclick="renderAndDownload(this)">Download PNG</button>
+        </div>
+      </div>
+
+      <!-- FB 2: Feed Post - Feature (1200x630) -->
+      <div class="tpl-card">
+        <div class="tpl-preview landscape bg-cream" data-width="1200" data-height="630" data-name="fb-feature">
+          <div class="tpl-ghost" style="background:radial-gradient(ellipse 40% 60% at 60% 45%, rgba(90,66,40,0.07) 0%, transparent 100%);filter:grayscale(1);"></div>
+          <div class="tpl-label" style="color:var(--brown-gold);margin-bottom:8px;">Feature</div>
+          <div class="tpl-headline" style="font-size:22px;color:var(--near-black);margin-bottom:6px;">
+            AI Background Removal
+          </div>
+          <div class="tpl-body" style="font-size:12px;color:var(--taupe);max-width:320px;line-height:1.6;">
+            One tap to isolate any garment. Clean cutouts ready for your lookboard.
+          </div>
+        </div>
+        <div class="tpl-meta">
+          <div class="tpl-name">Feed Post: Feature</div>
+          <div class="tpl-dims">1200 x 630px</div>
+          <div class="tpl-desc">Cream background feature highlight. Centered text layout for single-feature promotion.</div>
+          <button class="tpl-download" onclick="renderAndDownload(this)">Download PNG</button>
+        </div>
+      </div>
+
+      <!-- FB 3: Cover Photo (851x315) -->
+      <div class="tpl-card">
+        <div class="tpl-preview fb-cover bg-gradient banner-layout" data-width="851" data-height="315" data-name="fb-cover">
+          <div class="tpl-ghost" style="background:radial-gradient(ellipse 45% 70% at 40% 50%, rgba(255,255,255,0.05) 0%, transparent 100%);filter:grayscale(1);mix-blend-mode:overlay;"></div>
+          <div class="banner-left">
+            <div class="tpl-wordmark" style="font-size:20px;color:rgba(255,255,255,0.92);margin-bottom:4px;text-align:left;">
+              <span class="pull">Pull</span><span class="sheet">Sheet</span>
+            </div>
+            <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:14px;color:rgba(255,255,255,0.5);">
+              See the look before the fitting
+            </div>
+          </div>
+          <div class="banner-right">
+            <div class="tpl-label" style="color:rgba(255,255,255,0.3);">pullsheetapp.io</div>
+          </div>
+        </div>
+        <div class="tpl-meta">
+          <div class="tpl-name">Cover Photo</div>
+          <div class="tpl-dims">851 x 315px</div>
+          <div class="tpl-desc">Facebook page cover photo. Gradient background with wordmark left and URL right.</div>
+          <button class="tpl-download" onclick="renderAndDownload(this)">Download PNG</button>
+        </div>
+      </div>
+
+      <!-- FB 4: Event Image (1920x1080) -->
+      <div class="tpl-card">
+        <div class="tpl-preview fb-event bg-dark" data-width="1920" data-height="1080" data-name="fb-event">
+          <div class="tpl-ghost" style="background:radial-gradient(ellipse 55% 60% at 50% 45%, rgba(245,240,235,0.08) 0%, transparent 100%);filter:grayscale(1);mix-blend-mode:overlay;"></div>
+          <div class="tpl-label" style="color:var(--copper);margin-bottom:8px;">Event</div>
+          <div class="tpl-headline" style="font-size:22px;color:var(--bone);margin-bottom:6px;">
+            PullSheet Beta Launch
+          </div>
+          <div class="tpl-body" style="font-size:11px;color:var(--taupe);line-height:1.6;">
+            Early access for wardrobe professionals
+          </div>
+          <div class="tpl-wordmark" style="font-size:12px;color:var(--sand);margin-top:16px;">
+            <span class="pull">Pull</span><span class="sheet">Sheet</span>
+          </div>
+        </div>
+        <div class="tpl-meta">
+          <div class="tpl-name">Event Image</div>
+          <div class="tpl-dims">1920 x 1080px</div>
+          <div class="tpl-desc">Dark background event cover for Facebook Events. Centered title with event details.</div>
+          <button class="tpl-download" onclick="renderAndDownload(this)">Download PNG</button>
+        </div>
+      </div>
+
+      <!-- FB 5: Link Preview (1200x630) -->
+      <div class="tpl-card">
+        <div class="tpl-preview landscape bg-bone" data-width="1200" data-height="630" data-name="fb-link-preview">
+          <div class="tpl-ghost" style="background:radial-gradient(ellipse 50% 60% at 45% 45%, rgba(90,66,40,0.06) 0%, transparent 100%);filter:grayscale(1);"></div>
+          <div class="tpl-wordmark" style="font-size:24px;color:var(--near-black);margin-bottom:10px;">
+            <span class="pull">Pull</span><span class="sheet">Sheet</span>
+          </div>
+          <div class="tpl-headline" style="font-size:18px;color:var(--near-black);">
+            The visual lookboard builder
+          </div>
+          <div class="tpl-body" style="font-size:12px;color:var(--taupe);margin-top:4px;">
+            pullsheetapp.io
+          </div>
+        </div>
+        <div class="tpl-meta">
+          <div class="tpl-name">Link Preview (OG Image)</div>
+          <div class="tpl-dims">1200 x 630px</div>
+          <div class="tpl-desc">Open Graph image for website link shares. Also works as the default social share image.</div>
+          <button class="tpl-download" onclick="renderAndDownload(this)">Download PNG</button>
+        </div>
+      </div>
+
+    </div><!-- /.tpl-grid -->
+  </div>
+
+  <!-- ============================================================
+       SECTION 03: LINKEDIN TEMPLATES (4)
+       ============================================================ -->
+  <div class="section" id="linkedin">
+    <div class="section-num">03 / LinkedIn</div>
+    <div class="section-title">LinkedIn Templates</div>
+    <div class="section-subtitle">
+      Four templates for LinkedIn's professional context. Feed posts, article covers,
+      and banner images for company and personal profiles.
+    </div>
+
+    <div class="platform-header linkedin">LinkedIn</div>
+
+    <div class="tpl-grid wide">
+
+      <!-- LI 1: Feed Post (1200x627) -->
+      <div class="tpl-card">
+        <div class="tpl-preview landscape bg-cream" data-width="1200" data-height="627" data-name="li-feed-post">
+          <div class="tpl-ghost" style="background:radial-gradient(ellipse 45% 60% at 50% 45%, rgba(90,66,40,0.07) 0%, transparent 100%);filter:grayscale(1);"></div>
+          <div class="tpl-wordmark" style="font-size:24px;color:var(--near-black);margin-bottom:10px;">
+            <span class="pull">Pull</span><span class="sheet">Sheet</span>
+          </div>
+          <div class="tpl-headline" style="font-size:20px;color:var(--near-black);margin-bottom:6px;">
+            Rethinking the wardrobe workflow
+          </div>
+          <div class="tpl-body" style="font-size:12px;color:var(--taupe);max-width:340px;line-height:1.6;">
+            How digital lookboards are replacing corkboards on set
+          </div>
+        </div>
+        <div class="tpl-meta">
+          <div class="tpl-name">Feed Post</div>
+          <div class="tpl-dims">1200 x 627px</div>
+          <div class="tpl-desc">Professional tone feed post. Cream background keeps the editorial feel appropriate for LinkedIn.</div>
+          <button class="tpl-download" onclick="renderAndDownload(this)">Download PNG</button>
+        </div>
+      </div>
+
+      <!-- LI 2: Article Cover (1200x627) -->
+      <div class="tpl-card">
+        <div class="tpl-preview landscape bg-dark" data-width="1200" data-height="627" data-name="li-article-cover">
+          <div class="tpl-ghost" style="background:radial-gradient(ellipse 50% 60% at 50% 45%, rgba(245,240,235,0.07) 0%, transparent 100%);filter:grayscale(1);mix-blend-mode:overlay;"></div>
+          <div class="tpl-label" style="color:var(--copper);margin-bottom:8px;">Article</div>
+          <div class="tpl-headline" style="font-size:20px;color:var(--bone);margin-bottom:6px;">
+            The Future of Wardrobe Planning
+          </div>
+          <div class="tpl-body" style="font-size:11px;color:var(--taupe);max-width:300px;line-height:1.6;">
+            Why leading stylists are going digital
+          </div>
+        </div>
+        <div class="tpl-meta">
+          <div class="tpl-name">Article Cover</div>
+          <div class="tpl-dims">1200 x 627px</div>
+          <div class="tpl-desc">Dark mode cover image for LinkedIn articles and newsletter posts. Thought leadership aesthetic.</div>
+          <button class="tpl-download" onclick="renderAndDownload(this)">Download PNG</button>
+        </div>
+      </div>
+
+      <!-- LI 3: Company Banner (1128x191) -->
+      <div class="tpl-card">
+        <div class="tpl-preview li-company-banner bg-gradient banner-layout" data-width="1128" data-height="191" data-name="li-company-banner">
+          <div class="tpl-ghost" style="background:radial-gradient(ellipse 40% 80% at 35% 50%, rgba(255,255,255,0.05) 0%, transparent 100%);filter:grayscale(1);mix-blend-mode:overlay;"></div>
+          <div class="banner-left">
+            <div class="tpl-wordmark" style="font-size:18px;color:rgba(255,255,255,0.92);text-align:left;">
+              <span class="pull">Pull</span><span class="sheet">Sheet</span>
+            </div>
+            <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:12px;color:rgba(255,255,255,0.45);margin-top:2px;">
+              See the look before the fitting
+            </div>
+          </div>
+          <div class="banner-right">
+            <div class="tpl-label" style="color:rgba(255,255,255,0.3);">pullsheetapp.io</div>
+          </div>
+        </div>
+        <div class="tpl-meta">
+          <div class="tpl-name">Company Banner</div>
+          <div class="tpl-dims">1128 x 191px</div>
+          <div class="tpl-desc">LinkedIn company page banner. Ultra-wide format with wordmark left and URL right.</div>
+          <button class="tpl-download" onclick="renderAndDownload(this)">Download PNG</button>
+        </div>
+      </div>
+
+      <!-- LI 4: Personal Banner (1584x396) -->
+      <div class="tpl-card">
+        <div class="tpl-preview li-personal-banner bg-espresso banner-layout" data-width="1584" data-height="396" data-name="li-personal-banner">
+          <div class="tpl-ghost" style="background:radial-gradient(ellipse 45% 75% at 40% 50%, rgba(196,148,106,0.10) 0%, transparent 100%);filter:grayscale(1);mix-blend-mode:overlay;"></div>
+          <div class="banner-left">
+            <div class="tpl-wordmark" style="font-size:22px;color:var(--bone);text-align:left;margin-bottom:4px;">
+              <span class="pull">Pull</span><span class="sheet">Sheet</span>
+            </div>
+            <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:14px;color:var(--taupe);">
+              Visual lookboard builder for wardrobe professionals
+            </div>
+          </div>
+          <div class="banner-right">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--taupe);letter-spacing:0.06em;position:relative;z-index:2;">
+              Founder &amp; Builder
+            </div>
+          </div>
+        </div>
+        <div class="tpl-meta">
+          <div class="tpl-name">Personal Banner</div>
+          <div class="tpl-dims">1584 x 396px</div>
+          <div class="tpl-desc">LinkedIn personal profile banner. Use for founder/team member profiles. Espresso background with copper accents.</div>
+          <button class="tpl-download" onclick="renderAndDownload(this)">Download PNG</button>
+        </div>
+      </div>
+
+    </div><!-- /.tpl-grid -->
+  </div>
+
+</div><!-- /.container -->
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<div class="footer">
+  <a href="https://cooperinteractive.com">Made with care</a>
+</div>
+
+<!-- ============================================================
+     DOWNLOAD SCRIPT
+     Renders the CSS preview of a template card to a canvas at the
+     target pixel dimensions, then triggers a PNG download.
+
+     HOW IT WORKS:
+     1. Finds the .tpl-preview element relative to the clicked button
+     2. Reads data-width, data-height, data-name attributes
+     3. Creates an offscreen canvas at those dimensions
+     4. Draws the preview's background colors, ghost gradients, and text
+     5. Converts canvas to data URL and triggers download
+
+     LIMITATIONS:
+     - Cannot perfectly replicate all CSS (blend modes, complex gradients)
+     - Text positioning is approximate
+     - For production use, replace ghost shapes with actual photographs
+     ============================================================ -->
+<script>
+  /**
+   * renderAndDownload(buttonEl)
+   * Finds the .tpl-preview sibling of the button's parent .tpl-meta,
+   * uses html2canvas-style approach with a simpler canvas draw.
+   *
+   * Since we cannot load html2canvas from CDN in an offline context,
+   * this uses a direct canvas rendering approach that captures the
+   * essential design elements of each template.
+   */
+  function renderAndDownload(buttonEl) {
+    // Navigate from button -> .tpl-meta -> .tpl-card -> .tpl-preview
+    var card = buttonEl.closest('.tpl-card');
+    var preview = card.querySelector('.tpl-preview');
+    var w = parseInt(preview.dataset.width);
+    var h = parseInt(preview.dataset.height);
+    var name = preview.dataset.name || 'pullsheet-template';
+
+    // Create offscreen canvas at target dimensions
+    var canvas = document.createElement('canvas');
+    canvas.width = w;
+    canvas.height = h;
+    var ctx = canvas.getContext('2d');
+
+    // Determine background color from computed styles
+    var computedBg = getComputedStyle(preview).backgroundColor;
+    var computedBgImage = getComputedStyle(preview).backgroundImage;
+
+    // Fill background
+    if (computedBgImage && computedBgImage !== 'none') {
+      // For gradient backgrounds, create a gradient on canvas
+      var grad = ctx.createLinearGradient(0, 0, w, h);
+      grad.addColorStop(0, '#5A4228');
+      grad.addColorStop(0.4, '#8B6F52');
+      grad.addColorStop(1, '#C4946A');
+      ctx.fillStyle = grad;
+    } else {
+      ctx.fillStyle = computedBg || '#FAF8F5';
+    }
+    ctx.fillRect(0, 0, w, h);
+
+    // Add subtle ghost radial gradient (simulates the ghost photo)
+    var ghostGrad = ctx.createRadialGradient(w*0.5, h*0.45, 0, w*0.5, h*0.45, w*0.4);
+    ghostGrad.addColorStop(0, 'rgba(139,111,82,0.06)');
+    ghostGrad.addColorStop(1, 'rgba(139,111,82,0)');
+    ctx.fillStyle = ghostGrad;
+    ctx.fillRect(0, 0, w, h);
+
+    // Determine text color based on background
+    var isDark = preview.classList.contains('bg-dark') ||
+                 preview.classList.contains('bg-espresso') ||
+                 preview.classList.contains('bg-brown-gold') ||
+                 preview.classList.contains('bg-gradient');
+
+    var textColor = isDark ? 'rgba(255,255,255,0.92)' : '#1A1714';
+    var subtextColor = isDark ? 'rgba(255,255,255,0.5)' : '#B5A89C';
+
+    // Scale factor for text rendering
+    var scale = w / 400;
+
+    // Draw wordmark if present
+    var wordmark = preview.querySelector('.tpl-wordmark');
+    if (wordmark) {
+      var wmSize = parseFloat(getComputedStyle(wordmark).fontSize) * (w / preview.offsetWidth);
+      ctx.font = '200 ' + wmSize + 'px Inter, sans-serif';
+      ctx.fillStyle = textColor;
+      ctx.textAlign = 'center';
+
+      // Check if banner layout (left-aligned)
+      if (preview.classList.contains('banner-layout')) {
+        ctx.textAlign = 'left';
+        ctx.fillText('PULLSHEET', w * 0.05, h * 0.45);
+      } else {
+        ctx.fillText('PULLSHEET', w / 2, h * 0.38);
+      }
+    }
+
+    // Draw headline if present
+    var headline = preview.querySelector('.tpl-headline');
+    if (headline) {
+      var hlSize = parseFloat(getComputedStyle(headline).fontSize) * (w / preview.offsetWidth);
+      ctx.font = '300 ' + hlSize + 'px Cormorant Garamond, serif';
+      ctx.fillStyle = textColor;
+      ctx.textAlign = 'center';
+
+      if (preview.classList.contains('banner-layout')) {
+        ctx.textAlign = 'left';
+        ctx.fillText(headline.textContent.trim(), w * 0.05, h * 0.65);
+      } else {
+        var hlY = wordmark ? h * 0.52 : h * 0.45;
+        ctx.fillText(headline.textContent.trim(), w / 2, hlY);
+      }
+    }
+
+    // Draw body text if present
+    var body = preview.querySelector('.tpl-body');
+    if (body && !preview.querySelector('.tpl-split')) {
+      var bodySize = parseFloat(getComputedStyle(body).fontSize) * (w / preview.offsetWidth);
+      ctx.font = '400 ' + bodySize + 'px Inter, sans-serif';
+      ctx.fillStyle = subtextColor;
+      ctx.textAlign = 'center';
+      var bodyY = headline ? (wordmark ? h * 0.62 : h * 0.55) : h * 0.55;
+      ctx.fillText(body.textContent.trim(), w / 2, bodyY);
+    }
+
+    // Draw label if present
+    var label = preview.querySelector('.tpl-label');
+    if (label) {
+      var lbSize = 9 * (w / preview.offsetWidth);
+      ctx.font = '500 ' + lbSize + 'px JetBrains Mono, monospace';
+      ctx.fillStyle = isDark ? 'rgba(196,148,106,0.8)' : '#8B6F52';
+      ctx.textAlign = 'center';
+      ctx.fillText(label.textContent.trim().toUpperCase(), w / 2, h * 0.25);
+    }
+
+    // Trigger download
+    var link = document.createElement('a');
+    link.download = name + '-' + w + 'x' + h + '.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  }
+</script>
+
+</body>
+</html>

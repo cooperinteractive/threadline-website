@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PullSheet -- Startup Roadmap</title>
+
+<!-- ============================================================
+     PULLSHEET STARTUP ROADMAP
+     Self-contained HTML with inline CSS and Google Fonts only.
+     Master punch list for PullSheet launch organized by workstream.
+
+     WORKSTREAMS:
+     01 - Brand (identity, moodboard, photography, boilerplate, favicons)
+     02 - Website (strategy, marketing site pages, domain)
+     03 - App Development (build, schema, APIs, deep linking, App Store)
+     04 - Marketing (social setup, calendar, templates, press kit)
+     05 - Legal (privacy policy, terms of service)
+     06 - Operations (pricing, beta, support, swag)
+
+     STATUS SYSTEM:
+     - .status-complete  = Green badge, strikethrough text
+     - .status-progress  = Gold badge, normal text
+     - .status-not       = Gray badge, normal text
+
+     TO MODIFY:
+     - Change status classes on .item-status spans
+     - Add .completed class to .checklist-item for strikethrough
+     - Update links as new deliverables are built
+     ============================================================ -->
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  /* ============================================================
+     CSS CUSTOM PROPERTIES (Design Tokens)
+     ============================================================ */
+  :root {
+    --cream:#FAF8F5;
+    --bone:#F5F0EB;
+    --warm-gray:#E8E3DE;
+    --sand:#D2C4B9;
+    --taupe:#B5A89C;
+    --brown-gold:#8B6F52;
+    --copper:#C4946A;
+    --dark-brown:#5A4228;
+    --espresso:#3A2A18;
+    --near-black:#1A1714;
+    --void:#0A0A0A;
+    --water:#5A7E8A;
+    --forest:#4A6741;
+    --clay:#8A4A42;
+    --dusty-blue:#627786;
+    --warning:#8A6B3A;
+  }
+
+  /* ============================================================
+     RESET & BASE
+     ============================================================ */
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'Inter',sans-serif;
+    background:var(--cream);
+    color:var(--near-black);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+
+  /* ============================================================
+     STICKY NAVIGATION
+     ============================================================ */
+  .sticky-nav {
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(250,248,245,0.92);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    border-bottom:1px solid rgba(26,23,20,0.06);
+    padding:12px 48px;
+    display:flex;
+    align-items:center;
+    gap:32px;
+  }
+  .sticky-nav .brand {
+    font-family:'Inter',sans-serif;
+    font-weight:200;
+    font-size:16px;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    text-decoration:none;
+    color:inherit;
+  }
+  .sticky-nav .brand .pull { color:var(--near-black); }
+  .sticky-nav .brand .sheet { color:var(--brown-gold); }
+  .sticky-nav a {
+    font-size:11px;
+    font-weight:500;
+    color:var(--taupe);
+    text-decoration:none;
+    letter-spacing:0.04em;
+    padding:4px 8px;
+    border-radius:4px;
+    transition:all 0.15s;
+  }
+  .sticky-nav a:hover,
+  .sticky-nav a.active {
+    color:var(--brown-gold);
+    background:rgba(139,111,82,0.06);
+  }
+
+  /* ============================================================
+     CONTAINER & SECTIONS
+     ============================================================ */
+  .container { max-width:1200px; margin:0 auto; padding:0 48px; }
+  .section {
+    padding:80px 0;
+    border-bottom:1px solid var(--warm-gray);
+  }
+  .section:last-of-type { border-bottom:none; }
+  .section-num {
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    margin-bottom:12px;
+  }
+  .section-title {
+    font-family:'Cormorant Garamond',serif;
+    font-weight:300;
+    font-size:36px;
+    line-height:1.2;
+    margin-bottom:8px;
+  }
+  .section-subtitle {
+    font-size:15px;
+    color:var(--taupe);
+    line-height:1.7;
+    max-width:640px;
+    margin-bottom:40px;
+  }
+
+  /* ============================================================
+     COVER
+     ============================================================ */
+  .cover {
+    background: linear-gradient(135deg, var(--dark-brown) 0%, var(--brown-gold) 40%, var(--copper) 100%);
+    min-height:50vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:80px 48px;
+    position:relative;
+    overflow:hidden;
+  }
+  .cover::before {
+    content:'';
+    position:absolute;
+    inset:0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.08) 0%, transparent 60%);
+  }
+  .cover .wordmark {
+    font-family:'Inter',sans-serif;
+    font-weight:200;
+    font-size:80px;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.92);
+    position:relative;
+    z-index:1;
+  }
+  .cover .wordmark .sheet { color:rgba(255,255,255,0.55); }
+  .cover .tagline {
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;
+    font-weight:300;
+    font-size:28px;
+    color:rgba(255,255,255,0.6);
+    margin-top:12px;
+    position:relative;
+    z-index:1;
+  }
+  .cover .divider-line {
+    width:60px;
+    height:1px;
+    background:linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    margin:24px auto 0;
+    position:relative;
+    z-index:1;
+  }
+  .cover .doc-title {
+    font-size:12px;
+    font-weight:500;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.35);
+    margin-top:48px;
+    position:relative;
+    z-index:1;
+  }
+
+  /* ============================================================
+     PROGRESS SUMMARY
+     Overview stats showing total progress across all workstreams.
+     ============================================================ */
+  .progress-summary {
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:20px;
+    margin-bottom:48px;
+  }
+  .progress-stat {
+    background:white;
+    border:1px solid var(--warm-gray);
+    border-radius:12px;
+    padding:24px;
+    text-align:center;
+  }
+  .progress-stat .stat-value {
+    font-family:'Cormorant Garamond',serif;
+    font-weight:300;
+    font-size:40px;
+    color:var(--near-black);
+    line-height:1;
+    margin-bottom:4px;
+  }
+  .progress-stat .stat-label {
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--taupe);
+  }
+  .progress-stat.highlight .stat-value { color:var(--brown-gold); }
+
+  /* ============================================================
+     WORKSTREAM CARDS
+     Each workstream is a collapsible card with checklist items.
+     ============================================================ */
+  .workstream {
+    border:1px solid var(--warm-gray);
+    border-radius:12px;
+    background:white;
+    overflow:hidden;
+    margin-bottom:20px;
+  }
+  .ws-header {
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding:24px 28px;
+    cursor:pointer;
+    user-select:none;
+    transition:background 0.15s;
+  }
+  .ws-header:hover {
+    background:var(--bone);
+  }
+  .ws-num {
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    font-weight:500;
+    color:var(--brown-gold);
+    background:rgba(139,111,82,0.08);
+    padding:6px 12px;
+    border-radius:6px;
+    flex-shrink:0;
+  }
+  .ws-title {
+    font-family:'Cormorant Garamond',serif;
+    font-weight:400;
+    font-size:22px;
+    flex:1;
+  }
+  .ws-progress {
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-shrink:0;
+  }
+  .ws-bar {
+    width:80px;
+    height:4px;
+    background:var(--warm-gray);
+    border-radius:2px;
+    overflow:hidden;
+  }
+  .ws-bar-fill {
+    height:100%;
+    border-radius:2px;
+    background:var(--brown-gold);
+    transition:width 0.3s;
+  }
+  .ws-pct {
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    color:var(--taupe);
+    min-width:32px;
+    text-align:right;
+  }
+  .ws-toggle {
+    font-size:14px;
+    color:var(--taupe);
+    transition:transform 0.2s;
+    flex-shrink:0;
+  }
+  .workstream.open .ws-toggle { transform:rotate(180deg); }
+
+  /* Checklist body, hidden by default */
+  .ws-body {
+    display:none;
+    padding:0 28px 24px;
+    border-top:1px solid var(--warm-gray);
+  }
+  .workstream.open .ws-body { display:block; }
+
+  /* ============================================================
+     CHECKLIST ITEMS
+     Individual tasks within each workstream.
+     ============================================================ */
+  .checklist-item {
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px 0;
+    border-bottom:1px solid rgba(232,227,222,0.5);
+  }
+  .checklist-item:last-child { border-bottom:none; }
+
+  /* Custom checkbox */
+  .check-box {
+    width:18px;
+    height:18px;
+    border:2px solid var(--sand);
+    border-radius:4px;
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:all 0.15s;
+  }
+  .checklist-item.completed .check-box {
+    background:var(--forest);
+    border-color:var(--forest);
+  }
+  .checklist-item.completed .check-box::after {
+    content:'';
+    width:6px;
+    height:10px;
+    border:solid white;
+    border-width:0 2px 2px 0;
+    transform:rotate(45deg);
+    margin-top:-2px;
+  }
+
+  /* Item label: strikethrough when completed */
+  .item-label {
+    flex:1;
+    font-size:14px;
+    line-height:1.5;
+    color:var(--near-black);
+  }
+  .checklist-item.completed .item-label {
+    text-decoration:line-through;
+    color:var(--taupe);
+  }
+  .item-label a {
+    color:var(--brown-gold);
+    text-decoration:none;
+    border-bottom:1px solid rgba(139,111,82,0.2);
+    transition:border-color 0.15s;
+  }
+  .item-label a:hover {
+    border-color:var(--brown-gold);
+  }
+
+  /* Status badges */
+  .item-status {
+    font-family:'JetBrains Mono',monospace;
+    font-size:9px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    padding:3px 8px;
+    border-radius:4px;
+    flex-shrink:0;
+    white-space:nowrap;
+  }
+  .status-complete {
+    background:rgba(74,103,65,0.1);
+    color:var(--forest);
+  }
+  .status-progress {
+    background:rgba(138,107,58,0.1);
+    color:var(--warning);
+  }
+  .status-not {
+    background:rgba(181,168,156,0.15);
+    color:var(--taupe);
+  }
+
+  /* ============================================================
+     FOOTER
+     ============================================================ */
+  .footer{text-align:center;padding:32px;font-size:12px;color:var(--taupe);border-top:1px solid rgba(26,23,20,0.06);}
+  .footer a{color:var(--brown-gold);text-decoration:none;}
+
+  /* ============================================================
+     RESPONSIVE
+     ============================================================ */
+  @media (max-width:768px) {
+    .sticky-nav { padding:12px 20px; gap:16px; flex-wrap:wrap; }
+    .cover { padding:48px 20px; min-height:40vh; }
+    .cover .wordmark { font-size:36px; letter-spacing:0.2em; }
+    .cover .tagline { font-size:20px; }
+    .container { padding:0 20px; }
+    .section { padding:48px 0; }
+    .section-title { font-size:28px; }
+    .progress-summary { grid-template-columns:repeat(2, 1fr); }
+    .ws-header { padding:16px 20px; gap:10px; }
+    .ws-body { padding:0 20px 16px; }
+    .ws-bar { width:50px; }
+    .footer { padding:24px 20px; }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- ============================================================
+     NAVIGATION
+     ============================================================ -->
+<nav class="sticky-nav">
+  <a href="index.html" class="brand" style="text-decoration:none;color:inherit;">PULL<span class="sheet">SHEET</span></a>
+  <a class="back" href="index.html">&larr; All Pages</a>
+  <a href="#brand">Brand</a>
+  <a href="#website">Website</a>
+  <a href="#app">App</a>
+  <a href="#marketing">Marketing</a>
+  <a href="#legal">Legal</a>
+  <a href="#ops">Operations</a>
+</nav>
+
+<!-- ============================================================
+     COVER
+     ============================================================ -->
+<div class="cover">
+  <div class="wordmark"><span class="pull">Pull</span><span class="sheet">Sheet</span></div>
+  <div class="tagline">Master punch list for PullSheet launch</div>
+  <div class="divider-line"></div>
+  <div class="doc-title">Startup Roadmap</div>
+</div>
+
+<div class="container">
+
+  <!-- ============================================================
+       PROGRESS OVERVIEW
+       High-level stats across all workstreams.
+       ============================================================ -->
+  <div class="section">
+    <div class="section-num">Overview</div>
+    <div class="section-title">Launch Progress</div>
+    <div class="section-subtitle">
+      Tracking deliverables across 6 workstreams. Each item links to its
+      corresponding deliverable when complete.
+    </div>
+
+    <div class="progress-summary">
+      <div class="progress-stat">
+        <div class="stat-value">6</div>
+        <div class="stat-label">Workstreams</div>
+      </div>
+      <div class="progress-stat">
+        <div class="stat-value">32</div>
+        <div class="stat-label">Total Items</div>
+      </div>
+      <div class="progress-stat highlight">
+        <div class="stat-value">19</div>
+        <div class="stat-label">Complete</div>
+      </div>
+      <div class="progress-stat">
+        <div class="stat-value">59%</div>
+        <div class="stat-label">Overall</div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         WORKSTREAM 1: BRAND
+         ============================================================ -->
+    <div class="workstream open" id="brand">
+      <div class="ws-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="ws-num">01</span>
+        <span class="ws-title">Brand</span>
+        <div class="ws-progress">
+          <div class="ws-bar"><div class="ws-bar-fill" style="width:100%"></div></div>
+          <span class="ws-pct">5/5</span>
+        </div>
+        <span class="ws-toggle">&#9662;</span>
+      </div>
+      <div class="ws-body">
+
+        <div class="checklist-item completed">
+          <div class="check-box"></div>
+          <span class="item-label"><a href="brand-identity-guide.html">Brand Identity Guide</a></span>
+          <span class="item-status status-complete">Complete</span>
+        </div>
+
+        <div class="checklist-item completed">
+          <div class="check-box"></div>
+          <span class="item-label"><a href="brand-moodboard.html">Mood Board</a></span>
+          <span class="item-status status-complete">Complete</span>
+        </div>
+
+        <div class="checklist-item completed">
+          <div class="check-box"></div>
+          <span class="item-label"><a href="brand-photo-treatments.html">Photography Treatments</a></span>
+          <span class="item-status status-complete">Complete</span>
+        </div>
+
+        <div class="checklist-item completed">
+          <div class="check-box"></div>
+          <span class="item-label"><a href="boilerplate-descriptions.html">Boilerplate Descriptions</a></span>
+          <span class="item-status status-complete">Complete</span>
+        </div>
+
+        <div class="checklist-item completed">
+          <div class="check-box"></div>
+          <span class="item-label"><a href="generate-favicons.html">Favicon Generator</a></span>
+          <span class="item-status status-complete">Complete</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ============================================================
+         WORKSTREAM 2: WEBSITE
+         ============================================================ -->
+    <div class="workstream open" id="website">
+      <div class="ws-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="ws-num">02</span>
+        <span class="ws-title">Website</span>
+        <div class="ws-progress">
+          <div class="ws-bar"><div class="ws-bar-fill" style="width:40%"></div></div>
+          <span class="ws-pct">2/5</span>
+        </div>
+        <span class="ws-toggle">&#9662;</span>
+      </div>
+      <div class="ws-body">
+
+        <div class="checklist-item completed">
+          <div class="check-box"></div>
+          <span class="item-label"><a href="website-strategy.html">Website Strategy</a></span>
+          <span class="item-status status-complete">Complete</span>
+        </div>
+
+        <div class="checklist-item completed">
+          <div class="check-box"></div>
+          <span class="item-label"><a href="../../pullsheet/index.html">Marketing Website: Home</a></span>
+          <span class="item-status status-complete">Complete</span>
+        </div>
+
+        <div class="checklist-item">
+          <div class="check-box"></div>
+          <span class="item-label">Marketing Website: Features</span>
+          <span class="item-status status-not">Not Started</span>
+        </div>
+
+        <div class="checklist-item">
+          <div class="check-box"></div>
+          <span class="item-label">Marketing Website: Pricing</span>
+          <span class="item-status status-not">Not Started</span>
+        </div>
+
+        <div class="checklist-item">
+          <div class="check-box"></div>
+          <span class="item-label">Domain purchase (pullsheetapp.io)</span>
+          <span class="item-status status-not">Not Started</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ============================================================
+         WORKSTREAM 3: APP DEVELOPMENT
+         ============================================================ -->
+    <div class="workstream" id="app">
+      <div class="ws-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="ws-num">03</span>
+        <span class="ws-title">App Development</span>
+        <div class="ws-progress">
+          <div class="ws-bar"><div class="ws-bar-fill" style="width:0%"></div></div>
+          <span class="ws-pct">0/5</span>
+        </div>
+        <span class="ws-toggle">&#9662;</span>
+      </div>
+      <div class="ws-body">
+
+        <div class="checklist-item">
+          <div class="check-box"></div>
+          <span class="item-label">PullSheet app build (see design spec)</span>
+          <span class="item-status status-not">Not Started</span>
+        </div>
+
+        <div class="checklist-item">
+          <div class="check-box"></div>
+          <span class="item-label">Supabase schema (lookboards, lookboard_items, garment_cutouts)</span>
+          <span class="item-status status-not">Not Started</span>
+        </div>
+
+        <div class="checklist-item">
+          <div class="check-box"></div>
+          <span class="item-label">Clipdrop API integration (AI background removal)</span>
+          <span class="item-status status-not">Not Started</span>
+        </div>
+
+        <div class="checklist-item">
+          <div class="check-box"></div>
+          <span class="item-label">Deep linking (THREADLINE integration)</span>
+          <span class="item-status status-not">Not Started</span>
+        </div>
+
+        <div class="checklist-item">
+          <div class="check-box"></div>
+          <span class="item-label">App Store submission</span>
+          <span class="item-status status-not">Not Started</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ============================================================
+         WORKSTREAM 4: MARKETING
+         ============================================================ -->
+    <div class="workstream open" id="marketing">
+      <div class="ws-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="ws-num">04</span>
+        <span class="ws-title">Marketing</span>
+        <div class="ws-progress">
+          <div class="ws-bar"><div class="ws-bar-fill" style="width:100%"></div></div>
+          <span class="ws-pct">6/6</span>
+        </div>
+        <span class="ws-toggle">&#9662;</span>
+      </div>
+      <div class="ws-body">
+
+        <div class="checklist-item completed">
+          <div class="check-box"></div>
+          <span class="item-label"><a href="instagram-setup-kit.html">Instagram Setup Kit</a></span>
+          <span class="item-status status-complete">Complete</span>
+        </div>
+
+        <div class="checklist-item completed">
+          <div class="check-box"></div>
+          <span class="item-label"><a href="facebook-setup-kit.html">Facebook Setup Kit</a></span>
+          <span class="item-status status-complete">Complete</span>
+        </div>
+
+        <div class="checklist-item completed">
+          <div class="check-box"></div>
+          <span class="item-label"><a href="linkedin-setup-kit.html">LinkedIn Setup Kit</a></span>
+          <span class="item-status status-complete">Complete</span>
+        </div>
+
+        <div class="checklist-item completed">
+          <div class="check-box"></div>
+          <span class="item-label"><a href="content-calendar.html">30-Day Content Calendar</a></span>
+          <span class="item-status status-complete">Complete</span>
+        </div>
+
+        <div class="checklist-item completed">
+          <div class="check-box"></div>
+          <span class="item-label"><a href="social-media-templates.html">Social Media Templates</a></span>
+          <span class="item-status status-complete">Complete</span>
+        </div>
+
+        <div class="checklist-item completed">
+          <div class="check-box"></div>
+          <span class="item-label"><a href="press-kit.html">Press Kit</a></span>
+          <span class="item-status status-complete">Complete</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ============================================================
+         WORKSTREAM 5: LEGAL
+         ============================================================ -->
+    <div class="workstream open" id="legal">
+      <div class="ws-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="ws-num">05</span>
+        <span class="ws-title">Legal</span>
+        <div class="ws-progress">
+          <div class="ws-bar"><div class="ws-bar-fill" style="width:100%"></div></div>
+          <span class="ws-pct">2/2</span>
+        </div>
+        <span class="ws-toggle">&#9662;</span>
+      </div>
+      <div class="ws-body">
+
+        <div class="checklist-item completed">
+          <div class="check-box"></div>
+          <span class="item-label"><a href="privacy-policy.html">Privacy Policy</a></span>
+          <span class="item-status status-complete">Complete</span>
+        </div>
+
+        <div class="checklist-item completed">
+          <div class="check-box"></div>
+          <span class="item-label"><a href="terms-of-service.html">Terms of Service</a></span>
+          <span class="item-status status-complete">Complete</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ============================================================
+         WORKSTREAM 6: OPERATIONS
+         ============================================================ -->
+    <div class="workstream" id="ops">
+      <div class="ws-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="ws-num">06</span>
+        <span class="ws-title">Operations</span>
+        <div class="ws-progress">
+          <div class="ws-bar"><div class="ws-bar-fill" style="width:25%"></div></div>
+          <span class="ws-pct">1/4</span>
+        </div>
+        <span class="ws-toggle">&#9662;</span>
+      </div>
+      <div class="ws-body">
+
+        <div class="checklist-item">
+          <div class="check-box"></div>
+          <span class="item-label">Pricing tiers finalized</span>
+          <span class="item-status status-not">Not Started</span>
+        </div>
+
+        <div class="checklist-item">
+          <div class="check-box"></div>
+          <span class="item-label">Beta user onboarding plan</span>
+          <span class="item-status status-not">Not Started</span>
+        </div>
+
+        <div class="checklist-item">
+          <div class="check-box"></div>
+          <span class="item-label">Support channel setup</span>
+          <span class="item-status status-not">Not Started</span>
+        </div>
+
+        <div class="checklist-item completed">
+          <div class="check-box"></div>
+          <span class="item-label"><a href="swag-ideas.html">Branded Swag</a></span>
+          <span class="item-status status-complete">Complete</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- /.section -->
+
+</div><!-- /.container -->
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<div class="footer">
+  <a href="https://cooperinteractive.com">Made with care</a>
+</div>
+
+</body>
+</html>

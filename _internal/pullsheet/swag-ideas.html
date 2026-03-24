@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PullSheet -- Branded Swag Ideas</title>
+
+<!-- ============================================================
+     PULLSHEET BRANDED SWAG IDEAS
+     Self-contained HTML with inline CSS and Google Fonts only.
+     Matches the THREADLINE _internal pattern exactly:
+     sticky nav, PULL/SHEET wordmark, back link, section labels,
+     card grid with CSS-only visuals, vendor table, budget table.
+
+     SECTIONS:
+     01 - PullSheet-Specific Swag (8 items in card grid)
+     02 - Cross-Branded THREADLINE + PullSheet Items (2 items)
+     03 - Vendor Suggestions (table)
+     04 - Budget Planning (cost table at 100/250/500 units)
+
+     TO MODIFY:
+     - CSS custom properties in :root control all colors
+     - Section labels use .sec-label class with trailing line
+     - Card grid uses .swag-grid (responsive 2-3 columns)
+     - Each card has a .card-visual CSS-only illustration
+     - Tables use .vendor-table class for consistent styling
+     ============================================================ -->
+
+<!-- Google Fonts: Three families shared with THREADLINE
+     Cormorant Garamond = serif headings, editorial, taglines
+     Inter = sans-serif body, UI, wordmark
+     JetBrains Mono = monospace data, labels, metadata -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  /* ============================================================
+     CSS CUSTOM PROPERTIES (Design Tokens)
+     Shared with THREADLINE. Single source of truth for all
+     colors used throughout the PullSheet brand system.
+     To update a color globally, change it here only.
+     ============================================================ */
+  :root {
+    --cream:#FAF8F5;       /* Page background */
+    --bone:#F5F0EB;        /* Slightly darker cream, card visual bg */
+    --warm-gray:#E8E3DE;   /* Dividers, subtle borders */
+    --sand:#D2C4B9;        /* Muted decorative elements */
+    --taupe:#B5A89C;       /* Secondary text, metadata */
+    --brown-gold:#8B6F52;  /* Primary brand accent */
+    --copper:#C4946A;      /* Brand accent highlights */
+    --dark-brown:#5A4228;  /* Deep accent */
+    --espresso:#3A2A18;    /* Deep warm brown */
+    --near-black:#1A1714;  /* Primary text color */
+    --void:#0A0A0A;        /* Near-black backgrounds */
+    --water:#5A7E8A;       /* Secondary accent (blue-teal) */
+    --forest:#4A6741;      /* Success indicators */
+    --clay:#8A4A42;        /* Error indicators */
+    --dusty-blue:#627786;  /* Tertiary accent */
+  }
+
+  /* ============================================================
+     RESET & BASE STYLES
+     Minimal reset. Body uses Inter as default sans-serif.
+     Cream background matches THREADLINE/PullSheet light-mode.
+     ============================================================ */
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'Inter', sans-serif;
+    background:var(--cream);
+    color:var(--near-black);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    line-height:1.7;
+  }
+
+  /* ============================================================
+     STICKY NAVIGATION BAR
+     Frosted glass effect with backdrop blur.
+     PULL in near-black, SHEET in brown-gold.
+     Back link styled in brown-gold accent.
+     ============================================================ */
+  .sticky-nav {
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(250,248,245,0.92);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    border-bottom:1px solid rgba(26,23,20,0.06);
+    padding:12px 48px;
+    display:flex;
+    align-items:center;
+    gap:24px;
+  }
+
+  /* Wordmark in nav: PULL in near-black, SHEET in brown-gold
+     Uses Inter weight 200 at 14px with wide letter-spacing */
+  .sticky-nav .brand {
+    font-family:'Inter', sans-serif;
+    font-weight:200;
+    font-size:14px;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    text-decoration:none;
+    color:inherit;
+  }
+  .sticky-nav .brand .pull { color:var(--near-black); }
+  .sticky-nav .brand .sheet { color:var(--brown-gold); }
+
+  /* Nav back link: small caps, brown-gold accent */
+  .sticky-nav a {
+    font-size:11px;
+    font-weight:500;
+    color:var(--brown-gold);
+    text-decoration:none;
+    padding:4px 8px;
+    border-radius:4px;
+    transition:all 0.15s;
+  }
+  .sticky-nav a:hover {
+    background:rgba(139,111,82,0.06);
+  }
+
+  /* ============================================================
+     CONTAINER
+     Max-width wrapper centered on page. Horizontal padding
+     collapses on mobile via media query below.
+     ============================================================ */
+  .container {
+    max-width:1000px;
+    margin:0 auto;
+    padding:48px;
+  }
+
+  /* ============================================================
+     PAGE TITLE
+     Uses Cormorant Garamond serif for the heading.
+     Subtitle in taupe, max-width for readability.
+     ============================================================ */
+  .page-title {
+    margin-bottom:48px;
+  }
+  .page-title h1 {
+    font-family:'Cormorant Garamond', serif;
+    font-weight:300;
+    font-size:36px;
+    margin-bottom:4px;
+  }
+  .page-title p {
+    font-size:14px;
+    color:var(--taupe);
+    max-width:600px;
+    line-height:1.7;
+  }
+
+  /* ============================================================
+     SECTION LABELS
+     JetBrains Mono small caps with trailing horizontal line.
+     Used to introduce each major content block.
+     ============================================================ */
+  .section {
+    margin-bottom:40px;
+  }
+  .sec-label {
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px;
+    font-weight:500;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--brown-gold);
+    margin-bottom:20px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  /* Trailing line after section label text */
+  .sec-label::after {
+    content:'';
+    flex:1;
+    height:1px;
+    background:var(--warm-gray);
+  }
+
+  /* ============================================================
+     SWAG CARD GRID
+     Responsive grid: 3 columns on desktop, 2 on tablet, 1 on mobile.
+     Cards have white background, subtle border, hover lift effect.
+     ============================================================ */
+  .swag-grid {
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:16px;
+  }
+
+  .swag-card {
+    background:white;
+    border:1px solid rgba(26,23,20,0.06);
+    border-radius:12px;
+    padding:24px;
+    transition:all 0.3s ease;
+    display:flex;
+    flex-direction:column;
+  }
+  .swag-card:hover {
+    transform:translateY(-2px);
+    box-shadow:0 8px 24px rgba(26,23,20,0.06);
+  }
+
+  /* ============================================================
+     CARD VISUAL
+     Small CSS-only illustration at the top of each swag card.
+     60x60px container with bone background and rounded corners.
+     Each card uses a unique nested structure to represent
+     the physical item (notebook, card, hanger, frame, etc.).
+     ============================================================ */
+  .card-visual {
+    width:60px;
+    height:60px;
+    background:var(--bone);
+    border-radius:8px;
+    margin-bottom:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    overflow:hidden;
+    flex-shrink:0;
+  }
+
+  /* Card text elements: name, cost, description, vendor type */
+  .swag-card h3 {
+    font-size:15px;
+    font-weight:600;
+    margin-bottom:4px;
+  }
+  .swag-cost {
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    color:var(--brown-gold);
+    margin-bottom:8px;
+  }
+  .swag-card p {
+    font-size:13px;
+    color:var(--taupe);
+    line-height:1.6;
+    flex:1;
+  }
+
+  /* Vendor type label at bottom of card */
+  .swag-vendor {
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px;
+    color:var(--dusty-blue);
+    margin-top:10px;
+    padding-top:10px;
+    border-top:1px solid rgba(26,23,20,0.04);
+  }
+
+  /* "Perfect for" callout line in forest green */
+  .swag-why {
+    font-size:12px;
+    color:var(--forest);
+    font-weight:500;
+    margin-top:8px;
+  }
+
+  /* ============================================================
+     CROSS-BRANDED CARD STYLING
+     Slightly different treatment for items that span both
+     THREADLINE and PullSheet brands. Left accent border.
+     ============================================================ */
+  .cross-branded {
+    border-left:3px solid var(--copper);
+    background:rgba(196,148,106,0.03);
+  }
+
+  /* ============================================================
+     VENDOR TABLE
+     Clean table with alternating row shading.
+     Uses JetBrains Mono for the header row.
+     Responsive: horizontal scroll on mobile.
+     ============================================================ */
+  .table-wrap {
+    overflow-x:auto;
+    margin-bottom:32px;
+    -webkit-overflow-scrolling:touch;
+  }
+  .vendor-table {
+    width:100%;
+    border-collapse:collapse;
+    font-size:13px;
+  }
+  .vendor-table th {
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px;
+    font-weight:500;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--brown-gold);
+    text-align:left;
+    padding:12px 16px;
+    border-bottom:2px solid var(--warm-gray);
+    white-space:nowrap;
+  }
+  .vendor-table td {
+    padding:12px 16px;
+    border-bottom:1px solid rgba(26,23,20,0.04);
+    color:var(--near-black);
+    line-height:1.5;
+  }
+  /* Alternating row background for readability */
+  .vendor-table tr:nth-child(even) td {
+    background:rgba(245,240,235,0.5);
+  }
+
+  /* ============================================================
+     BUDGET TABLE
+     Similar to vendor table but with right-aligned cost columns.
+     Bold total row at bottom.
+     ============================================================ */
+  .budget-table {
+    width:100%;
+    border-collapse:collapse;
+    font-size:13px;
+  }
+  .budget-table th {
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px;
+    font-weight:500;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--brown-gold);
+    text-align:left;
+    padding:12px 16px;
+    border-bottom:2px solid var(--warm-gray);
+    white-space:nowrap;
+  }
+  /* Right-align cost columns (columns 2, 3, 4) */
+  .budget-table th:nth-child(n+2),
+  .budget-table td:nth-child(n+2) {
+    text-align:right;
+  }
+  .budget-table td {
+    padding:12px 16px;
+    border-bottom:1px solid rgba(26,23,20,0.04);
+    color:var(--near-black);
+    line-height:1.5;
+  }
+  .budget-table tr:nth-child(even) td {
+    background:rgba(245,240,235,0.5);
+  }
+  /* Bold total row at bottom of budget table */
+  .budget-table .total-row td {
+    font-weight:600;
+    border-top:2px solid var(--warm-gray);
+    border-bottom:none;
+    padding-top:14px;
+    color:var(--brown-gold);
+  }
+
+  /* ============================================================
+     FOOTER
+     Centered, small text, brown-gold link. Matches THREADLINE.
+     ============================================================ */
+  .footer {
+    text-align:center;
+    padding:32px;
+    font-size:12px;
+    color:var(--taupe);
+    border-top:1px solid rgba(26,23,20,0.06);
+  }
+  .footer a {
+    color:var(--brown-gold);
+    text-decoration:none;
+  }
+
+  /* ============================================================
+     RESPONSIVE BREAKPOINTS
+     768px: 2-column grid, reduce padding
+     480px: 1-column grid, tighter spacing
+     ============================================================ */
+  @media (max-width:900px) {
+    .swag-grid {
+      grid-template-columns:repeat(2, 1fr);
+    }
+  }
+  @media (max-width:768px) {
+    .sticky-nav {
+      padding:12px 20px;
+      gap:16px;
+    }
+    .container {
+      padding:32px 20px;
+    }
+    .swag-grid {
+      grid-template-columns:repeat(2, 1fr);
+    }
+    .page-title h1 {
+      font-size:28px;
+    }
+  }
+  @media (max-width:480px) {
+    .swag-grid {
+      grid-template-columns:1fr;
+    }
+    .sticky-nav .brand {
+      font-size:12px;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- ═══════════════ STICKY NAVIGATION ═══════════════ -->
+<!-- Frosted glass nav bar with PULL/SHEET wordmark and back link.
+     PULL renders in near-black, SHEET renders in brown-gold. -->
+<nav class="sticky-nav">
+  <a href="index.html" class="brand" style="text-decoration:none;color:inherit;">PULL<span class="sheet">SHEET</span></a>
+  <a class="back" href="index.html">&larr; All Pages</a>
+</nav>
+
+<!-- ═══════════════ MAIN CONTENT ═══════════════ -->
+<div class="container">
+
+  <!-- ─────────────── PAGE TITLE ─────────────── -->
+  <!-- Heading uses Cormorant Garamond serif with italic emphasis.
+       Subtitle explains the purpose of this page. -->
+  <div class="page-title">
+    <h1>Branded Swag <em style="font-family:'Cormorant Garamond',serif;font-style:italic">Ideas</em></h1>
+    <p>Inexpensive, on-brand items wardrobe teams would actually keep and use.</p>
+  </div>
+
+  <!-- ═══════════════ SECTION 01: PULLSHEET-SPECIFIC SWAG ═══════════════ -->
+  <!-- Eight swag items unique to PullSheet. Each card contains:
+       - A CSS-only visual illustration of the item
+       - Item name and estimated unit cost
+       - Description with use case
+       - "Perfect for" callout in forest green
+       - Suggested vendor type in dusty blue -->
+  <div class="sec-label">PullSheet-Specific Swag</div>
+  <div class="section">
+    <div class="swag-grid">
+
+      <!-- ── Card 1: Lookboard Notebooks ── -->
+      <!-- CSS visual: small spiral notebook shape with grid lines -->
+      <div class="swag-card">
+        <div class="card-visual">
+          <!-- Notebook body -->
+          <div style="width:32px;height:40px;background:var(--cream);border:1.5px solid var(--sand);border-radius:2px;position:relative;">
+            <!-- Spiral binding: three small circles along the left edge -->
+            <div style="position:absolute;left:-4px;top:6px;width:6px;height:6px;border:1.5px solid var(--brown-gold);border-radius:50%;background:var(--bone);"></div>
+            <div style="position:absolute;left:-4px;top:16px;width:6px;height:6px;border:1.5px solid var(--brown-gold);border-radius:50%;background:var(--bone);"></div>
+            <div style="position:absolute;left:-4px;top:26px;width:6px;height:6px;border:1.5px solid var(--brown-gold);border-radius:50%;background:var(--bone);"></div>
+            <!-- Faint grid lines inside the page -->
+            <div style="position:absolute;top:8px;left:8px;right:4px;height:1px;background:rgba(210,196,185,0.4);"></div>
+            <div style="position:absolute;top:16px;left:8px;right:4px;height:1px;background:rgba(210,196,185,0.4);"></div>
+            <div style="position:absolute;top:24px;left:8px;right:4px;height:1px;background:rgba(210,196,185,0.4);"></div>
+            <div style="position:absolute;top:32px;left:8px;right:4px;height:1px;background:rgba(210,196,185,0.4);"></div>
+          </div>
+        </div>
+        <h3>Lookboard Notebooks</h3>
+        <div class="swag-cost">$3-5/unit</div>
+        <p>A5 spiral-bound notebook with cream pages and PULLSHEET wordmark on cover. Pages have a faint grid pattern for sketching outfit arrangements. "See the look before the fitting." on back cover.</p>
+        <div class="swag-why">Perfect for: initial outfit brainstorming before going digital</div>
+        <div class="swag-vendor">Vendor: Custom notebooks</div>
+      </div>
+
+      <!-- ── Card 2: Outfit Sketch Cards ── -->
+      <!-- CSS visual: small card with body outline silhouette -->
+      <div class="swag-card">
+        <div class="card-visual">
+          <!-- Card shape -->
+          <div style="width:28px;height:38px;background:white;border:1.5px solid var(--sand);border-radius:3px;position:relative;display:flex;align-items:center;justify-content:center;">
+            <!-- Simplified body outline: head circle + torso line + arms -->
+            <div style="position:relative;width:16px;height:28px;">
+              <!-- Head -->
+              <div style="width:6px;height:6px;border:1px solid var(--taupe);border-radius:50%;margin:0 auto 1px;"></div>
+              <!-- Torso -->
+              <div style="width:1px;height:10px;background:var(--taupe);margin:0 auto;"></div>
+              <!-- Arms -->
+              <div style="position:absolute;top:9px;left:2px;width:12px;height:1px;background:var(--taupe);"></div>
+              <!-- Legs -->
+              <div style="position:absolute;bottom:2px;left:4px;width:1px;height:8px;background:var(--taupe);transform:rotate(-8deg);"></div>
+              <div style="position:absolute;bottom:2px;right:4px;width:1px;height:8px;background:var(--taupe);transform:rotate(8deg);"></div>
+            </div>
+          </div>
+          <!-- Second card offset behind for "pack" effect -->
+          <div style="position:absolute;width:28px;height:38px;background:var(--cream);border:1px solid rgba(210,196,185,0.4);border-radius:3px;top:14px;left:18px;z-index:-1;"></div>
+        </div>
+        <h3>Outfit Sketch Cards</h3>
+        <div class="swag-cost">$1-2/unit (pack of 20)</div>
+        <p>4x6 cards with a light body outline (front/back) for quick outfit sketching. PULLSHEET branding in corner. Space for talent name, scene, episode. Card stock, rounded corners.</p>
+        <div class="swag-why">Perfect for: quick sketching looks before building a digital board</div>
+        <div class="swag-vendor">Vendor: Stickers/cards</div>
+      </div>
+
+      <!-- ── Card 3: Fitting Room Door Hangers ── -->
+      <!-- CSS visual: door hanger shape with cutout hook -->
+      <div class="swag-card">
+        <div class="card-visual">
+          <!-- Door hanger shape -->
+          <div style="width:26px;height:42px;background:white;border:1.5px solid var(--brown-gold);border-radius:3px 3px 3px 3px;position:relative;">
+            <!-- Hook cutout at top: circle hole -->
+            <div style="width:10px;height:10px;border-radius:50%;background:var(--bone);border:1.5px solid var(--sand);margin:3px auto 0;"></div>
+            <!-- "Fitting in Progress" text lines -->
+            <div style="margin:5px 3px 0;">
+              <div style="width:100%;height:1px;background:var(--brown-gold);margin-bottom:3px;opacity:0.6;"></div>
+              <div style="width:70%;height:1px;background:var(--brown-gold);margin-bottom:3px;opacity:0.4;"></div>
+              <div style="width:85%;height:1px;background:var(--brown-gold);opacity:0.3;"></div>
+            </div>
+            <!-- Brown-gold accent bar at bottom -->
+            <div style="position:absolute;bottom:0;left:0;right:0;height:4px;background:var(--brown-gold);border-radius:0 0 2px 2px;opacity:0.5;"></div>
+          </div>
+        </div>
+        <h3>Fitting Room Door Hangers</h3>
+        <div class="swag-cost">$0.50-1/unit</div>
+        <p>"Fitting in Progress" / "Ready for Review" double-sided door hanger. PULLSHEET wordmark with brown-gold accent. Space to write talent name and scene number. Sturdy card stock.</p>
+        <div class="swag-why">Perfect for: on-set fitting room communication</div>
+        <div class="swag-vendor">Vendor: Stickers/cards</div>
+      </div>
+
+      <!-- ── Card 4: Continuity Photo Frames ── -->
+      <!-- CSS visual: small photo frame with magnetic indicator -->
+      <div class="swag-card">
+        <div class="card-visual">
+          <!-- Frame border -->
+          <div style="width:36px;height:30px;border:2.5px solid var(--sand);border-radius:2px;position:relative;display:flex;align-items:center;justify-content:center;">
+            <!-- Inner "photo" area -->
+            <div style="width:24px;height:18px;background:var(--warm-gray);border-radius:1px;position:relative;overflow:hidden;">
+              <!-- Mountain/landscape silhouette to suggest a photo -->
+              <div style="position:absolute;bottom:0;left:0;width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-bottom:10px solid var(--sand);"></div>
+            </div>
+            <!-- Small magnet dot in top-right corner -->
+            <div style="position:absolute;top:-3px;right:-3px;width:6px;height:6px;border-radius:50%;background:var(--brown-gold);"></div>
+          </div>
+          <!-- Label area below frame -->
+          <div style="position:absolute;bottom:6px;width:36px;text-align:center;">
+            <div style="width:30px;height:1px;background:var(--taupe);margin:0 auto;opacity:0.4;"></div>
+          </div>
+        </div>
+        <h3>Continuity Photo Frames</h3>
+        <div class="swag-cost">$2-4/unit</div>
+        <p>Magnetic-back 4x6 photo frame for wardrobe truck walls. PULLSHEET branding on frame. "TALENT: _____ SCENE: _____" printed below photo area. Can hold printed PullSheet lookboard exports.</p>
+        <div class="swag-why">Perfect for: continuity reference on the truck wall</div>
+        <div class="swag-vendor">Vendor: Magnets</div>
+      </div>
+
+      <!-- ── Card 5: Canvas Tote Bag ── -->
+      <!-- CSS visual: simple tote bag silhouette with handles -->
+      <div class="swag-card">
+        <div class="card-visual">
+          <!-- Tote bag body -->
+          <div style="width:32px;height:28px;background:white;border:1.5px solid var(--sand);border-radius:0 0 3px 3px;position:relative;margin-top:8px;">
+            <!-- Left handle -->
+            <div style="position:absolute;top:-10px;left:5px;width:8px;height:10px;border:1.5px solid var(--sand);border-bottom:none;border-radius:4px 4px 0 0;background:transparent;"></div>
+            <!-- Right handle -->
+            <div style="position:absolute;top:-10px;right:5px;width:8px;height:10px;border:1.5px solid var(--sand);border-bottom:none;border-radius:4px 4px 0 0;background:transparent;"></div>
+            <!-- PS text on bag -->
+            <div style="font-family:'Inter',sans-serif;font-size:5px;font-weight:600;color:var(--brown-gold);text-align:center;margin-top:8px;letter-spacing:0.05em;">PS</div>
+          </div>
+        </div>
+        <h3>Canvas Tote Bag</h3>
+        <div class="swag-cost">$5-8/unit</div>
+        <p>Natural canvas with PULLSHEET wordmark screen-printed. "Your wardrobe, visualized." on reverse. Useful for carrying fabric swatches, photos, and garment samples.</p>
+        <div class="swag-why">Perfect for: carrying lookboard printouts and swatches to fittings</div>
+        <div class="swag-vendor">Vendor: Tote bags</div>
+      </div>
+
+      <!-- ── Card 6: Garment Tag Cards ── -->
+      <!-- CSS visual: small hang tag with hole punch -->
+      <div class="swag-card">
+        <div class="card-visual">
+          <!-- Hang tag shape -->
+          <div style="width:22px;height:32px;background:white;border:1.5px solid var(--sand);border-radius:2px;position:relative;">
+            <!-- Hole punch at top -->
+            <div style="width:5px;height:5px;border-radius:50%;border:1px solid var(--taupe);margin:3px auto 0;"></div>
+            <!-- String from hole -->
+            <div style="position:absolute;top:-6px;left:50%;width:1px;height:8px;background:var(--taupe);opacity:0.5;"></div>
+            <!-- QR code placeholder: tiny grid -->
+            <div style="width:10px;height:10px;margin:4px auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;">
+              <div style="background:var(--near-black);border-radius:0.5px;"></div>
+              <div style="background:var(--bone);"></div>
+              <div style="background:var(--near-black);border-radius:0.5px;"></div>
+              <div style="background:var(--bone);"></div>
+              <div style="background:var(--near-black);border-radius:0.5px;"></div>
+              <div style="background:var(--bone);"></div>
+              <div style="background:var(--near-black);border-radius:0.5px;"></div>
+              <div style="background:var(--bone);"></div>
+              <div style="background:var(--near-black);border-radius:0.5px;"></div>
+            </div>
+            <!-- Text lines -->
+            <div style="margin:3px 2px 0;">
+              <div style="width:100%;height:1px;background:var(--sand);margin-bottom:2px;"></div>
+              <div style="width:70%;height:1px;background:var(--sand);"></div>
+            </div>
+          </div>
+          <!-- Second tag behind for "pack" effect -->
+          <div style="position:absolute;width:22px;height:32px;background:var(--cream);border:1px solid rgba(210,196,185,0.3);border-radius:2px;top:16px;left:24px;z-index:-1;"></div>
+        </div>
+        <h3>Garment Tag Cards</h3>
+        <div class="swag-cost">$0.25-0.50/unit (pack of 50)</div>
+        <p>Small hang tags with QR code space and PULLSHEET branding. Fields for: item name, store, price, talent, scene. Hole-punched for attaching to hangers. Bridge between physical rack and digital lookboard.</p>
+        <div class="swag-why">Perfect for: linking physical garments to their digital lookboard</div>
+        <div class="swag-vendor">Vendor: Stickers/cards</div>
+      </div>
+
+      <!-- ── Card 7: Wardrobe Truck Magnet Set ── -->
+      <!-- CSS visual: row of small labeled magnetic strips -->
+      <div class="swag-card">
+        <div class="card-visual">
+          <!-- Three magnetic label strips stacked -->
+          <div style="display:flex;flex-direction:column;gap:3px;align-items:center;">
+            <div style="width:40px;height:10px;background:var(--brown-gold);border-radius:2px;display:flex;align-items:center;justify-content:center;">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:4px;color:white;letter-spacing:0.05em;">HERO</span>
+            </div>
+            <div style="width:40px;height:10px;background:var(--dark-brown);border-radius:2px;display:flex;align-items:center;justify-content:center;">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:4px;color:var(--bone);letter-spacing:0.05em;">ALT</span>
+            </div>
+            <div style="width:40px;height:10px;background:var(--sand);border-radius:2px;display:flex;align-items:center;justify-content:center;">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:4px;color:var(--near-black);letter-spacing:0.05em;">HOLD</span>
+            </div>
+          </div>
+        </div>
+        <h3>Wardrobe Truck Magnet Set</h3>
+        <div class="swag-cost">$3-5/set of 6</div>
+        <p>Set of 6 magnetic labels for wardrobe truck organization. Labels: "HERO", "ALT", "CONTINUITY", "RETURNS", "FITTING", "HOLD". PULLSHEET branding on each, brown-gold accent.</p>
+        <div class="swag-why">Perfect for: keeping the truck organized by look status</div>
+        <div class="swag-vendor">Vendor: Magnets</div>
+      </div>
+
+      <!-- ── Card 8: Mood Board Pins ── -->
+      <!-- CSS visual: cluster of decorative push pins -->
+      <div class="swag-card">
+        <div class="card-visual">
+          <!-- Three push pins in a cluster -->
+          <div style="position:relative;width:40px;height:40px;">
+            <!-- Pin 1 (center) -->
+            <div style="position:absolute;top:6px;left:14px;">
+              <div style="width:10px;height:10px;border-radius:50%;background:var(--brown-gold);border:1px solid var(--dark-brown);display:flex;align-items:center;justify-content:center;">
+                <span style="font-family:'Inter',sans-serif;font-size:3.5px;font-weight:600;color:white;">PS</span>
+              </div>
+              <div style="width:1px;height:8px;background:var(--taupe);margin:0 auto;"></div>
+            </div>
+            <!-- Pin 2 (left) -->
+            <div style="position:absolute;top:14px;left:4px;">
+              <div style="width:8px;height:8px;border-radius:50%;background:var(--copper);border:1px solid var(--brown-gold);"></div>
+              <div style="width:1px;height:6px;background:var(--taupe);margin:0 auto;"></div>
+            </div>
+            <!-- Pin 3 (right) -->
+            <div style="position:absolute;top:16px;right:6px;">
+              <div style="width:8px;height:8px;border-radius:50%;background:var(--brown-gold);border:1px solid var(--dark-brown);"></div>
+              <div style="width:1px;height:6px;background:var(--taupe);margin:0 auto;"></div>
+            </div>
+          </div>
+        </div>
+        <h3>Mood Board Pins</h3>
+        <div class="swag-cost">$2-3/set of 12</div>
+        <p>Gold-tone push pins with PS monogram heads. For physical mood boards and corkboards. Branded pin cushion holder with PULLSHEET wordmark.</p>
+        <div class="swag-why">Perfect for: physical mood boards in the design studio</div>
+        <div class="swag-vendor">Vendor: Custom notebooks</div>
+      </div>
+
+    </div><!-- /.swag-grid -->
+  </div><!-- /.section -->
+
+  <!-- ═══════════════ SECTION 02: CROSS-BRANDED ITEMS ═══════════════ -->
+  <!-- Items that feature both THREADLINE and PullSheet branding.
+       These cards have a left copper accent border to distinguish them
+       from the PullSheet-only items above. -->
+  <div class="sec-label">Cross-Branded THREADLINE + PullSheet Items</div>
+  <div class="section">
+    <div class="swag-grid" style="grid-template-columns:repeat(2, 1fr);">
+
+      <!-- ── Card 9: Dual-App Sticker Sheet ── -->
+      <!-- CSS visual: sticker sheet with die-cut shapes -->
+      <div class="swag-card cross-branded">
+        <div class="card-visual">
+          <!-- Sticker sheet with die-cut shapes -->
+          <div style="width:36px;height:40px;background:white;border:1px solid var(--warm-gray);border-radius:2px;position:relative;padding:4px;">
+            <!-- Sticker 1: circle with PS -->
+            <div style="width:10px;height:10px;border-radius:50%;background:var(--brown-gold);position:absolute;top:4px;left:4px;display:flex;align-items:center;justify-content:center;">
+              <span style="font-size:3px;color:white;font-weight:600;">PS</span>
+            </div>
+            <!-- Sticker 2: rounded rect with TL -->
+            <div style="width:14px;height:8px;border-radius:2px;background:var(--near-black);position:absolute;top:5px;right:4px;display:flex;align-items:center;justify-content:center;">
+              <span style="font-size:3px;color:var(--bone);font-weight:600;">TL</span>
+            </div>
+            <!-- Sticker 3: rectangle -->
+            <div style="width:26px;height:7px;border-radius:2px;background:var(--copper);position:absolute;bottom:12px;left:5px;opacity:0.7;"></div>
+            <!-- Sticker 4: small circle -->
+            <div style="width:7px;height:7px;border-radius:50%;border:1.5px solid var(--brown-gold);position:absolute;bottom:4px;left:4px;"></div>
+            <!-- Sticker 5: small square -->
+            <div style="width:7px;height:7px;border-radius:1px;background:var(--sand);position:absolute;bottom:4px;right:10px;"></div>
+          </div>
+        </div>
+        <h3>Dual-App Sticker Sheet</h3>
+        <div class="swag-cost">$1-2/sheet</div>
+        <p>Die-cut sticker sheet with both THREADLINE and PULLSHEET wordmarks, plus individual PS and TL monogram stickers. "Scan. Build. Present." tagline sticker. For laptops, water bottles, equipment cases.</p>
+        <div class="swag-why">Perfect for: brand visibility on personal gear and equipment</div>
+        <div class="swag-vendor">Vendor: Stickers/cards</div>
+      </div>
+
+      <!-- ── Card 10: Production Starter Kit ── -->
+      <!-- CSS visual: branded pouch/box with items peeking out -->
+      <div class="swag-card cross-branded">
+        <div class="card-visual">
+          <!-- Box shape -->
+          <div style="width:40px;height:30px;background:white;border:1.5px solid var(--brown-gold);border-radius:3px;position:relative;margin-top:6px;">
+            <!-- Lid flap -->
+            <div style="position:absolute;top:-6px;left:-1.5px;right:-1.5px;height:8px;background:var(--bone);border:1.5px solid var(--brown-gold);border-radius:3px 3px 0 0;"></div>
+            <!-- Items peeking out: notebook corner and card -->
+            <div style="position:absolute;top:-10px;left:6px;width:8px;height:12px;background:var(--cream);border:1px solid var(--sand);border-radius:1px;transform:rotate(-5deg);"></div>
+            <div style="position:absolute;top:-8px;right:8px;width:6px;height:10px;background:var(--warm-gray);border:1px solid var(--sand);border-radius:1px;transform:rotate(3deg);"></div>
+            <!-- PS wordmark on box -->
+            <div style="font-family:'Inter',sans-serif;font-size:4px;font-weight:600;color:var(--brown-gold);text-align:center;margin-top:12px;letter-spacing:0.05em;">PULLSHEET</div>
+          </div>
+        </div>
+        <h3>Production Starter Kit</h3>
+        <div class="swag-cost">$15-20/kit</div>
+        <p>Branded pouch containing: 1 Lookboard Notebook, 1 pack of Outfit Sketch Cards, 2 Fitting Room Door Hangers, 1 Dual-App Sticker Sheet, QR code card linking to THREADLINE + PullSheet download, and a "Welcome to the digital wardrobe" card.</p>
+        <div class="swag-why">Perfect for: onboarding new wardrobe team members on a production</div>
+        <div class="swag-vendor">Vendor: Complete kits (Packlane boxes + manual assembly)</div>
+      </div>
+
+    </div><!-- /.swag-grid -->
+  </div><!-- /.section -->
+
+  <!-- ═══════════════ SECTION 03: VENDOR SUGGESTIONS ═══════════════ -->
+  <!-- Table of recommended vendor types with specific suggestions
+       and notes about minimums, quality, and capabilities. -->
+  <div class="sec-label">Vendor Suggestions</div>
+  <div class="section">
+    <div class="table-wrap">
+      <table class="vendor-table">
+        <thead>
+          <tr>
+            <th>Vendor Type</th>
+            <th>Suggested</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Custom notebooks</td>
+            <td>MOO, Sticker Mule</td>
+            <td>Low minimums, good quality</td>
+          </tr>
+          <tr>
+            <td>Stickers/cards</td>
+            <td>Sticker Mule, Printful</td>
+            <td>Die-cut available</td>
+          </tr>
+          <tr>
+            <td>Tote bags</td>
+            <td>Custom Ink, Printful</td>
+            <td>Screen print for quality</td>
+          </tr>
+          <tr>
+            <td>Magnets</td>
+            <td>Vistaprint, Sticker Mule</td>
+            <td>Custom shapes available</td>
+          </tr>
+          <tr>
+            <td>Complete kits</td>
+            <td>Packlane (boxes), manual assembly</td>
+            <td>Consider assembly service for large orders</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div><!-- /.section -->
+
+  <!-- ═══════════════ SECTION 04: BUDGET PLANNING ═══════════════ -->
+  <!-- Cost estimates at three order quantities (100, 250, 500 units).
+       Prices use the midpoint of each item's cost range.
+       Total row at the bottom shows per-unit and total cost. -->
+  <div class="sec-label">Budget Planning</div>
+  <div class="section">
+    <p style="font-size:13px;color:var(--taupe);margin-bottom:20px;line-height:1.7;">Estimated costs at different order quantities. Prices use the midpoint of each item's range. Per-unit costs typically decrease at higher volumes.</p>
+    <div class="table-wrap">
+      <table class="budget-table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>100 units</th>
+            <th>250 units</th>
+            <th>500 units</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Lookboard Notebooks: midpoint $4/unit -->
+          <tr>
+            <td>Lookboard Notebooks</td>
+            <td>$400</td>
+            <td>$1,000</td>
+            <td>$2,000</td>
+          </tr>
+          <!-- Outfit Sketch Cards: midpoint $1.50/pack -->
+          <tr>
+            <td>Outfit Sketch Cards (packs)</td>
+            <td>$150</td>
+            <td>$375</td>
+            <td>$750</td>
+          </tr>
+          <!-- Fitting Room Door Hangers: midpoint $0.75/unit -->
+          <tr>
+            <td>Fitting Room Door Hangers</td>
+            <td>$75</td>
+            <td>$188</td>
+            <td>$375</td>
+          </tr>
+          <!-- Continuity Photo Frames: midpoint $3/unit -->
+          <tr>
+            <td>Continuity Photo Frames</td>
+            <td>$300</td>
+            <td>$750</td>
+            <td>$1,500</td>
+          </tr>
+          <!-- Canvas Tote Bag: midpoint $6.50/unit -->
+          <tr>
+            <td>Canvas Tote Bags</td>
+            <td>$650</td>
+            <td>$1,625</td>
+            <td>$3,250</td>
+          </tr>
+          <!-- Garment Tag Cards: midpoint $0.375/pack -->
+          <tr>
+            <td>Garment Tag Cards (packs)</td>
+            <td>$38</td>
+            <td>$94</td>
+            <td>$188</td>
+          </tr>
+          <!-- Wardrobe Truck Magnet Set: midpoint $4/set -->
+          <tr>
+            <td>Wardrobe Truck Magnet Sets</td>
+            <td>$400</td>
+            <td>$1,000</td>
+            <td>$2,000</td>
+          </tr>
+          <!-- Mood Board Pins: midpoint $2.50/set -->
+          <tr>
+            <td>Mood Board Pin Sets</td>
+            <td>$250</td>
+            <td>$625</td>
+            <td>$1,250</td>
+          </tr>
+          <!-- Dual-App Sticker Sheet: midpoint $1.50/sheet -->
+          <tr>
+            <td>Dual-App Sticker Sheets</td>
+            <td>$150</td>
+            <td>$375</td>
+            <td>$750</td>
+          </tr>
+          <!-- Production Starter Kit: midpoint $17.50/kit -->
+          <tr>
+            <td>Production Starter Kits</td>
+            <td>$1,750</td>
+            <td>$4,375</td>
+            <td>$8,750</td>
+          </tr>
+          <!-- Total row with all items summed -->
+          <tr class="total-row">
+            <td>Total (all items)</td>
+            <td>$4,163</td>
+            <td>$10,407</td>
+            <td>$20,813</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Budget recommendation callout -->
+    <!-- Styled callout box suggesting a practical starting approach
+         for teams that don't want to order everything at once. -->
+    <div style="background:rgba(139,111,82,0.06);border-left:3px solid var(--brown-gold);border-radius:0 12px 12px 0;padding:24px 28px;margin-top:24px;">
+      <h3 style="font-size:14px;font-weight:600;color:var(--brown-gold);margin-bottom:8px;">Recommendation</h3>
+      <p style="font-size:14px;line-height:1.7;">Start with the lowest-cost, highest-impact items: <strong>Garment Tag Cards</strong>, <strong>Fitting Room Door Hangers</strong>, and <strong>Outfit Sketch Cards</strong>. At under $2/unit, you can distribute 250 of each for well under $1,000 total. Add the <strong>Production Starter Kit</strong> as a premium gift for wardrobe supervisors and costume designers on new productions.</p>
+    </div>
+  </div><!-- /.section -->
+
+</div><!-- /.container -->
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<!-- Centered footer with "Made with care" link. Matches THREADLINE pattern. -->
+<div class="footer"><a href="https://cooperinteractive.com">Made with care</a></div>
+
+</body>
+</html>

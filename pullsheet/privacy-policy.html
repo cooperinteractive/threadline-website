@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PullSheet -- Privacy Policy</title>
+
+<!-- ============================================================
+     PULLSHEET PRIVACY POLICY
+     Self-contained legal page with inline CSS and Google Fonts.
+     Follows the THREADLINE _internal page pattern: sticky nav
+     with PULL/SHEET wordmark, 800px readable container, numbered
+     sections in monospace, and Cooper Interactive footer.
+
+     STRUCTURE:
+     - Sticky nav: PULL/SHEET wordmark (left), back link (center),
+       doc-type label (right)
+     - Hero: page title + effective/updated dates
+     - Intro paragraph establishing PullSheet + Cooper Interactive
+     - 11 numbered sections (01-11) with sub-bullets
+     - Print-friendly @media print rules
+     - Footer with "Made with care" link
+
+     FONTS:
+     - Cormorant Garamond: serif headings (h1, h2)
+     - Inter: body text, nav, UI elements
+     - JetBrains Mono: monospace labels, section numbers, metadata
+
+     COLOR SYSTEM:
+     Inherited from THREADLINE design tokens. See :root block below.
+     PULL = near-black text color, SHEET = brown-gold accent.
+     ============================================================ -->
+
+<!-- Google Fonts: Same three families used across all THREADLINE pages
+     Cormorant Garamond = serif headings
+     Inter = sans-serif body/UI
+     JetBrains Mono = monospace metadata/labels -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  /* ============================================================
+     CSS CUSTOM PROPERTIES (Design Tokens)
+     Inherited from THREADLINE's design system.
+     These are the single source of truth for all colors.
+     ============================================================ */
+  :root {
+    --cream:#FAF8F5;       /* Page background */
+    --bone:#F5F0EB;        /* Slightly darker cream for card backgrounds */
+    --warm-gray:#E8E3DE;   /* Divider lines, subtle borders */
+    --sand:#D2C4B9;        /* Muted decorative elements */
+    --taupe:#B5A89C;       /* Secondary text, metadata, labels */
+    --brown-gold:#8B6F52;  /* Primary brand accent (SHEET color) */
+    --copper:#C4946A;      /* Brand accent for highlights */
+    --dark-brown:#5A4228;  /* Deep accent for gradients */
+    --espresso:#3A2A18;    /* Deep brown for emphasis */
+    --near-black:#1A1714;  /* Primary text color (PULL color) */
+    --void:#0A0A0A;        /* Near-black backgrounds */
+    --water:#5A7E8A;       /* Secondary accent (blue-teal) */
+    --forest:#4A6741;      /* Success / positive indicators */
+    --clay:#8A4A42;        /* Warning / caution indicators */
+    --dusty-blue:#627786;  /* Tertiary accent */
+  }
+
+  /* ============================================================
+     RESET & BASE STYLES
+     Minimal reset. Body uses Inter as default sans-serif.
+     Line-height 1.8 for comfortable legal text reading.
+     ============================================================ */
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'Inter', sans-serif;
+    background:var(--cream);
+    color:var(--near-black);
+    line-height:1.8;
+    min-height:100vh;
+  }
+
+  /* ============================================================
+     STICKY NAV
+     Frosted glass nav bar pinned to top of viewport.
+     Left: PULL/SHEET wordmark (PULL in text color, SHEET in gold)
+     Center: back link to PullSheet Command Center
+     Right: doc-type label in monospace
+     ============================================================ */
+  .nav {
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(250,248,245,0.95);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(26,23,20,0.06);
+    padding:16px 48px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+
+  /* Wordmark in nav: PULL in near-black, SHEET in brown-gold */
+  .nav .brand {
+    font-family:'Inter', sans-serif;
+    font-weight:200;
+    font-size:14px;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    text-decoration:none;
+    color:inherit;
+  }
+  .nav .brand .pull { color:var(--near-black); }
+  .nav .brand .sheet { color:var(--brown-gold); }
+
+  /* Back link: small monospace link to return to index */
+  .nav .back {
+    font-family:'Inter', sans-serif;
+    font-size:11px;
+    font-weight:500;
+    color:var(--brown-gold);
+    text-decoration:none;
+    padding:4px 8px;
+    border-radius:4px;
+    transition:opacity 0.2s ease;
+  }
+  .nav .back:hover { opacity:0.7; }
+
+  /* Doc-type label on right side of nav */
+  .nav .doc-type {
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px;
+    color:var(--taupe);
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+  }
+
+  /* ============================================================
+     CONTAINER
+     Max-width wrapper for readable legal content.
+     800px max for comfortable reading of dense text.
+     Generous vertical padding for breathing room.
+     ============================================================ */
+  .container {
+    max-width:800px;
+    margin:0 auto;
+    padding:64px 24px 96px;
+  }
+
+  /* ============================================================
+     PAGE TITLE (h1)
+     Cormorant Garamond serif, lightweight, large.
+     Sets the tone for the legal document.
+     ============================================================ */
+  h1 {
+    font-family:'Cormorant Garamond', serif;
+    font-weight:300;
+    font-size:40px;
+    line-height:1.2;
+    margin-bottom:8px;
+  }
+
+  /* ============================================================
+     EFFECTIVE DATE LINE
+     Monospace metadata showing effective and update dates.
+     Sits directly below the h1 with space before content.
+     ============================================================ */
+  .effective {
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--taupe);
+    letter-spacing:0.02em;
+    margin-bottom:12px;
+  }
+
+  /* ============================================================
+     INTRO PARAGRAPH
+     Slightly larger text for the opening statement that
+     establishes PullSheet, Cooper Interactive, and THREADLINE.
+     ============================================================ */
+  .intro {
+    font-size:15px;
+    color:#3a3530;
+    margin-bottom:48px;
+    padding-bottom:32px;
+    border-bottom:1px solid var(--warm-gray);
+  }
+
+  /* ============================================================
+     SECTION HEADINGS (h2)
+     Each numbered section uses a flex layout:
+     - Left: section number in JetBrains Mono (01, 02, etc.)
+     - Right: section title in Cormorant Garamond serif
+     The number is styled as a subtle label; the title is prominent.
+     ============================================================ */
+  .section-heading {
+    display:flex;
+    align-items:baseline;
+    gap:16px;
+    margin-top:48px;
+    margin-bottom:16px;
+    padding-bottom:8px;
+    border-bottom:1px solid rgba(26,23,20,0.06);
+  }
+
+  /* Section number: monospace, small, muted gold */
+  .section-number {
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    font-weight:500;
+    color:var(--brown-gold);
+    letter-spacing:0.06em;
+    flex-shrink:0;
+  }
+
+  /* Section title: serif, medium size */
+  .section-title {
+    font-family:'Cormorant Garamond', serif;
+    font-weight:400;
+    font-size:24px;
+    color:var(--near-black);
+  }
+
+  /* ============================================================
+     BODY TEXT
+     Standard paragraph styling for legal content.
+     Slightly muted color (#3a3530) for softer reading.
+     ============================================================ */
+  p {
+    font-size:14px;
+    margin-bottom:16px;
+    color:#3a3530;
+  }
+
+  /* ============================================================
+     LISTS
+     Unordered lists used for data categories and rights.
+     Custom bullet color via ::marker for brand consistency.
+     ============================================================ */
+  ul {
+    margin:8px 0 16px 20px;
+    font-size:14px;
+    color:#3a3530;
+  }
+  li {
+    margin-bottom:8px;
+    line-height:1.7;
+  }
+  li::marker {
+    color:var(--sand);
+  }
+
+  /* Bold labels within list items */
+  li strong {
+    color:var(--near-black);
+    font-weight:600;
+  }
+
+  /* ============================================================
+     LINKS
+     Brown-gold accent color for all hyperlinks.
+     Subtle underline offset for elegance.
+     ============================================================ */
+  a {
+    color:var(--brown-gold);
+    text-decoration-color:rgba(139,111,82,0.3);
+    text-underline-offset:2px;
+    transition:text-decoration-color 0.2s ease;
+  }
+  a:hover {
+    text-decoration-color:var(--brown-gold);
+  }
+
+  /* ============================================================
+     COMPANION BADGE
+     Small inline indicator showing the THREADLINE relationship.
+     Appears in the intro area to clarify the shared ecosystem.
+     ============================================================ */
+  .companion-badge {
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:24px;
+    padding:6px 14px;
+    background:rgba(139,111,82,0.04);
+    border:1px solid rgba(139,111,82,0.1);
+    border-radius:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:9px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--taupe);
+  }
+  .companion-badge .tl { color:var(--near-black); font-weight:500; }
+  .companion-badge .tl-accent { color:var(--brown-gold); }
+
+  /* ============================================================
+     CONTACT BLOCK
+     Styled container for the final contact information section.
+     Slightly elevated background for visual distinction.
+     ============================================================ */
+  .contact-block {
+    background:var(--bone);
+    border:1px solid var(--warm-gray);
+    border-radius:8px;
+    padding:24px 28px;
+    margin-top:8px;
+  }
+  .contact-block p {
+    margin-bottom:8px;
+  }
+  .contact-block p:last-child {
+    margin-bottom:0;
+  }
+
+  /* ============================================================
+     FOOTER
+     Centered "Made with care" link to Cooper Interactive.
+     Separated from content by a top border.
+     ============================================================ */
+  .footer {
+    text-align:center;
+    padding:32px;
+    font-size:12px;
+    color:var(--taupe);
+    border-top:1px solid var(--warm-gray);
+    margin-top:64px;
+  }
+  .footer a {
+    color:var(--brown-gold);
+    text-decoration:none;
+  }
+  .footer a:hover {
+    text-decoration:underline;
+    text-decoration-color:rgba(139,111,82,0.4);
+    text-underline-offset:2px;
+  }
+
+  /* ============================================================
+     RESPONSIVE: Mobile layout
+     Below 768px: tighter nav padding, smaller title,
+     section headings stack vertically instead of inline.
+     ============================================================ */
+  @media (max-width:768px) {
+    .nav {
+      padding:12px 20px;
+    }
+    .nav .brand {
+      font-size:12px;
+    }
+    .nav .doc-type {
+      display:none; /* Hide on very small screens to save space */
+    }
+    .container {
+      padding:40px 20px 64px;
+    }
+    h1 {
+      font-size:30px;
+    }
+    .section-heading {
+      flex-direction:column;
+      gap:4px;
+      margin-top:36px;
+    }
+    .section-title {
+      font-size:20px;
+    }
+    .contact-block {
+      padding:20px;
+    }
+  }
+
+  /* ============================================================
+     PRINT STYLES
+     Clean print layout: remove sticky nav background,
+     show all text in black, hide decorative elements,
+     ensure page breaks don't split sections awkwardly.
+     ============================================================ */
+  @media print {
+    /* Remove sticky positioning and backdrop effects */
+    .nav {
+      position:static;
+      background:white;
+      backdrop-filter:none;
+      -webkit-backdrop-filter:none;
+      border-bottom:1px solid #ccc;
+    }
+
+    /* White background, black text for readability */
+    body {
+      background:white;
+      color:black;
+    }
+
+    /* Ensure all text prints in dark colors */
+    p, li, ul {
+      color:#222;
+    }
+    .effective {
+      color:#666;
+    }
+    .section-number {
+      color:#666;
+    }
+
+    /* Remove decorative companion badge background */
+    .companion-badge {
+      background:none;
+      border-color:#ccc;
+    }
+
+    /* Contact block prints with light border */
+    .contact-block {
+      background:#f9f9f9;
+      border-color:#ccc;
+    }
+
+    /* Prevent page breaks inside sections */
+    .section-heading {
+      page-break-after:avoid;
+    }
+    ul {
+      page-break-inside:avoid;
+    }
+
+    /* Footer prints without top border color */
+    .footer {
+      border-top-color:#ccc;
+    }
+    .footer a {
+      color:#333;
+    }
+
+    /* Links print with URL visible */
+    a[href^="http"]::after {
+      content:" (" attr(href) ")";
+      font-size:11px;
+      color:#888;
+      font-weight:normal;
+    }
+    /* But not for the nav brand link */
+    .nav a::after {
+      content:none;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     STICKY NAV
+     Left: PULL/SHEET wordmark link (PULL = near-black, SHEET = brown-gold)
+     Center: Back link to the PullSheet Command Center (index.html)
+     Right: Document type label
+     ============================================================ -->
+<nav class="nav">
+  <a href="index.html" class="brand">
+    <span class="pull">PULL</span><span class="sheet">SHEET</span>
+  </a>
+  <a class="back" href="index.html">&larr; All Pages</a>
+  <span class="doc-type">Privacy Policy</span>
+</nav>
+
+<!-- ============================================================
+     MAIN CONTENT CONTAINER
+     800px max-width for comfortable reading of legal text.
+     All 11 sections are rendered sequentially below.
+     ============================================================ -->
+<div class="container">
+
+  <!-- ============================================================
+       PAGE TITLE & META
+       Large serif title with effective/updated dates in monospace.
+       Companion badge clarifies the THREADLINE relationship.
+       ============================================================ -->
+  <h1>Privacy Policy</h1>
+  <div class="effective">Effective Date: June 1, 2026 &middot; Last Updated: March 2026</div>
+
+  <!-- Companion badge: shows PullSheet's relationship to THREADLINE -->
+  <div class="companion-badge">
+    Companion to <span class="tl">THREAD</span><span class="tl-accent">LINE</span>
+  </div>
+
+  <!-- ============================================================
+       INTRO PARAGRAPH
+       Establishes PullSheet identity, Cooper Interactive ownership,
+       and the companion relationship with THREADLINE.
+       ============================================================ -->
+  <p class="intro">
+    PullSheet ("we," "our," or "us") is a companion application to THREADLINE,
+    built and operated by Cooper Interactive. This Privacy Policy explains how we
+    collect, use, disclose, and safeguard your information when you use the
+    PullSheet mobile application and related services (collectively, the "Service").
+    By using the Service, you agree to the collection and use of information in
+    accordance with this policy. If you do not agree, please do not use the Service.
+  </p>
+
+  <!-- ============================================================
+       SECTION 01: INFORMATION WE COLLECT
+       Covers all six categories of data PullSheet may collect:
+       account, production, lookboard, image, usage, and device data.
+       ============================================================ -->
+  <div class="section-heading">
+    <span class="section-number">01</span>
+    <span class="section-title">Information We Collect</span>
+  </div>
+
+  <p>We collect the following categories of information to provide and improve the Service:</p>
+
+  <ul>
+    <li>
+      <strong>Account Data:</strong> Your email address, name, and production role.
+      This information is shared with THREADLINE via a single Supabase authentication
+      system. One account grants access to both applications.
+    </li>
+    <li>
+      <strong>Production Data:</strong> Production names and team memberships. This
+      data is shared with THREADLINE and is used to determine your access permissions
+      within both applications.
+    </li>
+    <li>
+      <strong>Lookboard Data:</strong> Board titles, canvas layouts, garment
+      arrangements, and talent/scene assignments. This data is unique to PullSheet
+      and is created by you to build visual lookboards.
+    </li>
+    <li>
+      <strong>Image Data:</strong> Garment photographs sourced from your THREADLINE
+      inventory, along with AI-processed cutout images generated through the
+      background removal feature.
+    </li>
+    <li>
+      <strong>Usage Data:</strong> Feature usage patterns, board creation and export
+      counts, and session data. This helps us understand how the Service is used and
+      identify areas for improvement.
+    </li>
+    <li>
+      <strong>Device Data:</strong> Device type, operating system version, and app
+      version. This is collected to ensure compatibility and diagnose technical issues.
+    </li>
+  </ul>
+
+  <!-- ============================================================
+       SECTION 02: HOW WE USE YOUR INFORMATION
+       Describes the purposes for which collected data is processed.
+       ============================================================ -->
+  <div class="section-heading">
+    <span class="section-number">02</span>
+    <span class="section-title">How We Use Your Information</span>
+  </div>
+
+  <p>We use the information we collect to:</p>
+
+  <ul>
+    <li>
+      <strong>Provide the PullSheet service:</strong> This includes lookboard
+      creation, canvas editing, garment arrangement, and PDF export functionality.
+    </li>
+    <li>
+      <strong>Process AI background removal:</strong> Garment photographs are sent
+      to the Clipdrop API (operated by Stability AI) to remove backgrounds and
+      generate cutout images for your lookboards.
+    </li>
+    <li>
+      <strong>Sync data with THREADLINE inventory:</strong> PullSheet reads your
+      existing THREADLINE garment data so you can use those items on your lookboards
+      without re-entering information.
+    </li>
+    <li>
+      <strong>Improve app performance and features:</strong> Usage and device data
+      helps us identify bugs, optimize performance, and prioritize new features.
+    </li>
+    <li>
+      <strong>Send service communications:</strong> We may send you notifications
+      related to your account, production activity, or important Service updates.
+    </li>
+  </ul>
+
+  <p>We do not sell your personal information. We do not use your production or lookboard data for advertising purposes.</p>
+
+  <!-- ============================================================
+       SECTION 03: AI BACKGROUND REMOVAL (CLIPDROP API)
+       Specific disclosure about the third-party AI image processing
+       pipeline, data flow, retention, and user control.
+       ============================================================ -->
+  <div class="section-heading">
+    <span class="section-number">03</span>
+    <span class="section-title">AI Background Removal (Clipdrop API)</span>
+  </div>
+
+  <p>PullSheet uses Stability AI's Clipdrop API to provide background removal on garment photographs. Here is how that process works:</p>
+
+  <ul>
+    <li>
+      When you use the background removal feature, your garment photograph is sent
+      to the Clipdrop API for processing.
+    </li>
+    <li>
+      Clipdrop processes the image and returns a cutout with the background removed.
+    </li>
+    <li>
+      Images sent to Clipdrop are processed in real-time and are not stored by
+      Clipdrop after processing is complete.
+    </li>
+    <li>
+      The resulting cutout image is stored in your PullSheet account within Supabase
+      Storage, subject to the same security and access controls as all other data.
+    </li>
+    <li>
+      You can request deletion of any cutout image at any time through the app or
+      by contacting us directly.
+    </li>
+  </ul>
+
+  <!-- ============================================================
+       SECTION 04: SHARED DATA WITH THREADLINE
+       Explains the data relationship between PullSheet and THREADLINE,
+       including what is read vs. written, and deletion implications.
+       ============================================================ -->
+  <div class="section-heading">
+    <span class="section-number">04</span>
+    <span class="section-title">Shared Data with THREADLINE</span>
+  </div>
+
+  <p>PullSheet and THREADLINE operate within a shared ecosystem. Here is how data flows between them:</p>
+
+  <ul>
+    <li>
+      PullSheet and THREADLINE share the same database and authentication system
+      (Supabase). Your login credentials work across both applications.
+    </li>
+    <li>
+      PullSheet reads (but does not modify) your THREADLINE inventory, talent, scene,
+      and production data. This allows you to browse and place garments on lookboards
+      without duplicating information.
+    </li>
+    <li>
+      PullSheet writes lookboard data and cutout images to shared database tables.
+      This data is specific to PullSheet but stored alongside your THREADLINE data.
+    </li>
+    <li>
+      Activity logs (such as "lookboard created," "lookboard updated," or "cutout
+      processed") are written to the shared activity log visible in both applications.
+    </li>
+    <li>
+      Deleting your THREADLINE account will also remove your PullSheet data, including
+      all lookboards, cutout images, and activity logs.
+    </li>
+  </ul>
+
+  <!-- ============================================================
+       SECTION 05: DATA STORAGE AND SECURITY
+       Technical details about infrastructure, encryption,
+       and row-level security policies.
+       ============================================================ -->
+  <div class="section-heading">
+    <span class="section-number">05</span>
+    <span class="section-title">Data Storage and Security</span>
+  </div>
+
+  <ul>
+    <li>
+      All data is stored on Supabase (PostgreSQL), hosted on Amazon Web Services
+      (AWS) infrastructure.
+    </li>
+    <li>
+      Images (garment photos and cutout files) are stored in Supabase Storage
+      buckets with row-level security policies that restrict access to authorized
+      production team members.
+    </li>
+    <li>
+      Data is encrypted in transit using TLS 1.2 or higher, and encrypted at rest
+      on the server.
+    </li>
+    <li>
+      Row-level security ensures that users can only access data from productions
+      they belong to. No user can view, edit, or export another production's
+      lookboards or garment data.
+    </li>
+  </ul>
+
+  <!-- ============================================================
+       SECTION 06: DATA SHARING
+       Lists all third-party services that receive user data,
+       and clarifies what is NOT shared.
+       ============================================================ -->
+  <div class="section-heading">
+    <span class="section-number">06</span>
+    <span class="section-title">Data Sharing</span>
+  </div>
+
+  <p>We do not sell your personal data. We share data only with the following third-party services, solely to provide the Service:</p>
+
+  <ul>
+    <li>
+      <strong>Supabase, Inc.</strong> -- Database hosting, authentication, file
+      storage, and serverless functions.
+    </li>
+    <li>
+      <strong>Stability AI / Clipdrop</strong> -- AI-powered background removal
+      for garment images. Photos are processed in real-time and not retained.
+    </li>
+    <li>
+      <strong>Expo (Software Mansion)</strong> -- App distribution, over-the-air
+      updates, and build infrastructure.
+    </li>
+  </ul>
+
+  <p>We may share anonymized, aggregate usage data for industry research purposes. This data cannot be used to identify individual users.</p>
+
+  <p>We will disclose personal data if required to do so by law, regulation, or valid legal process.</p>
+
+  <!-- ============================================================
+       SECTION 07: YOUR RIGHTS
+       User data rights including access, correction, deletion,
+       export, and opt-out. Export specifically mentions PDF.
+       ============================================================ -->
+  <div class="section-heading">
+    <span class="section-number">07</span>
+    <span class="section-title">Your Rights</span>
+  </div>
+
+  <p>Depending on your jurisdiction, you may have the following rights regarding your personal data:</p>
+
+  <ul>
+    <li>
+      <strong>Access:</strong> Request a copy of the personal data we hold about you.
+    </li>
+    <li>
+      <strong>Correction:</strong> Request correction of inaccurate or incomplete
+      personal data.
+    </li>
+    <li>
+      <strong>Deletion:</strong> Request deletion of your personal data and account.
+    </li>
+    <li>
+      <strong>Export:</strong> Export your lookboard data using the built-in PDF
+      export feature at any time.
+    </li>
+    <li>
+      <strong>Opt-out:</strong> Opt out of marketing communications at any time.
+    </li>
+  </ul>
+
+  <p>To exercise any of these rights, contact us at <a href="mailto:hello@pullsheetapp.io">hello@pullsheetapp.io</a>.</p>
+
+  <!-- ============================================================
+       SECTION 08: CCPA COMPLIANCE (CALIFORNIA USERS)
+       California-specific privacy rights under the CCPA.
+       ============================================================ -->
+  <div class="section-heading">
+    <span class="section-number">08</span>
+    <span class="section-title">CCPA Compliance (California Users)</span>
+  </div>
+
+  <p>If you are a California resident, you have the following rights under the California Consumer Privacy Act (CCPA):</p>
+
+  <ul>
+    <li>
+      <strong>Right to know:</strong> You have the right to know what personal
+      information we collect, use, and disclose about you.
+    </li>
+    <li>
+      <strong>Right to delete:</strong> You have the right to request deletion
+      of your personal data.
+    </li>
+    <li>
+      <strong>Right to non-discrimination:</strong> We will not discriminate against
+      you for exercising any of your privacy rights.
+    </li>
+    <li>
+      <strong>No sale of personal information:</strong> We do not sell personal
+      information to third parties.
+    </li>
+  </ul>
+
+  <p>To exercise your CCPA rights, contact us at <a href="mailto:hello@pullsheetapp.io">hello@pullsheetapp.io</a>.</p>
+
+  <!-- ============================================================
+       SECTION 09: CHILDREN'S PRIVACY
+       Age restriction and compliance with child data protection laws.
+       ============================================================ -->
+  <div class="section-heading">
+    <span class="section-number">09</span>
+    <span class="section-title">Children's Privacy</span>
+  </div>
+
+  <p>PullSheet is not intended for users under the age of 18. We do not knowingly collect personal information from minors. If you believe we have inadvertently collected information from a person under 18, please contact us immediately and we will take steps to delete that information.</p>
+
+  <!-- ============================================================
+       SECTION 10: CHANGES TO THIS POLICY
+       How users will be notified of policy updates.
+       ============================================================ -->
+  <div class="section-heading">
+    <span class="section-number">10</span>
+    <span class="section-title">Changes to This Policy</span>
+  </div>
+
+  <p>We may update this Privacy Policy from time to time. We will notify users of material changes via email or in-app notification. The "Last Updated" date at the top of this page will be revised accordingly.</p>
+
+  <p>Your continued use of the Service after changes are posted constitutes your acceptance of the updated policy.</p>
+
+  <!-- ============================================================
+       SECTION 11: CONTACT
+       Contact details for privacy inquiries. Styled in an
+       elevated contact block for visual distinction.
+       ============================================================ -->
+  <div class="section-heading">
+    <span class="section-number">11</span>
+    <span class="section-title">Contact</span>
+  </div>
+
+  <p>If you have questions about this Privacy Policy or wish to exercise your data rights, please reach out:</p>
+
+  <div class="contact-block">
+    <p><strong>Cooper Interactive</strong></p>
+    <p>Email: <a href="mailto:hello@pullsheetapp.io">hello@pullsheetapp.io</a></p>
+    <p>Website: <a href="https://cooperinteractive.com">cooperinteractive.com</a></p>
+  </div>
+
+</div>
+
+<!-- ============================================================
+     FOOTER
+     "Made with care" link to Cooper Interactive.
+     Matches the footer pattern used across all _internal pages.
+     ============================================================ -->
+<div class="footer">
+  <a href="https://cooperinteractive.com">Made with care</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,1658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PullSheet -- Market Analysis & Pricing Strategy</title>
+
+<!-- ============================================================
+     PULLSHEET MARKET ANALYSIS & PRICING STRATEGY
+     Self-contained HTML with inline CSS and Google Fonts only.
+     Follows the THREADLINE _internal pattern: sticky nav, container
+     max-width 1000px, monospace section labels, styled cards/tables,
+     note boxes, CSS-only bar charts for revenue projections.
+
+     SECTIONS:
+     01 - Executive Summary (greenfield market overview)
+     02 - Competitive Landscape (grid of competitor cards)
+     03 - Market Sizing (TAM / SAM / SOM funnel visualization)
+     04 - Pricing Strategy (tier cards with add-on model)
+     05 - Revenue Projections (CSS bar charts, year-by-year)
+     06 - Cost Structure (cost breakdown table)
+     07 - Distribution Strategy (channel cards)
+
+     DESIGN RULES:
+     - PULL in near-black, SHEET in brown-gold (wordmark convention)
+     - No em dashes anywhere in content
+     - Footer reads "Made with care"
+     - Mobile responsive (single column below 768px)
+     - Data presented as styled cards, never plain HTML tables
+     - CSS-only bar charts for revenue projections
+
+     TO MODIFY:
+     - CSS custom properties in :root control all colors
+     - Competitor cards use .comp-card class
+     - Pricing tiers use .tier-card class
+     - Revenue chart uses .chart-bar with inline width styles
+     - Note boxes use .note-box class with optional border-left color
+     ============================================================ -->
+
+<!-- Google Fonts: Same three families as THREADLINE and PullSheet
+     Cormorant Garamond = serif headings, taglines, editorial
+     Inter = sans-serif body, UI, wordmark
+     JetBrains Mono = monospace metadata, labels, data values -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  /* ============================================================
+     CSS CUSTOM PROPERTIES (Design Tokens)
+     Shared with THREADLINE and PullSheet brand system.
+     Single source of truth for all colors used on this page.
+     ============================================================ */
+  :root {
+    --cream:#FAF8F5;       /* Page background */
+    --bone:#F5F0EB;        /* Slightly darker cream, card alt bg */
+    --warm-gray:#E8E3DE;   /* Dividers, subtle borders */
+    --sand:#D2C4B9;        /* Muted decorative elements */
+    --taupe:#B5A89C;       /* Secondary text, metadata */
+    --brown-gold:#8B6F52;  /* Primary brand accent (light mode) */
+    --copper:#C4946A;      /* Brand accent (dark mode / highlights) */
+    --dark-brown:#5A4228;  /* Deep accent, gradient start */
+    --espresso:#3A2A18;    /* Deep warm brown */
+    --near-black:#1A1714;  /* Primary text color */
+    --void:#0A0A0A;        /* Near-black backgrounds */
+    --water:#5A7E8A;       /* Secondary accent (blue-teal) */
+    --forest:#4A6741;      /* Success / positive indicators */
+    --clay:#8A4A42;        /* Error / negative indicators */
+    --dusty-blue:#627786;  /* Tertiary accent */
+
+    /* Derived tokens for convenience */
+    --border:rgba(26,23,20,0.06);
+    --border-strong:rgba(26,23,20,0.12);
+    --shadow:0 1px 3px rgba(26,23,20,0.04), 0 4px 12px rgba(26,23,20,0.03);
+    --shadow-hover:0 4px 16px rgba(26,23,20,0.08);
+    --radius:12px;
+    --accent-light:rgba(139,111,82,0.08);
+    --accent-mid:rgba(139,111,82,0.15);
+    --water-light:rgba(90,126,138,0.08);
+    --forest-light:rgba(74,103,65,0.08);
+    --text-secondary:#6B6560;
+    --text-tertiary:#9A9590;
+  }
+
+  /* ============================================================
+     RESET & BASE STYLES
+     Minimal reset. Body uses Inter as default sans-serif.
+     Cream background matches THREADLINE light-mode-first approach.
+     ============================================================ */
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'Inter', -apple-system, sans-serif;
+    background:var(--cream);
+    color:var(--near-black);
+    line-height:1.6;
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+
+  /* ============================================================
+     STICKY NAVIGATION BAR
+     Frosted glass effect with backdrop blur.
+     PullSheet wordmark on left (PULL in text, SHEET in accent).
+     Back link to PullSheet Command Center.
+     Section nav links for in-page scrolling.
+     ============================================================ */
+  .sticky-nav {
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(250,248,245,0.92);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    border-bottom:1px solid var(--border);
+    padding:12px 32px;
+    display:flex;
+    align-items:center;
+    gap:24px;
+  }
+
+  /* Wordmark in nav: PULL in near-black, SHEET in brown-gold */
+  .sticky-nav .brand {
+    font-family:'Inter', sans-serif;
+    font-weight:200;
+    font-size:14px;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    text-decoration:none;
+    color:inherit;
+    flex-shrink:0;
+  }
+  .sticky-nav .brand .pull { color:var(--near-black); }
+  .sticky-nav .brand .sheet { color:var(--brown-gold); }
+
+  /* Back link to PullSheet Command Center */
+  .sticky-nav .back-link {
+    font-size:11px;
+    font-weight:500;
+    color:var(--brown-gold);
+    text-decoration:none;
+    padding:4px 8px;
+    border-radius:4px;
+    flex-shrink:0;
+    transition:all 0.15s;
+  }
+  .sticky-nav .back-link:hover {
+    background:var(--accent-light);
+  }
+
+  /* Nav links container: wraps on mobile */
+  .nav-links {
+    display:flex;
+    gap:4px;
+    flex-wrap:wrap;
+  }
+
+  /* Individual nav link: small caps, hover state with accent tint */
+  .nav-link {
+    font-size:11px;
+    font-weight:500;
+    padding:4px 10px;
+    border-radius:6px;
+    color:var(--taupe);
+    text-decoration:none;
+    cursor:pointer;
+    transition:all 0.15s;
+    white-space:nowrap;
+  }
+  .nav-link:hover,
+  .nav-link.active {
+    color:var(--brown-gold);
+    background:var(--accent-light);
+  }
+
+  /* ============================================================
+     CONTAINER
+     Max-width wrapper centered on page. 1000px per spec.
+     Horizontal padding collapses on mobile via media query.
+     ============================================================ */
+  .container {
+    max-width:1000px;
+    margin:0 auto;
+    padding:32px 48px;
+  }
+
+  /* ============================================================
+     PAGE HEADER
+     Title in Cormorant Garamond serif, subtitle in body text,
+     date/attribution in JetBrains Mono monospace.
+     ============================================================ */
+  .page-header {
+    margin-bottom:40px;
+  }
+  .page-header h1 {
+    font-family:'Cormorant Garamond', serif;
+    font-weight:300;
+    font-size:36px;
+    letter-spacing:-0.02em;
+    margin-bottom:4px;
+  }
+  .page-header .subtitle {
+    font-size:14px;
+    color:var(--text-secondary);
+    line-height:1.6;
+  }
+  .page-header .date {
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    color:var(--text-tertiary);
+    margin-top:4px;
+  }
+
+  /* ============================================================
+     SECTION STRUCTURE
+     Each major section gets margin-bottom for vertical spacing.
+     Section header: Cormorant Garamond title + monospace tag pill.
+     Divider line under the header for visual separation.
+     ============================================================ */
+  .section {
+    margin-bottom:48px;
+  }
+  .section-header {
+    display:flex;
+    align-items:baseline;
+    gap:12px;
+    margin-bottom:20px;
+    padding-bottom:12px;
+    border-bottom:1px solid var(--border);
+  }
+  .section-header h2 {
+    font-family:'Cormorant Garamond', serif;
+    font-weight:300;
+    font-size:26px;
+  }
+
+  /* Monospace tag pill next to section titles */
+  .section-header .tag {
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px;
+    font-weight:600;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:3px 8px;
+    border-radius:4px;
+    background:var(--accent-light);
+    color:var(--brown-gold);
+    white-space:nowrap;
+  }
+
+  /* ============================================================
+     SECTION LABEL (Monospace divider)
+     Uppercase monospace label with a right-extending line.
+     Used for sub-section or category dividers within sections.
+     ============================================================ */
+  .section-label {
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px;
+    font-weight:500;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    margin-bottom:16px;
+    margin-top:32px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .section-label::after {
+    content:'';
+    flex:1;
+    height:1px;
+    background:var(--warm-gray);
+  }
+
+  /* ============================================================
+     NOTE BOX
+     Accent-bordered callout box for key insights, rationale,
+     and methodology notes. Left border color can be overridden
+     inline for variety (water, forest, etc.).
+     ============================================================ */
+  .note-box {
+    background:var(--accent-light);
+    border-left:3px solid var(--brown-gold);
+    border-radius:0 var(--radius) var(--radius) 0;
+    padding:20px 24px;
+    margin-top:20px;
+  }
+  .note-box h4 {
+    font-size:14px;
+    font-weight:600;
+    color:var(--brown-gold);
+    margin-bottom:8px;
+  }
+  .note-box p,
+  .note-box li {
+    font-size:13px;
+    color:var(--near-black);
+    line-height:1.7;
+  }
+  .note-box ul {
+    list-style:none;
+    padding:0;
+    margin-top:8px;
+  }
+  .note-box li {
+    padding:4px 0;
+    padding-left:16px;
+    position:relative;
+  }
+  .note-box li::before {
+    content:'\2192'; /* right arrow */
+    position:absolute;
+    left:0;
+    color:var(--brown-gold);
+  }
+
+  /* ============================================================
+     EXECUTIVE SUMMARY TEXT
+     Simple body text for the executive summary paragraph.
+     ============================================================ */
+  .summary-text {
+    font-size:15px;
+    line-height:1.8;
+    color:var(--near-black);
+    max-width:800px;
+  }
+
+  /* ============================================================
+     COMPETITOR CARDS
+     Grid of styled cards replacing a plain HTML table.
+     Each card shows: name, type tag, strengths, weaknesses, pricing.
+     Grid: 1 column on mobile, responsive layout on desktop.
+     ============================================================ */
+  .comp-grid {
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+
+  .comp-card {
+    background:white;
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:24px;
+    box-shadow:var(--shadow);
+    display:grid;
+    grid-template-columns:200px 1fr 1fr 140px;
+    gap:16px 24px;
+    align-items:start;
+    transition:box-shadow 0.2s;
+  }
+  .comp-card:hover {
+    box-shadow:var(--shadow-hover);
+  }
+
+  /* Competitor name and type tag in the first column */
+  .comp-card .comp-name {
+    font-weight:600;
+    font-size:15px;
+    color:var(--near-black);
+    margin-bottom:4px;
+  }
+  .comp-card .comp-type {
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px;
+    font-weight:500;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    padding:2px 8px;
+    border-radius:4px;
+    display:inline-block;
+    margin-top:4px;
+  }
+
+  /* Type tag color variants for competitor cards */
+  .comp-type.mobile { background:rgba(90,126,138,0.1); color:var(--water); }
+  .comp-type.web { background:rgba(106,90,140,0.08); color:#6A5A8C; }
+  .comp-type.design { background:var(--accent-light); color:var(--brown-gold); }
+  .comp-type.physical { background:rgba(138,74,66,0.08); color:var(--clay); }
+  .comp-type.digital { background:var(--forest-light); color:var(--forest); }
+
+  /* Strengths and weaknesses columns */
+  .comp-card .comp-strengths,
+  .comp-card .comp-weaknesses {
+    font-size:13px;
+    line-height:1.6;
+    color:var(--text-secondary);
+  }
+  .comp-card .comp-col-label {
+    font-family:'JetBrains Mono', monospace;
+    font-size:9px;
+    font-weight:500;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    margin-bottom:6px;
+    display:block;
+  }
+
+  /* Pricing column: monospace for numbers */
+  .comp-card .comp-pricing {
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    font-weight:500;
+    color:var(--brown-gold);
+    text-align:right;
+  }
+  .comp-card .comp-pricing .pricing-note {
+    font-family:'Inter', sans-serif;
+    font-size:11px;
+    font-weight:400;
+    color:var(--text-tertiary);
+    display:block;
+    margin-top:2px;
+  }
+
+  /* PullSheet highlight row in competitor grid */
+  .comp-card.highlight {
+    border:2px solid var(--brown-gold);
+    background:linear-gradient(180deg, rgba(139,111,82,0.03) 0%, white 100%);
+  }
+
+  /* ============================================================
+     STAT CARDS
+     Small summary cards shown in a row. Used for TAM/SAM/SOM
+     and other at-a-glance metrics.
+     ============================================================ */
+  .stats-grid {
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:16px;
+    margin-bottom:24px;
+  }
+  .stat-card {
+    background:white;
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:20px;
+    box-shadow:var(--shadow);
+  }
+  .stat-label {
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px;
+    font-weight:500;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--text-tertiary);
+    margin-bottom:8px;
+  }
+  .stat-value {
+    font-family:'JetBrains Mono', monospace;
+    font-size:28px;
+    font-weight:500;
+    color:var(--near-black);
+    line-height:1.2;
+  }
+  .stat-sub {
+    font-size:12px;
+    color:var(--text-secondary);
+    margin-top:4px;
+    line-height:1.5;
+  }
+
+  /* ============================================================
+     FUNNEL VISUALIZATION
+     Stacked horizontal bars for TAM > SAM > SOM breakdown.
+     Each stage is a row with a label, a colored bar (width set
+     inline), and a value. Progressive narrowing communicates
+     the funnel concept visually.
+     ============================================================ */
+  .funnel {
+    display:flex;
+    flex-direction:column;
+    gap:0;
+    max-width:800px;
+    margin:0 auto;
+  }
+  .funnel-stage {
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding:16px 24px;
+    background:white;
+    border:1px solid var(--border);
+    position:relative;
+  }
+  .funnel-stage:first-child { border-radius:var(--radius) var(--radius) 0 0; }
+  .funnel-stage:last-child { border-radius:0 0 var(--radius) var(--radius); }
+  .funnel-stage + .funnel-stage { border-top:none; }
+
+  .funnel-label {
+    font-size:13px;
+    color:var(--near-black);
+    flex-shrink:0;
+    min-width:180px;
+  }
+  .funnel-label strong {
+    font-weight:600;
+  }
+  .funnel-bar {
+    height:8px;
+    border-radius:4px;
+    background:var(--brown-gold);
+    flex-shrink:0;
+    transition:width 0.6s ease;
+  }
+  .funnel-value {
+    font-family:'JetBrains Mono', monospace;
+    font-size:14px;
+    font-weight:500;
+    color:var(--brown-gold);
+    flex-shrink:0;
+    min-width:120px;
+    text-align:right;
+  }
+
+  /* ============================================================
+     PRICING TIER CARDS
+     Grid of pricing tier cards. Each shows: tier name, price,
+     feature list, and target audience. The "recommended" card
+     gets a brown-gold border and gradient background with a
+     floating "Most Popular" pill.
+     ============================================================ */
+  .tier-grid {
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:16px;
+    margin-top:24px;
+  }
+  .tier-card {
+    background:white;
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:24px 20px;
+    box-shadow:var(--shadow);
+    text-align:center;
+    position:relative;
+    transition:transform 0.2s, box-shadow 0.2s;
+    display:flex;
+    flex-direction:column;
+  }
+  .tier-card:hover {
+    transform:translateY(-2px);
+    box-shadow:var(--shadow-hover);
+  }
+
+  /* Recommended tier: accent border + gradient + floating pill */
+  .tier-card.recommended {
+    border:2px solid var(--brown-gold);
+    background:linear-gradient(180deg, rgba(139,111,82,0.03) 0%, white 100%);
+  }
+  .tier-card.recommended::before {
+    content:'RECOMMENDED';
+    position:absolute;
+    top:-10px;
+    left:50%;
+    transform:translateX(-50%);
+    background:var(--brown-gold);
+    color:white;
+    font-family:'JetBrains Mono', monospace;
+    font-size:9px;
+    font-weight:600;
+    letter-spacing:0.1em;
+    padding:3px 12px;
+    border-radius:10px;
+    white-space:nowrap;
+  }
+
+  .tier-name {
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--text-tertiary);
+    margin-bottom:4px;
+  }
+  .tier-title {
+    font-family:'Cormorant Garamond', serif;
+    font-weight:300;
+    font-size:22px;
+    color:var(--near-black);
+    margin-bottom:12px;
+  }
+  .tier-price {
+    font-family:'JetBrains Mono', monospace;
+    font-size:32px;
+    font-weight:500;
+    color:var(--brown-gold);
+    line-height:1;
+  }
+  .tier-period {
+    font-size:12px;
+    color:var(--text-tertiary);
+    margin-bottom:16px;
+  }
+  .tier-target {
+    font-size:12px;
+    color:var(--text-secondary);
+    font-style:italic;
+    margin-bottom:16px;
+    min-height:36px;
+  }
+
+  /* Feature list inside tier cards */
+  .tier-features {
+    list-style:none;
+    padding:0;
+    text-align:left;
+    flex:1;
+  }
+  .tier-features li {
+    font-size:12px;
+    padding:6px 0;
+    border-top:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    gap:6px;
+    color:var(--near-black);
+  }
+  .tier-features li::before {
+    content:'\2713'; /* checkmark */
+    color:var(--forest);
+    font-weight:700;
+    font-size:11px;
+    flex-shrink:0;
+  }
+
+  /* ============================================================
+     BUNDLE CARDS
+     Side-by-side cards for THREADLINE + PullSheet bundle pricing.
+     Shows combined price with savings callout.
+     ============================================================ */
+  .bundle-grid {
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:16px;
+    margin-top:20px;
+  }
+  .bundle-card {
+    background:white;
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:24px;
+    box-shadow:var(--shadow);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+  }
+  .bundle-card .bundle-names {
+    font-size:13px;
+    color:var(--text-secondary);
+    margin-bottom:8px;
+  }
+  .bundle-card .bundle-names .tl {
+    color:var(--near-black);
+    font-weight:500;
+  }
+  .bundle-card .bundle-names .tl-accent {
+    color:var(--brown-gold);
+    font-weight:500;
+  }
+  .bundle-card .bundle-names .ps-pull {
+    color:var(--near-black);
+    font-weight:500;
+  }
+  .bundle-card .bundle-names .ps-sheet {
+    color:var(--brown-gold);
+    font-weight:500;
+  }
+  .bundle-card .bundle-price {
+    font-family:'JetBrains Mono', monospace;
+    font-size:28px;
+    font-weight:500;
+    color:var(--brown-gold);
+    line-height:1;
+    margin-bottom:4px;
+  }
+  .bundle-card .bundle-period {
+    font-size:12px;
+    color:var(--text-tertiary);
+    margin-bottom:8px;
+  }
+  .bundle-card .bundle-savings {
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    font-weight:500;
+    color:var(--forest);
+    background:var(--forest-light);
+    padding:3px 10px;
+    border-radius:4px;
+  }
+
+  /* ============================================================
+     CSS-ONLY BAR CHART
+     Vertical bar chart for revenue projections. Each bar is a
+     flex column with a colored div whose height is set via
+     inline style (percentage of max). Labels sit below each bar.
+     The chart area has a fixed height and bars grow upward
+     using flex-end alignment.
+     ============================================================ */
+  .chart-container {
+    margin-top:24px;
+    background:white;
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:32px 24px 20px;
+    box-shadow:var(--shadow);
+  }
+  .chart-title {
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px;
+    font-weight:500;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    margin-bottom:20px;
+    text-align:center;
+  }
+
+  /* The chart area: bars align at the bottom, grow upward */
+  .chart-area {
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+    gap:24px;
+    height:240px;
+    padding:0 16px;
+    border-bottom:1px solid var(--warm-gray);
+    margin-bottom:12px;
+  }
+
+  /* Individual bar column: contains the bar + value label */
+  .chart-col {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:6px;
+    flex:1;
+    max-width:100px;
+  }
+
+  /* The value label that sits above the bar */
+  .chart-val {
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    font-weight:500;
+    color:var(--brown-gold);
+  }
+
+  /* The actual colored bar (height set inline) */
+  .chart-bar {
+    width:100%;
+    border-radius:6px 6px 0 0;
+    transition:height 0.6s ease;
+    min-height:4px;
+  }
+
+  /* Year labels under the chart bars */
+  .chart-labels {
+    display:flex;
+    justify-content:center;
+    gap:24px;
+  }
+  .chart-label {
+    flex:1;
+    max-width:100px;
+    text-align:center;
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px;
+    font-weight:500;
+    color:var(--text-tertiary);
+    letter-spacing:0.06em;
+  }
+  .chart-label .label-sub {
+    display:block;
+    font-family:'Inter', sans-serif;
+    font-size:10px;
+    font-weight:400;
+    color:var(--taupe);
+    margin-top:2px;
+  }
+
+  /* ============================================================
+     COST TABLE (styled cards, not plain table)
+     Each cost item is a row-card with name, amount, and note.
+     ============================================================ */
+  .cost-grid {
+    display:flex;
+    flex-direction:column;
+    gap:0;
+  }
+  .cost-row {
+    display:grid;
+    grid-template-columns:200px 160px 1fr;
+    gap:16px;
+    align-items:center;
+    padding:14px 20px;
+    background:white;
+    border:1px solid var(--border);
+    border-bottom:none;
+  }
+  .cost-row:first-child {
+    border-radius:var(--radius) var(--radius) 0 0;
+  }
+  .cost-row:last-child {
+    border-bottom:1px solid var(--border);
+    border-radius:0 0 var(--radius) var(--radius);
+  }
+  .cost-row:hover {
+    background:rgba(139,111,82,0.02);
+  }
+
+  /* Cost row header (the first row with labels) */
+  .cost-row.cost-header {
+    background:var(--accent-light);
+    border-bottom:1px solid var(--border);
+  }
+  .cost-row.cost-header span {
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px;
+    font-weight:600;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--brown-gold);
+  }
+
+  .cost-name {
+    font-weight:500;
+    font-size:13px;
+  }
+  .cost-amount {
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    font-weight:500;
+    color:var(--brown-gold);
+  }
+  .cost-note {
+    font-size:12px;
+    color:var(--text-secondary);
+  }
+
+  /* ============================================================
+     DISTRIBUTION CARDS
+     Grid of channel cards for the distribution strategy section.
+     Each card has a rank label, channel name, and description.
+     ============================================================ */
+  .dist-grid {
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:16px;
+    margin-top:16px;
+  }
+  .dist-card {
+    background:white;
+    border:1px solid var(--border);
+    border-left:3px solid var(--brown-gold);
+    border-radius:0 var(--radius) var(--radius) 0;
+    padding:20px 24px;
+    box-shadow:var(--shadow);
+  }
+  .dist-card .dist-rank {
+    font-family:'JetBrains Mono', monospace;
+    font-size:9px;
+    font-weight:600;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    margin-bottom:6px;
+  }
+  .dist-card h4 {
+    font-size:14px;
+    font-weight:600;
+    color:var(--near-black);
+    margin-bottom:6px;
+  }
+  .dist-card p {
+    font-size:13px;
+    color:var(--text-secondary);
+    line-height:1.6;
+  }
+
+  /* ============================================================
+     FOOTER
+     Centered "Made with care" link to Cooper Interactive.
+     ============================================================ */
+  .footer {
+    text-align:center;
+    padding:32px;
+    font-size:12px;
+    color:var(--taupe);
+    border-top:1px solid var(--border);
+  }
+  .footer a {
+    color:var(--brown-gold);
+    text-decoration:none;
+  }
+
+  /* ============================================================
+     RESPONSIVE: Mobile layout
+     Below 768px: single-column grids, reduced padding,
+     smaller fonts, stacked competitor cards.
+     ============================================================ */
+  @media (max-width:768px) {
+    .sticky-nav {
+      padding:10px 16px;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .nav-links {
+      width:100%;
+      overflow-x:auto;
+      flex-wrap:nowrap;
+      -webkit-overflow-scrolling:touch;
+    }
+    .container {
+      padding:24px 16px;
+    }
+    .page-header h1 {
+      font-size:28px;
+    }
+
+    /* Competitor cards: stack into single column layout */
+    .comp-card {
+      grid-template-columns:1fr;
+      gap:12px;
+    }
+    .comp-card .comp-pricing {
+      text-align:left;
+    }
+
+    /* Stat cards: 1 column */
+    .stats-grid {
+      grid-template-columns:1fr;
+    }
+
+    /* Funnel: tighter layout */
+    .funnel-stage {
+      flex-wrap:wrap;
+      gap:8px;
+      padding:12px 16px;
+    }
+    .funnel-label {
+      min-width:100%;
+    }
+    .funnel-value {
+      min-width:auto;
+    }
+
+    /* Pricing tier cards: 1 column */
+    .tier-grid {
+      grid-template-columns:1fr;
+    }
+
+    /* Bundle cards: 1 column */
+    .bundle-grid {
+      grid-template-columns:1fr;
+    }
+
+    /* Chart bars: tighter */
+    .chart-area {
+      gap:12px;
+      height:180px;
+    }
+
+    /* Cost rows: stack columns */
+    .cost-row {
+      grid-template-columns:1fr;
+      gap:4px;
+    }
+
+    /* Distribution cards: 1 column */
+    .dist-grid {
+      grid-template-columns:1fr;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     STICKY NAVIGATION
+     PullSheet wordmark, back link, and section anchors.
+     Smooth scroll handled by JavaScript at bottom of page.
+     ============================================================ -->
+<nav class="sticky-nav">
+  <span class="brand"><span class="pull">PULL</span><span class="sheet">SHEET</span></span>
+  <a class="back-link" href="index.html">&larr; All Pages</a>
+  <div class="nav-links">
+    <a class="nav-link active" href="#executive">Summary</a>
+    <a class="nav-link" href="#landscape">Competitors</a>
+    <a class="nav-link" href="#sizing">Sizing</a>
+    <a class="nav-link" href="#pricing">Pricing</a>
+    <a class="nav-link" href="#projections">Revenue</a>
+    <a class="nav-link" href="#costs">Costs</a>
+    <a class="nav-link" href="#distribution">Distribution</a>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- ============================================================
+       PAGE HEADER
+       Title, subtitle describing document purpose, and metadata line.
+       ============================================================ -->
+  <div class="page-header">
+    <h1>Market Analysis & Pricing Strategy</h1>
+    <div class="subtitle">Competitive landscape, market sizing, and add-on pricing model for PullSheet.</div>
+    <div class="date">2026-03-22 &middot; Cooper Interactive &middot; Internal</div>
+  </div>
+
+  <!-- ============================================================
+       SECTION 1: EXECUTIVE SUMMARY
+       High-level overview of market opportunity. PullSheet enters a
+       greenfield market with no production-grade visual lookbook
+       builder. Built-in distribution via THREADLINE user base.
+       ============================================================ -->
+  <section class="section" id="executive">
+    <div class="section-header">
+      <h2>Executive Summary</h2>
+      <span class="tag">Greenfield</span>
+    </div>
+
+    <p class="summary-text">
+      PullSheet enters a greenfield market. No production-grade visual lookbook builder exists today. Current workflows are manual: printed photos, corkboards, scissors, and tape. The closest digital competitor (Dress Assistant) lacks production awareness, AI features, and PDF export. Canva and Pinterest offer general-purpose tools but have no connection to wardrobe inventory, no background removal, and no understanding of film production workflows.
+    </p>
+    <p class="summary-text" style="margin-top:12px;">
+      PullSheet has a built-in distribution advantage through the existing THREADLINE user base. As an add-on module (not standalone), it benefits from zero customer acquisition cost for existing subscribers and creates a natural upsell path that increases THREADLINE's lifetime value per user.
+    </p>
+
+    <!-- Key insight callout: the intersection PullSheet owns -->
+    <div class="note-box" style="margin-top:24px;border-left-color:var(--water);">
+      <h4 style="color:var(--water);">Key Insight</h4>
+      <p>No competitor combines: (1) production inventory integration, (2) AI background removal, (3) freeform canvas editing, and (4) professional PDF export. PullSheet owns this intersection entirely.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 2: COMPETITIVE LANDSCAPE
+       Card-based competitor grid. Each card shows: name, type,
+       strengths, weaknesses, and pricing. PullSheet is highlighted
+       at the bottom with an accent border.
+       ============================================================ -->
+  <section class="section" id="landscape">
+    <div class="section-header">
+      <h2>Competitive Landscape</h2>
+      <span class="tag">5 Alternatives</span>
+    </div>
+
+    <div class="comp-grid">
+
+      <!-- Competitor: Dress Assistant -->
+      <div class="comp-card">
+        <div>
+          <div class="comp-name">Dress Assistant</div>
+          <span class="comp-type mobile">Mobile App</span>
+        </div>
+        <div class="comp-strengths">
+          <span class="comp-col-label">Strengths</span>
+          Outfit planning, wardrobe organization, visual closet management
+        </div>
+        <div class="comp-weaknesses">
+          <span class="comp-col-label">Weaknesses</span>
+          Not production-aware, no AI, no team features, consumer-focused
+        </div>
+        <div class="comp-pricing">
+          Free / $4.99
+          <span class="pricing-note">One-time premium</span>
+        </div>
+      </div>
+
+      <!-- Competitor: Pinterest Boards -->
+      <div class="comp-card">
+        <div>
+          <div class="comp-name">Pinterest Boards</div>
+          <span class="comp-type web">Web / Mobile</span>
+        </div>
+        <div class="comp-strengths">
+          <span class="comp-col-label">Strengths</span>
+          Visual, free, familiar to most users, massive image library
+        </div>
+        <div class="comp-weaknesses">
+          <span class="comp-col-label">Weaknesses</span>
+          No inventory connection, no export, no production context, not professional
+        </div>
+        <div class="comp-pricing">
+          Free
+          <span class="pricing-note">Ad-supported</span>
+        </div>
+      </div>
+
+      <!-- Competitor: Canva -->
+      <div class="comp-card">
+        <div>
+          <div class="comp-name">Canva</div>
+          <span class="comp-type design">Web / Mobile</span>
+        </div>
+        <div class="comp-strengths">
+          <span class="comp-col-label">Strengths</span>
+          Design tools, templates, exports, background removal (Pro)
+        </div>
+        <div class="comp-weaknesses">
+          <span class="comp-col-label">Weaknesses</span>
+          Not wardrobe-specific, no inventory integration, manual workflow
+        </div>
+        <div class="comp-pricing">
+          Free / $12.99
+          <span class="pricing-note">Per month (Pro)</span>
+        </div>
+      </div>
+
+      <!-- Competitor: Manual (Polaroids / Printouts) -->
+      <div class="comp-card">
+        <div>
+          <div class="comp-name">Manual (Polaroids / Printouts)</div>
+          <span class="comp-type physical">Physical</span>
+        </div>
+        <div class="comp-strengths">
+          <span class="comp-col-label">Strengths</span>
+          No learning curve, tactile, immediate, no tech dependencies
+        </div>
+        <div class="comp-weaknesses">
+          <span class="comp-col-label">Weaknesses</span>
+          Time-consuming, not shareable digitally, no iteration, wasteful
+        </div>
+        <div class="comp-pricing">
+          ~$50-200
+          <span class="pricing-note">Cost of prints per production</span>
+        </div>
+      </div>
+
+      <!-- Competitor: Spreadsheets + Photos -->
+      <div class="comp-card">
+        <div>
+          <div class="comp-name">Spreadsheets + Photos</div>
+          <span class="comp-type digital">Digital</span>
+        </div>
+        <div class="comp-strengths">
+          <span class="comp-col-label">Strengths</span>
+          Familiar tools, easy sharing, flexible formatting
+        </div>
+        <div class="comp-weaknesses">
+          <span class="comp-col-label">Weaknesses</span>
+          Not visual, poor presentation, no background removal
+        </div>
+        <div class="comp-pricing">
+          Free / $9.99
+          <span class="pricing-note">Google free / Office 365 /mo</span>
+        </div>
+      </div>
+
+      <!-- PullSheet: highlighted row showing the product's position -->
+      <div class="comp-card highlight">
+        <div>
+          <div class="comp-name" style="color:var(--brown-gold);">PullSheet</div>
+          <span class="comp-type" style="background:var(--accent-light);color:var(--brown-gold);">THREADLINE Add-On</span>
+        </div>
+        <div class="comp-strengths">
+          <span class="comp-col-label" style="color:var(--brown-gold);">Strengths</span>
+          <strong>Inventory integration, AI background removal, freeform canvas, PDF export, talent lookboards, production-aware, team sharing</strong>
+        </div>
+        <div class="comp-weaknesses">
+          <span class="comp-col-label">Weaknesses</span>
+          New entrant. Requires THREADLINE subscription. Unproven in market.
+        </div>
+        <div class="comp-pricing">
+          $4.99-24.99
+          <span class="pricing-note">Per month add-on</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 3: MARKET SIZING
+       TAM, SAM, and SOM with stat cards and funnel visualization.
+       Methodology note at the bottom explains the numbers.
+       ============================================================ -->
+  <section class="section" id="sizing">
+    <div class="section-header">
+      <h2>Market Sizing</h2>
+      <span class="tag">TAM / SAM / SOM</span>
+    </div>
+
+    <!-- Summary stat cards: TAM, SAM, SOM at a glance -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">TAM (Global)</div>
+        <div class="stat-value">$3.6-12M</div>
+        <div class="stat-sub">60,000-100,000 wardrobe professionals globally at $5-10/user/month</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">SAM (English-Speaking)</div>
+        <div class="stat-value">$1.8-3.6M</div>
+        <div class="stat-sub">~30,000 professionals across US, UK, Canada, Australia</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">SOM (Year 1)</div>
+        <div class="stat-value">$30K</div>
+        <div class="stat-sub">500 THREADLINE users adopt PullSheet at $4.99/month</div>
+      </div>
+    </div>
+
+    <!-- Funnel visualization: progressive narrowing from TAM to SOM -->
+    <div class="section-label">Market Funnel</div>
+    <div class="funnel">
+      <div class="funnel-stage">
+        <div class="funnel-label"><strong>TAM</strong> &middot; Global wardrobe professionals</div>
+        <div class="funnel-bar" style="width:100%;opacity:0.25"></div>
+        <div class="funnel-value">60K-100K users</div>
+      </div>
+      <div class="funnel-stage">
+        <div class="funnel-label"><strong>Productions</strong> &middot; ~12,000 active/year globally</div>
+        <div class="funnel-bar" style="width:70%;opacity:0.35"></div>
+        <div class="funnel-value">$3.6-12M/yr</div>
+      </div>
+      <div class="funnel-stage">
+        <div class="funnel-label"><strong>SAM</strong> &middot; English-speaking markets</div>
+        <div class="funnel-bar" style="width:45%;opacity:0.5"></div>
+        <div class="funnel-value">$1.8-3.6M/yr</div>
+      </div>
+      <div class="funnel-stage">
+        <div class="funnel-label"><strong>SOM Year 1</strong> &middot; THREADLINE user conversion</div>
+        <div class="funnel-bar" style="width:10%;opacity:0.75"></div>
+        <div class="funnel-value">$30K/yr</div>
+      </div>
+      <div class="funnel-stage">
+        <div class="funnel-label"><strong>SOM Year 2</strong> &middot; Organic growth + word-of-mouth</div>
+        <div class="funnel-bar" style="width:20%;opacity:1"></div>
+        <div class="funnel-value">$120K/yr</div>
+      </div>
+    </div>
+
+    <!-- Methodology note explaining how the numbers were derived -->
+    <div class="note-box" style="margin-top:24px;">
+      <h4>Sizing Methodology</h4>
+      <p>~12,000 active productions/year globally, with average wardrobe teams of 4-8 people per production. English-speaking markets (US, UK, Canada, Australia) represent roughly 5,000 of those productions. SOM is conservatively based on converting existing THREADLINE subscribers to the PullSheet add-on, with zero cold acquisition required in Year 1.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 4: PRICING STRATEGY
+       Add-on pricing model with four tiers. PullSheet is sold
+       exclusively as an add-on to THREADLINE, not standalone.
+       Includes tier cards, rationale, and bundle pricing.
+       ============================================================ -->
+  <section class="section" id="pricing">
+    <div class="section-header">
+      <h2>Pricing Strategy</h2>
+      <span class="tag">Add-On Model</span>
+    </div>
+
+    <!-- Note box: PullSheet is an add-on, not standalone -->
+    <div class="note-box" style="margin-bottom:24px;border-left-color:var(--water);">
+      <h4 style="color:var(--water);">Add-On Model</h4>
+      <p>PullSheet is not sold independently. It is an add-on module for THREADLINE subscribers. This eliminates standalone marketing costs, ensures inventory integration works seamlessly, and creates a natural upsell path that increases THREADLINE's overall ARPU.</p>
+    </div>
+
+    <!-- Four pricing tier cards -->
+    <div class="section-label">Tier Structure</div>
+    <div class="tier-grid">
+
+      <!-- Free Beta tier -->
+      <div class="tier-card">
+        <div class="tier-name">Beta</div>
+        <div class="tier-title">Free</div>
+        <div class="tier-price">$0</div>
+        <div class="tier-period">/month</div>
+        <div class="tier-target">Beta testers, early feedback</div>
+        <ul class="tier-features">
+          <li>25 background removals/mo</li>
+          <li>10 lookbook exports/mo</li>
+          <li>Unlimited team size</li>
+          <li>Full canvas editor</li>
+        </ul>
+      </div>
+
+      <!-- Essential tier -->
+      <div class="tier-card">
+        <div class="tier-name">Essential</div>
+        <div class="tier-title">Individual</div>
+        <div class="tier-price">$4.99</div>
+        <div class="tier-period">/month</div>
+        <div class="tier-target">Individual costume designers</div>
+        <ul class="tier-features">
+          <li>100 background removals/mo</li>
+          <li>Unlimited exports</li>
+          <li>Up to 3 team members</li>
+          <li>Full canvas editor</li>
+          <li>PDF lookbook export</li>
+        </ul>
+      </div>
+
+      <!-- Professional tier (recommended) -->
+      <div class="tier-card recommended">
+        <div class="tier-name">Professional</div>
+        <div class="tier-title">Department</div>
+        <div class="tier-price">$9.99</div>
+        <div class="tier-period">/month</div>
+        <div class="tier-target">Supervisors, department heads</div>
+        <ul class="tier-features">
+          <li>500 background removals/mo</li>
+          <li>Unlimited exports</li>
+          <li>Up to 10 team members</li>
+          <li>Full canvas editor</li>
+          <li>PDF lookbook export</li>
+          <li>Team sharing + collaboration</li>
+        </ul>
+      </div>
+
+      <!-- Production tier -->
+      <div class="tier-card">
+        <div class="tier-name">Production</div>
+        <div class="tier-title">Studio</div>
+        <div class="tier-price">$24.99</div>
+        <div class="tier-period">/month</div>
+        <div class="tier-target">Large productions, studios</div>
+        <ul class="tier-features">
+          <li>Unlimited background removals</li>
+          <li>Unlimited exports</li>
+          <li>Unlimited team members</li>
+          <li>Full canvas editor</li>
+          <li>PDF lookbook export</li>
+          <li>Team sharing + collaboration</li>
+          <li>Priority support</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Pricing rationale -->
+    <div class="note-box" style="margin-top:24px;">
+      <h4>Pricing Rationale</h4>
+      <ul>
+        <li><strong>Background removals are the primary cost driver</strong> (Clipdrop API usage). Tiering by removal count aligns price with actual infrastructure cost.</li>
+        <li><strong>Export is cheap</strong> (client-side PDF generation), so it is unlimited on all paid tiers.</li>
+        <li><strong>Team size aligns with production scale.</strong> Individual costumers need 1-3, department heads need up to 10, studios need unlimited.</li>
+        <li><strong>Free tier during beta</strong> builds the user base and generates feedback before paid launch.</li>
+        <li><strong>$4.99 Essential tier</strong> is low enough for individual adoption without department budget approval.</li>
+        <li><strong>$24.99 Production tier</strong> captures studio-scale value while remaining far below enterprise SaaS pricing.</li>
+      </ul>
+    </div>
+
+    <!-- THREADLINE Bundle Pricing -->
+    <div class="section-label" style="margin-top:32px;">THREADLINE Bundle Discounts</div>
+    <div class="bundle-grid">
+
+      <!-- Pro + Professional bundle -->
+      <div class="bundle-card">
+        <div class="bundle-names">
+          <span class="tl">THREAD</span><span class="tl-accent">LINE</span> Pro ($14.99) + <span class="ps-pull">PULL</span><span class="ps-sheet">SHEET</span> Professional ($9.99)
+        </div>
+        <div class="bundle-price">$19.99</div>
+        <div class="bundle-period">/month bundled</div>
+        <div class="bundle-savings">Save $4.99/mo</div>
+      </div>
+
+      <!-- Enterprise + Production bundle -->
+      <div class="bundle-card">
+        <div class="bundle-names">
+          <span class="tl">THREAD</span><span class="tl-accent">LINE</span> Enterprise ($29.99) + <span class="ps-pull">PULL</span><span class="ps-sheet">SHEET</span> Production ($24.99)
+        </div>
+        <div class="bundle-price">$44.99</div>
+        <div class="bundle-period">/month bundled</div>
+        <div class="bundle-savings">Save $9.99/mo</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 5: REVENUE PROJECTIONS
+       Year-by-year revenue projections with CSS-only bar chart
+       visualization. Three-year outlook plus quarterly breakdown
+       for Year 1.
+       ============================================================ -->
+  <section class="section" id="projections">
+    <div class="section-header">
+      <h2>Revenue Projections</h2>
+      <span class="tag">3-Year Outlook</span>
+    </div>
+
+    <!-- Summary stat cards for each year -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Year 1 Revenue</div>
+        <div class="stat-value">~$25K</div>
+        <div class="stat-sub">Beta Q1-Q2, paid launch Q3, growth Q4</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Year 2 Revenue</div>
+        <div class="stat-value">~$96K</div>
+        <div class="stat-sub">1,000 paying users at avg $8/mo</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Year 3 Revenue</div>
+        <div class="stat-value">~$300K</div>
+        <div class="stat-sub">2,500 paying users at avg $10/mo</div>
+      </div>
+    </div>
+
+    <!-- CSS-only bar chart: Annual revenue projections -->
+    <div class="chart-container">
+      <div class="chart-title">Annual Revenue Projection</div>
+
+      <!-- Chart area: bars grow upward from the baseline.
+           Heights are proportional: $300K = 100%, $96K = 32%, $25K = 8%.
+           Minimum bar height of 20px ensures Year 1 is visible. -->
+      <div class="chart-area">
+        <div class="chart-col">
+          <div class="chart-val">$25K</div>
+          <div class="chart-bar" style="height:20%;background:linear-gradient(180deg,var(--copper),var(--brown-gold));"></div>
+        </div>
+        <div class="chart-col">
+          <div class="chart-val">$96K</div>
+          <div class="chart-bar" style="height:48%;background:linear-gradient(180deg,var(--copper),var(--brown-gold));"></div>
+        </div>
+        <div class="chart-col">
+          <div class="chart-val">$300K</div>
+          <div class="chart-bar" style="height:100%;background:linear-gradient(180deg,var(--copper),var(--brown-gold));"></div>
+        </div>
+      </div>
+      <div class="chart-labels">
+        <div class="chart-label">
+          YEAR 1
+          <span class="label-sub">Beta + Launch</span>
+        </div>
+        <div class="chart-label">
+          YEAR 2
+          <span class="label-sub">Growth</span>
+        </div>
+        <div class="chart-label">
+          YEAR 3
+          <span class="label-sub">Maturity</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Year 1 quarterly breakdown chart -->
+    <div class="chart-container" style="margin-top:16px;">
+      <div class="chart-title">Year 1 Quarterly Breakdown</div>
+
+      <!-- Q1-Q2 are free beta (no revenue), Q3 is paid launch,
+           Q4 shows growth. Heights: Q1/Q2 = 0, Q3 ~33%, Q4 = 100% -->
+      <div class="chart-area" style="height:160px;">
+        <div class="chart-col">
+          <div class="chart-val" style="color:var(--taupe);">$0</div>
+          <div class="chart-bar" style="height:4px;background:var(--warm-gray);"></div>
+        </div>
+        <div class="chart-col">
+          <div class="chart-val" style="color:var(--taupe);">$0</div>
+          <div class="chart-bar" style="height:4px;background:var(--warm-gray);"></div>
+        </div>
+        <div class="chart-col">
+          <div class="chart-val">$6.3K</div>
+          <div class="chart-bar" style="height:33%;background:linear-gradient(180deg,var(--water),var(--dusty-blue));"></div>
+        </div>
+        <div class="chart-col">
+          <div class="chart-val">$18.9K</div>
+          <div class="chart-bar" style="height:100%;background:linear-gradient(180deg,var(--water),var(--dusty-blue));"></div>
+        </div>
+      </div>
+      <div class="chart-labels">
+        <div class="chart-label">
+          Q1
+          <span class="label-sub">Free beta, 200 users</span>
+        </div>
+        <div class="chart-label">
+          Q2
+          <span class="label-sub">Free beta, growing</span>
+        </div>
+        <div class="chart-label">
+          Q3
+          <span class="label-sub">Paid launch, 100 paid</span>
+        </div>
+        <div class="chart-label">
+          Q4
+          <span class="label-sub">Growth, 300 paid</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Assumptions note -->
+    <div class="note-box" style="margin-top:24px;">
+      <h4>Assumptions</h4>
+      <ul>
+        <li><strong>Year 1:</strong> Q1-Q2 free beta (200 users, $0 revenue). Q3 paid launch at avg $7/mo with 100 paying users = ~$2,100/mo. Q4 growth to 300 paying users = ~$6,300/mo.</li>
+        <li><strong>Year 2:</strong> 1,000 paying users at average $8/mo as tier mix shifts toward Professional. Organic growth from THREADLINE upsell + word-of-mouth.</li>
+        <li><strong>Year 3:</strong> 2,500 paying users at average $10/mo as Production tier adoption increases. Market recognition established.</li>
+        <li><strong>ARPU growth</strong> over time reflects tier migration: users start on Essential and upgrade to Professional/Production as their teams grow.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 6: COST STRUCTURE
+       Monthly cost breakdown for running PullSheet.
+       Presented as styled row-cards, not a plain HTML table.
+       ============================================================ -->
+  <section class="section" id="costs">
+    <div class="section-header">
+      <h2>Cost Structure</h2>
+      <span class="tag">Monthly Costs</span>
+    </div>
+
+    <div class="cost-grid">
+
+      <!-- Header row with column labels -->
+      <div class="cost-row cost-header">
+        <span>Cost Item</span>
+        <span>Monthly</span>
+        <span>Notes</span>
+      </div>
+
+      <!-- Clipdrop API: primary variable cost -->
+      <div class="cost-row">
+        <span class="cost-name">Clipdrop API</span>
+        <span class="cost-amount">~$200-2,000</span>
+        <span class="cost-note">Scales with usage volume. Primary variable cost driver.</span>
+      </div>
+
+      <!-- Supabase: shared with THREADLINE -->
+      <div class="cost-row">
+        <span class="cost-name">Supabase (shared)</span>
+        <span class="cost-amount">Included</span>
+        <span class="cost-note">Shared infrastructure with THREADLINE. No incremental cost.</span>
+      </div>
+
+      <!-- App Store fees: Apple's commission -->
+      <div class="cost-row">
+        <span class="cost-name">App Store Fees</span>
+        <span class="cost-amount">15-30%</span>
+        <span class="cost-note">Apple's standard commission. 15% under Small Business Program (under $1M).</span>
+      </div>
+
+      <!-- Development: internal team -->
+      <div class="cost-row">
+        <span class="cost-name">Development</span>
+        <span class="cost-amount">Internal</span>
+        <span class="cost-note">Cooper Interactive team. No external dev cost.</span>
+      </div>
+
+    </div>
+
+    <!-- Cost structure insight -->
+    <div class="note-box" style="margin-top:20px;border-left-color:var(--forest);">
+      <h4 style="color:var(--forest);">Margin Note</h4>
+      <p>PullSheet's cost structure is heavily weighted toward the Clipdrop API for background removals. All other costs are either shared with THREADLINE (Supabase) or zero-incremental (client-side PDF generation). This means gross margins improve significantly as the user base grows and per-unit API costs decrease with volume discounts.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 7: DISTRIBUTION STRATEGY
+       Four distribution channels ranked by priority.
+       Primary channel is in-app promotion within THREADLINE.
+       ============================================================ -->
+  <section class="section" id="distribution">
+    <div class="section-header">
+      <h2>Distribution Strategy</h2>
+      <span class="tag">4 Channels</span>
+    </div>
+
+    <div class="dist-grid">
+
+      <!-- Primary: In-app promotion within THREADLINE -->
+      <div class="dist-card" style="border-left-color:var(--brown-gold);">
+        <div class="dist-rank">Primary Channel</div>
+        <h4>In-App Promotion (THREADLINE)</h4>
+        <p>"Build a lookboard" CTA surfaces naturally within THREADLINE's inventory and talent views. Zero acquisition cost. Users discover PullSheet in the context where they already need it.</p>
+      </div>
+
+      <!-- Secondary: App Store discovery -->
+      <div class="dist-card" style="border-left-color:var(--water);">
+        <div class="dist-rank">Secondary Channel</div>
+        <h4>App Store Discovery</h4>
+        <p>Organic App Store search for "lookbook builder," "wardrobe lookboard," and "costume design." ASO-optimized listing with before/after screenshots and demo video.</p>
+      </div>
+
+      <!-- Tertiary: Social media and events -->
+      <div class="dist-card" style="border-left-color:var(--copper);">
+        <div class="dist-rank">Tertiary Channel</div>
+        <h4>Social Media + Industry Events</h4>
+        <p>Instagram, LinkedIn, and Facebook content showcasing lookboard transformations. Presence at IATSE events, Costume Designers Guild meetings, and film industry conferences.</p>
+      </div>
+
+      <!-- Deep linking: natural cross-product discovery -->
+      <div class="dist-card" style="border-left-color:var(--forest);">
+        <div class="dist-rank">Organic Channel</div>
+        <h4>Deep Linking + Word-of-Mouth</h4>
+        <p>THREADLINE surfaces PullSheet lookboards in project views, creating natural discovery. Wardrobe departments are tight-knit communities: one power user drives 5+ referrals per year.</p>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+
+<!-- ============================================================
+     FOOTER
+     "Made with care" link to Cooper Interactive.
+     ============================================================ -->
+<div class="footer">
+  <a href="https://cooperinteractive.com">Made with care</a>
+</div>
+
+<!-- ============================================================
+     JAVASCRIPT
+     Smooth scrolling for navigation links.
+     Active state tracking using IntersectionObserver.
+     Updates the nav-link.active class as the user scrolls
+     through each section.
+     ============================================================ -->
+<script>
+  // Smooth scroll: clicking a nav link scrolls to the target section
+  // with a smooth animation instead of an instant jump.
+  document.querySelectorAll('.nav-link').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      var targetId = link.getAttribute('href').replace('#', '');
+      var target = document.getElementById(targetId);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+      // Update active state on all nav links
+      document.querySelectorAll('.nav-link').forEach(function(l) {
+        l.classList.remove('active');
+      });
+      link.classList.add('active');
+    });
+  });
+
+  // IntersectionObserver: watches each section and updates the
+  // active nav link as the user scrolls through the page.
+  // Threshold of 0.2 means the section is "active" when 20% visible.
+  var sections = document.querySelectorAll('section[id]');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        document.querySelectorAll('.nav-link').forEach(function(l) {
+          l.classList.remove('active');
+        });
+        var activeLink = document.querySelector('.nav-link[href="#' + entry.target.id + '"]');
+        if (activeLink) {
+          activeLink.classList.add('active');
+        }
+      }
+    });
+  }, { threshold: 0.2 });
+
+  sections.forEach(function(s) {
+    observer.observe(s);
+  });
+</script>
+
+</body>
+</html>

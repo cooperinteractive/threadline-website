@@ -1,0 +1,2313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PullSheet -- Facebook Content (4 Weeks)</title>
+
+<!-- ============================================================
+     PULLSHEET FACEBOOK CONTENT (4 WEEKS)
+     Self-contained HTML with inline CSS and Google Fonts only.
+     14 ready-to-post Facebook posts with full copy, CSS-rendered
+     1200x630 link preview graphics, and visual direction notes.
+
+     SECTIONS:
+     01 - Summary Stats (post counts, weeks, themes)
+     02 - Content Theme Legend (color-coded tags)
+     03 - Week 1: Launch Week (Days 1, 2, 4, 5)
+     04 - Week 2: Feature Deep Dives (Days 8, 9, 11, 12)
+     05 - Week 3: Community & Context (Days 16, 18)
+     06 - Week 4: Momentum (Days 19, 22, 25, 26)
+
+     POST CARD PATTERN:
+     Each post card contains:
+     - Day number, weekday, and color-coded theme badge
+     - CSS-rendered 1200x630 visual mockup (Facebook link preview ratio)
+     - Full caption text with copy button
+     - Link preview note (URL to include)
+     - Visual direction note
+
+     TO MODIFY:
+     - CSS custom properties in :root control all colors
+     - Theme tints use rgba overlays on card headers
+     - Content theme tags: .badge.theme-* for color coding
+     - Copy buttons call copyCaption()
+     - Week links highlight on scroll via JS observer
+     - Mockup graphics are pure CSS, no images required
+     ============================================================ -->
+
+<!-- Google Fonts: Three families shared with THREADLINE
+     Cormorant Garamond = serif headings, editorial, taglines
+     Inter = sans-serif body, UI, wordmark
+     JetBrains Mono = monospace data, labels, metadata -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   CSS CUSTOM PROPERTIES (Design Tokens)
+   Shared palette with THREADLINE. PullSheet adds six content
+   theme tints for Before/After, Feature Spotlight, Speed Demo,
+   Wardrobe Tips, BTS / On-Set, and Product Update.
+   ============================================================ */
+:root {
+  /* --- Core palette --- */
+  --cream: #FAF8F5;        /* Page background */
+  --bone: #F5F0EB;         /* Slightly darker cream, caption blocks */
+  --warm-gray: #E8E3DE;    /* Dividers, subtle borders */
+  --sand: #D2C4B9;         /* Muted decorative elements */
+  --taupe: #B5A89C;        /* Secondary text, metadata */
+  --brown-gold: #8B6F52;   /* Primary brand accent */
+  --copper: #C4946A;       /* Brand accent (highlights) */
+  --dark-brown: #5A4228;   /* Deep accent */
+  --espresso: #3A2A18;     /* Deep warm brown */
+  --near-black: #1A1714;   /* Primary text color */
+  --void: #0A0A0A;         /* Near-black backgrounds */
+  --water: #5A7E8A;        /* Secondary accent (blue-teal) */
+  --forest: #4A6741;       /* Success states, wardrobe tips */
+  --clay: #8A4A42;         /* Before/After theme accent */
+  --dusty-blue: #627786;   /* BTS / On-Set theme accent */
+
+  /* --- Content theme tints (card header backgrounds) --- */
+  --tint-before-after: rgba(138,74,66,0.07);    /* clay-based */
+  --tint-feature: rgba(139,111,82,0.08);         /* brown-gold-based */
+  --tint-speed: rgba(90,126,138,0.07);           /* water-based */
+  --tint-tips: rgba(74,103,65,0.07);             /* forest-based */
+  --tint-bts: rgba(98,119,134,0.07);             /* dusty-blue-based */
+  --tint-update: rgba(196,148,106,0.08);         /* copper-based */
+
+  /* --- Font stacks --- */
+  --serif: 'Cormorant Garamond', 'Georgia', serif;
+  --body: 'Inter', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', 'Menlo', monospace;
+}
+
+/* ============================================================
+   RESET & BASE STYLES
+   Minimal reset. Body uses Inter as default sans-serif.
+   Cream background matches light-mode-first approach.
+   ============================================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--body);
+  background: var(--cream);
+  color: var(--near-black);
+  line-height: 1.7;
+}
+
+/* Text selection uses copper accent */
+::selection {
+  background: var(--copper);
+  color: white;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ============================================================
+   STICKY NAVIGATION BAR
+   Frosted glass effect with blur backdrop.
+   PULL/SHEET wordmark on left (PULL = near-black, SHEET = brown-gold).
+   Back link to index.html in brown-gold accent.
+   Week pill links on the right for quick navigation.
+   ============================================================ */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(250,248,245,0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(26,23,20,0.06);
+  padding: 12px 48px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Wordmark in nav: PULL in near-black, SHEET in brown-gold */
+.nav .brand {
+  font-family: var(--body);
+  font-weight: 200;
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-right: 8px;
+}
+.nav .brand .pull { color: var(--near-black); }
+.nav .brand .sheet { color: var(--brown-gold); }
+
+/* Nav links: small caps, subtle hover state with accent tint */
+.nav a {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--taupe);
+  text-decoration: none;
+  padding: 5px 12px;
+  border-radius: 4px;
+  transition: all 0.15s;
+}
+.nav a:hover {
+  color: var(--brown-gold);
+  background: rgba(139,111,82,0.06);
+}
+
+/* Back link styled in brown-gold accent */
+.nav a.back { color: var(--brown-gold); }
+
+/* Week navigation pill links, aligned right */
+.nav .week-links {
+  display: flex;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.nav .week-links a {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 5px 14px;
+  border: 1px solid var(--warm-gray);
+  border-radius: 20px;
+  color: var(--near-black);
+  transition: all 0.2s;
+}
+
+.nav .week-links a:hover,
+.nav .week-links a.active {
+  background: var(--brown-gold);
+  color: white;
+  border-color: var(--brown-gold);
+}
+
+/* ============================================================
+   CONTAINER
+   Max-width wrapper centered on page. Horizontal padding
+   collapses on mobile via media query below.
+   ============================================================ */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 48px 48px 32px;
+}
+
+/* ============================================================
+   PAGE HEADER
+   Title uses Cormorant Garamond serif at 38px.
+   Subtitle is muted taupe body text, max 640px width.
+   ============================================================ */
+.page-header {
+  margin-bottom: 48px;
+}
+
+.page-header h1 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 38px;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+/* Italic emphasis within heading */
+.page-header h1 em {
+  font-family: var(--serif);
+  font-style: italic;
+}
+
+.page-header .subtitle {
+  font-size: 14px;
+  color: var(--taupe);
+  line-height: 1.7;
+  max-width: 640px;
+}
+
+/* ============================================================
+   SUMMARY STATS BAR
+   Responsive grid of stat cards. Each shows a large number
+   (serif) and a monospace label.
+   ============================================================ */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 48px;
+}
+
+.stat-card {
+  background: white;
+  border: 1px solid var(--warm-gray);
+  border-radius: 10px;
+  padding: 20px 24px;
+  text-align: center;
+}
+
+/* Large number: serif, lightweight */
+.stat-card .stat-num {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 32px;
+  color: var(--near-black);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+/* Label: monospace, tiny, all caps */
+.stat-card .stat-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--taupe);
+}
+
+/* Accent left border stripes for stat cards */
+.stat-card.posts { border-left: 3px solid var(--forest); }
+.stat-card.weeks { border-left: 3px solid var(--water); }
+.stat-card.themes { border-left: 3px solid var(--copper); }
+
+/* ============================================================
+   CONTENT THEME LEGEND
+   Horizontal row of color-coded pill tags showing the six
+   content themes used throughout the calendar. Each gets
+   a subtle background tint matching its card header tint.
+   ============================================================ */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 48px;
+}
+
+.legend-item {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  padding: 5px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(26,23,20,0.08);
+}
+
+/* Each theme type gets its own tint color */
+.legend-item.t-before-after { background: var(--tint-before-after); }
+.legend-item.t-feature { background: var(--tint-feature); }
+.legend-item.t-speed { background: var(--tint-speed); }
+.legend-item.t-tips { background: var(--tint-tips); }
+.legend-item.t-bts { background: var(--tint-bts); }
+.legend-item.t-update { background: var(--tint-update); }
+
+/* ============================================================
+   WEEK SECTION & HEADER
+   Each week is a distinct section with scroll-margin for
+   sticky nav offset. Week header shows week title with
+   a range subtitle in monospace, separated by a thick
+   bottom border.
+   ============================================================ */
+.week-section {
+  margin-bottom: 56px;
+  scroll-margin-top: 80px;
+}
+
+.week-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 28px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--near-black);
+}
+
+.week-header h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 28px;
+}
+
+.week-header .week-range {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--taupe);
+  letter-spacing: 0.04em;
+}
+
+/* ============================================================
+   POST CARD
+   Each day's content is a white card with rounded corners,
+   subtle border, and hover shadow. Cards get a tinted
+   header based on content theme.
+   ============================================================ */
+.post-card {
+  background: white;
+  border: 1px solid var(--warm-gray);
+  border-radius: 12px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+
+.post-card:hover {
+  box-shadow: 0 4px 20px rgba(26,23,20,0.06);
+}
+
+/* Content theme tints applied to the card header area */
+.post-card.type-before-after .card-header { background: var(--tint-before-after); }
+.post-card.type-feature .card-header { background: var(--tint-feature); }
+.post-card.type-speed .card-header { background: var(--tint-speed); }
+.post-card.type-tips .card-header { background: var(--tint-tips); }
+.post-card.type-bts .card-header { background: var(--tint-bts); }
+.post-card.type-update .card-header { background: var(--tint-update); }
+
+/* ============================================================
+   CARD HEADER
+   Top section of each post card. Contains day/date on the
+   left and theme badge on the right. Flexbox with wrap
+   for mobile responsiveness.
+   ============================================================ */
+.card-header {
+  padding: 20px 28px 16px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.card-header .header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Day number and weekday in monospace */
+.card-header .day-date {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--near-black);
+  letter-spacing: 0.02em;
+}
+
+/* Post title in serif */
+.card-header .post-title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.3;
+}
+
+/* Badge container: wraps theme badges */
+.card-header .header-badges {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+/* ============================================================
+   BADGES
+   Small pill-shaped tags for content themes. Theme tags
+   have a subtle colored outline matching their theme.
+   ============================================================ */
+.badge {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+/* Facebook platform badge: filled forest green */
+.badge.fb { background: var(--forest); color: white; }
+
+/* Content theme badge: outline style */
+.badge.type-tag {
+  background: transparent;
+  border: 1px solid var(--sand);
+  color: var(--taupe);
+}
+
+/* Color-coded theme badges for the legend-matching feel */
+.badge.theme-before-after { border-color: var(--clay); color: var(--clay); }
+.badge.theme-feature { border-color: var(--brown-gold); color: var(--brown-gold); }
+.badge.theme-speed { border-color: var(--water); color: var(--water); }
+.badge.theme-tips { border-color: var(--forest); color: var(--forest); }
+.badge.theme-bts { border-color: var(--dusty-blue); color: var(--dusty-blue); }
+.badge.theme-update { border-color: var(--copper); color: var(--copper); }
+
+/* ============================================================
+   CARD BODY
+   Contains the visual mockup, caption, link note, and
+   visual direction note for each post.
+   ============================================================ */
+.card-body {
+  padding: 0 28px 24px;
+}
+
+/* ============================================================
+   FACEBOOK LINK PREVIEW MOCKUP
+   CSS-rendered 1200x630 ratio graphic (approximately 1.91:1).
+   Each mockup is a container with aspect-ratio enforced,
+   containing themed visual elements built purely in CSS.
+   These represent the Facebook link preview image that
+   would accompany each post.
+   ============================================================ */
+.fb-mockup {
+  width: 100%;
+  aspect-ratio: 1200 / 630;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 40px;
+  gap: 12px;
+}
+
+/* Subtle label on top-right corner of each mockup showing the
+   pixel dimensions, helping the content creator know the export size */
+.fb-mockup::after {
+  content: '1200 x 630';
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.35);
+  pointer-events: none;
+}
+
+/* Shared text styles inside mockups */
+.fb-mockup .mock-wordmark {
+  font-family: var(--body);
+  font-weight: 200;
+  font-size: clamp(24px, 4vw, 42px);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.92);
+}
+.fb-mockup .mock-wordmark .sheet { color: rgba(255,255,255,0.55); }
+
+.fb-mockup .mock-tagline {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(14px, 2.2vw, 22px);
+  color: rgba(255,255,255,0.6);
+}
+
+.fb-mockup .mock-big-text {
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: clamp(20px, 3.5vw, 36px);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.92);
+}
+
+.fb-mockup .mock-sub-text {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(12px, 1.8vw, 18px);
+  color: rgba(255,255,255,0.55);
+  line-height: 1.5;
+}
+
+.fb-mockup .mock-label {
+  font-family: var(--mono);
+  font-size: clamp(8px, 1.2vw, 11px);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+}
+
+/* ============================================================
+   MOCKUP THEME VARIANTS
+   Each mockup gets a unique background treatment matching
+   the post's content theme. Built with gradients, shapes,
+   and pseudo-elements for visual richness.
+   ============================================================ */
+
+/* Launch Announcement: brand gradient with radial glow */
+.fb-mockup.mock-launch {
+  background: linear-gradient(135deg, var(--dark-brown) 0%, var(--brown-gold) 40%, var(--copper) 100%);
+}
+.fb-mockup.mock-launch::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* Problem Statement: split visual with divider */
+.fb-mockup.mock-problem {
+  background: linear-gradient(90deg, var(--espresso) 0%, var(--espresso) 48%, var(--bone) 52%, var(--bone) 100%);
+  flex-direction: row;
+  gap: 0;
+  padding: 0;
+}
+.fb-mockup.mock-problem .mock-half {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  gap: 8px;
+}
+.fb-mockup.mock-problem .mock-half.left { color: rgba(255,255,255,0.7); }
+.fb-mockup.mock-problem .mock-half.right { color: var(--near-black); }
+.fb-mockup.mock-problem .mock-half .half-label {
+  font-family: var(--mono);
+  font-size: clamp(8px, 1.2vw, 10px);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+.fb-mockup.mock-problem .mock-half .half-icon {
+  font-size: clamp(28px, 5vw, 48px);
+  opacity: 0.6;
+  line-height: 1;
+}
+.fb-mockup.mock-problem .mock-half .half-title {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(14px, 2vw, 20px);
+}
+/* Divider line between halves */
+.fb-mockup.mock-problem .mock-divider {
+  width: 2px;
+  height: 60%;
+  background: linear-gradient(180deg, transparent, var(--sand), transparent);
+  flex-shrink: 0;
+}
+
+/* AI Cutout: before/after with center split */
+.fb-mockup.mock-cutout {
+  background: linear-gradient(135deg, var(--near-black) 0%, #2a2420 100%);
+  flex-direction: row;
+  gap: 0;
+  padding: 0;
+}
+.fb-mockup.mock-cutout .mock-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  gap: 10px;
+  position: relative;
+}
+.fb-mockup.mock-cutout .mock-side.before {
+  background: rgba(138,74,66,0.12);
+}
+.fb-mockup.mock-cutout .mock-side.after {
+  background: rgba(74,103,65,0.12);
+}
+/* Garment silhouette placeholder */
+.fb-mockup.mock-cutout .mock-side .garment-shape {
+  width: clamp(50px, 10vw, 100px);
+  height: clamp(70px, 14vw, 140px);
+  border-radius: 6px;
+  position: relative;
+}
+.fb-mockup.mock-cutout .mock-side.before .garment-shape {
+  background: rgba(255,255,255,0.08);
+  border: 1px dashed rgba(255,255,255,0.15);
+}
+/* Messy background lines to simulate rack clutter */
+.fb-mockup.mock-cutout .mock-side.before .garment-shape::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 4px,
+    rgba(255,255,255,0.03) 4px,
+    rgba(255,255,255,0.03) 5px
+  );
+  border-radius: 4px;
+}
+.fb-mockup.mock-cutout .mock-side.after .garment-shape {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+}
+.fb-mockup.mock-cutout .mock-side .side-label {
+  font-family: var(--mono);
+  font-size: clamp(8px, 1.2vw, 10px);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+}
+/* Center arrow */
+.fb-mockup.mock-cutout .mock-arrow {
+  width: clamp(24px, 4vw, 40px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(14px, 2vw, 22px);
+  color: rgba(255,255,255,0.3);
+  flex-shrink: 0;
+}
+
+/* PDF Export: dark bg with document mockup */
+.fb-mockup.mock-pdf {
+  background: linear-gradient(160deg, var(--void) 0%, var(--espresso) 100%);
+}
+/* Stacked page silhouettes */
+.fb-mockup.mock-pdf .pdf-pages {
+  position: relative;
+  width: clamp(80px, 14vw, 140px);
+  height: clamp(100px, 18vw, 180px);
+}
+.fb-mockup.mock-pdf .pdf-page {
+  position: absolute;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 4px;
+  width: 100%;
+  height: 100%;
+}
+.fb-mockup.mock-pdf .pdf-page:nth-child(1) { transform: rotate(-3deg) translateX(-6px); }
+.fb-mockup.mock-pdf .pdf-page:nth-child(2) { transform: rotate(1deg) translateX(2px); }
+.fb-mockup.mock-pdf .pdf-page:nth-child(3) {
+  transform: rotate(0deg);
+  background: rgba(255,255,255,0.14);
+  border-color: rgba(255,255,255,0.2);
+}
+/* Mini lines to simulate text content on pages */
+.fb-mockup.mock-pdf .pdf-page:nth-child(3)::before {
+  content: '';
+  position: absolute;
+  top: 18%;
+  left: 15%;
+  right: 15%;
+  height: 4px;
+  background: rgba(255,255,255,0.12);
+  border-radius: 2px;
+  box-shadow:
+    0 10px 0 rgba(255,255,255,0.08),
+    0 20px 0 rgba(255,255,255,0.06),
+    0 30px 0 rgba(255,255,255,0.04);
+}
+
+/* THREADLINE Connection: two wordmarks */
+.fb-mockup.mock-threadline {
+  background: linear-gradient(135deg, var(--espresso) 0%, var(--dark-brown) 100%);
+  flex-direction: row;
+  gap: clamp(16px, 3vw, 32px);
+}
+.fb-mockup.mock-threadline .app-wordmark {
+  font-family: var(--body);
+  font-weight: 200;
+  font-size: clamp(12px, 2vw, 20px);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+  padding: 12px 20px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+}
+.fb-mockup.mock-threadline .connect-line {
+  width: clamp(20px, 4vw, 48px);
+  height: 2px;
+  background: linear-gradient(90deg, var(--copper), var(--brown-gold));
+  position: relative;
+}
+/* Arrow tip on the connecting line */
+.fb-mockup.mock-threadline .connect-line::after {
+  content: '';
+  position: absolute;
+  right: -4px;
+  top: -3px;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--brown-gold);
+  border-top: 2px solid var(--brown-gold);
+  transform: rotate(45deg);
+}
+
+/* Talent Organization: filter chips and thumbnails */
+.fb-mockup.mock-talent {
+  background: linear-gradient(160deg, var(--dark-brown) 0%, var(--brown-gold) 100%);
+}
+.fb-mockup.mock-talent .filter-row {
+  display: flex;
+  gap: clamp(4px, 0.8vw, 8px);
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+.fb-mockup.mock-talent .filter-chip {
+  font-family: var(--mono);
+  font-size: clamp(7px, 1vw, 10px);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.25);
+  color: rgba(255,255,255,0.7);
+}
+.fb-mockup.mock-talent .filter-chip.active {
+  background: rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.95);
+  border-color: rgba(255,255,255,0.4);
+}
+.fb-mockup.mock-talent .thumb-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(4px, 0.8vw, 8px);
+}
+.fb-mockup.mock-talent .thumb {
+  aspect-ratio: 1;
+  width: clamp(32px, 6vw, 60px);
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 4px;
+}
+
+/* Speed Demo: timeline visual */
+.fb-mockup.mock-speed {
+  background: linear-gradient(135deg, var(--water) 0%, #3d5e68 100%);
+}
+.fb-mockup.mock-speed .speed-timeline {
+  width: 80%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.fb-mockup.mock-speed .speed-bar {
+  height: clamp(6px, 1vw, 10px);
+  border-radius: 5px;
+  background: rgba(255,255,255,0.12);
+  position: relative;
+  overflow: hidden;
+}
+.fb-mockup.mock-speed .speed-bar .fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-radius: 5px;
+  background: rgba(255,255,255,0.35);
+}
+.fb-mockup.mock-speed .speed-bar .fill.fast { width: 15%; background: rgba(255,255,255,0.6); }
+.fb-mockup.mock-speed .speed-bar .fill.slow { width: 100%; }
+.fb-mockup.mock-speed .speed-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+.fb-mockup.mock-speed .speed-labels span {
+  font-family: var(--mono);
+  font-size: clamp(7px, 1vw, 10px);
+  letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+}
+
+/* Director Presentation: side-by-side comparison */
+.fb-mockup.mock-director {
+  background: linear-gradient(135deg, var(--espresso) 0%, var(--dark-brown) 100%);
+  flex-direction: row;
+  gap: clamp(16px, 3vw, 32px);
+}
+.fb-mockup.mock-director .compare-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.fb-mockup.mock-director .stack-visual {
+  width: clamp(50px, 10vw, 90px);
+  height: clamp(60px, 12vw, 100px);
+  position: relative;
+}
+/* Messy stack (printouts) */
+.fb-mockup.mock-director .stack-visual.messy .stack-page {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 3px;
+}
+.fb-mockup.mock-director .stack-visual.messy .stack-page:nth-child(1) { transform: rotate(-8deg); }
+.fb-mockup.mock-director .stack-visual.messy .stack-page:nth-child(2) { transform: rotate(5deg) translate(4px, -2px); }
+.fb-mockup.mock-director .stack-visual.messy .stack-page:nth-child(3) { transform: rotate(-2deg) translate(-3px, 3px); }
+/* Clean PDF */
+.fb-mockup.mock-director .stack-visual.clean .stack-page {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 3px;
+}
+.fb-mockup.mock-director .stack-visual.clean .stack-page:nth-child(1) { transform: translate(-3px, 3px); }
+.fb-mockup.mock-director .stack-visual.clean .stack-page:nth-child(2) { transform: translate(0, 0); background: rgba(255,255,255,0.18); }
+.fb-mockup.mock-director .compare-label {
+  font-family: var(--mono);
+  font-size: clamp(7px, 1vw, 10px);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+}
+/* VS divider */
+.fb-mockup.mock-director .vs-text {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(16px, 2.5vw, 28px);
+  color: rgba(255,255,255,0.25);
+}
+
+/* Team Sharing: two devices */
+.fb-mockup.mock-sharing {
+  background: linear-gradient(135deg, var(--forest) 0%, #2d4a28 100%);
+  flex-direction: row;
+  gap: clamp(12px, 2.5vw, 28px);
+}
+.fb-mockup.mock-sharing .device {
+  width: clamp(50px, 10vw, 90px);
+  height: clamp(80px, 16vw, 150px);
+  border: 2px solid rgba(255,255,255,0.2);
+  border-radius: 10px;
+  background: rgba(255,255,255,0.06);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px;
+}
+/* Mini lookboard squares inside devices */
+.fb-mockup.mock-sharing .device .mini-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  width: 70%;
+}
+.fb-mockup.mock-sharing .device .mini-block {
+  aspect-ratio: 1;
+  background: rgba(255,255,255,0.12);
+  border-radius: 2px;
+}
+/* Sync indicator between devices */
+.fb-mockup.mock-sharing .sync-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.fb-mockup.mock-sharing .sync-icon .sync-arrows {
+  font-size: clamp(14px, 2.5vw, 24px);
+  color: rgba(255,255,255,0.35);
+}
+.fb-mockup.mock-sharing .sync-icon .sync-label {
+  font-family: var(--mono);
+  font-size: clamp(7px, 1vw, 9px);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+}
+
+/* Beta Waitlist: prominent CTA graphic */
+.fb-mockup.mock-beta {
+  background: linear-gradient(135deg, var(--dark-brown) 0%, var(--copper) 100%);
+}
+.fb-mockup.mock-beta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 70% 30%, rgba(255,255,255,0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+.fb-mockup.mock-beta .cta-box {
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 8px;
+  padding: clamp(12px, 2vw, 24px) clamp(20px, 4vw, 48px);
+  background: rgba(255,255,255,0.04);
+  position: relative;
+  z-index: 1;
+}
+
+/* Monday Prep: time comparison */
+.fb-mockup.mock-prep {
+  background: linear-gradient(135deg, var(--clay) 0%, #5c2e28 100%);
+  flex-direction: row;
+  gap: clamp(16px, 3vw, 32px);
+}
+.fb-mockup.mock-prep .time-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+  z-index: 1;
+}
+.fb-mockup.mock-prep .time-block .time-value {
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: clamp(18px, 3.5vw, 36px);
+  letter-spacing: 0.04em;
+  color: rgba(255,255,255,0.9);
+}
+.fb-mockup.mock-prep .time-block .time-label {
+  font-family: var(--mono);
+  font-size: clamp(7px, 1vw, 10px);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+}
+.fb-mockup.mock-prep .time-block.old .time-value {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+.fb-mockup.mock-prep .vs-divider {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(16px, 2vw, 24px);
+  color: rgba(255,255,255,0.25);
+  position: relative;
+  z-index: 1;
+}
+
+/* Two Apps: dual icons */
+.fb-mockup.mock-dual {
+  background: linear-gradient(135deg, var(--espresso) 0%, var(--dark-brown) 60%, var(--brown-gold) 100%);
+  flex-direction: row;
+  gap: clamp(12px, 2.5vw, 28px);
+}
+.fb-mockup.mock-dual .app-icon {
+  width: clamp(50px, 10vw, 90px);
+  height: clamp(50px, 10vw, 90px);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--body);
+  font-weight: 200;
+  font-size: clamp(8px, 1.4vw, 14px);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid rgba(255,255,255,0.2);
+  position: relative;
+  z-index: 1;
+}
+.fb-mockup.mock-dual .app-icon.tl {
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.8);
+}
+.fb-mockup.mock-dual .app-icon.ps {
+  background: rgba(139,111,82,0.3);
+  color: rgba(255,255,255,0.9);
+}
+.fb-mockup.mock-dual .plus-sign {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(18px, 3vw, 32px);
+  color: rgba(255,255,255,0.25);
+  position: relative;
+  z-index: 1;
+}
+
+/* Final Push: large text CTA */
+.fb-mockup.mock-final {
+  background: linear-gradient(135deg, var(--dark-brown) 0%, var(--brown-gold) 40%, var(--copper) 100%);
+}
+.fb-mockup.mock-final::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.06) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* BTS: code/wireframe aesthetic */
+.fb-mockup.mock-bts {
+  background: linear-gradient(160deg, var(--void) 0%, #1a1a18 100%);
+  align-items: flex-start;
+  padding: clamp(20px, 4vw, 40px);
+}
+.fb-mockup.mock-bts .code-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+.fb-mockup.mock-bts .code-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.fb-mockup.mock-bts .code-line .line-num {
+  font-family: var(--mono);
+  font-size: clamp(8px, 1vw, 11px);
+  color: rgba(255,255,255,0.15);
+  width: 24px;
+  text-align: right;
+  flex-shrink: 0;
+}
+.fb-mockup.mock-bts .code-line .line-content {
+  height: clamp(6px, 1vw, 10px);
+  border-radius: 3px;
+  background: rgba(255,255,255,0.06);
+}
+/* Varying line widths for realistic code appearance */
+.fb-mockup.mock-bts .code-line:nth-child(1) .line-content { width: 65%; background: rgba(196,148,106,0.15); }
+.fb-mockup.mock-bts .code-line:nth-child(2) .line-content { width: 40%; }
+.fb-mockup.mock-bts .code-line:nth-child(3) .line-content { width: 80%; background: rgba(90,126,138,0.12); }
+.fb-mockup.mock-bts .code-line:nth-child(4) .line-content { width: 30%; }
+.fb-mockup.mock-bts .code-line:nth-child(5) .line-content { width: 55%; background: rgba(74,103,65,0.12); }
+.fb-mockup.mock-bts .code-line:nth-child(6) .line-content { width: 70%; }
+.fb-mockup.mock-bts .code-line:nth-child(7) .line-content { width: 45%; background: rgba(196,148,106,0.12); }
+.fb-mockup.mock-bts .bts-overlay-text {
+  position: absolute;
+  bottom: clamp(16px, 3vw, 32px);
+  right: clamp(16px, 3vw, 32px);
+  text-align: right;
+}
+
+/* ============================================================
+   CAPTION BLOCK
+   Cream-tinted box containing the full post copy. Includes
+   a "Copy" button positioned at the top-right corner for
+   one-click clipboard copy.
+   ============================================================ */
+.caption-block {
+  position: relative;
+  background: var(--bone);
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin-bottom: 16px;
+}
+
+/* Platform label above the caption text */
+.caption-block .caption-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  margin-bottom: 10px;
+}
+
+/* Full caption text: pre-wrap to preserve line breaks */
+.caption-block .caption-text {
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: var(--near-black);
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Copy button: positioned top-right, brown-gold fill */
+.caption-block .copy-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: var(--brown-gold);
+  color: white;
+  border: none;
+  padding: 5px 14px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--body);
+  transition: all 0.15s;
+}
+.caption-block .copy-btn:hover { background: var(--dark-brown); }
+.caption-block .copy-btn.copied { background: var(--forest); }
+
+/* ============================================================
+   LINK PREVIEW NOTE
+   Small metadata row showing the URL to include with
+   the Facebook post for link preview generation.
+   ============================================================ */
+.link-note {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--taupe);
+  line-height: 1.6;
+  padding: 10px 16px;
+  background: rgba(74,103,65,0.05);
+  border-radius: 6px;
+  margin-bottom: 16px;
+}
+
+.link-note .link-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--forest);
+}
+
+.link-note .link-url {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--brown-gold);
+}
+
+/* ============================================================
+   VISUAL DIRECTION NOTE
+   Small metadata row at the bottom of each card describing
+   the recommended visual treatment for the post. Uses a
+   small square icon prefix for visual anchoring.
+   ============================================================ */
+.visual-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--taupe);
+  line-height: 1.6;
+  padding-top: 4px;
+}
+
+.visual-note .vn-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  background: var(--warm-gray);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 10px;
+  margin-top: 1px;
+}
+
+/* ============================================================
+   FOOTER
+   Centered text footer with "Made with care" link.
+   Separated from content by a subtle top border.
+   ============================================================ */
+.footer {
+  text-align: center;
+  padding: 40px 20px;
+  border-top: 1px solid rgba(26,23,20,0.06);
+  font-size: 12px;
+  color: var(--taupe);
+}
+
+.footer a {
+  color: var(--brown-gold);
+  text-decoration: none;
+}
+
+.footer a:hover { text-decoration: underline; }
+
+/* ============================================================
+   RESPONSIVE: Mobile breakpoint
+   Reduces container and nav padding. Stats grid stacks to
+   single column. Card header wraps. Caption copy button
+   repositions to block layout.
+   ============================================================ */
+@media (max-width: 768px) {
+  .container { padding: 32px 20px 24px; }
+  .nav { padding: 12px 20px; gap: 10px; }
+  .nav .week-links { margin-left: 0; width: 100%; justify-content: center; }
+  .stats-bar { grid-template-columns: 1fr; }
+  .card-header { flex-direction: column; }
+  .card-header .header-badges { width: 100%; }
+  .card-body { padding: 0 20px 20px; }
+  .caption-block { padding: 16px 18px; }
+  .caption-block .copy-btn { position: static; margin-top: 12px; display: block; width: 100%; text-align: center; }
+  .fb-mockup { padding: 20px; }
+  /* Prevent problem/cutout mockups from being too cramped on mobile */
+  .fb-mockup.mock-problem,
+  .fb-mockup.mock-cutout,
+  .fb-mockup.mock-director,
+  .fb-mockup.mock-prep,
+  .fb-mockup.mock-sharing,
+  .fb-mockup.mock-dual {
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px;
+  }
+  .fb-mockup.mock-problem .mock-divider {
+    width: 60%;
+    height: 1px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ===================================================================
+     NAVIGATION
+     Sticky frosted nav bar. PULL/SHEET wordmark on left, back link
+     to PullSheet index, and week navigation pills on right.
+     =================================================================== -->
+<nav class="nav">
+  <a href="index.html" class="brand" style="text-decoration:none;color:inherit;">PULL<span class="sheet">SHEET</span></a>
+  <a class="back" href="index.html">&larr; All Pages</a>
+  <div class="week-links">
+    <a href="#week1" class="active">Week 1</a>
+    <a href="#week2">Week 2</a>
+    <a href="#week3">Week 3</a>
+    <a href="#week4">Week 4</a>
+  </div>
+</nav>
+
+<div class="container">
+
+<!-- ===================================================================
+     PAGE HEADER
+     Title with italic emphasis. Subtitle describes the scope: 14
+     Facebook posts with full copy, graphics, and link previews.
+     =================================================================== -->
+<div class="page-header">
+  <h1>Facebook Content <em>(4 Weeks)</em></h1>
+  <p class="subtitle">14 ready-to-post Facebook posts with full copy, graphics, and link previews for PullSheet.</p>
+</div>
+
+<!-- ===================================================================
+     SUMMARY STATS
+     Grid of three stat cards showing total posts, duration,
+     and number of content themes covered.
+     =================================================================== -->
+<div class="stats-bar">
+  <div class="stat-card posts">
+    <div class="stat-num">14</div>
+    <div class="stat-label">Posts</div>
+  </div>
+  <div class="stat-card weeks">
+    <div class="stat-num">4</div>
+    <div class="stat-label">Weeks</div>
+  </div>
+  <div class="stat-card themes">
+    <div class="stat-num">6</div>
+    <div class="stat-label">Content Themes</div>
+  </div>
+</div>
+
+<!-- ===================================================================
+     CONTENT THEME LEGEND
+     Color-coded pill tags showing all six content themes used across
+     the 14 posts. Colors match the card header tints for each type.
+     =================================================================== -->
+<div class="legend">
+  <span class="legend-item t-before-after">Before/After</span>
+  <span class="legend-item t-feature">Feature Spotlight</span>
+  <span class="legend-item t-speed">Speed Demo</span>
+  <span class="legend-item t-tips">Wardrobe Tips</span>
+  <span class="legend-item t-bts">BTS / On-Set</span>
+  <span class="legend-item t-update">Product Update</span>
+</div>
+
+
+<!-- ===================================================================
+
+     WEEK 1 - LAUNCH WEEK
+     Days 1, 2, 4, 5. Four posts introducing PullSheet, establishing
+     the problem, and spotlighting the AI cutout and PDF export features.
+
+     =================================================================== -->
+<div class="week-section" id="week1">
+<div class="week-header">
+  <h2>Week 1</h2>
+  <span class="week-range">Days 1 - 5 &middot; Launch Week</span>
+</div>
+
+<!-- ============================
+     DAY 1: Launch Announcement
+     Theme: Product Update
+     ============================ -->
+<div class="post-card type-update">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 1 &middot; Monday</div>
+      <div class="post-title">Launch Announcement</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge fb">FB</span>
+      <span class="badge type-tag theme-update">Product Update</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Visual mockup: brand gradient with PULLSHEET wordmark -->
+    <div class="fb-mockup mock-launch">
+      <div class="mock-wordmark">PULL<span class="sheet">SHEET</span></div>
+      <div class="mock-tagline">Visual lookbook builder for film &amp; TV wardrobe</div>
+      <div class="mock-label">Coming Summer 2026</div>
+    </div>
+
+    <!-- Full Facebook caption -->
+    <div class="caption-block">
+      <div class="caption-label">Facebook Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">See the look before the fitting.
+
+We're building PullSheet, the visual lookbook builder designed specifically for film &amp; TV wardrobe teams. Drag garments from your inventory onto a freeform canvas. Remove backgrounds with one tap. Export polished, print-ready lookbooks.
+
+Every look. Every talent. Every episode. Organized, visual, and professional.
+
+Coming Summer 2026. Sign up for early access at the link below.</div>
+    </div>
+
+    <!-- Link to include with this post -->
+    <div class="link-note">
+      <span class="link-label">Link</span>
+      <span class="link-url">pullsheetapp.io</span>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Brown-gold gradient background with PULLSHEET wordmark centered. Clean, editorial first impression. Include tagline and "Coming Summer 2026" at bottom. 1200x630 for Facebook link preview.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================
+     DAY 2: The Problem
+     Theme: Before/After
+     ============================ -->
+<div class="post-card type-before-after">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 2 &middot; Tuesday</div>
+      <div class="post-title">The Problem</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge fb">FB</span>
+      <span class="badge type-tag theme-before-after">Before/After</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Visual mockup: split before/after -->
+    <div class="fb-mockup mock-problem">
+      <div class="mock-half left">
+        <div class="half-label">Before</div>
+        <div class="half-icon">&#128247;</div>
+        <div class="half-title">Polaroids &amp; corkboards</div>
+      </div>
+      <div class="mock-divider"></div>
+      <div class="mock-half right">
+        <div class="half-label">After</div>
+        <div class="half-icon">&#9634;</div>
+        <div class="half-title">Digital lookboards</div>
+      </div>
+    </div>
+
+    <!-- Full Facebook caption -->
+    <div class="caption-block">
+      <div class="caption-label">Facebook Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">You're still taping Polaroids to a corkboard?
+
+We get it. The corkboard has been the go-to for decades. But when you're managing 40 looks across 12 talent for a 10-episode season, that wall of photos gets chaotic fast.
+
+PullSheet replaces the corkboard with a digital lookboard. Drag garments in. Arrange looks visually. Share with your team in seconds. No tape. No lost photos. No last-minute scramble before a fitting.
+
+There's a better way to show the director what you're thinking.</div>
+    </div>
+
+    <!-- Link to include with this post -->
+    <div class="link-note">
+      <span class="link-label">Link</span>
+      <span class="link-url">pullsheetapp.io</span>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Split image at 1200x630. Left side (dark): messy corkboard with Polaroids, tape, handwritten labels. Right side (light): clean digital lookboard with professional cutouts. The contrast tells the story.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================
+     DAY 4: AI Cutout
+     Theme: Before/After
+     ============================ -->
+<div class="post-card type-before-after">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 4 &middot; Thursday</div>
+      <div class="post-title">AI Cutout</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge fb">FB</span>
+      <span class="badge type-tag theme-before-after">Before/After</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Visual mockup: before/after cutout comparison -->
+    <div class="fb-mockup mock-cutout">
+      <div class="mock-side before">
+        <div class="side-label">Before</div>
+        <div class="garment-shape"></div>
+        <div class="side-label">Rack photo</div>
+      </div>
+      <div class="mock-arrow">&#8594;</div>
+      <div class="mock-side after">
+        <div class="side-label">After</div>
+        <div class="garment-shape"></div>
+        <div class="side-label">Clean cutout</div>
+      </div>
+    </div>
+
+    <!-- Full Facebook caption -->
+    <div class="caption-block">
+      <div class="caption-label">Facebook Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">One tap. Clean cutout.
+
+That phone photo you took on a crowded rack with hangers and tags visible? PullSheet's AI background removal turns it into a catalog-quality cutout in seconds. No Photoshop. No manual masking. No waiting on a graphics department.
+
+Just tap the garment, and the background disappears. Drop it onto your lookboard. Done.
+
+This is the kind of thing that used to take 20 minutes per garment. Now it takes two seconds.</div>
+    </div>
+
+    <!-- Link to include with this post -->
+    <div class="link-note">
+      <span class="link-label">Link</span>
+      <span class="link-url">pullsheetapp.io</span>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Before/After split at 1200x630. Left: phone photo of a garment on a messy rack with hangers and tags visible. Right: same garment, clean cutout on transparent/white background. Center arrow connecting the two.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================
+     DAY 5: PDF Export
+     Theme: Feature Spotlight
+     ============================ -->
+<div class="post-card type-feature">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 5 &middot; Friday</div>
+      <div class="post-title">PDF Export</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge fb">FB</span>
+      <span class="badge type-tag theme-feature">Feature Spotlight</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Visual mockup: dark bg with stacked PDF pages -->
+    <div class="fb-mockup mock-pdf">
+      <div class="pdf-pages">
+        <div class="pdf-page"></div>
+        <div class="pdf-page"></div>
+        <div class="pdf-page"></div>
+      </div>
+      <div class="mock-big-text" style="margin-top: 16px;">Print-Ready</div>
+      <div class="mock-sub-text">Cover pages. Table of contents. Garment details.</div>
+    </div>
+
+    <!-- Full Facebook caption -->
+    <div class="caption-block">
+      <div class="caption-label">Facebook Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Print-ready in two taps.
+
+PullSheet exports your lookboards as polished, multi-page PDFs. Cover pages with the production name. Table of contents organized by talent. Individual look pages with garment cutouts and metadata.
+
+Hand the director a professional lookbook instead of a stack of printouts. Export a single look or an entire season's worth of continuity in one file.
+
+The wardrobe department just got a lot more polished.</div>
+    </div>
+
+    <!-- Link to include with this post -->
+    <div class="link-note">
+      <span class="link-label">Link</span>
+      <span class="link-url">pullsheetapp.io</span>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Dark background with a PDF mockup showing fanned-out pages. Cover page with talent name, TOC page, and a look page with garment cutouts. Professional, polished. 1200x630.</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- end week 1 -->
+
+
+<!-- ===================================================================
+
+     WEEK 2 - FEATURE DEEP DIVES
+     Days 8, 9, 11, 12. Four posts going deeper on THREADLINE
+     integration, talent organization, speed, and director trust.
+
+     =================================================================== -->
+<div class="week-section" id="week2">
+<div class="week-header">
+  <h2>Week 2</h2>
+  <span class="week-range">Days 8 - 12 &middot; Feature Deep Dives</span>
+</div>
+
+<!-- ============================
+     DAY 8: THREADLINE Connection
+     Theme: Feature Spotlight
+     ============================ -->
+<div class="post-card type-feature">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 8 &middot; Monday</div>
+      <div class="post-title">THREADLINE Connection</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge fb">FB</span>
+      <span class="badge type-tag theme-feature">Feature Spotlight</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Visual mockup: two wordmarks connected -->
+    <div class="fb-mockup mock-threadline">
+      <div class="app-wordmark">THREADLINE</div>
+      <div class="connect-line"></div>
+      <div class="app-wordmark">PULLSHEET</div>
+    </div>
+
+    <!-- Full Facebook caption -->
+    <div class="caption-block">
+      <div class="caption-label">Facebook Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Your inventory is already here.
+
+PullSheet connects directly to THREADLINE, our wardrobe inventory management app. Every garment you've catalogued, every photo you've taken, every detail you've entered is ready to drag onto a lookboard.
+
+No re-entering data. No re-uploading photos. No duplicate records. Just open PullSheet, browse your THREADLINE inventory, and start building looks.
+
+Two apps. One workflow. Zero friction.</div>
+    </div>
+
+    <!-- Link to include with this post -->
+    <div class="link-note">
+      <span class="link-label">Link</span>
+      <span class="link-url">pullsheetapp.io</span>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Both app wordmarks (THREADLINE and PULLSHEET) on a dark background with a connecting line/arrow between them. Clean, minimal. Shows the two-app ecosystem as one unified workflow. 1200x630.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================
+     DAY 9: Talent Organization
+     Theme: Feature Spotlight
+     ============================ -->
+<div class="post-card type-feature">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 9 &middot; Tuesday</div>
+      <div class="post-title">Talent Organization</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge fb">FB</span>
+      <span class="badge type-tag theme-feature">Feature Spotlight</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Visual mockup: filter chips and lookboard thumbnails -->
+    <div class="fb-mockup mock-talent">
+      <div class="mock-big-text" style="font-size: clamp(16px, 2.5vw, 26px); margin-bottom: 8px;">Organize by Talent</div>
+      <div class="filter-row">
+        <div class="filter-chip active">All Talent</div>
+        <div class="filter-chip">Ep. 1</div>
+        <div class="filter-chip">Ep. 2</div>
+        <div class="filter-chip">Ep. 3</div>
+      </div>
+      <div class="thumb-grid">
+        <div class="thumb"></div>
+        <div class="thumb"></div>
+        <div class="thumb"></div>
+        <div class="thumb"></div>
+        <div class="thumb"></div>
+        <div class="thumb"></div>
+      </div>
+      <div class="mock-label" style="margin-top: 8px;">Filter by talent, scene, or episode</div>
+    </div>
+
+    <!-- Full Facebook caption -->
+    <div class="caption-block">
+      <div class="caption-label">Facebook Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Every look. Every talent. Every episode.
+
+Managing wardrobe across a full season means tracking dozens of talent, hundreds of looks, and thousands of garments. PullSheet keeps it all organized.
+
+Filter and browse lookboards by talent, scene, or episode. Build continuity bibles visually. Find any look in seconds, not minutes.
+
+When the director asks "What did she wear in Episode 3, Scene 7?" you'll have the answer on screen before they finish the question.</div>
+    </div>
+
+    <!-- Link to include with this post -->
+    <div class="link-note">
+      <span class="link-label">Link</span>
+      <span class="link-url">pullsheetapp.io</span>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Filter chips (All Talent, Ep. 1, Ep. 2, etc.) with lookboard thumbnails below. Shows the organization and filtering system. Warm gradient background. 1200x630.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================
+     DAY 11: Speed Demo
+     Theme: Speed Demo
+     ============================ -->
+<div class="post-card type-speed">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 11 &middot; Thursday</div>
+      <div class="post-title">Speed Demo</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge fb">FB</span>
+      <span class="badge type-tag theme-speed">Speed Demo</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Visual mockup: 60 seconds timeline -->
+    <div class="fb-mockup mock-speed">
+      <div class="mock-big-text">60 Seconds</div>
+      <div class="mock-sub-text">From inventory to finished lookboard</div>
+      <div class="speed-timeline" style="margin-top: 12px;">
+        <div class="speed-labels">
+          <span>Browse</span>
+          <span>Drag</span>
+          <span>Cutout</span>
+          <span>Export</span>
+        </div>
+        <div class="speed-bar"><div class="fill fast" style="width: 25%;"></div></div>
+        <div class="speed-bar"><div class="fill fast" style="width: 20%;"></div></div>
+        <div class="speed-bar"><div class="fill fast" style="width: 10%;"></div></div>
+        <div class="speed-bar"><div class="fill fast" style="width: 15%;"></div></div>
+      </div>
+      <div class="mock-label" style="margin-top: 8px;">Complete workflow in under a minute</div>
+    </div>
+
+    <!-- Full Facebook caption -->
+    <div class="caption-block">
+      <div class="caption-label">Facebook Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">60 seconds. That's all it takes.
+
+Browse your THREADLINE inventory. Drag garments onto your lookboard. Tap to remove backgrounds. Arrange the look. Export a print-ready PDF.
+
+We timed it. From opening the app to handing the director a finished lookboard: under a minute.
+
+The old way? Print photos, cut them out, tape them to a board, take a photo of the board, text it to the director, hope the quality is good enough. That took an hour if everything went smoothly.
+
+PullSheet. 60 seconds. Done.</div>
+    </div>
+
+    <!-- Link to include with this post -->
+    <div class="link-note">
+      <span class="link-label">Link</span>
+      <span class="link-url">pullsheetapp.io</span>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> "60 SECONDS" large text with a minimal timeline showing the workflow steps (browse, drag, cutout, export). Blue-teal gradient. Clean, minimal. 1200x630.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================
+     DAY 12: Director Presentation
+     Theme: Before/After
+     ============================ -->
+<div class="post-card type-before-after">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 12 &middot; Friday</div>
+      <div class="post-title">Director Presentation</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge fb">FB</span>
+      <span class="badge type-tag theme-before-after">Before/After</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Visual mockup: messy printouts vs polished PDF -->
+    <div class="fb-mockup mock-director">
+      <div class="compare-side">
+        <div class="stack-visual messy">
+          <div class="stack-page"></div>
+          <div class="stack-page"></div>
+          <div class="stack-page"></div>
+        </div>
+        <div class="compare-label">Printouts</div>
+      </div>
+      <div class="vs-text">vs</div>
+      <div class="compare-side">
+        <div class="stack-visual clean">
+          <div class="stack-page"></div>
+          <div class="stack-page"></div>
+        </div>
+        <div class="compare-label">PullSheet PDF</div>
+      </div>
+    </div>
+
+    <!-- Full Facebook caption -->
+    <div class="caption-block">
+      <div class="caption-label">Facebook Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">First impressions matter. Especially with directors.
+
+You've spent hours pulling the perfect pieces. You know the look is right. But when you present it as a stack of crumpled printouts with handwritten notes, the director doesn't see your vision. They see chaos.
+
+PullSheet exports polished, professional lookbooks. Cover pages. Tables of contents. Clean garment cutouts with metadata. It looks like a fashion editorial, not a homework assignment.
+
+Earn the director's trust before the first fitting. Present like a professional because you are one.</div>
+    </div>
+
+    <!-- Link to include with this post -->
+    <div class="link-note">
+      <span class="link-label">Link</span>
+      <span class="link-url">pullsheetapp.io</span>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Side-by-side comparison. Left: scattered, messy printouts with bent corners. Right: clean, professional PullSheet PDF with structured layout. "vs" text between them. Dark background. 1200x630.</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- end week 2 -->
+
+
+<!-- ===================================================================
+
+     WEEK 3 - COMMUNITY & CONTEXT
+     Days 16, 18. Two posts focused on team collaboration and
+     beta waitlist momentum.
+
+     =================================================================== -->
+<div class="week-section" id="week3">
+<div class="week-header">
+  <h2>Week 3</h2>
+  <span class="week-range">Days 16 - 19 &middot; Community &amp; Context</span>
+</div>
+
+<!-- ============================
+     DAY 16: Team Sharing
+     Theme: Feature Spotlight
+     ============================ -->
+<div class="post-card type-feature">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 16 &middot; Tuesday</div>
+      <div class="post-title">Team Sharing</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge fb">FB</span>
+      <span class="badge type-tag theme-feature">Feature Spotlight</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Visual mockup: two devices sharing the same lookboard -->
+    <div class="fb-mockup mock-sharing">
+      <div class="device">
+        <div class="mini-grid">
+          <div class="mini-block"></div>
+          <div class="mini-block"></div>
+          <div class="mini-block"></div>
+          <div class="mini-block"></div>
+        </div>
+      </div>
+      <div class="sync-icon">
+        <div class="sync-arrows">&#8596;</div>
+        <div class="sync-label">Shared</div>
+      </div>
+      <div class="device">
+        <div class="mini-grid">
+          <div class="mini-block"></div>
+          <div class="mini-block"></div>
+          <div class="mini-block"></div>
+          <div class="mini-block"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Full Facebook caption -->
+    <div class="caption-block">
+      <div class="caption-label">Facebook Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Your team sees what you see. In real time.
+
+No more texting photos back and forth. No more "which version is the latest?" No more emailing PDFs that get buried in someone's inbox.
+
+PullSheet lets your entire wardrobe team view the same lookboards. When you update a look, everyone sees the change. When the supervisor approves a board, the whole department knows.
+
+Collaboration without the chaos. That's how modern wardrobe departments work.</div>
+    </div>
+
+    <!-- Link to include with this post -->
+    <div class="link-note">
+      <span class="link-label">Link</span>
+      <span class="link-url">pullsheetapp.io</span>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Two devices (phone/tablet silhouettes) showing the same lookboard content, with a sync icon between them. Green gradient background suggesting collaboration. 1200x630.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================
+     DAY 18: Beta Waitlist
+     Theme: Product Update
+     ============================ -->
+<div class="post-card type-update">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 18 &middot; Thursday</div>
+      <div class="post-title">Beta Waitlist</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge fb">FB</span>
+      <span class="badge type-tag theme-update">Product Update</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Visual mockup: beta access CTA graphic -->
+    <div class="fb-mockup mock-beta">
+      <div class="cta-box">
+        <div class="mock-big-text">Beta Access</div>
+        <div class="mock-sub-text">Opening soon</div>
+      </div>
+      <div class="mock-wordmark" style="font-size: clamp(16px, 2.5vw, 28px); margin-top: 16px;">PULL<span class="sheet">SHEET</span></div>
+      <div class="mock-label">Sign up for early access</div>
+    </div>
+
+    <!-- Full Facebook caption -->
+    <div class="caption-block">
+      <div class="caption-label">Facebook Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Beta access is opening soon.
+
+We're getting close to putting PullSheet in the hands of real wardrobe professionals on real productions. If you want to be one of the first to try it, now is the time to sign up.
+
+Beta testers will get:
+- Early access before public launch
+- Direct input on features and workflow
+- A voice in shaping the tool you'll use every day
+
+We're building this for you. Help us get it right.
+
+Sign up for the waitlist at the link below.</div>
+    </div>
+
+    <!-- Link to include with this post -->
+    <div class="link-note">
+      <span class="link-label">Link</span>
+      <span class="link-url">pullsheetapp.io</span>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> "BETA ACCESS opening soon" text with PULLSHEET wordmark. Warm gradient (dark brown to copper) with a subtle radial glow. Urgent but elegant. 1200x630.</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- end week 3 -->
+
+
+<!-- ===================================================================
+
+     WEEK 4 - MOMENTUM
+     Days 19, 22, 25, 26. Four posts building momentum toward
+     launch with time savings, dual-app workflow, BTS content,
+     and a final waitlist push.
+
+     =================================================================== -->
+<div class="week-section" id="week4">
+<div class="week-header">
+  <h2>Week 4</h2>
+  <span class="week-range">Days 19 - 26 &middot; Momentum</span>
+</div>
+
+<!-- ============================
+     DAY 19: BTS (Bonus)
+     Theme: BTS / On-Set
+     ============================ -->
+<div class="post-card type-bts">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 19 &middot; Friday</div>
+      <div class="post-title">Behind the Build</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge fb">FB</span>
+      <span class="badge type-tag theme-bts">BTS / On-Set</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Visual mockup: code/wireframe aesthetic -->
+    <div class="fb-mockup mock-bts">
+      <div class="code-lines">
+        <div class="code-line"><span class="line-num">01</span><div class="line-content"></div></div>
+        <div class="code-line"><span class="line-num">02</span><div class="line-content"></div></div>
+        <div class="code-line"><span class="line-num">03</span><div class="line-content"></div></div>
+        <div class="code-line"><span class="line-num">04</span><div class="line-content"></div></div>
+        <div class="code-line"><span class="line-num">05</span><div class="line-content"></div></div>
+        <div class="code-line"><span class="line-num">06</span><div class="line-content"></div></div>
+        <div class="code-line"><span class="line-num">07</span><div class="line-content"></div></div>
+      </div>
+      <div class="bts-overlay-text">
+        <div class="mock-big-text" style="font-size: clamp(14px, 2.5vw, 24px);">Built on Set</div>
+        <div class="mock-sub-text" style="font-size: clamp(10px, 1.5vw, 14px);">By wardrobe, for wardrobe</div>
+      </div>
+    </div>
+
+    <!-- Full Facebook caption -->
+    <div class="caption-block">
+      <div class="caption-label">Facebook Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Built on set. Literally.
+
+PullSheet isn't being designed in a vacuum. It's being built by people who understand the reality of a wardrobe department on a working production.
+
+The cramped trailer. The last-minute changes. The director who wants to see three alternative looks before lunch. The talent who shows up with a different haircut than the one in the continuity photos.
+
+Every feature in PullSheet exists because someone on a real set needed it. We're not guessing. We're building from experience.
+
+More updates coming soon. Follow along for the journey.</div>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Dark background with code/wireframe aesthetic. Subtle colored lines representing code. "Built on Set" text overlay in bottom-right. Developer meets production. 1200x630.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================
+     DAY 22: Monday Prep
+     Theme: Speed Demo
+     ============================ -->
+<div class="post-card type-speed">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 22 &middot; Monday</div>
+      <div class="post-title">Monday Prep</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge fb">FB</span>
+      <span class="badge type-tag theme-speed">Speed Demo</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Visual mockup: time comparison -->
+    <div class="fb-mockup mock-prep">
+      <div class="time-block old">
+        <div class="time-value">3 Hours</div>
+        <div class="time-label">The old way</div>
+      </div>
+      <div class="vs-divider">vs</div>
+      <div class="time-block">
+        <div class="time-value">15 Min</div>
+        <div class="time-label">With PullSheet</div>
+      </div>
+    </div>
+
+    <!-- Full Facebook caption -->
+    <div class="caption-block">
+      <div class="caption-label">Facebook Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">It's Monday morning. You have a fitting at 10am. The director wants to see updated lookboards for three talent before you start.
+
+The old way: arrive at 6am, print photos, cut them out, arrange them on boards, photograph the boards, hope the printer doesn't jam.
+
+With PullSheet: open the app, drag in the new pieces, tap to remove backgrounds, arrange the look, export the PDF, send it to the director. 15 minutes.
+
+That's three hours of your life back. Every single Monday.
+
+PullSheet. Coming Summer 2026.</div>
+    </div>
+
+    <!-- Link to include with this post -->
+    <div class="link-note">
+      <span class="link-label">Link</span>
+      <span class="link-url">pullsheetapp.io</span>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> "3 HOURS vs 15 MIN" large text comparison. Old time crossed out. Red-clay gradient background. Bold, simple, immediately understandable. 1200x630.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================
+     DAY 25: Two Apps
+     Theme: Feature Spotlight
+     ============================ -->
+<div class="post-card type-feature">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 25 &middot; Thursday</div>
+      <div class="post-title">Two Apps, One Workflow</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge fb">FB</span>
+      <span class="badge type-tag theme-feature">Feature Spotlight</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Visual mockup: TL + PS app icons connected -->
+    <div class="fb-mockup mock-dual">
+      <div class="app-icon tl">TL</div>
+      <div class="plus-sign">+</div>
+      <div class="app-icon ps">PS</div>
+    </div>
+
+    <!-- Full Facebook caption -->
+    <div class="caption-block">
+      <div class="caption-label">Facebook Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">THREADLINE + PullSheet. Two apps. One complete workflow.
+
+THREADLINE handles your inventory. Every garment catalogued, photographed, tracked, and organized. It's your wardrobe department's database.
+
+PullSheet handles your vision. Drag garments from THREADLINE onto a freeform canvas. Remove backgrounds. Arrange looks. Export polished lookbooks.
+
+Together, they cover everything from the moment a garment arrives at the truck to the moment the director approves the look.
+
+No other tools do this. We built both because wardrobe professionals deserve a system that actually understands their workflow.
+
+Both launching Summer 2026.</div>
+    </div>
+
+    <!-- Link to include with this post -->
+    <div class="link-note">
+      <span class="link-label">Link</span>
+      <span class="link-url">pullsheetapp.io</span>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> THREADLINE (TL) and PullSheet (PS) app icon silhouettes with a plus sign between them. Dark gradient background. Clean, modern, shows the dual-app ecosystem. 1200x630.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================
+     DAY 26: Final Push
+     Theme: Product Update
+     ============================ -->
+<div class="post-card type-update">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 26 &middot; Friday</div>
+      <div class="post-title">Final Push</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge fb">FB</span>
+      <span class="badge type-tag theme-update">Product Update</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Visual mockup: large SUMMER 2026 text -->
+    <div class="fb-mockup mock-final">
+      <div class="mock-wordmark" style="font-size: clamp(18px, 3vw, 32px); margin-bottom: 8px;">PULL<span class="sheet">SHEET</span></div>
+      <div class="mock-big-text" style="font-size: clamp(24px, 5vw, 52px);">Summer 2026</div>
+      <div class="mock-sub-text">The visual lookbook builder for wardrobe professionals</div>
+      <div class="mock-label" style="margin-top: 12px;">Join the waitlist</div>
+    </div>
+
+    <!-- Full Facebook caption -->
+    <div class="caption-block">
+      <div class="caption-label">Facebook Caption</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Summer 2026. It's coming.
+
+For the past month, we've been sharing what PullSheet can do. The AI cutouts. The freeform canvas. The polished PDF exports. The THREADLINE integration. The talent organization. The speed.
+
+Now we need your help. If you're a wardrobe professional who's tired of the corkboard-and-Polaroid workflow, join the waitlist. Be one of the first to try PullSheet when beta access opens.
+
+We're building this for you. Let us know you're interested.
+
+Sign up at the link below. Share this post with your wardrobe department. Tag a fellow wardrobe professional who needs to see this.
+
+PullSheet. See the look before the fitting.</div>
+    </div>
+
+    <!-- Link to include with this post -->
+    <div class="link-note">
+      <span class="link-label">Link</span>
+      <span class="link-url">pullsheetapp.io</span>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> "SUMMER 2026" in large, bold text with PULLSHEET wordmark above. Brand gradient background (dark brown to copper). "Join the waitlist" at bottom. Final, decisive. 1200x630.</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- end week 4 -->
+
+</div><!-- end container -->
+
+
+<!-- ===================================================================
+     FOOTER
+     Centered footer with page description and "Made with care" link.
+     =================================================================== -->
+<div class="footer">
+  <a href="https://cooperinteractive.com">Made with care</a>
+</div>
+
+<!-- ===================================================================
+     JAVASCRIPT
+     Two functions:
+     1. copyCaption() - copies full caption text to clipboard
+     2. updateActiveWeek() - highlights active week pill in sticky nav
+
+     Copy function shows "Copied!" confirmation for 2 seconds,
+     then reverts. Uses navigator.clipboard API with a fallback
+     for older browsers that use document.execCommand('copy').
+     =================================================================== -->
+<script>
+/* ===================================================================
+   Copy caption text to clipboard
+   Called by the "Copy" button inside each .caption-block.
+   Uses navigator.clipboard API with a fallback for older browsers.
+   Shows "Copied!" for 2 seconds, then reverts to "Copy".
+   =================================================================== */
+function copyCaption(btn) {
+  /* Get the caption text from the sibling .caption-text element */
+  var block = btn.closest('.caption-block');
+  var textEl = block.querySelector('.caption-text');
+  var text = textEl.innerText || textEl.textContent;
+
+  navigator.clipboard.writeText(text).then(function() {
+    /* Success: show confirmation */
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(function() {
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  }).catch(function() {
+    /* Fallback for older browsers: select text and copy via execCommand */
+    var range = document.createRange();
+    range.selectNodeContents(textEl);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    document.execCommand('copy');
+    sel.removeAllRanges();
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(function() {
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+/* ===================================================================
+   Sticky nav: highlight active week link on scroll
+   Observes each .week-section and updates the corresponding
+   .week-links pill to .active as the user scrolls through weeks.
+   Uses a passive scroll listener for performance.
+   =================================================================== */
+var weekSections = document.querySelectorAll('.week-section');
+var weekLinks = document.querySelectorAll('.week-links a');
+
+function updateActiveWeek() {
+  var current = '';
+  weekSections.forEach(function(section) {
+    var top = section.getBoundingClientRect().top;
+    /* 120px offset accounts for sticky nav height */
+    if (top <= 120) {
+      current = section.id;
+    }
+  });
+  weekLinks.forEach(function(link) {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) {
+      link.classList.add('active');
+    }
+  });
+}
+
+/* Passive scroll listener for performance */
+window.addEventListener('scroll', updateActiveWeek, { passive: true });
+/* Initial call to set the correct active state on page load */
+updateActiveWeek();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PullSheet -- LinkedIn Content (4 Weeks)</title>
+
+<!-- ============================================================
+     PULLSHEET LINKEDIN CONTENT (4 WEEKS)
+     Self-contained HTML with inline CSS, JS, and Google Fonts.
+     8 ready-to-post LinkedIn posts with full copy, article-cover
+     style CSS-rendered 1200x627 visuals, hashtags, and visual
+     direction notes.
+
+     SECTIONS:
+     01 - Summary Stats (post counts, weeks, tone)
+     02 - Week 1: Launch & Features (Days 1, 3, 5)
+     03 - Week 2: Ecosystem & Industry (Days 8, 12)
+     04 - Week 3: Industry Context (Day 15)
+     05 - Week 4: Storytelling & Ecosystem (Days 24, 25)
+
+     TO MODIFY:
+     - CSS custom properties in :root control all colors
+     - LinkedIn visual mockups are pure CSS at 1200x627 ratio
+     - Copy buttons call copyCaption() and copyHashtags()
+     - Week links highlight on scroll via JS observer
+     ============================================================ -->
+
+<!-- Google Fonts: Three families shared with THREADLINE
+     Cormorant Garamond = serif headings, editorial, taglines
+     Inter = sans-serif body, UI, wordmark
+     JetBrains Mono = monospace data, labels, metadata -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   CSS CUSTOM PROPERTIES (Design Tokens)
+   Shared palette with THREADLINE and PullSheet brand pages.
+   LinkedIn-specific platform color uses dusty-blue.
+   Content theme tints for: Launch, Feature, Industry,
+   Ecosystem, and Storytelling.
+   ============================================================ */
+:root {
+  /* --- Core palette --- */
+  --cream: #FAF8F5;        /* Page background */
+  --bone: #F5F0EB;         /* Slightly darker cream, caption blocks */
+  --warm-gray: #E8E3DE;    /* Dividers, subtle borders */
+  --sand: #D2C4B9;         /* Muted decorative elements */
+  --taupe: #B5A89C;        /* Secondary text, metadata */
+  --brown-gold: #8B6F52;   /* Primary brand accent */
+  --copper: #C4946A;       /* Brand accent (highlights) */
+  --dark-brown: #5A4228;   /* Deep accent */
+  --espresso: #3A2A18;     /* Deep warm brown */
+  --near-black: #1A1714;   /* Primary text color */
+  --void: #0A0A0A;         /* Near-black backgrounds */
+  --water: #5A7E8A;        /* Secondary accent (blue-teal) */
+  --forest: #4A6741;       /* Success states */
+  --clay: #8A4A42;         /* Warm red accent */
+  --dusty-blue: #627786;   /* LinkedIn platform accent */
+
+  /* --- Platform color --- */
+  --li: #627786;           /* LinkedIn: dusty-blue */
+
+  /* --- Content theme tints (card header backgrounds) --- */
+  --tint-launch: rgba(196,148,106,0.08);      /* copper-based */
+  --tint-feature: rgba(139,111,82,0.08);       /* brown-gold-based */
+  --tint-industry: rgba(98,119,134,0.07);      /* dusty-blue-based */
+  --tint-ecosystem: rgba(90,126,138,0.07);     /* water-based */
+  --tint-storytelling: rgba(74,103,65,0.07);   /* forest-based */
+
+  /* --- Font stacks --- */
+  --serif: 'Cormorant Garamond', 'Georgia', serif;
+  --body: 'Inter', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', 'Menlo', monospace;
+}
+
+/* ============================================================
+   RESET & BASE STYLES
+   Minimal reset. Body uses Inter as default sans-serif.
+   Cream background matches light-mode-first approach.
+   ============================================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--body);
+  background: var(--cream);
+  color: var(--near-black);
+  line-height: 1.7;
+}
+
+/* Text selection uses copper accent */
+::selection {
+  background: var(--copper);
+  color: white;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ============================================================
+   STICKY NAVIGATION BAR
+   Frosted glass effect with blur backdrop.
+   PULL/SHEET wordmark on left (PULL = near-black, SHEET = brown-gold).
+   Back link to index.html in brown-gold accent.
+   Week pill links on the right for quick navigation.
+   ============================================================ */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(250,248,245,0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(26,23,20,0.06);
+  padding: 12px 48px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Wordmark in nav: PULL in near-black, SHEET in brown-gold */
+.nav .brand {
+  font-family: var(--body);
+  font-weight: 200;
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-right: 8px;
+}
+.nav .brand .pull { color: var(--near-black); }
+.nav .brand .sheet { color: var(--brown-gold); }
+
+/* Nav links: small caps, subtle hover state with accent tint */
+.nav a {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--taupe);
+  text-decoration: none;
+  padding: 5px 12px;
+  border-radius: 4px;
+  transition: all 0.15s;
+}
+.nav a:hover {
+  color: var(--brown-gold);
+  background: rgba(139,111,82,0.06);
+}
+
+/* Back link styled in brown-gold accent */
+.nav a.back { color: var(--brown-gold); }
+
+/* Week navigation pill links, aligned right */
+.nav .week-links {
+  display: flex;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.nav .week-links a {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 5px 14px;
+  border: 1px solid var(--warm-gray);
+  border-radius: 20px;
+  color: var(--near-black);
+  transition: all 0.2s;
+}
+
+.nav .week-links a:hover,
+.nav .week-links a.active {
+  background: var(--brown-gold);
+  color: white;
+  border-color: var(--brown-gold);
+}
+
+/* ============================================================
+   CONTAINER
+   Max-width wrapper centered on page. Horizontal padding
+   collapses on mobile via media query below.
+   ============================================================ */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 48px 48px 32px;
+}
+
+/* ============================================================
+   PAGE HEADER
+   Title uses Cormorant Garamond serif at 38px.
+   Subtitle is muted taupe body text, max 640px width.
+   ============================================================ */
+.page-header {
+  margin-bottom: 48px;
+}
+
+.page-header h1 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 38px;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+/* Italic emphasis within heading */
+.page-header h1 em {
+  font-family: var(--serif);
+  font-style: italic;
+}
+
+.page-header .subtitle {
+  font-size: 14px;
+  color: var(--taupe);
+  line-height: 1.7;
+  max-width: 640px;
+}
+
+/* ============================================================
+   SUMMARY STATS BAR
+   Responsive grid of stat cards. Each shows a large number
+   (serif) and a monospace label. LinkedIn-specific card gets
+   a colored left border stripe.
+   ============================================================ */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin-bottom: 48px;
+}
+
+.stat-card {
+  background: white;
+  border: 1px solid var(--warm-gray);
+  border-radius: 10px;
+  padding: 20px 24px;
+  text-align: center;
+}
+
+/* Large number: serif, lightweight */
+.stat-card .stat-num {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 32px;
+  color: var(--near-black);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+/* Label: monospace, tiny, all caps */
+.stat-card .stat-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--taupe);
+}
+
+/* Platform-specific left border stripes */
+.stat-card.li { border-left: 3px solid var(--li); }
+.stat-card.mix { border-left: 3px solid var(--copper); }
+
+/* ============================================================
+   WEEK SECTION & HEADER
+   Each week is a distinct section with scroll-margin for
+   sticky nav offset. Week header shows week title with
+   a range subtitle in monospace, separated by a thick
+   bottom border.
+   ============================================================ */
+.week-section {
+  margin-bottom: 56px;
+  scroll-margin-top: 80px;
+}
+
+.week-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 28px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--near-black);
+}
+
+.week-header h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 28px;
+}
+
+.week-header .week-range {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--taupe);
+  letter-spacing: 0.04em;
+}
+
+/* ============================================================
+   POST CARD
+   Each day's content is a white card with rounded corners,
+   subtle border, and hover shadow. Cards get the LinkedIn
+   dusty-blue left border stripe and a tinted header
+   based on content theme.
+   ============================================================ */
+.post-card {
+  background: white;
+  border: 1px solid var(--warm-gray);
+  border-radius: 12px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+
+.post-card:hover {
+  box-shadow: 0 4px 20px rgba(26,23,20,0.06);
+}
+
+/* Content theme tints applied to the card header area */
+.post-card.type-launch .card-header { background: var(--tint-launch); }
+.post-card.type-feature .card-header { background: var(--tint-feature); }
+.post-card.type-industry .card-header { background: var(--tint-industry); }
+.post-card.type-ecosystem .card-header { background: var(--tint-ecosystem); }
+.post-card.type-storytelling .card-header { background: var(--tint-storytelling); }
+
+/* ============================================================
+   CARD HEADER
+   Top section of each post card. Contains day/date on the
+   left and platform + theme badges on the right. Flexbox
+   with wrap for mobile responsiveness.
+   ============================================================ */
+.card-header {
+  padding: 20px 28px 16px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.card-header .header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Day number and weekday in monospace */
+.card-header .day-date {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--near-black);
+  letter-spacing: 0.02em;
+}
+
+/* Post title in serif */
+.card-header .post-title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.3;
+}
+
+/* Badge container: wraps platform and theme badges */
+.card-header .header-badges {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+/* ============================================================
+   BADGES
+   Small pill-shaped tags for platform (LI) and content theme.
+   Platform badge is filled with the dusty-blue color.
+   Theme tags have a subtle outline.
+   ============================================================ */
+.badge {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+/* Platform badge: filled background with white text */
+.badge.li { background: var(--li); color: white; }
+
+/* Content theme badges: outline style, color-coded */
+.badge.theme-launch { border: 1px solid var(--copper); color: var(--copper); }
+.badge.theme-feature { border: 1px solid var(--brown-gold); color: var(--brown-gold); }
+.badge.theme-industry { border: 1px solid var(--dusty-blue); color: var(--dusty-blue); }
+.badge.theme-ecosystem { border: 1px solid var(--water); color: var(--water); }
+.badge.theme-storytelling { border: 1px solid var(--forest); color: var(--forest); }
+
+/* ============================================================
+   CARD BODY
+   Contains the LinkedIn visual mockup, full post copy,
+   hashtags, and visual direction note for each post.
+   ============================================================ */
+.card-body {
+  padding: 0 28px 24px;
+}
+
+/* ============================================================
+   LINKEDIN VISUAL MOCKUP
+   CSS-rendered preview of the LinkedIn post image at the
+   1200x627 aspect ratio (roughly 1.91:1). Each mockup is
+   styled inline but shares this common wrapper for sizing,
+   border-radius, and margin.
+   ============================================================ */
+.li-visual {
+  width: 100%;
+  aspect-ratio: 1200 / 627;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px;
+}
+
+/* Sizing label showing the LinkedIn image dimensions */
+.li-visual .size-label {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.45);
+  background: rgba(0,0,0,0.2);
+  padding: 2px 8px;
+  border-radius: 3px;
+}
+
+/* When visual has light background, use dark size label */
+.li-visual.light-bg .size-label {
+  color: rgba(26,23,20,0.35);
+  background: rgba(26,23,20,0.06);
+}
+
+/* Large wordmark text in visuals */
+.li-visual .vis-wordmark {
+  font-family: var(--body);
+  font-weight: 200;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* Subtitle text in visuals */
+.li-visual .vis-subtitle {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+}
+
+/* Credit text at bottom of visuals */
+.li-visual .vis-credit {
+  position: absolute;
+  bottom: 16px;
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+/* Divider line in visuals */
+.li-visual .vis-divider {
+  width: 40px;
+  height: 1px;
+  margin: 14px auto;
+}
+
+/* Heading text in visuals */
+.li-visual .vis-heading {
+  font-family: var(--body);
+  font-weight: 200;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* Body text in visuals */
+.li-visual .vis-body {
+  font-family: var(--serif);
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+/* Article-style title in visuals */
+.li-visual .vis-article-title {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.3;
+}
+
+/* Icon-pair layout (two app icons side by side) */
+.li-visual .icon-pair {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.li-visual .icon-pair .app-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--body);
+  font-weight: 200;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.li-visual .icon-pair .connector {
+  font-family: var(--mono);
+  font-size: 20px;
+  opacity: 0.4;
+}
+
+/* Comparison columns layout */
+.li-visual .compare-cols {
+  display: flex;
+  gap: 32px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.li-visual .compare-col {
+  flex: 1;
+  text-align: center;
+}
+
+.li-visual .compare-col .col-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  opacity: 0.6;
+}
+
+.li-visual .compare-col .col-items {
+  font-family: var(--serif);
+  font-size: 13px;
+  line-height: 2;
+  font-style: italic;
+}
+
+/* Quotation mark decoration */
+.li-visual .vis-quote-mark {
+  font-family: var(--serif);
+  font-weight: 300;
+  line-height: 1;
+  opacity: 0.15;
+}
+
+/* Quote text */
+.li-visual .vis-quote {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.5;
+  max-width: 420px;
+}
+
+/* ============================================================
+   CAPTION BLOCK
+   Cream-tinted box containing the full post copy. Includes
+   a "Copy" button positioned at the top-right corner for
+   one-click clipboard copy. LinkedIn posts are longer and
+   more professional than IG/FB.
+   ============================================================ */
+.caption-block {
+  position: relative;
+  background: var(--bone);
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin-bottom: 16px;
+}
+
+/* Platform label above the caption text */
+.caption-block .caption-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  margin-bottom: 10px;
+}
+
+/* Full caption text: pre-wrap to preserve line breaks */
+.caption-block .caption-text {
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: var(--near-black);
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Copy button: positioned top-right, brown-gold fill */
+.caption-block .copy-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: var(--brown-gold);
+  color: white;
+  border: none;
+  padding: 5px 14px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--body);
+  transition: all 0.15s;
+}
+.caption-block .copy-btn:hover { background: var(--dark-brown); }
+.caption-block .copy-btn.copied { background: var(--forest); }
+
+/* ============================================================
+   HASHTAG BLOCK
+   Light brown-tinted row showing hashtags with a copy button.
+   Hashtag text is displayed in brown-gold for visual distinction.
+   ============================================================ */
+.hashtag-block {
+  background: rgba(139,111,82,0.05);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+/* "Hashtags" label in monospace */
+.hashtag-block .ht-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  white-space: nowrap;
+  padding-top: 2px;
+}
+
+/* Hashtag text in brand accent color */
+.hashtag-block .ht-text {
+  font-size: 12px;
+  color: var(--brown-gold);
+  line-height: 1.6;
+  word-wrap: break-word;
+  flex: 1;
+}
+
+/* Small copy button for hashtags */
+.hashtag-block .copy-btn-sm {
+  background: transparent;
+  border: 1px solid var(--sand);
+  color: var(--brown-gold);
+  padding: 3px 10px;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: var(--body);
+  flex-shrink: 0;
+  transition: all 0.15s;
+}
+.hashtag-block .copy-btn-sm:hover { background: rgba(139,111,82,0.08); }
+.hashtag-block .copy-btn-sm.copied { background: var(--forest); color: white; border-color: var(--forest); }
+
+/* ============================================================
+   VISUAL DIRECTION NOTE
+   Small metadata row at the bottom of each card describing
+   the recommended visual treatment for the post. Uses a
+   small square icon prefix for visual anchoring.
+   ============================================================ */
+.visual-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--taupe);
+  line-height: 1.6;
+  padding-top: 4px;
+}
+
+.visual-note .vn-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  background: var(--warm-gray);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 10px;
+  margin-top: 1px;
+}
+
+/* ============================================================
+   LINKEDIN NOTES CALLOUT
+   Cream-tinted box at the bottom with platform-specific tips
+   for LinkedIn posting. Uses a left border accent for emphasis.
+   ============================================================ */
+.linkedin-notes {
+  background: var(--bone);
+  border-left: 3px solid var(--li);
+  border-radius: 0 8px 8px 0;
+  padding: 24px 28px;
+  margin-top: 40px;
+  margin-bottom: 48px;
+}
+
+.linkedin-notes h3 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 20px;
+  margin-bottom: 14px;
+}
+
+.linkedin-notes ul {
+  list-style: none;
+  padding: 0;
+}
+
+.linkedin-notes li {
+  font-size: 13px;
+  color: var(--near-black);
+  line-height: 1.8;
+  padding-left: 16px;
+  position: relative;
+  margin-bottom: 4px;
+}
+
+/* Custom bullet: small copper dot */
+.linkedin-notes li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--copper);
+}
+
+/* ============================================================
+   FOOTER
+   Centered text footer with "Made with care" link.
+   Separated from content by a subtle top border.
+   ============================================================ */
+.footer {
+  text-align: center;
+  padding: 40px 20px;
+  border-top: 1px solid rgba(26,23,20,0.06);
+  font-size: 12px;
+  color: var(--taupe);
+}
+
+.footer a {
+  color: var(--brown-gold);
+  text-decoration: none;
+}
+
+.footer a:hover { text-decoration: underline; }
+
+/* ============================================================
+   RESPONSIVE: Mobile breakpoint
+   Reduces container and nav padding. Week links wrap to
+   full width and center. Stats grid stacks to 2 columns.
+   Post card headers stack vertically. Copy buttons become
+   full-width static elements on small screens.
+   ============================================================ */
+@media (max-width: 768px) {
+  .container { padding: 32px 20px 24px; }
+  .nav { padding: 12px 20px; gap: 10px; }
+  .nav .week-links { margin-left: 0; width: 100%; justify-content: center; }
+  .stats-bar { grid-template-columns: repeat(2, 1fr); }
+  .card-header { flex-direction: column; }
+  .card-header .header-badges { width: 100%; }
+  .caption-block { padding: 16px 18px; }
+  .caption-block .copy-btn { position: static; margin-top: 12px; display: block; width: 100%; text-align: center; }
+  .li-visual { padding: 24px 20px; }
+  .li-visual .vis-wordmark { font-size: 28px !important; }
+  .li-visual .vis-subtitle { font-size: 14px !important; }
+  .li-visual .vis-heading { font-size: 14px !important; }
+  .li-visual .vis-article-title { font-size: 18px !important; }
+  .li-visual .icon-pair .app-icon { width: 48px; height: 48px; font-size: 8px; }
+  .li-visual .compare-cols { flex-direction: column; gap: 16px; }
+  .linkedin-notes { padding: 20px 22px; }
+}
+
+/* ============================================================
+   RESPONSIVE: Small mobile breakpoint
+   Further reduces visual text sizing and stat card layout
+   for screens narrower than 480px.
+   ============================================================ */
+@media (max-width: 480px) {
+  .stats-bar { grid-template-columns: 1fr; }
+  .page-header h1 { font-size: 30px; }
+  .li-visual .vis-wordmark { font-size: 22px !important; }
+  .li-visual .vis-quote { font-size: 14px !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===================================================================
+     NAVIGATION
+     Sticky frosted nav bar. PULL/SHEET wordmark on left, back link
+     to PullSheet index, and week navigation pills on right.
+     =================================================================== -->
+<nav class="nav">
+  <a href="index.html" class="brand" style="text-decoration:none;color:inherit;">PULL<span class="sheet">SHEET</span></a>
+  <a class="back" href="index.html">&larr; All Pages</a>
+  <div class="week-links">
+    <a href="#week1" class="active">Week 1</a>
+    <a href="#week2">Week 2</a>
+    <a href="#week3">Week 3</a>
+    <a href="#week4">Week 4</a>
+  </div>
+</nav>
+
+<div class="container">
+
+<!-- ===================================================================
+     PAGE HEADER
+     Title with italic emphasis. Subtitle describes the page's scope:
+     8 LinkedIn posts across 4 weeks with full copy and article covers.
+     =================================================================== -->
+<div class="page-header">
+  <h1>LinkedIn Content <em>(4 Weeks)</em></h1>
+  <p class="subtitle">8 ready-to-post LinkedIn posts with full copy, article covers, and hashtags for PullSheet.</p>
+</div>
+
+<!-- ===================================================================
+     SUMMARY STATS
+     Grid of three stat cards showing total posts, weeks, and tone.
+     LinkedIn platform card gets its colored left border.
+     =================================================================== -->
+<div class="stats-bar">
+  <div class="stat-card li">
+    <div class="stat-num">8</div>
+    <div class="stat-label">LinkedIn Posts</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num">4</div>
+    <div class="stat-label">Weeks</div>
+  </div>
+  <div class="stat-card mix">
+    <div class="stat-num">Pro</div>
+    <div class="stat-label">Tone</div>
+  </div>
+</div>
+
+
+<!-- ===================================================================
+
+     WEEK 1 - LAUNCH & FEATURES
+     Days 1, 3, 5. Three posts covering the launch announcement,
+     canvas feature deep-dive, and PDF export workflow.
+
+     =================================================================== -->
+<div class="week-section" id="week1">
+<div class="week-header">
+  <h2>Week 1</h2>
+  <span class="week-range">Days 1, 3, 5 &middot; Launch &amp; Features</span>
+</div>
+
+<!-- ============================
+     DAY 1: Launch Announcement
+     Theme: Launch
+     ============================ -->
+<div class="post-card type-launch">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 1 &middot; Monday</div>
+      <div class="post-title">Launch Announcement</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge li">LinkedIn</span>
+      <span class="badge theme-launch">Launch</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- LinkedIn visual mockup: 1200x627 article cover -->
+    <!-- Clean cream background with PULLSHEET wordmark large center,
+         subtitle below, and Cooper Interactive credit at bottom -->
+    <div class="li-visual light-bg" style="background: var(--cream); border: 1px solid var(--warm-gray);">
+      <span class="size-label">1200 x 627</span>
+      <div class="vis-wordmark" style="font-size: 42px; color: var(--near-black);">
+        <span>PULL</span><span style="color: var(--brown-gold);">SHEET</span>
+      </div>
+      <div class="vis-divider" style="background: var(--sand);"></div>
+      <div class="vis-subtitle" style="font-size: 16px; color: var(--taupe); margin-top: 4px;">
+        Visual Lookbook Builder for Film &amp; TV
+      </div>
+      <span class="vis-credit" style="color: var(--taupe);">Cooper Interactive</span>
+    </div>
+
+    <!-- LinkedIn post copy -->
+    <div class="caption-block">
+      <div class="caption-label">LinkedIn Copy</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">I'm excited to share something we've been building at Cooper Interactive.
+
+PullSheet is a visual lookbook builder designed specifically for wardrobe departments in film and television production.
+
+The problem we're solving: Wardrobe supervisors and costume designers spend hours building lookboards manually. They print photos, cut them out, and tape them to foam boards. When the director requests changes, they start over.
+
+PullSheet replaces that entire workflow:
+- Drag garments from your digital inventory onto a freeform canvas
+- Remove messy rack backgrounds with one-tap AI
+- Arrange, resize, and layer garments to build complete looks
+- Export professional PDF lookbooks with cover pages and garment details
+
+PullSheet connects directly to THREADLINE, our wardrobe inventory management app. Every garment already catalogued is immediately available. No duplicate data entry.
+
+We're launching Summer 2026. If you work in film or TV wardrobe, I'd love to hear what you think.
+
+Join the waitlist: pullsheetapp.io</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text">#FilmProduction #WardrobeDepartment #CostumeDesign #ProductionTools #FilmTech #Lookbook #StartupLife</span>
+      <button class="copy-btn-sm" onclick="copyHashtags(this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Clean cream background with PULLSHEET wordmark centered large. "Visual Lookbook Builder for Film &amp; TV" subtitle below a thin divider. Cooper Interactive credit at bottom. Minimal, editorial. First professional impression of the brand.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================
+     DAY 3: Feature Deep Dive - Canvas
+     Theme: Feature
+     ============================ -->
+<div class="post-card type-feature">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 3 &middot; Wednesday</div>
+      <div class="post-title">Feature: The Canvas</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge li">LinkedIn</span>
+      <span class="badge theme-feature">Feature</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- LinkedIn visual mockup: Canvas feature showcase -->
+    <!-- Cream background with "THE CANVAS" heading and a simplified
+         canvas editor mockup showing garment outlines on a grid -->
+    <div class="li-visual light-bg" style="background: var(--cream); border: 1px solid var(--warm-gray);">
+      <span class="size-label">1200 x 627</span>
+      <div class="vis-heading" style="font-size: 18px; color: var(--taupe); margin-bottom: 6px;">
+        PullSheet Feature
+      </div>
+      <div class="vis-wordmark" style="font-size: 36px; color: var(--near-black); letter-spacing: 0.25em;">
+        THE CANVAS
+      </div>
+      <div class="vis-divider" style="background: var(--copper);"></div>
+      <!-- Simplified canvas mockup: dotted grid with placeholder shapes -->
+      <div style="width: 280px; height: 120px; border: 1px dashed var(--sand); border-radius: 6px; margin-top: 12px; position: relative; background: white;">
+        <div style="position: absolute; top: 16px; left: 20px; width: 50px; height: 60px; border: 1px solid var(--copper); border-radius: 4px; opacity: 0.5;"></div>
+        <div style="position: absolute; top: 24px; left: 80px; width: 40px; height: 70px; border: 1px solid var(--brown-gold); border-radius: 4px; opacity: 0.4;"></div>
+        <div style="position: absolute; top: 12px; right: 30px; width: 55px; height: 55px; border: 1px solid var(--water); border-radius: 4px; opacity: 0.45;"></div>
+        <div style="position: absolute; bottom: 8px; right: 80px; width: 45px; height: 35px; border: 1px solid var(--sand); border-radius: 4px; opacity: 0.35;"></div>
+      </div>
+      <span class="vis-credit" style="color: var(--taupe);">Freeform. Not a grid.</span>
+    </div>
+
+    <!-- LinkedIn post copy -->
+    <div class="caption-block">
+      <div class="caption-label">LinkedIn Copy</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Most digital tools for visual presentations force you into rigid grids. Rows and columns. Fixed layouts.
+
+That is not how wardrobe professionals think about looks.
+
+When a costume designer builds a lookboard, they think spatially. A jacket overlapping a shirt. Shoes positioned at a specific angle. Accessories grouped by scene. The spatial relationship between garments tells a story that a grid never could.
+
+That is why PullSheet uses a freeform canvas instead of a template-based layout.
+
+Here is how it works:
+- Drag any garment from your THREADLINE inventory onto an open canvas
+- Position, resize, rotate, and layer garments freely
+- Overlap items to show how they work together as a complete look
+- Group garments by talent, by scene, or by whatever logic makes sense for your project
+
+The canvas has no constraints. No snap-to-grid. No fixed columns. Just an open surface that works the way you already think about wardrobe.
+
+We built PullSheet this way because every production is different. A period drama has different presentation needs than a contemporary comedy. A feature film lookbook is structured differently than a commercial deck.
+
+Freeform means your tool adapts to your workflow, not the other way around.
+
+PullSheet launches Summer 2026. What would your ideal lookbook builder look like?</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text">#CostumeDesign #WardrobeDepartment #FilmProduction #ProductionDesign #Lookbook #CreativeTools #FilmTech</span>
+      <button class="copy-btn-sm" onclick="copyHashtags(this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Cream background with "THE CANVAS" heading. Simplified canvas editor mockup showing garment placeholder outlines on a dotted workspace. Clean, technical, but approachable. Emphasizes the freeform nature.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================
+     DAY 5: PDF Export
+     Theme: Feature
+     ============================ -->
+<div class="post-card type-feature">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 5 &middot; Friday</div>
+      <div class="post-title">PDF Export</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge li">LinkedIn</span>
+      <span class="badge theme-feature">Feature</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- LinkedIn visual mockup: Dark background with PDF mockup -->
+    <!-- Dark bg with a white PDF page preview showing a lookbook cover -->
+    <div class="li-visual" style="background: var(--void);">
+      <span class="size-label">1200 x 627</span>
+      <!-- PDF mockup: white page with simulated content -->
+      <div style="background: white; width: 180px; height: 240px; border-radius: 4px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;">
+        <div style="font-family: var(--body); font-weight: 200; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--near-black);">
+          <span>PULL</span><span style="color: var(--brown-gold);">SHEET</span>
+        </div>
+        <div style="width: 60%; height: 1px; background: var(--sand);"></div>
+        <div style="font-family: var(--serif); font-size: 10px; color: var(--taupe); font-style: italic;">Lookbook</div>
+        <div style="width: 80%; height: 60px; background: var(--bone); border-radius: 3px; margin-top: 8px;"></div>
+        <div style="width: 80%; height: 4px; background: var(--warm-gray); border-radius: 2px; margin-top: 4px;"></div>
+        <div style="width: 60%; height: 4px; background: var(--warm-gray); border-radius: 2px;"></div>
+      </div>
+      <div class="vis-heading" style="font-size: 14px; color: rgba(255,255,255,0.5); margin-top: 20px;">
+        Export-Ready PDF Lookbooks
+      </div>
+      <span class="vis-credit" style="color: rgba(255,255,255,0.3);">Cover page, TOC, garment details</span>
+    </div>
+
+    <!-- LinkedIn post copy -->
+    <div class="caption-block">
+      <div class="caption-label">LinkedIn Copy</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">The lookbook is not just a reference document. It is a communication tool.
+
+When a wardrobe supervisor sits down with a director, the lookbook is what bridges the gap between vision and execution. It needs to look professional. It needs to be clear. And it needs to be something the director can flip through and respond to immediately.
+
+That is why we spent a lot of time on PullSheet's PDF export.
+
+Here is what the exported lookbook includes:
+- A branded cover page with production name, department, and date
+- A table of contents organized by talent or scene
+- Full-page look spreads with garment photos arranged exactly as you placed them on the canvas
+- Garment detail cards with item name, designer, size, color, and notes
+- Page numbers and section headers throughout
+
+The PDF is print-ready at high resolution. You can email it, print it for a fitting, or share it on a monitor during a production meeting.
+
+The key insight: what you build on the PullSheet canvas is exactly what appears in the PDF. No reformatting. No layout adjustments. What you see is what you export.
+
+We believe the presentation of wardrobe should match the quality of the work itself. PullSheet makes that possible without hours of manual assembly.
+
+Launching Summer 2026. Does your department still build lookbooks by hand?</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text">#CostumeDesign #WardrobeDepartment #Lookbook #FilmProduction #ProductionTools #PDFExport #FilmTech</span>
+      <button class="copy-btn-sm" onclick="copyHashtags(this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Dark background (near-black/void) with a white PDF lookbook mockup as the focal point. Shows a cover page with PULLSHEET branding, a divider, and placeholder content blocks. Floating shadow for depth. Professional and polished.</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- end week 1 -->
+
+
+<!-- ===================================================================
+
+     WEEK 2 - ECOSYSTEM & INDUSTRY
+     Days 8, 12. Two posts covering the THREADLINE connection and
+     an industry analysis about presentation standards.
+
+     =================================================================== -->
+<div class="week-section" id="week2">
+<div class="week-header">
+  <h2>Week 2</h2>
+  <span class="week-range">Days 8, 12 &middot; Ecosystem &amp; Industry</span>
+</div>
+
+<!-- ============================
+     DAY 8: THREADLINE Connection
+     Theme: Ecosystem
+     ============================ -->
+<div class="post-card type-ecosystem">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 8 &middot; Monday</div>
+      <div class="post-title">THREADLINE Connection</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge li">LinkedIn</span>
+      <span class="badge theme-ecosystem">Ecosystem</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- LinkedIn visual mockup: Two app wordmarks connected -->
+    <!-- Cream background with THREADLINE and PULLSHEET wordmarks
+         linked by a connector symbol -->
+    <div class="li-visual light-bg" style="background: var(--cream); border: 1px solid var(--warm-gray);">
+      <span class="size-label">1200 x 627</span>
+      <div class="icon-pair">
+        <div class="app-icon" style="background: var(--near-black); color: white;">TL</div>
+        <span class="connector">+</span>
+        <div class="app-icon" style="background: var(--brown-gold); color: white;">PS</div>
+      </div>
+      <div style="margin-top: 20px;">
+        <span class="vis-heading" style="font-size: 12px; color: var(--near-black); letter-spacing: 0.2em;">THREADLINE</span>
+        <span style="font-family: var(--mono); font-size: 12px; color: var(--taupe); margin: 0 10px;">+</span>
+        <span class="vis-heading" style="font-size: 12px; letter-spacing: 0.2em;">
+          <span style="color: var(--near-black);">PULL</span><span style="color: var(--brown-gold);">SHEET</span>
+        </span>
+      </div>
+      <div class="vis-divider" style="background: var(--sand);"></div>
+      <div class="vis-subtitle" style="font-size: 13px; color: var(--taupe);">
+        Two apps. One workflow.
+      </div>
+    </div>
+
+    <!-- LinkedIn post copy -->
+    <div class="caption-block">
+      <div class="caption-label">LinkedIn Copy</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Why did we build two apps instead of one?
+
+It is a question we get asked often. THREADLINE handles wardrobe inventory management. PullSheet handles visual lookbook creation. They share the same data, but they are separate applications.
+
+Here is our reasoning:
+
+The inventory problem and the presentation problem are fundamentally different workflows. Inventory management is about data: cataloguing garments, tracking quantities, logging check-outs and returns, managing across episodes and scenes. It is operational.
+
+Presentation is about visual storytelling. It is about arranging garments in a way that communicates a creative vision. It is artistic.
+
+Combining both into a single app would mean compromising one workflow for the other. Either the inventory side gets cluttered with canvas tools it does not need, or the creative side gets bogged down with data management fields.
+
+By keeping them separate, each app can be exactly what it needs to be:
+- THREADLINE stays fast and focused on inventory operations
+- PullSheet stays clean and focused on visual composition
+
+The connection between them is seamless. When you open PullSheet, every garment you have catalogued in THREADLINE is already there. No re-uploading photos. No re-entering data. Drag it onto the canvas and start building.
+
+We call it the "scan to present" pipeline. Scan a garment into THREADLINE on set. Present it in a PullSheet lookbook an hour later.
+
+Two apps. One workflow. Zero duplicate work.
+
+What tools does your wardrobe department currently use for inventory and presentation?</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text">#FilmProduction #WardrobeDepartment #CostumeDesign #ProductionTools #StartupStrategy #Workflow #FilmTech</span>
+      <button class="copy-btn-sm" onclick="copyHashtags(this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Cream background with THREADLINE and PULLSHEET app icons (dark square with TL, brown-gold square with PS) connected by a plus symbol. Both wordmarks spelled out below. "Two apps. One workflow." tagline. Clean, balanced, symmetrical.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================
+     DAY 12: Industry Problem
+     Theme: Industry
+     ============================ -->
+<div class="post-card type-industry">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 12 &middot; Friday</div>
+      <div class="post-title">What the Director Gets</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge li">LinkedIn</span>
+      <span class="badge theme-industry">Industry</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- LinkedIn visual mockup: Before/after comparison -->
+    <!-- Dark background with two columns comparing old vs new workflow -->
+    <div class="li-visual" style="background: var(--espresso);">
+      <span class="size-label">1200 x 627</span>
+      <div class="vis-heading" style="font-size: 14px; color: rgba(255,255,255,0.7); margin-bottom: 20px;">
+        WHAT THE DIRECTOR GETS
+      </div>
+      <div class="compare-cols">
+        <div class="compare-col">
+          <div class="col-label" style="color: rgba(255,255,255,0.45);">Before</div>
+          <div class="col-items" style="color: rgba(255,255,255,0.6);">
+            Printed photos<br>
+            Taped to foam board<br>
+            Handwritten labels<br>
+            One copy only
+          </div>
+        </div>
+        <div style="width: 1px; background: rgba(255,255,255,0.1); align-self: stretch;"></div>
+        <div class="compare-col">
+          <div class="col-label" style="color: var(--copper);">With PullSheet</div>
+          <div class="col-items" style="color: rgba(255,255,255,0.85);">
+            Clean backgrounds<br>
+            Professional layout<br>
+            Garment details<br>
+            Shareable PDF
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LinkedIn post copy -->
+    <div class="caption-block">
+      <div class="caption-label">LinkedIn Copy</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Let's talk about presentation standards in wardrobe departments.
+
+Every other department in film production has modernized its tools. Scheduling software replaced paper call sheets years ago. Budgeting moved to specialized platforms. Even script supervision has gone digital.
+
+But wardrobe departments? Many are still printing photos from their phones, cutting them out with scissors, and taping them to foam boards to present looks to the director.
+
+This is not a criticism of the people. Wardrobe professionals are some of the most resourceful, creative problem-solvers on any production. The issue is that the tools have not kept up.
+
+Think about what the director actually receives today:
+- Printed photos with cluttered rack backgrounds
+- Garments taped to a board with handwritten labels
+- One physical copy that cannot be easily shared or revised
+- No garment details, no sizing, no designer attribution
+
+Now think about what a director could receive:
+- Clean, background-removed garment photos arranged in a professional layout
+- Organized by talent and scene with clear labels
+- Garment detail cards with size, designer, color, and notes
+- A shareable PDF that can be emailed, printed, or pulled up on a monitor
+- Revisions that take minutes, not hours
+
+The quality of wardrobe work deserves a presentation format that matches it. The craft is already exceptional. The tools for presenting that craft should be, too.
+
+That is what we are building with PullSheet. A way to present wardrobe work at the standard it deserves.
+
+What does the look presentation workflow look like on your productions?</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text">#CostumeDesign #WardrobeDepartment #FilmProduction #ProductionDesign #IndustryInsights #FilmTech #Lookbook</span>
+      <button class="copy-btn-sm" onclick="copyHashtags(this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Dark espresso background with "WHAT THE DIRECTOR GETS" heading. Two-column comparison layout: "Before" column (muted, listing manual methods) and "With PullSheet" column (highlighted in copper, listing digital improvements). Vertical divider between columns. Clean data visualization feel.</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- end week 2 -->
+
+
+<!-- ===================================================================
+
+     WEEK 3 - INDUSTRY CONTEXT
+     Day 15. One long-form thought leadership post about the state
+     of wardrobe technology in film production.
+
+     =================================================================== -->
+<div class="week-section" id="week3">
+<div class="week-header">
+  <h2>Week 3</h2>
+  <span class="week-range">Day 15 &middot; Industry Context</span>
+</div>
+
+<!-- ============================
+     DAY 15: Industry Context / Thought Leadership
+     Theme: Industry
+     ============================ -->
+<div class="post-card type-industry">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 15 &middot; Monday</div>
+      <div class="post-title">The State of Wardrobe Technology</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge li">LinkedIn</span>
+      <span class="badge theme-industry">Industry</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- LinkedIn visual mockup: Article cover style -->
+    <!-- Cream background styled like a LinkedIn article cover image
+         with an editorial article title and PULLSHEET branding -->
+    <div class="li-visual light-bg" style="background: linear-gradient(180deg, var(--cream) 0%, var(--bone) 100%); border: 1px solid var(--warm-gray);">
+      <span class="size-label">1200 x 627</span>
+      <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 20px;">
+        <span class="vis-heading" style="font-size: 10px; color: var(--near-black); letter-spacing: 0.2em;">
+          <span>PULL</span><span style="color: var(--brown-gold);">SHEET</span>
+        </span>
+        <span style="font-family: var(--mono); font-size: 9px; color: var(--taupe);">Insights</span>
+      </div>
+      <div class="vis-article-title" style="font-size: 24px; color: var(--near-black); max-width: 440px;">
+        The State of Wardrobe Technology in Film Production
+      </div>
+      <div class="vis-divider" style="background: var(--copper);"></div>
+      <div style="font-family: var(--mono); font-size: 9px; color: var(--taupe); letter-spacing: 0.06em; margin-top: 4px;">
+        An industry perspective
+      </div>
+    </div>
+
+    <!-- LinkedIn post copy -->
+    <div class="caption-block">
+      <div class="caption-label">LinkedIn Copy</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Every department in film production has seen a technology wave over the past decade. Except one.
+
+Scheduling moved from paper to platforms like Movie Magic and StudioBinder. Budgeting went digital with EP Budgeting and Gorilla. Script supervision has apps. Even the accounting department has specialized production payroll software.
+
+Wardrobe departments remain largely manual.
+
+This is not because wardrobe professionals resist technology. It is because nobody has built technology specifically for them. The tools that exist are general-purpose: spreadsheets, shared photo albums, text message threads. They work, but they were not designed for the specific challenges of managing thousands of garments across multiple talent, episodes, and scenes.
+
+Here is the gap as we see it:
+
+Inventory tracking: Most wardrobe departments use spreadsheets or paper logs. A garment comes in, someone writes it down. A garment goes to a fitting, someone updates the spreadsheet. When a garment goes missing, someone scrolls through photos in their camera roll.
+
+Look presentation: Lookboards are physical objects. Photos printed, cut, and arranged on foam board. This process can take hours for a single talent's wardrobe. When the director requests changes, the board gets rebuilt from scratch.
+
+Cross-department communication: Wardrobe communicates with directors, producers, and other departments through a mix of email attachments, text messages, and in-person presentations. There is no single source of truth.
+
+We believe wardrobe technology is overdue for the same kind of purpose-built tools that other departments already have. That is why we are building THREADLINE for inventory and PullSheet for presentation.
+
+The craft deserves the tools. The tools are coming.
+
+What technology gaps have you noticed in your department?</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text">#FilmProduction #WardrobeDepartment #CostumeDesign #ProductionTechnology #IndustryInsights #FilmTech #ThoughtLeadership</span>
+      <button class="copy-btn-sm" onclick="copyHashtags(this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Article cover style. Cream-to-bone gradient background. PULLSHEET branding with "Insights" label at top. Large italic serif article title centered. Copper divider line. "An industry perspective" label in monospace below. Looks like a LinkedIn article or newsletter cover image.</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- end week 3 -->
+
+
+<!-- ===================================================================
+
+     WEEK 4 - STORYTELLING & ECOSYSTEM
+     Days 24, 25. Two posts: a storytelling perspective on lookbooks
+     and a final ecosystem piece about the THREADLINE + PullSheet
+     "scan to present" pipeline.
+
+     =================================================================== -->
+<div class="week-section" id="week4">
+<div class="week-header">
+  <h2>Week 4</h2>
+  <span class="week-range">Days 24, 25 &middot; Storytelling &amp; Ecosystem</span>
+</div>
+
+<!-- ============================
+     DAY 24: Storytelling Tip
+     Theme: Storytelling
+     ============================ -->
+<div class="post-card type-storytelling">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 24 &middot; Wednesday</div>
+      <div class="post-title">Lookbooks Should Tell a Story</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge li">LinkedIn</span>
+      <span class="badge theme-storytelling">Storytelling</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- LinkedIn visual mockup: Pro tip style with quotation marks -->
+    <!-- Warm cream background with oversized decorative quotation marks
+         and a quote about lookbook storytelling -->
+    <div class="li-visual light-bg" style="background: linear-gradient(135deg, var(--bone) 0%, var(--cream) 100%); border: 1px solid var(--warm-gray);">
+      <span class="size-label">1200 x 627</span>
+      <div class="vis-quote-mark" style="font-size: 120px; color: var(--brown-gold); line-height: 0.6; margin-bottom: 0;">
+        &#8220;
+      </div>
+      <div class="vis-quote" style="font-size: 18px; color: var(--near-black); margin-top: 8px;">
+        A lookbook should tell the same story the costume tells on screen.
+      </div>
+      <div class="vis-divider" style="background: var(--copper); margin-top: 16px;"></div>
+      <div style="font-family: var(--mono); font-size: 9px; color: var(--taupe); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 12px;">
+        <span>PULL</span><span style="color: var(--brown-gold);">SHEET</span>
+        <span style="margin-left: 8px; opacity: 0.6;">Pro Perspective</span>
+      </div>
+    </div>
+
+    <!-- LinkedIn post copy -->
+    <div class="caption-block">
+      <div class="caption-label">LinkedIn Copy</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">A lookbook is not a catalogue. It should not just display garments. It should tell a story.
+
+This is a perspective that shapes everything about how we designed PullSheet.
+
+When a costume designer selects wardrobe for a talent, every piece is intentional. The texture of a jacket says something about the person wearing it. The color palette of an entire wardrobe arc tracks with the emotional journey of the story. A worn leather belt tells a different story than a new one.
+
+The lookbook should communicate all of that. Not just "here are the clothes," but "here is why these clothes matter."
+
+That is the director's perspective. When a director flips through a lookbook, they are not checking sizes. They are asking: Does this feel right for the story? Does the wardrobe support the narrative? Does this talent's look evolve the way it should?
+
+A great lookbook answers those questions visually. It groups garments in a way that shows progression. It uses layout and spacing to create visual rhythm. It lets the clothes breathe on the page the same way they breathe on camera.
+
+This is why freeform matters. This is why templates and grids fall short. Every story is different, so every lookbook should be different.
+
+With PullSheet, the wardrobe professional has full control over how the story is told visually. No constraints. No predetermined layouts. Just the garments and the canvas.
+
+Build the lookbook the way you would build the wardrobe: with intention.
+
+How do you approach the storytelling aspect of your lookbook presentations?</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text">#CostumeDesign #Storytelling #WardrobeDepartment #FilmProduction #CreativeProcess #Lookbook #ProductionDesign</span>
+      <button class="copy-btn-sm" onclick="copyHashtags(this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Warm cream gradient background. Oversized decorative opening quotation mark in brown-gold (large, semi-transparent). Centered italic serif quote about lookbook storytelling. Copper divider. PULLSHEET branding with "Pro Perspective" label. Editorial, contemplative mood.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================
+     DAY 25: Two Apps, One Workflow
+     Theme: Ecosystem
+     ============================ -->
+<div class="post-card type-ecosystem">
+  <div class="card-header">
+    <div class="header-left">
+      <div class="day-date">Day 25 &middot; Thursday</div>
+      <div class="post-title">Two Apps, One Workflow</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge li">LinkedIn</span>
+      <span class="badge theme-ecosystem">Ecosystem</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- LinkedIn visual mockup: TL + PS app icons connected -->
+    <!-- Clean cream background with both app icons connected by an
+         arrow showing the "scan to present" pipeline flow -->
+    <div class="li-visual light-bg" style="background: var(--cream); border: 1px solid var(--warm-gray);">
+      <span class="size-label">1200 x 627</span>
+      <div class="icon-pair">
+        <div class="app-icon" style="background: var(--near-black); color: white; flex-direction: column; gap: 4px;">
+          <span>TL</span>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+          <span style="font-family: var(--mono); font-size: 16px; color: var(--copper);">&#8594;</span>
+          <span style="font-family: var(--mono); font-size: 7px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--taupe);">Shared Data</span>
+        </div>
+        <div class="app-icon" style="background: var(--brown-gold); color: white; flex-direction: column; gap: 4px;">
+          <span>PS</span>
+        </div>
+      </div>
+      <div style="margin-top: 24px;">
+        <div class="vis-heading" style="font-size: 13px; color: var(--near-black); letter-spacing: 0.2em;">
+          SCAN TO PRESENT
+        </div>
+      </div>
+      <div class="vis-divider" style="background: var(--sand);"></div>
+      <div style="display: flex; gap: 32px; margin-top: 8px;">
+        <div style="text-align: center;">
+          <div style="font-family: var(--mono); font-size: 8px; color: var(--taupe); letter-spacing: 0.08em; text-transform: uppercase;">Inventory</div>
+          <div style="font-family: var(--serif); font-size: 11px; color: var(--near-black); font-style: italic; margin-top: 2px;">THREADLINE</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="font-family: var(--mono); font-size: 8px; color: var(--taupe); letter-spacing: 0.08em; text-transform: uppercase;">Presentation</div>
+          <div style="font-family: var(--serif); font-size: 11px; color: var(--near-black); font-style: italic; margin-top: 2px;">PULLSHEET</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LinkedIn post copy -->
+    <div class="caption-block">
+      <div class="caption-label">LinkedIn Copy</div>
+      <button class="copy-btn" onclick="copyCaption(this)">Copy</button>
+      <div class="caption-text">Scan a garment on set at 9am. Present it in a lookbook at 10am.
+
+That is the THREADLINE + PullSheet pipeline, and it is built on a simple principle: separation of concerns.
+
+In software development, separation of concerns means each module handles one responsibility well. The same principle applies to production tools.
+
+THREADLINE handles the data layer:
+- Scan or photograph a garment
+- AI identifies category, color, and brand
+- Assign it to a project, scene, and talent
+- Track check-outs, returns, and location
+
+PullSheet handles the presentation layer:
+- Browse your THREADLINE inventory visually
+- Drag garments onto a freeform canvas
+- Remove backgrounds with one tap
+- Export polished PDF lookbooks
+
+The two apps share the same database. Every garment catalogued in THREADLINE is instantly available in PullSheet. No exporting CSVs. No re-uploading photos. No re-entering information.
+
+Why does this matter for production workflows?
+
+Speed. On a fast-moving production, you do not have time to photograph a garment, enter its details, then photograph it again in a different app for the lookbook. The "scan to present" pipeline means one entry point, multiple outputs.
+
+Accuracy. Because the data is shared, the garment details in your lookbook always match the inventory record. No discrepancies. No version mismatches.
+
+Flexibility. The wardrobe supervisor managing inventory and the costume designer building lookbooks may be different people. Separate apps mean each person uses the tool designed for their role.
+
+Two apps. One data source. Zero duplicate effort.
+
+We are launching both tools Summer 2026. If you would like early access, the waitlist is open at pullsheetapp.io.
+
+Would a connected inventory-to-presentation pipeline change how your department works?</div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtag-block">
+      <span class="ht-label">Hashtags</span>
+      <span class="ht-text">#FilmProduction #WardrobeDepartment #CostumeDesign #ProductionTools #Workflow #StartupStrategy #FilmTech</span>
+      <button class="copy-btn-sm" onclick="copyHashtags(this)">Copy</button>
+    </div>
+
+    <!-- Visual direction -->
+    <div class="visual-note">
+      <div class="vn-icon">&#9724;</div>
+      <span><strong>Visual:</strong> Cream background with THREADLINE (TL, dark icon) and PullSheet (PS, brown-gold icon) connected by an arrow with "Shared Data" label. "SCAN TO PRESENT" heading below. Two columns showing Inventory/THREADLINE and Presentation/PULLSHEET. Clean, diagram-like. Emphasizes the pipeline concept.</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- end week 4 -->
+
+
+<!-- ===================================================================
+     LINKEDIN-SPECIFIC NOTES
+     Platform tips and best practices callout at the bottom of the
+     page, styled with a left border accent in LinkedIn dusty-blue.
+     =================================================================== -->
+<div class="linkedin-notes">
+  <h3>LinkedIn-Specific Notes</h3>
+  <ul>
+    <li>All captions are 200-400 words. LinkedIn's algorithm rewards longer-form content that generates engagement.</li>
+    <li>Professional tone throughout. Avoid slang, emojis, and overly casual language.</li>
+    <li>Every post includes a call for engagement ("What tools does your department use?" or similar). Questions drive comments, which boost reach.</li>
+    <li>First line of each post is a hook. LinkedIn truncates after roughly 3 lines, so the opening must compel the reader to click "see more."</li>
+    <li>5-7 hashtags per post. Professional and industry-specific. No trending or generic hashtags.</li>
+    <li>Article cover images at 1200x627 pixels (1.91:1 ratio). This is LinkedIn's recommended post image size for maximum display quality.</li>
+    <li>Post timing: Tuesday through Thursday, 8-10am local time tends to perform best on LinkedIn for B2B content.</li>
+    <li>Consider republishing Day 15 (Industry Context) as a LinkedIn Article for longer shelf life and SEO benefits.</li>
+  </ul>
+</div>
+
+</div><!-- end container -->
+
+<!-- ===================================================================
+     FOOTER
+     Centered "Made with care" link to Cooper Interactive.
+     Separated from main content by a subtle top border.
+     =================================================================== -->
+<div class="footer">
+  <a href="https://cooperinteractive.com">Made with care</a>
+</div>
+
+<!-- ===================================================================
+     JAVASCRIPT
+     Two utility functions:
+     1. copyCaption() - copies the full post text from a caption block
+     2. copyHashtags() - copies the hashtag string from a hashtag block
+     Both functions update the button text to "Copied" with a green
+     background for 2 seconds as visual feedback.
+     Also includes scroll-based active week highlighting in the nav.
+     =================================================================== -->
+<script>
+/* ===================================================================
+   copyCaption(btn)
+   Finds the .caption-text sibling within the same .caption-block
+   parent, copies its text content to the clipboard, and temporarily
+   changes the button text to "Copied" with a green background.
+   =================================================================== */
+function copyCaption(btn) {
+  /* Navigate from the button to the caption text within the same block */
+  const block = btn.closest('.caption-block');
+  const text = block.querySelector('.caption-text').textContent;
+
+  /* Use the Clipboard API to write text to clipboard */
+  navigator.clipboard.writeText(text.trim()).then(() => {
+    btn.textContent = 'Copied';
+    btn.classList.add('copied');
+
+    /* Reset button state after 2 seconds */
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+/* ===================================================================
+   copyHashtags(btn)
+   Finds the .ht-text sibling within the same .hashtag-block parent,
+   copies its text content to the clipboard, and temporarily changes
+   the button text to "Copied" with a green background.
+   =================================================================== */
+function copyHashtags(btn) {
+  /* Navigate from the button to the hashtag text within the same block */
+  const block = btn.closest('.hashtag-block');
+  const text = block.querySelector('.ht-text').textContent;
+
+  /* Use the Clipboard API to write text to clipboard */
+  navigator.clipboard.writeText(text.trim()).then(() => {
+    btn.textContent = 'Copied';
+    btn.classList.add('copied');
+
+    /* Reset button state after 2 seconds */
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+/* ===================================================================
+   Sticky nav: highlight active week link on scroll
+   Observes each .week-section and updates the corresponding
+   .week-links pill to .active as the user scrolls through weeks.
+   =================================================================== */
+const weekSections = document.querySelectorAll('.week-section');
+const weekLinks = document.querySelectorAll('.week-links a');
+
+function updateActiveWeek() {
+  let current = '';
+  weekSections.forEach(section => {
+    const top = section.getBoundingClientRect().top;
+    /* 120px offset accounts for sticky nav height */
+    if (top <= 120) {
+      current = section.id;
+    }
+  });
+  weekLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) {
+      link.classList.add('active');
+    }
+  });
+}
+
+/* Passive scroll listener for performance */
+window.addEventListener('scroll', updateActiveWeek, { passive: true });
+updateActiveWeek();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PullSheet -- Photography Treatments</title>
+
+<!-- ============================================================
+     PULLSHEET PHOTOGRAPHY TREATMENTS
+     Self-contained HTML with inline CSS and Google Fonts only.
+     Demonstrates the ghosted photo technique across 6 variations.
+
+     SECTIONS:
+     01 - Technique Overview (ghosted photo CSS principles)
+     02 - Treatment Variations (6 CSS-rendered card demos)
+     03 - Photography Direction (subject matter guidance)
+     04 - CSS Reference (code snippets per treatment)
+
+     TO MODIFY:
+     - Adjust ghost opacity values in each .treatment-card variation
+     - Ghost pattern shapes use CSS gradients to simulate garment forms
+     - Each treatment card includes: preview, code snippet, use case
+     ============================================================ -->
+
+<!-- Google Fonts: Same three families as THREADLINE
+     Cormorant Garamond = serif headings, editorial
+     Inter = sans-serif body/UI
+     JetBrains Mono = monospace code snippets, metadata -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  /* ============================================================
+     CSS CUSTOM PROPERTIES (Design Tokens)
+     Shared with THREADLINE. Single source of truth for all colors.
+     ============================================================ */
+  :root {
+    --cream:#FAF8F5;
+    --bone:#F5F0EB;
+    --warm-gray:#E8E3DE;
+    --sand:#D2C4B9;
+    --taupe:#B5A89C;
+    --brown-gold:#8B6F52;
+    --copper:#C4946A;
+    --dark-brown:#5A4228;
+    --espresso:#3A2A18;
+    --near-black:#1A1714;
+    --void:#0A0A0A;
+    --water:#5A7E8A;
+    --forest:#4A6741;
+    --clay:#8A4A42;
+    --dusty-blue:#627786;
+  }
+
+  /* ============================================================
+     RESET & BASE STYLES
+     ============================================================ */
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'Inter',sans-serif;
+    background:var(--cream);
+    color:var(--near-black);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+
+  /* ============================================================
+     STICKY NAVIGATION BAR
+     Frosted glass effect. PULL/SHEET wordmark left, back link.
+     ============================================================ */
+  .sticky-nav {
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(250,248,245,0.92);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    border-bottom:1px solid rgba(26,23,20,0.06);
+    padding:12px 48px;
+    display:flex;
+    align-items:center;
+    gap:32px;
+  }
+  .sticky-nav .brand {
+    font-family:'Inter',sans-serif;
+    font-weight:200;
+    font-size:16px;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    text-decoration:none;
+    color:inherit;
+  }
+  .sticky-nav .brand .pull { color:var(--near-black); }
+  .sticky-nav .brand .sheet { color:var(--brown-gold); }
+  .sticky-nav a {
+    font-size:11px;
+    font-weight:500;
+    color:var(--taupe);
+    text-decoration:none;
+    letter-spacing:0.04em;
+    padding:4px 8px;
+    border-radius:4px;
+    transition:all 0.15s;
+  }
+  .sticky-nav a:hover,
+  .sticky-nav a.active {
+    color:var(--brown-gold);
+    background:rgba(139,111,82,0.06);
+  }
+
+  /* ============================================================
+     CONTAINER
+     Max-width centered wrapper.
+     ============================================================ */
+  .container { max-width:1200px; margin:0 auto; padding:0 48px; }
+
+  /* ============================================================
+     COVER SECTION
+     Gradient hero with document title.
+     ============================================================ */
+  .cover {
+    background: linear-gradient(135deg, var(--dark-brown) 0%, var(--brown-gold) 40%, var(--copper) 100%);
+    min-height:50vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:80px 48px;
+    position:relative;
+    overflow:hidden;
+  }
+  .cover::before {
+    content:'';
+    position:absolute;
+    inset:0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.08) 0%, transparent 60%);
+  }
+  .cover .wordmark {
+    font-family:'Inter',sans-serif;
+    font-weight:200;
+    font-size:80px;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.92);
+    position:relative;
+    z-index:1;
+  }
+  .cover .wordmark .sheet { color:rgba(255,255,255,0.55); }
+  .cover .tagline {
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;
+    font-weight:300;
+    font-size:28px;
+    color:rgba(255,255,255,0.6);
+    margin-top:12px;
+    position:relative;
+    z-index:1;
+  }
+  .cover .divider-line {
+    width:60px;
+    height:1px;
+    background:linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    margin:24px auto 0;
+    position:relative;
+    z-index:1;
+  }
+  .cover .doc-title {
+    font-size:12px;
+    font-weight:500;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.35);
+    margin-top:48px;
+    position:relative;
+    z-index:1;
+  }
+
+  /* ============================================================
+     SECTION STYLES
+     Consistent section padding and borders.
+     ============================================================ */
+  .section {
+    padding:80px 0;
+    border-bottom:1px solid var(--warm-gray);
+  }
+  .section:last-of-type { border-bottom:none; }
+  .section-num {
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    margin-bottom:12px;
+  }
+  .section-title {
+    font-family:'Cormorant Garamond',serif;
+    font-weight:300;
+    font-size:36px;
+    line-height:1.2;
+    margin-bottom:8px;
+  }
+  .section-subtitle {
+    font-size:15px;
+    color:var(--taupe);
+    line-height:1.7;
+    max-width:640px;
+    margin-bottom:40px;
+  }
+
+  /* ============================================================
+     TECHNIQUE EXPLAINER
+     Two-column layout: text + CSS property reference card.
+     ============================================================ */
+  .technique-grid {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:48px;
+    align-items:start;
+  }
+  .technique-text p {
+    font-size:15px;
+    line-height:1.8;
+    color:var(--near-black);
+    margin-bottom:16px;
+  }
+  .technique-text strong {
+    color:var(--brown-gold);
+    font-weight:600;
+  }
+
+  /* CSS property reference card with code-like styling */
+  .css-ref-card {
+    background:var(--void);
+    border-radius:12px;
+    padding:32px;
+    color:var(--bone);
+  }
+  .css-ref-card h4 {
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--copper);
+    margin-bottom:20px;
+  }
+  .css-ref-card .prop {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:8px 0;
+    border-bottom:1px solid rgba(245,240,235,0.06);
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;
+  }
+  .css-ref-card .prop:last-child { border-bottom:none; }
+  .css-ref-card .prop .key { color:var(--taupe); }
+  .css-ref-card .prop .val { color:var(--copper); }
+
+  /* ============================================================
+     TREATMENT CARDS
+     Each treatment variation rendered as a visual preview card
+     with a code snippet and use-case description below it.
+     ============================================================ */
+  .treatments-grid {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:40px;
+  }
+  .treatment-card {
+    border-radius:12px;
+    overflow:hidden;
+    border:1px solid var(--warm-gray);
+    background:white;
+  }
+  .treatment-card .preview {
+    position:relative;
+    overflow:hidden;
+    min-height:280px;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    padding:32px;
+  }
+
+  /* Ghost garment shapes: CSS-only representations of garment silhouettes.
+     These use gradients and pseudo-elements to simulate the look of
+     actual garment photography at low opacity. */
+  .ghost-shape {
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+  }
+
+  /* Treatment 1: Feature Card - cream bg, garment ghost at 0.08 */
+  .treatment-feature .preview {
+    background:var(--cream);
+  }
+  .treatment-feature .ghost-shape {
+    background:
+      radial-gradient(ellipse 45% 65% at 55% 40%, rgba(90,66,40,0.08) 0%, transparent 100%),
+      radial-gradient(ellipse 30% 20% at 50% 20%, rgba(90,66,40,0.06) 0%, transparent 100%),
+      radial-gradient(ellipse 15% 30% at 40% 60%, rgba(90,66,40,0.05) 0%, transparent 100%),
+      radial-gradient(ellipse 15% 30% at 60% 60%, rgba(90,66,40,0.05) 0%, transparent 100%);
+    filter:grayscale(1);
+  }
+  .treatment-feature .preview-title {
+    font-family:'Cormorant Garamond',serif;
+    font-weight:300;
+    font-size:28px;
+    color:var(--near-black);
+    position:relative;
+    z-index:2;
+  }
+  .treatment-feature .preview-sub {
+    font-size:13px;
+    color:var(--taupe);
+    margin-top:4px;
+    position:relative;
+    z-index:2;
+  }
+
+  /* Treatment 2: Full-Width Hero - brown-gold bg, ghost at 0.06 */
+  .treatment-hero .preview {
+    background:var(--brown-gold);
+    min-height:260px;
+    justify-content:center;
+    text-align:center;
+    align-items:center;
+  }
+  .treatment-hero .ghost-shape {
+    background:
+      radial-gradient(ellipse 50% 70% at 50% 45%, rgba(255,255,255,0.06) 0%, transparent 100%),
+      radial-gradient(ellipse 25% 15% at 50% 20%, rgba(255,255,255,0.05) 0%, transparent 100%),
+      radial-gradient(ellipse 20% 25% at 35% 55%, rgba(255,255,255,0.04) 0%, transparent 100%),
+      radial-gradient(ellipse 20% 25% at 65% 55%, rgba(255,255,255,0.04) 0%, transparent 100%);
+    filter:grayscale(1);
+    mix-blend-mode:overlay;
+  }
+  .treatment-hero .preview-title {
+    font-family:'Cormorant Garamond',serif;
+    font-weight:300;
+    font-size:32px;
+    color:rgba(255,255,255,0.92);
+    position:relative;
+    z-index:2;
+  }
+  .treatment-hero .preview-sub {
+    font-family:'Inter',sans-serif;
+    font-size:12px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.45);
+    margin-top:8px;
+    position:relative;
+    z-index:2;
+  }
+
+  /* Treatment 3: Split Layout - left ghost, right text */
+  .treatment-split .preview {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    padding:0;
+    min-height:260px;
+  }
+  .treatment-split .split-left {
+    position:relative;
+    background:var(--bone);
+    overflow:hidden;
+    min-height:260px;
+  }
+  .treatment-split .split-left .ghost-shape {
+    background:
+      radial-gradient(ellipse 55% 70% at 50% 40%, rgba(90,66,40,0.10) 0%, transparent 100%),
+      radial-gradient(ellipse 30% 20% at 50% 18%, rgba(90,66,40,0.07) 0%, transparent 100%),
+      radial-gradient(ellipse 18% 30% at 38% 58%, rgba(90,66,40,0.06) 0%, transparent 100%),
+      radial-gradient(ellipse 18% 30% at 62% 58%, rgba(90,66,40,0.06) 0%, transparent 100%);
+    filter:grayscale(1);
+  }
+  .treatment-split .split-right {
+    padding:32px 28px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    background:white;
+  }
+  .treatment-split .split-right h3 {
+    font-family:'Cormorant Garamond',serif;
+    font-weight:300;
+    font-size:22px;
+    margin-bottom:8px;
+  }
+  .treatment-split .split-right p {
+    font-size:13px;
+    line-height:1.7;
+    color:var(--taupe);
+  }
+
+  /* Treatment 4: Dark Mode - near-black bg, ghost at 0.10, mix-blend-mode overlay */
+  .treatment-dark .preview {
+    background:var(--near-black);
+    min-height:280px;
+  }
+  .treatment-dark .ghost-shape {
+    background:
+      radial-gradient(ellipse 45% 65% at 50% 40%, rgba(245,240,235,0.10) 0%, transparent 100%),
+      radial-gradient(ellipse 28% 18% at 50% 18%, rgba(245,240,235,0.07) 0%, transparent 100%),
+      radial-gradient(ellipse 15% 28% at 38% 58%, rgba(245,240,235,0.06) 0%, transparent 100%),
+      radial-gradient(ellipse 15% 28% at 62% 58%, rgba(245,240,235,0.06) 0%, transparent 100%);
+    filter:grayscale(1);
+    mix-blend-mode:overlay;
+  }
+  .treatment-dark .preview-title {
+    font-family:'Cormorant Garamond',serif;
+    font-weight:300;
+    font-size:28px;
+    color:var(--bone);
+    position:relative;
+    z-index:2;
+  }
+  .treatment-dark .preview-sub {
+    font-size:13px;
+    color:var(--taupe);
+    margin-top:4px;
+    position:relative;
+    z-index:2;
+  }
+
+  /* Treatment 5: Accent Border - white card, brown-gold left border, ghost inside */
+  .treatment-accent .preview {
+    background:white;
+    border-left:4px solid var(--brown-gold);
+    min-height:240px;
+    justify-content:center;
+  }
+  .treatment-accent .ghost-shape {
+    background:
+      radial-gradient(ellipse 40% 60% at 60% 45%, rgba(139,111,82,0.08) 0%, transparent 100%),
+      radial-gradient(ellipse 25% 15% at 55% 20%, rgba(139,111,82,0.05) 0%, transparent 100%);
+    filter:grayscale(1);
+  }
+  .treatment-accent .preview-title {
+    font-family:'Cormorant Garamond',serif;
+    font-weight:400;
+    font-size:24px;
+    color:var(--near-black);
+    position:relative;
+    z-index:2;
+    margin-bottom:4px;
+  }
+  .treatment-accent .preview-sub {
+    font-size:13px;
+    color:var(--taupe);
+    line-height:1.7;
+    position:relative;
+    z-index:2;
+    max-width:300px;
+  }
+
+  /* Treatment 6: Bento Grid - multi-cell with different ghosts per cell */
+  .treatment-bento .preview {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    grid-template-rows:1fr 1fr;
+    padding:0;
+    min-height:320px;
+    gap:1px;
+    background:var(--warm-gray);
+  }
+  .bento-cell {
+    position:relative;
+    overflow:hidden;
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+  }
+  .bento-cell:nth-child(1) {
+    background:var(--cream);
+    grid-row:1/3;
+  }
+  .bento-cell:nth-child(1) .ghost-shape {
+    background:
+      radial-gradient(ellipse 50% 65% at 50% 40%, rgba(90,66,40,0.09) 0%, transparent 100%),
+      radial-gradient(ellipse 28% 18% at 50% 18%, rgba(90,66,40,0.06) 0%, transparent 100%);
+    filter:grayscale(1);
+  }
+  .bento-cell:nth-child(2) {
+    background:var(--brown-gold);
+  }
+  .bento-cell:nth-child(2) .ghost-shape {
+    background:
+      radial-gradient(ellipse 55% 60% at 50% 45%, rgba(255,255,255,0.06) 0%, transparent 100%);
+    filter:grayscale(1);
+    mix-blend-mode:overlay;
+  }
+  .bento-cell:nth-child(3) {
+    background:var(--near-black);
+  }
+  .bento-cell:nth-child(3) .ghost-shape {
+    background:
+      radial-gradient(ellipse 50% 55% at 50% 45%, rgba(245,240,235,0.08) 0%, transparent 100%);
+    filter:grayscale(1);
+    mix-blend-mode:overlay;
+  }
+  .bento-cell .cell-label {
+    font-family:'JetBrains Mono',monospace;
+    font-size:9px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    position:relative;
+    z-index:2;
+  }
+  .bento-cell:nth-child(1) .cell-label { color:var(--taupe); }
+  .bento-cell:nth-child(2) .cell-label { color:rgba(255,255,255,0.5); }
+  .bento-cell:nth-child(3) .cell-label { color:var(--taupe); }
+
+  /* ============================================================
+     TREATMENT CARD META
+     Code snippet + use case description below each preview.
+     ============================================================ */
+  .treatment-meta {
+    padding:24px;
+    border-top:1px solid var(--warm-gray);
+  }
+  .treatment-label {
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--brown-gold);
+    margin-bottom:8px;
+  }
+  .treatment-name {
+    font-family:'Cormorant Garamond',serif;
+    font-weight:400;
+    font-size:20px;
+    margin-bottom:8px;
+  }
+  .treatment-desc {
+    font-size:13px;
+    line-height:1.7;
+    color:var(--taupe);
+    margin-bottom:16px;
+  }
+  .treatment-usecase {
+    font-size:12px;
+    line-height:1.6;
+    color:var(--near-black);
+    padding:12px 16px;
+    background:var(--bone);
+    border-radius:8px;
+    margin-bottom:16px;
+  }
+  .treatment-usecase strong {
+    color:var(--brown-gold);
+    font-weight:600;
+  }
+
+  /* Code snippet block with dark background */
+  .code-block {
+    background:var(--void);
+    border-radius:8px;
+    padding:16px 20px;
+    overflow-x:auto;
+  }
+  .code-block pre {
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    line-height:1.7;
+    color:var(--bone);
+    white-space:pre;
+  }
+  .code-block .comment { color:var(--taupe); }
+  .code-block .prop-name { color:var(--copper); }
+  .code-block .prop-val { color:var(--water); }
+
+  /* Code toggle button to show/hide code snippets */
+  .code-toggle {
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    background:none;
+    border:1px solid var(--warm-gray);
+    padding:6px 12px;
+    border-radius:6px;
+    cursor:pointer;
+    margin-bottom:12px;
+    transition:all 0.15s;
+  }
+  .code-toggle:hover {
+    color:var(--brown-gold);
+    border-color:var(--brown-gold);
+  }
+
+  /* ============================================================
+     PHOTOGRAPHY DIRECTION SECTION
+     Grid of do/don't guidance cards.
+     ============================================================ */
+  .direction-grid {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:32px;
+  }
+  .direction-card {
+    padding:32px;
+    border-radius:12px;
+    border:1px solid var(--warm-gray);
+    background:white;
+  }
+  .direction-card.do-card {
+    border-left:3px solid var(--forest);
+  }
+  .direction-card.dont-card {
+    border-left:3px solid var(--clay);
+  }
+  .direction-card h4 {
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    margin-bottom:16px;
+  }
+  .direction-card.do-card h4 { color:var(--forest); }
+  .direction-card.dont-card h4 { color:var(--clay); }
+  .direction-card ul {
+    list-style:none;
+    padding:0;
+  }
+  .direction-card li {
+    font-size:14px;
+    line-height:1.7;
+    color:var(--near-black);
+    padding:6px 0;
+    padding-left:20px;
+    position:relative;
+  }
+  .direction-card.do-card li::before {
+    content:'+';
+    position:absolute;
+    left:0;
+    color:var(--forest);
+    font-weight:600;
+  }
+  .direction-card.dont-card li::before {
+    content:'-';
+    position:absolute;
+    left:0;
+    color:var(--clay);
+    font-weight:600;
+  }
+
+  /* Subject matter examples grid */
+  .subjects-grid {
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:20px;
+    margin-top:40px;
+  }
+  .subject-card {
+    background:var(--bone);
+    border-radius:10px;
+    padding:24px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+    min-height:140px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+  }
+  .subject-card .subject-ghost {
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+  }
+  .subject-card:nth-child(1) .subject-ghost {
+    /* Lookboard composition: scattered rectangular shapes */
+    background:
+      linear-gradient(135deg, rgba(90,66,40,0.06) 0%, transparent 50%) 20% 20% / 40% 50% no-repeat,
+      linear-gradient(135deg, rgba(90,66,40,0.04) 0%, transparent 50%) 55% 30% / 35% 45% no-repeat,
+      linear-gradient(135deg, rgba(90,66,40,0.05) 0%, transparent 50%) 35% 55% / 30% 40% no-repeat;
+    filter:grayscale(1);
+  }
+  .subject-card:nth-child(2) .subject-ghost {
+    /* Flat-lay: centered spread of items */
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 50%, rgba(90,66,40,0.07) 0%, transparent 100%),
+      radial-gradient(circle 15% at 30% 35%, rgba(90,66,40,0.04) 0%, transparent 100%),
+      radial-gradient(circle 12% at 70% 40%, rgba(90,66,40,0.04) 0%, transparent 100%);
+    filter:grayscale(1);
+  }
+  .subject-card:nth-child(3) .subject-ghost {
+    /* Wardrobe rack: vertical lines */
+    background:
+      linear-gradient(180deg, rgba(90,66,40,0.06) 0%, transparent 80%) 30% 0 / 3% 100% no-repeat,
+      linear-gradient(180deg, rgba(90,66,40,0.05) 0%, transparent 70%) 50% 0 / 3% 100% no-repeat,
+      linear-gradient(180deg, rgba(90,66,40,0.06) 0%, transparent 85%) 70% 0 / 3% 100% no-repeat,
+      linear-gradient(90deg, rgba(90,66,40,0.04) 0%, rgba(90,66,40,0.04) 100%) 20% 10% / 60% 2% no-repeat;
+    filter:grayscale(1);
+  }
+  .subject-card:nth-child(4) .subject-ghost {
+    /* On-set detail: diagonal fabric drape */
+    background:
+      linear-gradient(160deg, rgba(90,66,40,0.08) 0%, transparent 50%) 0 0 / 100% 100% no-repeat,
+      radial-gradient(ellipse 40% 30% at 60% 60%, rgba(90,66,40,0.05) 0%, transparent 100%);
+    filter:grayscale(1);
+  }
+  .subject-card .subject-label {
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--brown-gold);
+    position:relative;
+    z-index:2;
+    margin-bottom:4px;
+  }
+  .subject-card .subject-desc {
+    font-size:12px;
+    color:var(--taupe);
+    position:relative;
+    z-index:2;
+    line-height:1.5;
+  }
+
+  /* ============================================================
+     FOOTER
+     "Made with care" link left, CONFIDENTIAL right.
+     ============================================================ */
+  .footer{text-align:center;padding:32px;font-size:12px;color:var(--taupe);border-top:1px solid rgba(26,23,20,0.06);}
+  .footer a{color:var(--brown-gold);text-decoration:none;}
+
+  /* ============================================================
+     RESPONSIVE (max-width:768px)
+     Single column layouts, reduced padding.
+     ============================================================ */
+  @media (max-width:768px) {
+    .sticky-nav { padding:12px 20px; gap:16px; flex-wrap:wrap; }
+    .cover { padding:48px 20px; min-height:40vh; }
+    .cover .wordmark { font-size:36px; letter-spacing:0.2em; }
+    .cover .tagline { font-size:20px; }
+    .container { padding:0 20px; }
+    .section { padding:48px 0; }
+    .section-title { font-size:28px; }
+    .technique-grid { grid-template-columns:1fr; gap:32px; }
+    .treatments-grid { grid-template-columns:1fr; }
+    .treatment-split .preview { grid-template-columns:1fr; }
+    .treatment-split .split-left { min-height:180px; }
+    .treatment-bento .preview { grid-template-columns:1fr; grid-template-rows:auto; }
+    .bento-cell:nth-child(1) { grid-row:auto; min-height:160px; }
+    .bento-cell { min-height:120px; }
+    .direction-grid { grid-template-columns:1fr; }
+    .subjects-grid { grid-template-columns:1fr 1fr; }
+    .footer { padding:24px 20px; }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- ============================================================
+     NAVIGATION
+     Sticky nav with PULL/SHEET wordmark and back link.
+     ============================================================ -->
+<nav class="sticky-nav">
+  <a href="index.html" class="brand" style="text-decoration:none;color:inherit;">PULL<span class="sheet">SHEET</span></a>
+  <a class="back" href="index.html">&larr; All Pages</a>
+  <a href="#technique">Technique</a>
+  <a href="#treatments">Treatments</a>
+  <a href="#direction">Direction</a>
+</nav>
+
+<!-- ============================================================
+     COVER
+     Hero section with wordmark, tagline, and document title.
+     ============================================================ -->
+<div class="cover">
+  <div class="wordmark"><span class="pull">Pull</span><span class="sheet">Sheet</span></div>
+  <div class="tagline">The ghosted photo technique adapted for PullSheet</div>
+  <div class="divider-line"></div>
+  <div class="doc-title">Photography Treatments</div>
+</div>
+
+<!-- ============================================================
+     SECTION 01: TECHNIQUE OVERVIEW
+     Explains the core ghosted photography CSS technique.
+     ============================================================ -->
+<div class="container">
+  <div class="section" id="technique">
+    <div class="section-num">01 / Technique</div>
+    <div class="section-title">The Ghosted Photo Technique</div>
+    <div class="section-subtitle">
+      A distinctive visual treatment that places garment photography at extremely low opacity
+      behind content, creating atmospheric depth without competing with text.
+    </div>
+
+    <div class="technique-grid">
+      <div class="technique-text">
+        <p>
+          The ghosted photo technique takes high-quality garment photography and renders it
+          as a barely-visible background layer. The image becomes texture rather than content,
+          adding visual richness and brand recognition without demanding attention.
+        </p>
+        <p>
+          Three CSS properties work together to achieve this effect:
+          <strong>opacity</strong> controls visibility (0.06 to 0.12 range),
+          <strong>filter: grayscale(1)</strong> strips color to prevent palette conflicts, and
+          <strong>mix-blend-mode</strong> controls how the ghost composites with its background.
+        </p>
+        <p>
+          The technique works best on solid or gradient backgrounds. On light backgrounds
+          (cream, bone, white), the ghost appears as warm shadow. On dark backgrounds
+          (near-black, void), use <strong>mix-blend-mode: overlay</strong> so the ghost
+          appears as a subtle light impression.
+        </p>
+        <p>
+          Keep opacity under 0.12 at all times. The moment a ghost image becomes
+          "readable" as an actual photograph, it has gone too far. The viewer should feel
+          the presence of fashion imagery without consciously registering it.
+        </p>
+      </div>
+
+      <div class="css-ref-card">
+        <h4>Core CSS Properties</h4>
+        <div class="prop">
+          <span class="key">opacity</span>
+          <span class="val">0.06 - 0.12</span>
+        </div>
+        <div class="prop">
+          <span class="key">filter</span>
+          <span class="val">grayscale(1)</span>
+        </div>
+        <div class="prop">
+          <span class="key">mix-blend-mode</span>
+          <span class="val">overlay | normal</span>
+        </div>
+        <div class="prop">
+          <span class="key">object-fit</span>
+          <span class="val">cover</span>
+        </div>
+        <div class="prop">
+          <span class="key">position</span>
+          <span class="val">absolute</span>
+        </div>
+        <div class="prop">
+          <span class="key">pointer-events</span>
+          <span class="val">none</span>
+        </div>
+        <div class="prop">
+          <span class="key">background (light)</span>
+          <span class="val">var(--cream)</span>
+        </div>
+        <div class="prop">
+          <span class="key">background (dark)</span>
+          <span class="val">var(--near-black)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SECTION 02: TREATMENT VARIATIONS
+       Six distinct card treatments with visual preview, CSS, and use case.
+       ============================================================ -->
+  <div class="section" id="treatments">
+    <div class="section-num">02 / Treatments</div>
+    <div class="section-title">Six Treatment Variations</div>
+    <div class="section-subtitle">
+      Each treatment adapts the ghosted technique for a different layout context.
+      Use the CSS snippets below as starting points for implementation.
+    </div>
+
+    <div class="treatments-grid">
+
+      <!-- ==================== TREATMENT 1: Feature Card ==================== -->
+      <div class="treatment-card treatment-feature">
+        <div class="preview">
+          <div class="ghost-shape"></div>
+          <div class="preview-title">See the look before the fitting</div>
+          <div class="preview-sub">Build visual lookboards from your inventory</div>
+        </div>
+        <div class="treatment-meta">
+          <div class="treatment-label">Treatment 01</div>
+          <div class="treatment-name">Feature Card</div>
+          <div class="treatment-desc">
+            Cream background with a garment silhouette ghosted at 0.08 opacity. Text sits
+            at the bottom of the card, reading clearly over the barely-there image.
+          </div>
+          <div class="treatment-usecase">
+            <strong>Use case:</strong> Feature announcements, marketing cards, app store screenshots,
+            and any card that needs atmospheric depth without a real photograph.
+          </div>
+          <button class="code-toggle" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">Show CSS</button>
+          <div class="code-block" style="display:none">
+<pre><span class="comment">/* Feature Card ghost treatment */</span>
+<span class="prop-name">.card</span> {
+  <span class="prop-name">background</span>: <span class="prop-val">var(--cream)</span>;
+  <span class="prop-name">position</span>: <span class="prop-val">relative</span>;
+  <span class="prop-name">overflow</span>: <span class="prop-val">hidden</span>;
+}
+<span class="prop-name">.card img.ghost</span> {
+  <span class="prop-name">position</span>: <span class="prop-val">absolute</span>;
+  <span class="prop-name">inset</span>: <span class="prop-val">0</span>;
+  <span class="prop-name">width</span>: <span class="prop-val">100%</span>;
+  <span class="prop-name">height</span>: <span class="prop-val">100%</span>;
+  <span class="prop-name">object-fit</span>: <span class="prop-val">cover</span>;
+  <span class="prop-name">opacity</span>: <span class="prop-val">0.08</span>;
+  <span class="prop-name">filter</span>: <span class="prop-val">grayscale(1)</span>;
+  <span class="prop-name">pointer-events</span>: <span class="prop-val">none</span>;
+}</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== TREATMENT 2: Full-Width Hero ==================== -->
+      <div class="treatment-card treatment-hero">
+        <div class="preview">
+          <div class="ghost-shape"></div>
+          <div class="preview-title">PullSheet</div>
+          <div class="preview-sub">Visual lookboard builder for wardrobe professionals</div>
+        </div>
+        <div class="treatment-meta">
+          <div class="treatment-label">Treatment 02</div>
+          <div class="treatment-name">Full-Width Hero</div>
+          <div class="treatment-desc">
+            Brown-gold gradient background with a ghost at 0.06 opacity using mix-blend-mode: overlay.
+            Text is centered and editorial in feel. The ghost adds subtle visual texture.
+          </div>
+          <div class="treatment-usecase">
+            <strong>Use case:</strong> Website hero sections, landing pages, email headers,
+            and any full-width banner that needs the PullSheet aesthetic.
+          </div>
+          <button class="code-toggle" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">Show CSS</button>
+          <div class="code-block" style="display:none">
+<pre><span class="comment">/* Full-Width Hero ghost treatment */</span>
+<span class="prop-name">.hero</span> {
+  <span class="prop-name">background</span>: <span class="prop-val">var(--brown-gold)</span>;
+  <span class="prop-name">position</span>: <span class="prop-val">relative</span>;
+  <span class="prop-name">overflow</span>: <span class="prop-val">hidden</span>;
+}
+<span class="prop-name">.hero img.ghost</span> {
+  <span class="prop-name">position</span>: <span class="prop-val">absolute</span>;
+  <span class="prop-name">inset</span>: <span class="prop-val">0</span>;
+  <span class="prop-name">width</span>: <span class="prop-val">100%</span>;
+  <span class="prop-name">height</span>: <span class="prop-val">100%</span>;
+  <span class="prop-name">object-fit</span>: <span class="prop-val">cover</span>;
+  <span class="prop-name">opacity</span>: <span class="prop-val">0.06</span>;
+  <span class="prop-name">filter</span>: <span class="prop-val">grayscale(1)</span>;
+  <span class="prop-name">mix-blend-mode</span>: <span class="prop-val">overlay</span>;
+  <span class="prop-name">pointer-events</span>: <span class="prop-val">none</span>;
+}</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== TREATMENT 3: Split Layout ==================== -->
+      <div class="treatment-card treatment-split">
+        <div class="preview">
+          <div class="split-left">
+            <div class="ghost-shape"></div>
+          </div>
+          <div class="split-right">
+            <h3>Canvas Builder</h3>
+            <p>Drag garment cutouts onto a freeform canvas. Arrange, layer, and resize to build the perfect lookboard for your next project.</p>
+          </div>
+        </div>
+        <div class="treatment-meta">
+          <div class="treatment-label">Treatment 03</div>
+          <div class="treatment-name">Split Layout</div>
+          <div class="treatment-desc">
+            Left panel holds a ghosted image on a bone background. Right panel contains
+            readable text content on white. The split creates visual asymmetry.
+          </div>
+          <div class="treatment-usecase">
+            <strong>Use case:</strong> Feature sections on the website, blog post headers,
+            documentation layouts, and any content that benefits from a text/image split.
+          </div>
+          <button class="code-toggle" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">Show CSS</button>
+          <div class="code-block" style="display:none">
+<pre><span class="comment">/* Split Layout ghost treatment */</span>
+<span class="prop-name">.split</span> {
+  <span class="prop-name">display</span>: <span class="prop-val">grid</span>;
+  <span class="prop-name">grid-template-columns</span>: <span class="prop-val">1fr 1fr</span>;
+}
+<span class="prop-name">.split-image</span> {
+  <span class="prop-name">background</span>: <span class="prop-val">var(--bone)</span>;
+  <span class="prop-name">position</span>: <span class="prop-val">relative</span>;
+  <span class="prop-name">overflow</span>: <span class="prop-val">hidden</span>;
+}
+<span class="prop-name">.split-image img.ghost</span> {
+  <span class="prop-name">position</span>: <span class="prop-val">absolute</span>;
+  <span class="prop-name">inset</span>: <span class="prop-val">0</span>;
+  <span class="prop-name">width</span>: <span class="prop-val">100%</span>;
+  <span class="prop-name">height</span>: <span class="prop-val">100%</span>;
+  <span class="prop-name">object-fit</span>: <span class="prop-val">cover</span>;
+  <span class="prop-name">opacity</span>: <span class="prop-val">0.10</span>;
+  <span class="prop-name">filter</span>: <span class="prop-val">grayscale(1)</span>;
+  <span class="prop-name">pointer-events</span>: <span class="prop-val">none</span>;
+}</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== TREATMENT 4: Dark Mode ==================== -->
+      <div class="treatment-card treatment-dark">
+        <div class="preview">
+          <div class="ghost-shape"></div>
+          <div class="preview-title">Curated for the fitting room</div>
+          <div class="preview-sub">Export polished lookboards as PDF, PNG, or shareable links</div>
+        </div>
+        <div class="treatment-meta">
+          <div class="treatment-label">Treatment 04</div>
+          <div class="treatment-name">Dark Mode</div>
+          <div class="treatment-desc">
+            Near-black background with a bone-tinted ghost at 0.10 opacity using mix-blend-mode: overlay.
+            Text renders in bone/cream colors. The ghost appears as a faint luminous impression.
+          </div>
+          <div class="treatment-usecase">
+            <strong>Use case:</strong> Dark sections of the website, email footers, app onboarding
+            screens, social media posts with dark backgrounds, and presentation slides.
+          </div>
+          <button class="code-toggle" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">Show CSS</button>
+          <div class="code-block" style="display:none">
+<pre><span class="comment">/* Dark Mode ghost treatment */</span>
+<span class="prop-name">.dark-section</span> {
+  <span class="prop-name">background</span>: <span class="prop-val">var(--near-black)</span>;
+  <span class="prop-name">color</span>: <span class="prop-val">var(--bone)</span>;
+  <span class="prop-name">position</span>: <span class="prop-val">relative</span>;
+  <span class="prop-name">overflow</span>: <span class="prop-val">hidden</span>;
+}
+<span class="prop-name">.dark-section img.ghost</span> {
+  <span class="prop-name">position</span>: <span class="prop-val">absolute</span>;
+  <span class="prop-name">inset</span>: <span class="prop-val">0</span>;
+  <span class="prop-name">width</span>: <span class="prop-val">100%</span>;
+  <span class="prop-name">height</span>: <span class="prop-val">100%</span>;
+  <span class="prop-name">object-fit</span>: <span class="prop-val">cover</span>;
+  <span class="prop-name">opacity</span>: <span class="prop-val">0.10</span>;
+  <span class="prop-name">filter</span>: <span class="prop-val">grayscale(1)</span>;
+  <span class="prop-name">mix-blend-mode</span>: <span class="prop-val">overlay</span>;
+  <span class="prop-name">pointer-events</span>: <span class="prop-val">none</span>;
+}</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== TREATMENT 5: Accent Border ==================== -->
+      <div class="treatment-card treatment-accent">
+        <div class="preview">
+          <div class="ghost-shape"></div>
+          <div class="preview-title">AI Background Removal</div>
+          <div class="preview-sub">One tap to isolate any garment from its background. Clean cutouts ready for your canvas.</div>
+        </div>
+        <div class="treatment-meta">
+          <div class="treatment-label">Treatment 05</div>
+          <div class="treatment-name">Accent Border</div>
+          <div class="treatment-desc">
+            White card with a brown-gold left border accent. The ghost sits inside at 0.08 opacity,
+            adding warmth without overwhelming the clean card layout.
+          </div>
+          <div class="treatment-usecase">
+            <strong>Use case:</strong> Feature list items, sidebar cards, callout boxes,
+            documentation tips, and any component that uses a left-border accent pattern.
+          </div>
+          <button class="code-toggle" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">Show CSS</button>
+          <div class="code-block" style="display:none">
+<pre><span class="comment">/* Accent Border ghost treatment */</span>
+<span class="prop-name">.accent-card</span> {
+  <span class="prop-name">background</span>: <span class="prop-val">white</span>;
+  <span class="prop-name">border-left</span>: <span class="prop-val">4px solid var(--brown-gold)</span>;
+  <span class="prop-name">position</span>: <span class="prop-val">relative</span>;
+  <span class="prop-name">overflow</span>: <span class="prop-val">hidden</span>;
+}
+<span class="prop-name">.accent-card img.ghost</span> {
+  <span class="prop-name">position</span>: <span class="prop-val">absolute</span>;
+  <span class="prop-name">inset</span>: <span class="prop-val">0</span>;
+  <span class="prop-name">width</span>: <span class="prop-val">100%</span>;
+  <span class="prop-name">height</span>: <span class="prop-val">100%</span>;
+  <span class="prop-name">object-fit</span>: <span class="prop-val">cover</span>;
+  <span class="prop-name">opacity</span>: <span class="prop-val">0.08</span>;
+  <span class="prop-name">filter</span>: <span class="prop-val">grayscale(1)</span>;
+  <span class="prop-name">pointer-events</span>: <span class="prop-val">none</span>;
+}</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== TREATMENT 6: Bento Grid ==================== -->
+      <div class="treatment-card treatment-bento">
+        <div class="preview">
+          <div class="bento-cell">
+            <div class="ghost-shape"></div>
+            <span class="cell-label">Lookboard</span>
+          </div>
+          <div class="bento-cell">
+            <div class="ghost-shape"></div>
+            <span class="cell-label">Cutout</span>
+          </div>
+          <div class="bento-cell">
+            <div class="ghost-shape"></div>
+            <span class="cell-label">Export</span>
+          </div>
+        </div>
+        <div class="treatment-meta">
+          <div class="treatment-label">Treatment 06</div>
+          <div class="treatment-name">Bento Grid</div>
+          <div class="treatment-desc">
+            Multi-cell grid where each cell uses a different background color and ghost opacity.
+            The left cell spans two rows. Each cell gets its own ghost treatment
+            appropriate to its background tone.
+          </div>
+          <div class="treatment-usecase">
+            <strong>Use case:</strong> Feature overview sections, app store marketing assets,
+            dashboard-style layouts, and landing page feature grids.
+          </div>
+          <button class="code-toggle" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">Show CSS</button>
+          <div class="code-block" style="display:none">
+<pre><span class="comment">/* Bento Grid ghost treatment */</span>
+<span class="prop-name">.bento</span> {
+  <span class="prop-name">display</span>: <span class="prop-val">grid</span>;
+  <span class="prop-name">grid-template-columns</span>: <span class="prop-val">1fr 1fr</span>;
+  <span class="prop-name">grid-template-rows</span>: <span class="prop-val">1fr 1fr</span>;
+  <span class="prop-name">gap</span>: <span class="prop-val">1px</span>;
+}
+<span class="prop-name">.bento-cell</span> {
+  <span class="prop-name">position</span>: <span class="prop-val">relative</span>;
+  <span class="prop-name">overflow</span>: <span class="prop-val">hidden</span>;
+}
+<span class="comment">/* Light cell */</span>
+<span class="prop-name">.cell-light img.ghost</span> {
+  <span class="prop-name">opacity</span>: <span class="prop-val">0.09</span>;
+  <span class="prop-name">filter</span>: <span class="prop-val">grayscale(1)</span>;
+}
+<span class="comment">/* Accent cell */</span>
+<span class="prop-name">.cell-accent img.ghost</span> {
+  <span class="prop-name">opacity</span>: <span class="prop-val">0.06</span>;
+  <span class="prop-name">mix-blend-mode</span>: <span class="prop-val">overlay</span>;
+}
+<span class="comment">/* Dark cell */</span>
+<span class="prop-name">.cell-dark img.ghost</span> {
+  <span class="prop-name">opacity</span>: <span class="prop-val">0.08</span>;
+  <span class="prop-name">mix-blend-mode</span>: <span class="prop-val">overlay</span>;
+}</pre>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /.treatments-grid -->
+  </div>
+
+  <!-- ============================================================
+       SECTION 03: PHOTOGRAPHY DIRECTION
+       Subject matter guidance: what to shoot, what to avoid.
+       ============================================================ -->
+  <div class="section" id="direction">
+    <div class="section-num">03 / Direction</div>
+    <div class="section-title">Photography Direction</div>
+    <div class="section-subtitle">
+      The ghost technique is only as good as the source photography.
+      PullSheet imagery should reflect the professional wardrobe world,
+      not generic stock photography.
+    </div>
+
+    <div class="direction-grid">
+      <div class="direction-card do-card">
+        <h4>Photograph These</h4>
+        <ul>
+          <li>Lookboard compositions (garments arranged on a surface or board)</li>
+          <li>Flat-lay arrangements of curated outfit groupings</li>
+          <li>Wardrobe racks with garments hanging in sequence</li>
+          <li>On-set wardrobe details (steamer, tags, fitting room moments)</li>
+          <li>Fabric textures and material close-ups</li>
+          <li>iPad or tablet displaying PullSheet interface</li>
+          <li>Behind-the-scenes production wardrobe setups</li>
+          <li>Garment details: labels, stitching, hardware</li>
+        </ul>
+      </div>
+
+      <div class="direction-card dont-card">
+        <h4>Never Use</h4>
+        <ul>
+          <li>Generic stock photography of any kind</li>
+          <li>Posed model photography (this is a tool, not a lookbook)</li>
+          <li>Lifestyle imagery unrelated to wardrobe work</li>
+          <li>Low-resolution or poorly lit source images</li>
+          <li>Images with visible watermarks or third-party branding</li>
+          <li>Cluttered or messy compositions (even when ghosted, chaos reads)</li>
+          <li>Competitor product screenshots or UI references</li>
+          <li>AI-generated photography (authenticity matters)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Subject matter category cards -->
+    <div class="subjects-grid">
+      <div class="subject-card">
+        <div class="subject-ghost"></div>
+        <div class="subject-label">Lookboards</div>
+        <div class="subject-desc">Arranged garment compositions on boards or tables</div>
+      </div>
+      <div class="subject-card">
+        <div class="subject-ghost"></div>
+        <div class="subject-label">Flat-Lays</div>
+        <div class="subject-desc">Overhead shots of curated outfit groupings</div>
+      </div>
+      <div class="subject-card">
+        <div class="subject-ghost"></div>
+        <div class="subject-label">Wardrobe Racks</div>
+        <div class="subject-desc">Garments hanging in sequence on rolling racks</div>
+      </div>
+      <div class="subject-card">
+        <div class="subject-ghost"></div>
+        <div class="subject-label">On-Set Details</div>
+        <div class="subject-desc">Behind-the-scenes wardrobe department moments</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /.container -->
+
+<!-- ============================================================
+     FOOTER
+     "Made with care" links to cooperinteractive.com.
+     CONFIDENTIAL label on the right.
+     ============================================================ -->
+<div class="footer">
+  <a href="https://cooperinteractive.com">Made with care</a>
+</div>
+
+</body>
+</html>
